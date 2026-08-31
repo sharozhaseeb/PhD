@@ -1,0 +1,8 @@
+hypothesis_id,hypothesis,rival_explanation,discriminating_test,primary_metric,falsification_condition,status
+H001,Controller improves over strongest non-agent gate,Agent has more information or compute,Equal-information equal-compute frozen comparison,rank_IC_and_net_utility,No consistent incremental effect across folds,planned
+H002,Dual-level abstention improves worst-regime reliability,It merely avoids volatile periods,Matched-coverage volatility and random abstention baselines,AURC_and_worst_regime_risk,Effect vanishes against matched simple gate,planned
+H003,Delayed reliability memory helps during transitions,Transition labels or memory leak future outcomes,Time-safe memory ablation with online observable transition definitions,transition_period_selective_risk,No benefit or benefit requires hindsight,planned
+H004,Gains survive implementation frictions,Backtest ignores spread slippage and turnover,Predeclared cost grid and next-open execution,net_alpha_and_turnover,Gains vanish under defensible base cost case,planned
+H005,Gains are stock-selection alpha,Return is beta sector or style exposure,Factor and holdings-based attribution,residual_selection_alpha,Residual alpha is indistinguishable from zero,planned
+H006,LLM component does not rely on memorized identities,Ticker and date recognition supplies hidden information,Identifier date and event masking,masked_vs_bright_delta,Performance collapses under masking,planned
+

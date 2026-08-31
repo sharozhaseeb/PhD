@@ -1,0 +1,13 @@
+flowchart TD
+    Q["Freeze question and contribution"] --> H["Record hypotheses and rivals"]
+    H --> S["Run documented novelty searches"]
+    S --> N["Update nearest-work matrix"]
+    N --> R["Red-team validity and claims"]
+    R --> K{"Critical loophole?"}
+    K -->|Yes| F["Fix design or narrow claim"]
+    F --> H
+    K -->|No| P["Preregister experiments and metrics"]
+    P --> X["Run frozen evaluation"]
+    X --> A["Audit results and attribution"]
+    A --> S
+

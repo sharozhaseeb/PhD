@@ -1,0 +1,13 @@
+risk_id,category,risk,severity,likelihood,mitigation,trigger,status
+R001,novelty,Closest work fully occupies proposed contribution,critical,medium,Six-month search and theory/evaluation-centered claim,New paper matches delayed attribution-constrained routing,open
+R002,data,Point-in-time survivorship-aware data unavailable,critical,medium,Feasibility audit before modelling,No delistings historical constituents or release timestamps,open
+R003,validity,Regime labels use hindsight,critical,medium,Use online posterior and observable definitions,Any feature depends on future realized path,open
+R004,validity,Agent has unfair information or compute,critical,medium,Equal-information and budget accounting,Baseline cannot access same state or tuning,open
+R005,statistics,Backtest and multiple-testing overfit,critical,high,Experiment registry frozen holdout and finance-specific corrections,Unlogged variants or repeated holdout inspection,open
+R006,economic,Gains vanish after costs,high,high,Predeclared cost grid and turnover constraints,Base cost case removes effect,open
+R007,attribution,Gains are factor exposure,critical,high,Holdings and return attribution,Residual selection alpha disappears,open
+R008,selection,Abstention succeeds only at unusably low coverage,high,medium,Risk-coverage curves and matched controls,Coverage below predeclared minimum,open
+R009,agent_need,Simple gate matches agent,high,high,Make comparative finding publishable,No incremental agent value,open
+R010,reproducibility,Commercial LLM changes during study,high,medium,Freeze open baseline log provider versions and replay,Provider silently changes model,open
+R011,scope,News and global markets overwhelm first-year resources,medium,high,Structured data one universe one horizon first,Core benchmark delayed by multimodal integration,open
+

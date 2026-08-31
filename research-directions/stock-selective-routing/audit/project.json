@@ -1,0 +1,35 @@
+{
+  "project_id": "stock-selective-routing",
+  "title": "Attribution-Constrained Online Selective Routing under Latent Regime Shift and Delayed Feedback",
+  "stage": "pre-proposal",
+  "literature_cutoff": "2026-08-31",
+  "novelty_status": "candidate_not_established",
+  "primary_target": "five_day_cross_sectional_residual_return_rank",
+  "initial_scope": {
+    "markets": 1,
+    "universes": 1,
+    "forecast_horizons": 1,
+    "specialists_min": 3,
+    "specialists_max": 4,
+    "real_money_execution": false
+  },
+  "protocol": {
+    "point_in_time_data_required": true,
+    "survivorship_aware_universe_required": true,
+    "purge_and_embargo_required": true,
+    "frozen_test_required": true,
+    "prospective_shadow_test_required": true,
+    "transaction_costs_required": true,
+    "factor_attribution_required": true,
+    "equal_information_baselines_required": true,
+    "identifier_date_masking_required_for_llm": true,
+    "negative_result_path_defined": true
+  },
+  "prohibited_claims": [
+    "guaranteed_accuracy",
+    "guaranteed_profit",
+    "investment_suitability",
+    "first_without_systematic_search"
+  ]
+}
+

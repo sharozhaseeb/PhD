@@ -1,0 +1,22 @@
+{
+  "project_id": "replace-me",
+  "title": "Replace with research title",
+  "stage": "idea",
+  "literature_cutoff": "YYYY-MM-DD",
+  "novelty_status": "candidate_not_established",
+  "primary_target": "replace-me",
+  "protocol": {
+    "point_in_time_data_required": false,
+    "survivorship_aware_universe_required": false,
+    "purge_and_embargo_required": false,
+    "frozen_test_required": false,
+    "prospective_shadow_test_required": false,
+    "transaction_costs_required": false,
+    "factor_attribution_required": false,
+    "equal_information_baselines_required": false,
+    "identifier_date_masking_required_for_llm": false,
+    "negative_result_path_defined": false
+  },
+  "prohibited_claims": []
+}
+

@@ -1,0 +1,9 @@
+claim_id,claim,claim_type,status,evidence_required,current_evidence,owner,next_action
+C001,Individual forecasting specialists have time-varying reliability under market nonstationarity,associational,supported_by_prior_work,Walk-forward conditional performance and prior literature,RG-ResMoE and broader regime literature,student,Quantify on selected universe
+C002,A stateful controller adds value beyond a conventional learned gate,predictive,untested,Equal-information and equal-compute comparison across frozen folds,None,student,Implement only after benchmark is frozen
+C003,Delayed reliability memory improves decisions during regime transitions,predictive,untested,Memory ablation with transition-period analysis,None,student,Define transition without hindsight
+C004,Dual-level abstention improves selective risk at matched coverage,predictive,untested,Risk-coverage and matched-abstention baselines,None,student,Specify stock-level and strategy-level gates
+C005,Any economic gain represents residual stock-selection value,predictive,untested,Costs and market/sector/style attribution,KTD-Fin shows why this is necessary,student,Select attribution model and data
+C006,The complete proposed method is novel,novelty,unresolved,Documented multi-database search plus expert review,Targeted search found substantial overlap,student,Complete systematic novelty map
+C007,A time-uniform risk or regret result is obtainable,theoretical,candidate,Formal assumptions proof and counterexample analysis,None,student,Discuss with theory/statistics advisor
+

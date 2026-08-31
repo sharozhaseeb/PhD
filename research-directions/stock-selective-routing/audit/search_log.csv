@@ -1,0 +1,8 @@
+search_id,date,database_or_source,query,filters,result_count,screened_count,included_count,notes
+S001,2026-08-30,Web/arXiv,agentic stock trading regime aware routing abstention uncertainty calibrated selective prediction,Primary arXiv and proceedings only,,,,Initial targeted search; populate counts during systematic rerun
+S002,2026-08-30,Web/arXiv,mixture of experts stock prediction market regime dynamic routing,Primary arXiv only,,,,Located AlphaMix MIGA and RG-ResMoE
+S003,2026-08-30,Web/arXiv,stock forecasting selective prediction abstention uncertainty calibration regime shift,Primary arXiv and proceedings only,,,,Located FinAbstain and conformal work
+S004,2026-08-30,Web/ACL,finance agent tool use stock prediction evidence acquisition uncertainty,ACL Anthology only,,,,Located AlphaQuanter and finance-agent work
+S005,2026-08-31,Pending systematic search,delayed feedback online expert routing financial forecasting,Define before execution,,,,Required next search
+S006,2026-08-31,Pending finance search,backtest overfitting selective deployment factor attribution agent,SSRN NBER RePEc publisher databases,,,,Required next search
+

@@ -1,0 +1,13 @@
+experiment_id,name,family,confirmatory,primary_outcome,data_window,status,result_visible,notes
+E001,Individual specialist benchmark,baseline,true,rank_IC,TBD,planned,false,Freeze feature and tuning protocol
+E002,Equal-weight ensemble,baseline,true,rank_IC,TBD,planned,false,No learned gate
+E003,Deterministic volatility gate,baseline,true,AURC,TBD,planned,false,Matched coverage
+E004,Supervised non-agent gate,baseline,true,rank_IC_and_AURC,TBD,planned,false,Decisive baseline
+E005,AlphaMix-style router,baseline,true,rank_IC_and_net_utility,TBD,planned,false,Reproduction or faithful adaptation
+E006,Contextual bandit delayed feedback,baseline,true,regret_and_net_utility,TBD,planned,false,Same state and actions
+E007,Proposed constrained controller,proposed,true,rank_IC_AURC_net_alpha,TBD,planned,false,Primary comparison
+E008,No-memory ablation,ablation,true,transition_selective_risk,TBD,planned,false,Time-safe definition
+E009,No-abstention ablation,ablation,true,worst_regime_drawdown,TBD,planned,false,Always-act counterpart
+E010,Identifier-date masking,leakage_test,true,masked_performance_delta,TBD,planned,false,Only if LLM used
+E011,Prospective shadow test,forward_test,true,net_alpha_and_calibration,TBD,blocked,false,Starts only after protocol freeze
+

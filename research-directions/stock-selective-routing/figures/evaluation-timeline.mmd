@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant D as Point-in-time data
+    participant E as Specialists
+    participant C as Controller
+    participant X as Paper execution
+    participant O as Delayed outcome
+    participant M as Reliability memory
+
+    D->>E: Features available by close t
+    E->>C: Forecasts and calibrated uncertainty
+    C->>C: Select, combine, request, fallback, or abstain
+    C->>X: Eligible action no earlier than t+1
+    Note over C,M: No future target can enter memory
+    O-->>M: Outcome arrives after forecast horizon
+    M-->>C: Update only under predeclared protocol
+

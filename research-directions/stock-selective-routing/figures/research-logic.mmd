@@ -1,0 +1,13 @@
+flowchart LR
+    O["Observed improvement"] --> G{"Possible cause"}
+    G --> A["Agent routing skill"]
+    G --> V["Volatility timing"]
+    G --> C["Lower coverage / cash exposure"]
+    G --> F["Factor exposure"]
+    G --> L["Leakage or test reuse"]
+    A --> T["Equal-information controller comparison"]
+    V --> T2["Matched volatility-rule baseline"]
+    C --> T3["Matched-coverage random abstention"]
+    F --> T4["Factor-neutral attribution"]
+    L --> T5["Point-in-time masking and frozen holdout"]
+
