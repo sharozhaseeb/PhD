@@ -28,7 +28,7 @@
 - [Zaffran et al., Adaptive Conformal Predictions for Time Series (ICML 2022)](https://proceedings.mlr.press/v162/zaffran22a.html)
 - [Xu & Xie, Sequential Predictive Conformal Inference for Time Series (ICML 2023)](https://proceedings.mlr.press/v202/xu23r.html)
 - [Angelopoulos et al., Conformal Risk Control (2022)](https://arxiv.org/abs/2208.02814)
-- [Retzlaff et al., Testing Conformal Coverage in Nonstationary Time Series (AISTATS 2025)](https://proceedings.mlr.press/v266/retzlaff25a.html)
+- [Retzlaff et al., Testing Marginal and Conditional Coverage in Conformal Prediction for Non-Stationary Time Series via Value-at-Risk Backtesting (COPA 2025)](https://proceedings.mlr.press/v266/retzlaff25a.html)
 
 These papers provide foundations but do not automatically give valid guarantees for dependent, drifting stock returns. Every claimed guarantee must state its assumptions and be stress-tested under temporal dependence.
 

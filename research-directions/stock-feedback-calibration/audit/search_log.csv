@@ -1,0 +1,9 @@
+"search_id","date","database_or_source","query","filters","result_count","screened_count","included_count","notes"
+"S01","2026-09-05","Primary-page follow-up","https://arxiv.org/html/2410.13115v2","Fixed URL; abstract and method","1","1","1","Targeted verification not systematic search"
+"S02","2026-09-05","Primary-page follow-up","https://proceedings.mlr.press/v230/hallberg-szabadvary24a.html","Fixed proceedings URL","1","1","1","Targeted verification not systematic search"
+"S03","2026-09-05","Web search","""conformal"" ""partially observed"" ""multi-step"" forecasting","Primary sources preferred","","","","Combined response does not give separable exhaustive counts; screening pending"
+"S04","2026-09-05","Web search","""conformal"" ""daily"" ""five-day"" returns calibration","Primary sources preferred","","","","Irrelevant medical results; counts not reconstructed"
+"S05","2026-09-05","Web search","""conformal"" ""intermediate feedback"" forecasting","Primary sources preferred","","","","Broader delayed and auxiliary-feedback citation screening pending"
+"S06","2026-09-05","Prior conversation screening","multistep PID; financial conformal; future work","Primary or author sources","","","","W01-W09 seeded from conversation; historical counts unavailable"
+"S07","2026-09-05","Systematic database search pending","conformal AND (auxiliary OR intermediate OR partial OR delayed) AND (forecast OR return)","Crossref/OpenAlex and citation checks","","","","Pending archive and deduplication; no novelty clearance"
+

@@ -1,0 +1,10 @@
+flowchart LR
+  D[Daily observations through t] --> E[One-day forecast error]
+  D --> V[Ordinary volatility scale]
+  E --> G[Candidate scale correction]
+  V --> G
+  M[Five-day labels matured by t] --> Q[Quantile of archived normalized errors]
+  G --> I[New five-day interval]
+  Q --> I
+  I --> A[Immutable archive and maturity queue]
+  A --> M

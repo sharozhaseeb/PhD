@@ -1,0 +1,6 @@
+"hypothesis_id","hypothesis","rival_explanation","discriminating_test","primary_metric","falsification_condition","status"
+"H1","Daily feedback improves five-day intervals","Width inflation alone raises coverage","Score and width comparison with inflation control","Normalized 90% interval score","Less than 2% improvement or coverage below 88% or confirmatory paired interval crosses zero","planned"
+"H2","Signal improves transition response","Benefit only in calm periods or one crisis","Observable alerts plus synthetic shifts","Transition interval score","No consistent transition benefit","planned"
+"H3","Mechanism adds beyond ordinary conditioning","Standard same-feature scale model captures signal","Conditional scale baseline and beta-zero ablation","Paired normalized interval score","Same-feature baseline matches or beats candidate","planned"
+"H4","Benefit transfers","Instrument and temporal tuning explain result","Independent instruments and prospective predictions","Transfer interval score","Reversal or failure of practical threshold","planned"
+

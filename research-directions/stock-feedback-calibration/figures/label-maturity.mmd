@@ -1,0 +1,7 @@
+flowchart LR
+  A[Issue interval at session t] --> B[At t+1 daily outcome known]
+  B --> C[At t+2 more daily information]
+  C --> D[At t+5 full target matures]
+  B --> E[May inform a NEW interval]
+  D --> F[Score ORIGINAL archived interval]
+  F --> G[Eligible five-day calibration update]

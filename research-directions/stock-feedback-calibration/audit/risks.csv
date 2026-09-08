@@ -1,0 +1,12 @@
+"risk_id","category","risk","severity","likelihood","mitigation","trigger","status"
+"R01","novelty","Signal duplicates conditional volatility or residual prediction","critical","high","Full-text comparison and same-feature baseline","No incremental mechanism or result","open"
+"R02","data","Point-in-time and corporate-action vintage unresolved","critical","medium","License and vintage audit; hashes","Unavailable or unreconstructible historical data","open"
+"R03","statistics","Overlapping targets and few transitions inflate evidence","critical","high","Joint temporal blocks and episode counts","Imprecise or dependence-sensitive result","open"
+"R04","validity","Premature labels or recomputed scales leak future data","critical","medium","Maturity and future-perturbation assertions","Past output depends on future inputs","open"
+"R05","theory","Wrapper mistaken for proved coverage","critical","medium","No inherited guarantee claimed","Proof absent for claimed guarantee","open"
+"R06","test_reuse","Reserved periods already influenced choices","critical","medium","Access history and prospective confirmation","Outcome-driven tuning on reserved data","open"
+"R07","selection","Surviving ETFs insufficient for broad stock claims","high","high","Limit claims and later membership-aware universe","Broad stock generalization from small ETF panel","open"
+"R08","metrics","Wide ranges appear successful on coverage alone","high","high","Interval score and inflation control","Coverage gain with worse score","open"
+"R09","feasibility","Baseline reproduction too costly","high","medium","Small panel and time-boxed reproduction","No trustworthy multistep baseline","open"
+"R10","publication","Small heuristic insufficient for thesis","high","high","Evidence and advisor contribution review","Only narrow incremental benchmark remains","open"
+

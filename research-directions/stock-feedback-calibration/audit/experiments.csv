@@ -1,0 +1,11 @@
+"experiment_id","name","family","confirmatory","primary_outcome","data_window","status","result_visible","notes"
+"E01","Timing sanity checks","baseline","false","No future dependence","Hand-worked synthetic sessions","planned","false","Archive issue-time scales"
+"E02","Reproduce published baselines","baseline","false","Agreement with author examples","Author examples and development data","planned","false","Separate native and adapted methods"
+"E03","Strong same-information models","baseline","false","Primary interval score","Development","planned","false","Conditional scale; volatility scaling; multistep methods"
+"E04","Daily-surprise scale probe","proposed","false","Score with coverage guardrail","Development and exploratory challenge","planned","false","Components not asserted novel"
+"E05","Signal and width controls","ablation","false","Paired score difference","Development and exploratory challenge","planned","false","Beta zero; stale signal; constant inflation; same features"
+"E06","Known shifts and observable alerts","ablation","false","Transition score and recovery","Synthetic and exploratory history","planned","false","No true-regime inputs in real-data policy"
+"E07","Locked primary contrast","proposed","true","Prespecified primary score contrast","Reserved data after no-peeking gate","planned_not_sealed","false","Paired temporal-block inference"
+"E08","Prospective immutable predictions","forward_test","true","Primary score and timing","Future sessions after preregistration","planned_not_started","false","120 sessions provisional; event precision not assumed"
+"E09","Independent instrument transfer","forward_test","true","Transfer score","Untouched set to be selected","planned_not_sealed","false","Stocks require historical membership and delistings"
+

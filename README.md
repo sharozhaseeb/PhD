@@ -2,13 +2,21 @@
 
 This repository stores candidate PhD research directions and a local audit harness for testing their novelty, validity, feasibility, and reproducibility before implementation.
 
-## Current direction
+## Research directions
 
-- [Reliable Agentic Stock Forecasting](research-directions/stock-selective-routing/README.md)
+- [Daily-feedback-assisted financial forecast calibration](research-directions/stock-feedback-calibration/README.md) — current refined candidate; pre-pilot, novelty unresolved.
+- [Reliable Agentic Stock Forecasting](research-directions/stock-selective-routing/README.md) — earlier broader proposal.
+- [Cross-domain feasibility review](research-directions/2026-09-05-direction-review.md)
 
 ## Research audit harness
 
 - [Harness documentation](research-audit-harness/README.md)
+- Run the refined forecast audit:
+
+  ```powershell
+  python research-audit-harness/scripts/audit.py research-directions/stock-feedback-calibration
+  ```
+
 - Run the stock audit:
 
   ```powershell

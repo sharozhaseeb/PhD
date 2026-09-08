@@ -1,0 +1,8 @@
+"claim_id","claim","claim_type","status","evidence_required","current_evidence","owner","next_action"
+"C01","Daily surprise adds beyond same-information methods","novelty","candidate_not_established","Full closest-work comparison and incremental experiment","No empirical result; W01-W09 overlap","researcher","Test H3"
+"C02","Five-day outcomes mature after five sessions","definition","specified","Event-time checks","Target defined in proposal","researcher","Verify maturity queue"
+"C03","Daily-assisted calibration improves useful reliability","empirical","untested","Locked score and coverage evaluation","None; planned pilot","researcher","Run E03-E07"
+"C04","Pilot fits workstation resources","feasibility","unverified","Measured runtime and data acquisition","Small cached prediction design","researcher","Time E01-E03"
+"C05","Candidate has drift-robust conditional guarantees","theory","not_claimed","Proof with explicit assumptions","No proof; baseline guarantees do not transfer","researcher","Bound empirical claims"
+"C06","Publication probability is known","publication","not_claimed","Representative submission outcomes","Published examples lack rejection denominator","researcher","Assess contribution rather than odds"
+

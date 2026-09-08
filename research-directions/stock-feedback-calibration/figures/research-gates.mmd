@@ -1,0 +1,7 @@
+flowchart TD
+  L[Closest-work and data audit] --> R[Reproduce strong baselines]
+  R --> T[Test daily signal against same-feature methods]
+  T -->|No incremental effect| S[Stop or justify separate empirical contribution]
+  T -->|Repeatable useful effect| V[Freeze protocol and validate]
+  V -->|Fails transfer| F[Report limits and reconsider]
+  V -->|Survives| M[Develop bounded methodological contribution]

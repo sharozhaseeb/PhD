@@ -1,0 +1,42 @@
+{
+  "project_id": "stock-feedback-calibration",
+  "title": "Daily-feedback-assisted calibration of five-day return prediction intervals",
+  "stage": "pre-pilot",
+  "literature_cutoff": "2026-09-05",
+  "novelty_status": "candidate_not_established",
+  "primary_target": "five_trading_day_cumulative_log_total_return_interval",
+  "initial_scope": {
+    "instruments": 3,
+    "instrument_type": "equity_ETFs_provisional",
+    "primary_horizon": 5,
+    "nominal_coverage": 0.90,
+    "agents": false,
+    "LLMs": false,
+    "real_money_execution": false
+  },
+  "protocol": {
+    "point_in_time_data_required": true,
+    "survivorship_aware_universe_required": true,
+    "purge_and_embargo_required": true,
+    "frozen_test_required": true,
+    "prospective_shadow_test_required": true,
+    "transaction_costs_required": true,
+    "factor_attribution_required": true,
+    "equal_information_baselines_required": true,
+    "identifier_date_masking_required_for_llm": true,
+    "negative_result_path_defined": true
+  },
+  "protocol_applicability": {
+    "transaction_costs_required": "Mandatory if a later extension claims trading value; no trading endpoint currently",
+    "factor_attribution_required": "Mandatory if a later extension claims stock-selection value; no alpha claim currently",
+    "identifier_date_masking_required_for_llm": "Mandatory if an LLM is introduced; none currently",
+    "point_in_time_data_required": "Unresolved obligation; true does not certify a dataset"
+  },
+  "prohibited_claims": [
+    "guaranteed_publication",
+    "guaranteed_profit",
+    "novelty_without_closest_work_review",
+    "conditional_coverage_without_proof"
+  ]
+}
+
