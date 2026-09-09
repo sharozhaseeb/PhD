@@ -1,0 +1,243 @@
+{
+  "direction": "C:\\Users\\pc\\study\\PhD\\research-directions\\llm-optimization-validation",
+  "generated_at": "2026-09-09T04:42:49+00:00",
+  "summary": {
+    "project_id": "llm-optimization-validation",
+    "title": "Understanding and Detecting Workload Regressions in Iterative Python Code Optimization",
+    "stage": "pre-pilot",
+    "novelty_status": "candidate_not_established",
+    "audit_profile": "software_performance",
+    "counts": {
+      "claims": 7,
+      "hypotheses": 3,
+      "nearest_work": 14,
+      "searches": 7,
+      "experiments": 10,
+      "risks": 10,
+      "open_critical_risks": 4
+    }
+  },
+  "result_counts": {
+    "PASS": 31,
+    "WARN": 5,
+    "FAIL": 0
+  },
+  "findings": [
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "README.md",
+      "detail": "Present and non-trivial"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "01-layman-explanation.md",
+      "detail": "Present and non-trivial"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "02-research-proposal.md",
+      "detail": "Present and non-trivial"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "03-literature-novelty-map.md",
+      "detail": "Present and non-trivial"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "04-architecture-methodology.md",
+      "detail": "Present and non-trivial"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "05-advisor-questions.md",
+      "detail": "Present and non-trivial"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "06-evaluation-protocol.md",
+      "detail": "Present and non-trivial"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "research_plan",
+      "detail": "Present: 07-two-year-plan.md"
+    },
+    {
+      "status": "PASS",
+      "category": "structure",
+      "check": "editable_figures",
+      "detail": "Found 3 Mermaid sources"
+    },
+    {
+      "status": "PASS",
+      "category": "metadata",
+      "check": "project.json",
+      "detail": "Valid JSON"
+    },
+    {
+      "status": "PASS",
+      "category": "schema",
+      "check": "claims.csv",
+      "detail": "Valid schema with 7 record(s)"
+    },
+    {
+      "status": "PASS",
+      "category": "schema",
+      "check": "hypotheses.csv",
+      "detail": "Valid schema with 3 record(s)"
+    },
+    {
+      "status": "PASS",
+      "category": "schema",
+      "check": "nearest_work.csv",
+      "detail": "Valid schema with 14 record(s)"
+    },
+    {
+      "status": "PASS",
+      "category": "schema",
+      "check": "search_log.csv",
+      "detail": "Valid schema with 7 record(s)"
+    },
+    {
+      "status": "PASS",
+      "category": "schema",
+      "check": "experiments.csv",
+      "detail": "Valid schema with 10 record(s)"
+    },
+    {
+      "status": "PASS",
+      "category": "schema",
+      "check": "risks.csv",
+      "detail": "Valid schema with 10 record(s)"
+    },
+    {
+      "status": "PASS",
+      "category": "metadata",
+      "check": "audit_profile",
+      "detail": "Using software_performance"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "valid_workload_domain_defined",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "original_baseline_comparison_required",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "behavioral_validation_required",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "noise_control_required",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "frozen_test_required",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "equal_information_baselines_required",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "full_validation_cost_required",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "protocol",
+      "check": "negative_result_path_defined",
+      "detail": "Explicitly required"
+    },
+    {
+      "status": "PASS",
+      "category": "claims",
+      "check": "novelty_language",
+      "detail": "Appropriately bounded: candidate_not_established"
+    },
+    {
+      "status": "PASS",
+      "category": "claims",
+      "check": "unsupported_claims",
+      "detail": "No rows use unsupported-status labels; evidence itself is not verified"
+    },
+    {
+      "status": "WARN",
+      "category": "claims",
+      "check": "unresolved_novelty",
+      "detail": "1 novelty claim(s) remain unresolved, as expected at this stage"
+    },
+    {
+      "status": "PASS",
+      "category": "hypotheses",
+      "check": "falsification_ready",
+      "detail": "Every hypothesis has a rival, test, metric, and falsification condition"
+    },
+    {
+      "status": "PASS",
+      "category": "novelty",
+      "check": "nearest_work_depth",
+      "detail": "14 closest works recorded"
+    },
+    {
+      "status": "WARN",
+      "category": "novelty",
+      "check": "critical_overlap",
+      "detail": "12 critical overlap record(s); contribution wording requires human review"
+    },
+    {
+      "status": "WARN",
+      "category": "novelty",
+      "check": "reproducible_searches",
+      "detail": "Fewer than three searches record result, screened, and included counts"
+    },
+    {
+      "status": "WARN",
+      "category": "novelty",
+      "check": "pending_searches",
+      "detail": "2 search record(s) remain pending"
+    },
+    {
+      "status": "PASS",
+      "category": "experiments",
+      "check": "experiment_families",
+      "detail": "Baselines, proposed method, ablations, and forward test are registered"
+    },
+    {
+      "status": "PASS",
+      "category": "experiments",
+      "check": "confirmatory_result_visibility",
+      "detail": "No registered confirmatory result is marked visible"
+    },
+    {
+      "status": "WARN",
+      "category": "risks",
+      "check": "open_critical_risks",
+      "detail": "4 critical risk(s) remain open"
+    }
+  ]
+}

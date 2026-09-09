@@ -1,5 +1,6 @@
 {
   "project_id": "replace-me",
+  "audit_profile": "finance",
   "title": "Replace with research title",
   "stage": "idea",
   "literature_cutoff": "YYYY-MM-DD",

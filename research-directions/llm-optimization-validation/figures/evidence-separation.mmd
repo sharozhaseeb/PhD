@@ -1,0 +1,8 @@
+flowchart LR
+    DEV[Development tasks and pilot evidence] --> DESIGN[Freeze policy and analysis]
+    DESIGN --> SEARCH[Optimization feedback measurements]
+    SEARCH --> SELECT[Freeze selected candidate]
+    SELECT --> CONFIRM[Fresh confirmation observations]
+    CONFIRM --> OUTPUT[Record delivered patch or defer]
+    OUTPUT --> AUDIT[Protected task and workload audit]
+    AUDIT --> REPORT[Report findings and uncertainty]

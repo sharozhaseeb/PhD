@@ -1,0 +1,12 @@
+flowchart TD
+    T[Pin task and workload contract] --> G[Generate and record candidate]
+    G --> C[Shared behavioral checks]
+    C -->|Pass| W[Select and measure workloads]
+    C -->|Fail| R[Record rejection and feedback]
+    W --> D[Apply declared acceptance requirements]
+    D --> F[Fresh confirmation or defer]
+    F --> H[Record decision and parent history]
+    H -->|Budget remains| G
+    R -->|Budget remains| G
+    H --> O[Freeze final delivered patch]
+    O --> A[Independent audit and analysis]

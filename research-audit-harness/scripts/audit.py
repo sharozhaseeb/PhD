@@ -21,8 +21,9 @@ REQUIRED_DOCS = [
     "04-architecture-methodology.md",
     "05-advisor-questions.md",
     "06-evaluation-protocol.md",
-    "07-three-year-plan.md",
 ]
+
+PLAN_DOCS = ("07-two-year-plan.md", "07-three-year-plan.md")
 
 CSV_SCHEMAS = {
     "claims.csv": {
@@ -64,6 +65,21 @@ REQUIRED_PROTOCOL_FLAGS = [
     "negative_result_path_defined",
 ]
 
+# Existing packages without an explicit profile retain the original finance rules.
+PROTOCOL_PROFILES = {
+    "finance": REQUIRED_PROTOCOL_FLAGS,
+    "software_performance": [
+        "valid_workload_domain_defined",
+        "original_baseline_comparison_required",
+        "behavioral_validation_required",
+        "noise_control_required",
+        "frozen_test_required",
+        "equal_information_baselines_required",
+        "full_validation_cost_required",
+        "negative_result_path_defined",
+    ],
+}
+
 
 @dataclass(frozen=True)
 class Finding:
@@ -79,9 +95,16 @@ def add(findings: list[Finding], status: str, category: str, check: str, detail:
 
 def read_csv(path: Path) -> tuple[set[str], list[dict[str, str]]]:
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle)
-        headers = set(reader.fieldnames or [])
-        rows = [{k: (v or "").strip() for k, v in row.items()} for row in reader]
+        reader = csv.DictReader(handle, strict=True)
+        fieldnames = reader.fieldnames or []
+        if len(fieldnames) != len(set(fieldnames)) or any(not name.strip() for name in fieldnames):
+            raise csv.Error("Column names must be unique and nonempty")
+        headers = set(fieldnames)
+        rows = []
+        for row in reader:
+            if None in row:
+                raise csv.Error(f"Row {reader.line_num} contains more fields than the header")
+            rows.append({k: (v or "").strip() for k, v in row.items()})
     return headers, rows
 
 
@@ -107,6 +130,14 @@ def audit(direction: Path) -> tuple[list[Finding], dict[str, object]]:
         else:
             add(findings, "FAIL", "structure", relative, "Required document is missing")
 
+    plans = [direction / name for name in PLAN_DOCS if (direction / name).is_file()]
+    if not plans:
+        add(findings, "FAIL", "structure", "research_plan", f"Missing one of: {', '.join(PLAN_DOCS)}")
+    elif any(path.stat().st_size > 100 for path in plans):
+        add(findings, "PASS", "structure", "research_plan", f"Present: {', '.join(path.name for path in plans)}")
+    else:
+        add(findings, "WARN", "structure", "research_plan", "Present but unusually short")
+
     figures = list((direction / "figures").glob("*.mmd")) if (direction / "figures").is_dir() else []
     if len(figures) >= 3:
         add(findings, "PASS", "structure", "editable_figures", f"Found {len(figures)} Mermaid sources")
@@ -121,9 +152,12 @@ def audit(direction: Path) -> tuple[list[Finding], dict[str, object]]:
         add(findings, "FAIL", "metadata", "project.json", "Missing project metadata")
     else:
         try:
-            project = json.loads(project_path.read_text(encoding="utf-8"))
+            parsed = json.loads(project_path.read_text(encoding="utf-8-sig"))
+            if not isinstance(parsed, dict):
+                raise ValueError("Project metadata must be a JSON object")
+            project = parsed
             add(findings, "PASS", "metadata", "project.json", "Valid JSON")
-        except (OSError, json.JSONDecodeError) as exc:
+        except (OSError, ValueError) as exc:
             add(findings, "FAIL", "metadata", "project.json", f"Invalid JSON: {exc}")
 
     for filename, schema in CSV_SCHEMAS.items():
@@ -133,7 +167,7 @@ def audit(direction: Path) -> tuple[list[Finding], dict[str, object]]:
             continue
         try:
             headers, rows = read_csv(path)
-        except (OSError, csv.Error) as exc:
+        except (OSError, UnicodeError, csv.Error) as exc:
             add(findings, "FAIL", "schema", filename, f"Could not read CSV: {exc}")
             continue
         absent = sorted(schema - headers)
@@ -148,7 +182,15 @@ def audit(direction: Path) -> tuple[list[Finding], dict[str, object]]:
     protocol = project.get("protocol", {}) if isinstance(project, dict) else {}
     if not isinstance(protocol, dict):
         protocol = {}
-    for flag in REQUIRED_PROTOCOL_FLAGS:
+    profile = project.get("audit_profile", "finance")
+    if not isinstance(profile, str) or profile not in PROTOCOL_PROFILES:
+        add(findings, "FAIL", "metadata", "audit_profile", f"Unknown profile: {profile!r}; choose {', '.join(PROTOCOL_PROFILES)}")
+        flags = []
+    else:
+        label = profile if "audit_profile" in project else "finance (legacy default)"
+        add(findings, "PASS", "metadata", "audit_profile", f"Using {label}")
+        flags = PROTOCOL_PROFILES[profile]
+    for flag in flags:
         if protocol.get(flag) is True:
             add(findings, "PASS", "protocol", flag, "Explicitly required")
         else:
@@ -166,7 +208,7 @@ def audit(direction: Path) -> tuple[list[Finding], dict[str, object]]:
     if unsupported:
         add(findings, "WARN", "claims", "unsupported_claims", f"{len(unsupported)} unsupported claim(s) require action")
     else:
-        add(findings, "PASS", "claims", "unsupported_claims", "No claim is labelled as established without evidence")
+        add(findings, "PASS", "claims", "unsupported_claims", "No rows use unsupported-status labels; evidence itself is not verified")
     if unresolved_novelty:
         add(findings, "WARN", "claims", "unresolved_novelty", f"{len(unresolved_novelty)} novelty claim(s) remain unresolved, as expected at this stage")
 
@@ -191,7 +233,22 @@ def audit(direction: Path) -> tuple[list[Finding], dict[str, object]]:
         add(findings, "WARN", "novelty", "critical_overlap", f"{len(critical_overlap)} critical overlap record(s); contribution wording requires human review")
 
     searches = tables.get("search_log.csv", [])
-    complete_searches = [r for r in searches if r.get("result_count") and r.get("screened_count") and r.get("included_count")]
+    complete_searches = []
+    invalid_searches = []
+    for row in searches:
+        values = [row.get(field, "") for field in ("result_count", "screened_count", "included_count")]
+        if not any(values):
+            continue
+        try:
+            result_count, screened_count, included_count = map(int, values)
+            if not 0 <= included_count <= screened_count <= result_count:
+                raise ValueError("Counts must be nonnegative and ordered")
+        except ValueError:
+            invalid_searches.append(row.get("search_id", "unknown"))
+        else:
+            complete_searches.append(row)
+    if invalid_searches:
+        add(findings, "WARN", "novelty", "search_count_values", f"Incomplete or invalid counts: {', '.join(invalid_searches)}")
     pending_searches = [r for r in searches if "pending" in (r.get("database_or_source", "") + r.get("notes", "")).lower()]
     if len(complete_searches) >= 3:
         add(findings, "PASS", "novelty", "reproducible_searches", f"{len(complete_searches)} searches have complete counts")
@@ -226,6 +283,7 @@ def audit(direction: Path) -> tuple[list[Finding], dict[str, object]]:
         "title": project.get("title", direction.name),
         "stage": project.get("stage", "unknown"),
         "novelty_status": project.get("novelty_status", "unknown"),
+        "audit_profile": profile,
         "counts": {
             "claims": len(claims),
             "hypotheses": len(hypotheses),
@@ -255,6 +313,7 @@ def render_markdown(direction: Path, findings: list[Finding], summary: dict[str,
         f"- Title: {summary.get('title', 'unknown')}",
         f"- Stage: {summary.get('stage', 'unknown')}",
         f"- Novelty status: {summary.get('novelty_status', 'unknown')}",
+        f"- Audit profile: {summary.get('audit_profile', 'unknown')}",
         "",
         "## Findings",
         "",
@@ -268,7 +327,7 @@ def render_markdown(direction: Path, findings: list[Finding], summary: dict[str,
         "",
         "## Human decisions still required",
         "",
-        "Warnings are intentionally retained. Novelty, finance-specific statistical validity, data licensing, and proposal approval require documented human review.",
+        "Warnings are intentionally retained. Novelty, domain-specific statistical validity, data licensing, and proposal approval require documented human review.",
         "",
     ])
     return "\n".join(lines)
@@ -286,7 +345,7 @@ def main() -> int:
     report = render_markdown(direction, findings, summary)
     counts = {status: sum(f.status == status for f in findings) for status in ("PASS", "WARN", "FAIL")}
 
-    if args.no_write:
+    if args.no_write or not direction.is_dir():
         print(report)
     else:
         audit_dir = direction / "audit"

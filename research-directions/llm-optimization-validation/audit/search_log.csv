@@ -1,0 +1,8 @@
+search_id,date,database_or_source,query,filters,result_count,screened_count,included_count,notes
+S01,2026-09-07,Web search,"""iterative"" ""code optimization"" ""regressions"" LLM",Primary sources for final evidence,,,,Executed in prior review; historical search/screening counts unavailable
+S02,2026-09-07,Web search,"""performance"" ""optimization"" ""patch interactions"" regression",Primary sources for final evidence,,,,Executed in prior review; no exhaustive count reconstruction
+S03,2026-09-07,Web search,"""LLM"" ""optimization"" ""workload"" ""overfitting""",Primary sources for final evidence,,,,Executed in prior review; pooled tool output is not an exhaustive database count
+S04,2026-09-07,Web search,"""PerfAgent"" paper profiler optimization",Follow author paper and limitations,,,,Led to W01; raw screening ledger not retained
+S05,2026-09-07,Web search,"""Perun"" ""Performance Version System"" github",Author implementation and paper,,,,Led to W05; historical counts unavailable
+S06,2026-09-09,Systematic database search pending,(Python OR code optimization) AND (performance regression OR workload) AND (iterative OR history),Define databases dates and deduplication before execution,,,,Planned only; no new literature search performed during documentation work
+S07,2026-09-09,Citation and artifact review pending,Backward and forward citations of W01 W03 W05 W07 W10 W12,Primary papers and exact artifact versions,,,,Pending full method review and executable artifact inventory

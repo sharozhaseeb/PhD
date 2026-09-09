@@ -1,0 +1,48 @@
+{
+  "project_id": "llm-optimization-validation",
+  "audit_profile": "software_performance",
+  "title": "Understanding and Detecting Workload Regressions in Iterative Python Code Optimization",
+  "stage": "pre-pilot",
+  "literature_cutoff": "2026-09-07",
+  "documentation_updated": "2026-09-09",
+  "novelty_status": "candidate_not_established",
+  "primary_target": "workload_policy_violations_and_validation_cost_with_useful_optimizations_retained",
+  "planning_horizon_months": 24,
+  "initial_scope": {
+    "language": "Python",
+    "operations": "deterministic_CPU_oriented",
+    "native_source_edits": false,
+    "primary_metric": "runtime",
+    "pilot_tasks_provisional": "20-30 across several repositories",
+    "pilot_rounds_provisional": "3-5",
+    "selector_implementation": "conditional_on_pilot",
+    "benchmark_runs_completed": 0
+  },
+  "protocol": {
+    "valid_workload_domain_defined": true,
+    "original_baseline_comparison_required": true,
+    "behavioral_validation_required": true,
+    "noise_control_required": true,
+    "frozen_test_required": true,
+    "equal_information_baselines_required": true,
+    "full_validation_cost_required": true,
+    "negative_result_path_defined": true
+  },
+  "protocol_interpretation": "True marks a required protocol control, not completed implementation or validation; see 06-evaluation-protocol.md.",
+  "open_decisions": [
+    "numerical_acceptance_thresholds",
+    "main_study_sample_size",
+    "optimizer_and_cost_budget",
+    "reproducible_task_pool",
+    "systematic_novelty_search",
+    "departmental_requirements"
+  ],
+  "prohibited_claims": [
+    "established_novelty_without_comparison",
+    "guaranteed_publication",
+    "universal_behavioral_equivalence",
+    "arbitrary_workload_robustness",
+    "session_error_guarantee_without_assumptions",
+    "benchmark_results_before_execution"
+  ]
+}

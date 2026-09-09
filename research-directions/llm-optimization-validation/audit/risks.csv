@@ -1,0 +1,11 @@
+risk_id,category,risk,severity,likelihood,mitigation,trigger,status
+R01,novelty,Existing methods already resolve the proposed contribution,critical,high,Compare complete closest methods and strong combined baseline,No distinct mechanism or practical headroom,open
+R02,construct_validity,Permitted trade-offs are mislabeled as failures,critical,medium,Declare workload domain weights and tolerance before evaluation,Outcome classification depends on post hoc requirements,open
+R03,feasibility,Historical task environments are expensive or impossible to reproduce,high,medium,Pin versions and run bounded feasibility inventory,Environment work consumes the pilot without enough diverse tasks,open
+R04,measurement,Noise or repeated selection produces misleading timing evidence,critical,high,Independent confirmation A/A controls controlled runner and appropriate inference,Failures disappear under independent timing,open
+R05,leakage,Final audit inputs influence optimizer or selector tuning,critical,medium,Separate protected audit evidence and record all feedback,Audit data used in a method revision,open
+R06,comparison,Selector appears better only by rejecting useful candidates or omitting overhead,high,medium,Report useful acceptance and full costs at matched budgets,Advantage disappears with complete cost accounting,open
+R07,generalization,Selected scientific Python tasks do not represent broader service workloads,high,high,State domain limits and split by project where feasible,Evidence concentrated in one repository or transformation,open
+R08,data_access,Dataset licensing or full artifact access is unresolved,high,medium,Audit source licenses and artifact availability before use,Needed source or redistribution permission is unavailable,open
+R09,causality,More rounds are confused with causal edit interactions,high,medium,Record all candidates and validate representative reversions,Single edit or task difficulty explains the alleged interaction,open
+R10,schedule,Publication and thesis expectations exceed available two-year resources,high,medium,Early supervisor review and six-week decision gate,Required study scope exceeds feasible budget or institutional deadlines,open

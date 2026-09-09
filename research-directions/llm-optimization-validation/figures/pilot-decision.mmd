@@ -1,0 +1,9 @@
+flowchart TD
+    P[Run bounded feasibility study] --> Q{Real policy violations after noise controls?}
+    Q -->|No| R[Reassess empirical claim]
+    Q -->|Yes| B{Strong conventional safeguards sufficient?}
+    B -->|Yes| N[Document result and redirect method]
+    B -->|No| M[Explain recurring mechanism]
+    M --> C{Selector has a practical cost and reliability advantage?}
+    C -->|No| N
+    C -->|Yes| F[Freeze expanded evaluation protocol]
