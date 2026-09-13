@@ -62,6 +62,9 @@ Watch:
 - [3Blue1Brown — Linear Combinations, Span, and Basis](https://www.youtube.com/watch?v=k7RM-ot2NWY)
 - [3Blue1Brown — Dot Products and Duality](https://www.youtube.com/watch?v=LyGKycYT2v0)
 - [MIT 18.06 — Gram–Schmidt Orthogonalization](https://www.youtube.com/watch?v=TRktLuAktBQ)
+- https://youtu.be/6nqMegdbxik?si=DqO2CoQd1fz_ceUr orthogonilization and orthonormal numerical
+- https://youtu.be/zHbfZWZJTGc?si=OwH0mVdw8JNuyyUk. Gram schimdt numerical
+- 
 - [MIT OCW / Gilbert Strang — Elimination with Matrices](https://www.youtube.com/watch?v=QVKj3LADCnA)
 - [Jeffrey Chasnov — Reduced Row-Echelon Form](https://www.youtube.com/watch?v=1rBU0yIyQQ8)
 - [MIT 18.06 — Linear Algebra topic index](https://www.mit.edu/~18.06/)
