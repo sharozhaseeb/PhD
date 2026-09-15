@@ -2,8 +2,8 @@
 
 **Status:** provisional PhD direction; pre-pilot.\
 **Planning horizon:** two years.\
-**Documentation updated:** 9 September 2026.\
-**Literature review boundary:** targeted review through 7 September 2026; systematic search and novelty assessment remain open.
+**Documentation updated:** 15 September 2026, with supplemental research links.\
+**Literature review boundary:** the numbered proposal retains its 7 September review base; a supplemental method review is dated 15 September 2026. Systematic search and novelty assessment remain open.
 
 The project investigates which workload-related failures persist when Python code is optimized repeatedly, and whether a small, adaptively selected workload suite can prevent them at acceptable cost. The first contribution is an empirical study. A new selector is conditional on finding an important limitation in strong existing safeguards.
 
@@ -13,6 +13,8 @@ No optimization benchmark has been executed for this project. No new selector, s
 
 | Document | Purpose |
 |---|---|
+| [Classification research summary](2026-09-15-classification-summary.md) | Current method options, close prior work, and recommended first study |
+| [Full classification research report](2026-09-15-classification-full-research.md) | Detailed methods, proposed decision rules, comparisons, sources, and search trace |
 | [Plain-language explanation](01-layman-explanation.md) | Problem, example, and intended outcome |
 | [Research proposal](02-research-proposal.md) | Questions, candidate contribution, scope, and falsification |
 | [Literature and novelty map](03-literature-novelty-map.md) | Existing methods, overlap, evidence boundary, and remaining searches |
