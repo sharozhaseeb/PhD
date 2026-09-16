@@ -1,10 +1,10 @@
-# Deep Learning — Lectures 1–4 Support Guide
+# Deep Learning — Lectures 1–5 Support Guide
 
 **Short explanations first; worked numericals for quizzes and midterms; longer lessons for depth.**
 
-Matched to the lecture files available on **15 September 2026**, including the backpropagation handout, linear-regression homework, and Assignment 1. Page references mean **PDF page numbers**, including title slides, rather than the sometimes different numbers printed on slides. Repeated animation/build slides are grouped together.
+Matched to the lecture files available on **16 September 2026**, including the backpropagation handout, linear-regression homework, and Assignment 1. Page references mean **PDF page numbers**, including title slides, rather than the sometimes different numbers printed on slides. Repeated animation/build slides are grouped together.
 
-**Jump to:** [Lecture 1](#lecture-1--introduction-and-linear-regression) · [Lecture 2](#lecture-2--logistic-regression-and-what-networks-can-represent) · [Lecture 3](#lecture-3--learning-the-network) · [Lecture 4](#lecture-4--optimization-making-learning-converge) · [Assignment support](#assignment-and-handout-support) · [Numerical practice and answers](numerical-practice.md) · [Study route](#a-practical-study-route)
+**Jump to:** [Lecture 1](#lecture-1--introduction-and-linear-regression) · [Lecture 2](#lecture-2--logistic-regression-and-what-networks-can-represent) · [Lecture 3](#lecture-3--learning-the-network) · [Lecture 4](#lecture-4--optimization-making-learning-converge) · [Lecture 5](#lecture-5) · [Assignment support](#assignment-and-handout-support) · [Numerical practice and answers](numerical-practice.md) · [Study route](#a-practical-study-route)
 
 ## How to use this guide
 
@@ -24,9 +24,12 @@ Matched to the lecture files available on **15 September 2026**, including the b
 | [Lecture 2 — Logistic Regression + Neural Network](Lecture%202%20-%20Logistic%20Regression%20%2B%20Neural%20Network.pdf) | 119 pages: logistic regression, neurons, Boolean functions, representational power |
 | [Lecture 3 — Learning Neural Network](Lecture%203%20-%20Learning%20Neural%20Network.pdf) | 245 pages: learning rules, loss, calculus, forward and backward passes |
 | [Lecture 4 — Neural Network Optimization](Lecture%204%20-%20Neural%20Network%20Optimization.pdf) | 94 pages: convergence, curvature, adaptive steps, momentum |
+| [Lecture 5 — Neural Network Optimization II](Lecture%205%20-%20Neural%20Network%20Optimization%20II.pdf) | 165 pages: SGD/mini-batches, RMSProp/Adam, regularization, dropout, training heuristics |
 | [Backpropagation derivation](Backpropagation_Derivation.pdf) | 3 pages: the course's notation and sigmoid/BCE derivation |
 | [Linear-regression homework](Home%20work%201%20on%20Linear%20Regression.docx) | Hand calculations with two features and a bias |
 | [Assignment 1](Assignment%201.pdf) | 5 pages: configurable NumPy network; MNIST “0 versus not 0” |
+
+**Course dates:** The current [course notes](Notes-Dates%20etc.md) list Assignment 1 for **25 September 2026** and Quiz 2 as **not yet announced**. Use later instructor announcements for any changes.
 
 Lecture 1's semester outline also names CNNs, transfer learning, computer vision, sequence models, and generative learning. Those are **future outline topics**, not developed lectures in this collection. This guide covers the material supplied so far.
 
@@ -815,7 +818,230 @@ A constant-factor reduction makes the error geometric/exponential in the iterati
 
 **Clip notes:** The Stanford excerpt boundaries above come from YouTube's platform-generated chapters; allow a small rewind if you need the preceding context. Brunton and Dataflowr publish their own chapter timestamps. Start links do not stop playback at the stated endpoint.
 
-**Preview-only items:** RMSProp, AdaGrad, and stochastic/incremental updates appear in the agenda or coming-up slides but are not developed in this PDF. Quickprop is named on page 62 without a derivation. Page 94 also previews generalization, divergences, activations, and normalization. Treat those as later material rather than additional completed sections of Lecture 4.
+**Preview-only items:** RMSProp, AdaGrad, and stochastic/incremental updates appear in the agenda or coming-up slides but are not developed in this PDF. Quickprop is named on page 62 without a derivation. Page 94 also previews generalization, divergences, activations, and normalization. Treat those as later material rather than additional completed sections of Lecture 4. [Lecture 5](#lecture-5) now develops SGD/mini-batches, RMSProp, Adam, generalization, and several training heuristics; AdaGrad remains named-only.
+
+<a id="lecture-5"></a>
+
+## Lecture 5 — Stochastic optimization and generalization
+
+**Source:** [Neural Network Optimization II](Lecture%205%20-%20Neural%20Network%20Optimization%20II.pdf), **165 PDF pages**. Pages 1–5 recap Lecture 4 and introduce the agenda; repeated animation slides are grouped below.
+
+**Two routes:** The short videos explain ideas and formulas. [N6: Lecture 5 numerical practice](numerical-practice.md#n6) supplies fully worked calculations, changed-value retries, and hidden answers. The optimizer videos are not labeled as complete numerical iteration tables: use N6 to practise the actual arithmetic and the slides' conventions. Start with §§5.1–5.6 for optimization, then §§5.7–5.12 for generalization and the training workflow.
+
+### 5.1 Full batch, incremental updates, shuffling, and epochs
+
+**Pages:** 6–39; incremental and shuffled-SGD pseudocode on 19–21 and 31.
+
+**Study**
+
+- A full-batch update averages all training-example gradients at the same parameter values. SGD updates after one example; the next example sees the changed parameters.
+- One **epoch** is one pass over the training data; it is not necessarily one update. Shuffling changes the order each epoch and helps avoid systematic cycles.
+- Use the repeated function-fitting pictures to distinguish changing the function at all sampled points from making many small incremental adjustments.
+- Explain the duplicated/clumpy-data example: repeated identical examples can make a full-batch gradient expensive without adding new directional information. This does not make SGD faster on every dataset.
+
+**First watch — concepts and algorithm:** [Andrew Ng — Mini Batch Gradient Descent](https://www.youtube.com/watch?v=4qJaSmvhxi8) — **11:29**. Covers full-batch versus partitioned updates and the epoch bookkeeping used here.
+
+**Numerical preparation:** [N6.1](numerical-practice.md#n6-1) compares the same data under full batch, two mini-batches, and two SGD orders; it also counts updates with a final incomplete batch. Compute every gradient within a batch before updating any parameter.
+
+**Self-check:** Why can two shuffled epochs have different paths even though they contain the same examples? Distinguish random reshuffling without replacement from independent sampling with replacement.
+
+### 5.2 SGD convergence, shrinking steps, and computational cost
+
+**Pages:** 40–59; conditions and rates on 56–58.
+
+**Study**
+
+- The origin-constrained regression animation shows what happens when each update chases the latest example too aggressively.
+- Learn the classical step-size conditions `Σηₖ=∞` and `Σηₖ²<∞`; for `ηₖ=c/kᵖ`, both hold when `1/2<p≤1` and `c>0`.
+- Separate objective gap, number of updates, number of example-gradient evaluations, and elapsed time. An expensive update can converge faster per update yet slower per data pass.
+- Compare the slide's strongly convex `O(1/k)` stochastic gap with geometric full-gradient convergence, and the generic convex `O(1/√k)` stochastic rate. These are conditional theory statements, not deterministic error formulas for a neural-network run.
+
+**First watch — learning-rate intuition:** Reuse [Andrew Ng — Learning Rate Decay](https://www.youtube.com/watch?v=QzulmoOg2JE) — **6:44**. The convergence assumptions and rate comparison remain **slide-led mathematics**, supported by [N6.2](numerical-practice.md#n6-2).
+
+**Course clarification:** The two sums alone do not ensure that arbitrary nonconvex training reaches a local minimum or searches the entire parameter space. Results require assumptions on the objective, noise, and iterates; nonconvex results may concern stationary points. A `1/√k` finite-time convex rate also need not satisfy the separate infinite-horizon square-summability condition. The [D2L SGD chapter](https://d2l.ai/chapter_optimization/sgd.html) provides a fuller derivation and examples.
+
+**Self-check:** Why is halving the rate after every update different from `c/k`? What does the K-means illustration on page 59 show about speed, final loss, and run-to-run variation without proving a universal ordering?
+
+### 5.3 Empirical-risk variance, mini-batches, and monitoring loss
+
+**Pages:** 60–91; sample-variance pictures 67–74; mini-batch pseudocode 81–82; cost comparison 86.
+
+**Study**
+
+- For **fixed parameters** and independent identically distributed examples, empirical mean loss estimates expected risk without bias, and its variance is the single-example loss variance divided by sample count.
+- A mini-batch mean averages noise: under the same independence assumptions, variance is `σ²/b`, while its standard deviation is `σ/√b`.
+- This pointwise unbiasedness does not imply that the training loss of a model selected on that same data is an unbiased assessment of its generalization. Shuffled finite datasets also require care with dependence and sampling without replacement.
+- Larger mini-batches give fewer updates per epoch and can improve vectorized throughput. Memory limits, optimization behavior, and validation performance all matter; the largest fitting batch is not automatically best.
+- Use overall training loss or a clearly labeled moving/held-out estimate to monitor progress. Different mini-batch losses need not decrease at each update.
+
+**First watch — variance intuition:** [StatQuest — Standard Deviation vs Standard Error](https://www.youtube.com/watch?v=A82brFpdr9g) — **2:52**. Connect the variability of observations with variability of their mean.
+
+**Then, if batch choice is unclear:** [Andrew Ng — Understanding Mini-Batch Gradient Descent](https://www.youtube.com/watch?v=-_4Zi8fCZO4) — **11:19**, concepts and implementation considerations.
+
+**Numerical preparation:** [N6.3](numerical-practice.md#n6-3) enumerates a sampling distribution and calculates variance reductions. [N6.2](numerical-practice.md#n6-2) rewrites page 86's bound using total example evaluations `M=bk`: `O(1/√M+b/M)`. The slide's blanket “degradation of √b” should not be treated as a general sample-cost theorem or wall-time prediction.
+
+**Self-check:** Does dividing the variance by four also divide the standard deviation by four? Why is a held-out set useful even when the training mean is an unbiased estimator at each fixed parameter value?
+
+### 5.4 Momentum and Nesterov with changing mini-batches
+
+**Pages:** 93–109; pages 92 and 124 are transitions/recaps.
+
+**Study**
+
+- Apply Lecture 4's gradient history to stochastic or mini-batch gradients, retaining the optimizer state across updates.
+- Ordinary momentum evaluates the current batch at the current parameters. Nesterov evaluates that batch at the lookahead parameters.
+- The slide's in-place lookahead pseudocode adds the old displacement first, then the gradient correction. Do not add the old displacement twice when translating it to the two-equation form.
+
+**First watch — concepts:** Reuse [Andrew Ng — Gradient Descent With Momentum](https://www.youtube.com/watch?v=k8fTYJPd3_I) — **9:20**. For Nesterov, reuse [Stanford CS231n](https://www.youtube.com/watch?v=_JB0AO7QxSA&t=1801s) — **30:01–33:14 · 3:13**, the platform-chapter excerpt from Lecture 4.
+
+**Numerical preparation:** [N6.4](numerical-practice.md#n6-4) uses two different mini-batches and explicitly records the second gradient evaluation point. This extends N4.6, where both updates used one fixed quadratic.
+
+**Self-check:** Which state is reset at the start of each batch: the sum of that batch's gradients, or the momentum history?
+
+### 5.5 RMSProp: track squared batch gradients over time
+
+**Pages:** 110–118; the five-step coordinate example is on page 114.
+
+**Study**
+
+- Separate the averaged gradient direction from a per-parameter step scale. RMSProp tracks an exponential average of **squared gradients**. First average the current mini-batch’s per-example gradients to form `gₜ`; then square that batch gradient elementwise for the running average across updates. This is different from averaging the individual examples’ squared gradients.
+- The slides' squared-derivative shorthand means `(∂L/∂w)²`, not `∂²L/∂w²`: RMSProp does not compute a Hessian.
+- Large RMS gradient components receive smaller effective learning rates. A second moment measures magnitude; it is not itself a variance estimate or a direct count of sign changes.
+- RMSProp and Lecture 4's RProp are different algorithms despite the similar names.
+
+**First watch — concepts and update formula:** [Andrew Ng — RMSProp](https://www.youtube.com/watch?v=_e-LFe_igno) — **7:42**. If the recurrence is new, first watch [Exponentially Weighted Averages](https://www.youtube.com/watch?v=lAq96T8FkTw) — **5:58**.
+
+**Numerical preparation:** [N6.5](numerical-practice.md#n6-5) calculates page 114's coordinate RMS values and a two-step, two-parameter RMSProp table. It states initialization, averaging coefficient, base rate, and epsilon placement explicitly. Initialize the running state once for a continuous run; resetting it each epoch changes the method.
+
+**Self-check:** Why would averaging batch gradients across updates and then squaring fail to detect the sequence `+4,−4,+4,−4`?
+
+### 5.6 Adam: first and second moments, with bias correction
+
+**Pages:** 119–124; Adam equations on 121–122.
+
+**Study**
+
+- Maintain the first-moment state `m` and second-moment state `v`, initialized to zero.
+- Correct their startup bias using `m/(1−β₁ᵗ)` and `v/(1−β₂ᵗ)` before the parameter update; `t` counts updates starting at 1.
+- Identify the base learning rate, two decay coefficients, and numerical stabilizer. Page 123's “no explicit learning rate” wording is misleading: RMSProp and Adam still have a base rate that can need tuning.
+- AdaGrad, AdaDelta, and AdaMax are **named alternatives** on page 123; this PDF does not derive their update rules.
+
+**First watch — concepts and derivation:** [Andrew Ng — Adam Optimization Algorithm](https://www.youtube.com/watch?v=JXQT_vxqwIs) — **7:08**. For the correction specifically: [Bias Correction of Exponentially Weighted Averages](https://www.youtube.com/watch?v=lWzo8CajF5s) — **4:12**.
+
+**Numerical preparation:** [N6.6](numerical-practice.md#n6-6) works two steps including a gradient sign change, both corrected moments, and the updated weight. Slides 116 and 121 put epsilon **inside** the square root; Algorithm 1 of the [original Adam paper](https://arxiv.org/abs/1412.6980) puts it **outside**. Follow the formula specified in a problem; the same epsilon value does not make those expressions identical.
+
+**Self-check:** Why can Adam's update direction on step 2 differ from the sign of the newest gradient? What fails if bias correction uses `t=0`?
+
+### 5.7 Overfitting, L2 regularization, and architectural constraints
+
+**Pages:** 125–143; regularized objective and update 137–139; depth/data illustrations 140–142.
+
+**Study**
+
+- A network can fit sampled values while behaving badly between them; low training loss alone does not establish generalization.
+- Larger sigmoid weights permit steeper changes. Weight penalties can favor smoother responses, while excessive regularization can underfit.
+- The slide objective is **mean data loss plus `(λ/2)Σ||W||²_F`**. Add `λW` to the corresponding data gradient; specify whether biases are penalized.
+- Architecture and data also influence the functions training can find. The examples with more layers or more data are evidence from those examples, not a guarantee that increasing depth always smooths the function or improves generalization.
+
+**First watch — intuition:** [Andrew Ng — Why Regularization Reduces Overfitting](https://www.youtube.com/watch?v=NyG-7nRpsW8) — **7:09**. For the derivative: [Regularization](https://www.youtube.com/watch?v=6g0t3Phly2M) — **9:42**; its normalization convention must be matched to your stated objective.
+
+**Numerical preparation:** [N6.7](numerical-practice.md#n6-7) gives loss, every gradient, and an update. For the page 137 objective, ordinary gradient descent shrinks weights by `1−ηλ`. The boxed `1−λ` on page 138 requires redefining lambda as a per-step decay coefficient; do not silently omit `η`. Likewise retain the mean's averaging factor when interpreting page 139's shorthand. Adding an L2 penalty to Adam is not generally identical to separately decaying its weights.
+
+**Self-check:** Why can regularization increase training error yet improve validation performance? Which changes address optimization and which address generalization?
+
+### 5.8 Bagging, dropout masks, and redundant features
+
+**Pages:** 144–152.
+
+**Study**
+
+- Bagging trains several models on resampled data and combines predictions; dropout samples thinned subnetworks that **share parameters**.
+- A Bernoulli mask retains a unit with probability `q` (the slides call it `α`), and sets it to zero otherwise. Distinguish keep probability from drop probability `1−q`.
+- Change masks between training examples/passes as specified. Use the same sampled mask for that example's forward and backward passes.
+- If `N` units are eligible for independent masking, there are `2ᴺ` binary masks; masks are equally probable only when `q=.5`.
+- Dropout discourages relying exclusively on one feature and can encourage redundancy. It does not literally train `2ᴺ` independently fitted bagged models.
+
+**First watch — concepts and implementation:** [Andrew Ng — Dropout Regularization](https://www.youtube.com/watch?v=D8PJAL-MZv8) — **9:25**. This uses **inverted dropout**; §5.9 explains how it differs from the slide convention.
+
+**Numerical preparation:** [N6.8](numerical-practice.md#n6-8) calculates a masked forward/backward pass, all seven gradients, a parameter update, and a fresh-mask retry. Input dropout is possible, as the slides illustrate; the worked example specifies hidden-only dropout so the mask location is unambiguous.
+
+**Self-check:** How can the same physical weight participate in several sampled subnetworks? Why does an inactive hidden unit have zero data-loss gradient on that pass, while a separate regularizer can still affect its parameters?
+
+### 5.9 Dropout at training and inference: where the scaling belongs
+
+**Pages:** 153–158; the expectation approximation is on page 155.
+
+| Convention | Training activation | Inference activation |
+| --- | --- | --- |
+| Standard dropout in these slides | `mask × h` | `q × h` |
+| Inverted dropout in Ng's video | `mask × h/q` | `h` |
+
+**Study**
+
+- For fixed incoming activation `h`, `E[mask×h]=qh`. Apply the mask multiplier in backpropagation too; inverted dropout additionally needs `1/q` there.
+- In standard dropout, scaling an eligible activation by `q` can be moved to its **outgoing weights**. Do not also scale those weights again or scale the next layer's additive bias.
+- Apply inference scaling only where dropout was used during training. The generic page 158 loop is not a reason to shrink a final class probability that was never dropped.
+- For nonlinear networks, a network evaluated at mean activations need not equal the exact average of all masked predictions. The slides explicitly introduce an approximation, also discussed by the [dropout paper](https://jmlr.org/papers/v15/srivastava14a.html).
+
+**First watch — reuse:** [Andrew Ng — Dropout Regularization](https://www.youtube.com/watch?v=D8PJAL-MZv8) — **9:25**, alongside the table above. Rewatch only if you need the convention comparison.
+
+**Numerical preparation:** [N6.8](numerical-practice.md#n6-8) compares both training conventions and inference values, and gives a one-unit nonlinear counterexample to exact expectation substitution.
+
+**Self-check:** Why would dividing by `q` during training **and** multiplying by `q` at inference mix two conventions?
+
+### 5.10 Early stopping, augmentation, and model selection
+
+**Pages:** 160, 162, 164; page 165 closes the lecture.
+
+**Study**
+
+- Monitor a held-out validation measure, define an improvement/patience rule, save the best checkpoint, and restore it when stopping.
+- Augment training examples with transformations that preserve the intended label. A rotation or flip suitable for one task can change the label in another.
+- Choose representation, architecture, loss, regularization, optimizer, and hyperparameters as one coherent experiment. Use validation data for selection; reserve test results for final evaluation.
+- Distinguish a training parameter learned by gradients from a hyperparameter selected between runs. The slide proposes grid search; its number of configurations is the product of the choices per axis.
+
+**First watch — concepts:** [Andrew Ng — Other Regularization Methods](https://www.youtube.com/watch?v=BOCLq2gpcGU) — **8:24**, on augmentation and early stopping.
+
+**Numerical preparation:** [N6.11](numerical-practice.md#n6-11) traces a precise patience rule and distinguishes the stopping epoch from the restored checkpoint; it also counts a small hyperparameter grid.
+
+**Self-check:** Would a 180-degree rotation always preserve an MNIST digit's label? Where should augmented versions of an original example go when constructing train/validation/test splits?
+
+### 5.11 Gradient clipping
+
+**Page:** 161.
+
+**Study:** Clipping limits excessively large updates caused by gradients. The slide gives a positive-component ceiling; the symmetric coordinatewise form clips each component to `[-c,c]`. Global-norm clipping instead rescales the entire vector when its norm exceeds `c`, preserving its direction. State which rule a problem uses; neither is the same as changing the loss or guaranteeing convergence.
+
+**First watch — background:** [Andrew Ng — Vanishing/Exploding Gradients](https://www.youtube.com/watch?v=qhXZsFVxGKo) — **6:07**, for why gradients can become extreme. This is background, not a verified clipping calculation lesson; [N6.9](numerical-practice.md#n6-9) supplies both clipping rules and their numerical updates. The [value-clipping](https://docs.pytorch.org/docs/stable/generated/torch.nn.utils.clip_grad_value_.html) and [norm-clipping](https://docs.pytorch.org/docs/stable/generated/torch.nn.utils.clip_grad_norm_.html) references distinguish them formally.
+
+**Self-check:** What happens to a large negative derivative under a rule that clips only values greater than `+c`?
+
+### 5.12 Input normalization and initialization
+
+**Page:** 163; training setup also on 164.
+
+**Study**
+
+- Estimate each input feature's mean and standard deviation from **training data**, then reuse those statistics on validation and test inputs.
+- Unit variance requires division by standard deviation, not variance. Define a policy for constant features.
+- Input standardization with fixed training statistics is distinct from a full batch-normalization layer, despite the slide's informal comparison.
+- Identically connected hidden units with identical parameters and identical update conditions can retain their symmetry. Independent initialization helps break it; stochastic masks can also break symmetry, so “never diverge” needs that qualification.
+- Xavier, Kaiming/He, and SVD/orthogonal initialization are named on this slide. Detailed derivations are optional extensions.
+
+**First watch — concepts and formulas:** [Andrew Ng — Normalizing Inputs](https://www.youtube.com/watch?v=FDCfw-YqWTE) — **5:31**. For the initialization names: [Weight Initialization in a Deep Network](https://www.youtube.com/watch?v=s2coXdufOzE) — **6:12**, an optional derivation beyond the slide's brief list.
+
+**Numerical preparation:** [N6.10](numerical-practice.md#n6-10) standardizes a feature and a held-out value using the same training statistics; an explicitly optional extension calculates initialization scales.
+
+**Self-check:** Why would separately centering the test set change the model's input representation and leak information from evaluation data?
+
+### Optional depth — Lecture 5
+
+- [CMU — Lecture 7: Optimization](https://www.youtube.com/watch?v=aL11wi9leFU) — **1:29:25**, the extended optimization companion.
+- [CMU — Lecture 8: Normalization, Regularization etc.](https://www.youtube.com/watch?v=oNrdYVsHZxw) — **1:25:01**, with [part 2](https://www.youtube.com/watch?v=lp8Cf0_q1pc) — **19:45**. The [official Fall 2020 schedule](https://deeplearning.cs.cmu.edu/F20/index.html) establishes the optimizer/regularization/dropout match; numbering and scope differ from the supplied PDF.
+- [Stanford CS231n — Training Neural Networks II](https://www.youtube.com/watch?v=_JB0AO7QxSA) — **1:15:30**, covering optimizers, regularization, dropout, and augmentation. Later transfer-learning material goes beyond this lecture.
+
+**Scope check:** Batch normalization, KL divergence, and activation choices occur in the agenda/recaps/setup, but this PDF contains no full batch-normalization forward/backward derivation or new KL/activation treatment. L1 penalties on activations and added noise are named on page 144; AdaGrad/AdaDelta/AdaMax and SVD initialization are also named-only here. Use the optional university lectures for expansion; do not mistake a recap list for a missing developed section or an announced assessment requirement.
+
 
 ## Assignment and handout support
 
@@ -909,16 +1135,19 @@ The handout uses two hidden layers and one output layer, all sigmoid. The assign
 | 4 | Lecture 3, §§3.1–3.6 | An ordered perceptron trace and an explanation of empirical risk |
 | 5 | Lecture 3, §§3.7–3.12; handout | A full two-hidden-layer forward/backward/update calculation, including every bias |
 | 6 | Lecture 4 | Checked Hessian/Newton, convergence, RProp, momentum, and Nesterov calculations |
-| 7 | Assignment support | Parameter counts and metrics by hand; then assignment implementation and experiments |
+| 7 | Lecture 5, §§5.1–5.6 | SGD order/batch counts, conditional rate/variance reasoning, and RMSProp/Adam tables |
+| 8 | Lecture 5, §§5.7–5.12 | L2 and masked backpropagation; dropout scaling, clipping, normalization, and stopping decisions |
+| 9 | Assignment support | Parameter counts and metrics by hand; then assignment implementation and experiments |
 
 Treat these as flexible sessions. The watch time is not the total study time: pause to reproduce the mathematics. Before a quiz or midterm, use the [prerequisite check and numerical practice](numerical-practice.md), cover the solutions, and solve changed-value questions. You should be able to explain each step as well as calculate it. Worked-number lessons are part of this preparation; broader optional lectures remain optional.
 
 ## Selection and verification notes
 
-- **Course coverage:** All four supplied lecture PDFs were inventoried, plus the handout and assignments; selected formula and diagram pages were also inspected visually. Repeated build sequences are grouped, and administrative pages and future-topic lists are identified separately. Course-specific proofs/constructions that lack an equally short video are explicitly marked and retain a slide-based exercise or written bridge.
+- **Course coverage:** All five supplied lecture PDFs were inventoried, plus the handout and assignments; selected formula and diagram pages were also inspected visually. Repeated build sequences are grouped, and administrative pages and future-topic lists are identified separately. Course-specific proofs/constructions that lack an equally short video are explicitly marked and retain a slide-based exercise or written bridge.
 - **Why these educators:** The core choices use 3Blue1Brown, StatQuest, Andrew Ng/DeepLearning.AI, Khan Academy, and established university teaching. The selected videos have substantial learner reach, positive engagement where visible, or direct institutional teaching use. This is a curated match to the course, not a numerical ranking of all available videos.
 - **Reception evidence, checked 15 September 2026:** The official [3Blue1Brown neural-network video](https://www.youtube.com/watch?v=aircAruvnKk) had over 24 million views in public player metadata, with roughly 560,000 likes in the indexed YouTube page. [IBM's overview](https://www.youtube.com/watch?v=qYNweeDHiyU) had over 3.5 million views and roughly 76,000 indexed likes. The [DeepLearning.AI Neural Networks and Deep Learning course](https://www.coursera.org/learn/neural-networks-deep-learning) displayed **4.9/5 from over 123,000 reviews**; that is a **course-level rating**, not a rating of each free video. Counts change and indexed figures may lag.
 - **Specialist choices:** [UNSW's tutorial](https://cgi.cse.unsw.edu.au/~cs9444/25T2/tut/COMP9444_Week1_Questions.html) assigns the compact perceptron videos. CMU's [Spring 2025](https://deeplearning.cs.cmu.edu/S25/), [Spring 2022](https://deeplearning.cs.cmu.edu/S22/), and [Fall 2020](https://deeplearning.cs.cmu.edu/F20/index.html) schedules establish the respective long-form topic matches. The focused RProp video is [linked by RProp co-inventor Martin Riedmiller](https://www.riedmiller.me/subprojects/rprop). These are useful teaching/provenance signals even when public popularity is lower.
+- **Lecture 5 verification, 16 September 2026:** All 165 pages were read; formula and diagram pages were visually checked, including optimizer epsilon placement, L2 decay factors, dropout masks/inference, and clipping. New short selections use established teaching channels; public metadata showed over 270,000 views for Ng's Adam lesson, 130,000 for RMSProp, and 690,000 for StatQuest's standard-error comparison. These are reach signals, not individual learner-rating scores. The original reception evidence above retains its earlier check date.
 - **Timing and links:** Exact YouTube runtimes were checked against public video metadata; UNSW's approximate times and some MIT/Khan times come from their course pages. Excerpts use published chapter boundaries or inspected calculation segments; the Stanford CS231n excerpts use YouTube's automatic chapter markers. The latter may benefit from a small rewind for context. Every video was not watched end to end. Playback can still vary by region or platform.
 - **Numerical preparation:** Worked-video labels rely on inspected numerical content, creator transcripts, or the institution's worked-example description, rather than the title alone. Differences from the course's loss, activation, or optimizer convention are stated. Where a suitable matching walkthrough was not verified, the guide links a local worked example with a fresh retry. Arithmetic was checked programmatically, including all fifteen single-example and batch backpropagation gradients against finite differences. An independent agent reviewed conceptual and numerical readiness, and the original section authors made the revisions.
 

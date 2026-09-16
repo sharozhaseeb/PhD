@@ -2,9 +2,9 @@
 
 **Concise explanations first, worked calculations for quizzes and midterms, and optional longer lessons for depth.**
 
-Based on the files available on **15 September 2026**. Page numbers below are **PDF page positions**, including title slides. Repeated slide builds are grouped. This guide supports the supplied Introduction, AE/VAE, and GANs Part 1 decks, plus Assignment 1 and its starter notebook.
+Based on the files available on **16 September 2026**. Page numbers below are **PDF page positions**, including title slides. Repeated slide builds are grouped. This guide supports the supplied Introduction, AE/VAE, GANs Part 1 and GANs Part 2 decks, plus Assignment 1 and its starter notebook.
 
-**Jump to:** [Introduction](#lecture-1) · [AE and VAE](#lecture-2) · [GANs Part 1](#lecture-3) · [Assignment support](#assignment-support) · [Numerical practice and answers](numerical-practice.md) · [Study route](#study-route)
+**Jump to:** [Introduction](#lecture-1) · [AE and VAE](#lecture-2) · [GANs Part 1](#lecture-3) · [GANs Part 2](#lecture-4) · [Assignment support](#assignment-support) · [Numerical practice and answers](numerical-practice.md) · [Study route](#study-route)
 
 ## How to use this guide
 
@@ -21,6 +21,7 @@ Based on the files available on **15 September 2026**. Page numbers below are **
 | [Lecture 1 — Introduction](Lecture1%20Introduction.pdf) | 41 pages: generative modeling, applications, model families, Bayes example, data/model distributions |
 | [Lecture 2 — AE and VAE](Lecture%202%20AE%20and%20VAE%20v2.pdf) | 71 pages: reconstruction, latent spaces, variational modeling, KL, sampling and applications |
 | [GANs Part 1](Lecture%20GANs%20Part%201.pdf) | 70 pages: adversarial training, loss/gradient issues, collapse, DCGAN and examples |
+| [GANs Part 2](Lecture%20GANs%20Part%202.pdf) | 97 pages: conditional GANs, StackGAN, entropy/IS, FID and improved generative precision/recall |
 | [Assignment 1](Assignment%201.pdf) | 4 pages: controlled AE/VAE experiments, GAN failures/stabilization, quantitative evaluation |
 | [A1 starter notebook](A1%20starter.ipynb) | Architecture and logging scaffolds; TODOs and a few discrepancies with the handout |
 | [Course outline](GenAI_courseOutline%20MSDS.pdf) | 3 pages: planned semester coverage and assessment information |
@@ -514,7 +515,7 @@ Recognize the examples at the level presented:
 
 **Short first — applications:** [Two Minute Papers: pix2pix](https://www.youtube.com/watch?v=u7kQ5lNfUfg), **4:27**, explicitly recommended on the [pix2pix authors' project page](https://phillipi.github.io/pix2pix/); and [CycleGAN authors' ICCV spotlight](https://www.youtube.com/watch?v=AxrKVfjSBiA), **3:31**, linked from their [project page](https://junyanz.github.io/CycleGAN/). These explain/show tasks and training-data distinctions; they are not numerical loss walkthroughs.
 
-**Optional longer result demonstration:** [StackGAN authors' birds generated from text](https://www.youtube.com/watch?v=93yaf_kE0Fg), **19:17**, linked from their [repository](https://github.com/hanzhanggit/StackGAN). This is **StackGAN**, a predecessor/context for the deck's StackGAN++ examples. Do not substitute its architecture for an unprovided Part 2 lecture.
+**Optional longer result demonstration:** [StackGAN authors' birds generated from text](https://www.youtube.com/watch?v=93yaf_kE0Fg), **19:17**, linked from their [repository](https://github.com/hanzhanggit/StackGAN). This is **StackGAN**, a predecessor/context for the deck's StackGAN++ examples. The newly supplied [Part 2 section](#lecture-4) now develops the two-stage StackGAN architecture and conditioning augmentation.
 
 **Check:** Does using unpaired domain collections mean CycleGAN needs no training data? **Answer:** no; it needs examples from both domains, just not a matched target for each source image.
 
@@ -522,11 +523,156 @@ Recognize the examples at the level presented:
 
 **Slides:** p. 70; motivation for evaluation also pp. 46, 57–58.
 
-The final slide points to the original GAN paper, the Inception Score paper, and the FID/TTUR paper. It does not work through metric equations. Use the [assignment's IS/FID section](support.md#assignment-metrics) and its numerical links for that separately required work.
+The final slide points to the original GAN paper, the Inception Score paper, and the FID/TTUR paper. It does not work through metric equations. The newly supplied [Part 2 section](#lecture-4) now develops IS, FID and generative precision/recall. Use the [assignment's IS/FID section](#assignment-metrics) for its distinct classifier and sample protocol.
 
 **Short first:** [FAU / Andreas Maier: Unsupervised Learning, Part 3](https://www.youtube.com/watch?v=fXO1fOXnOTI), **13:19**, includes evaluation concepts; follow the focused route in the assignment section to avoid repeating it. It is a specialist university lecture, not a verified high-reception numerical walkthrough.
 
 **Ready to move on when:** you can explain the two backward paths, state all three loss signs, calculate one complete alternating update, distinguish weak gradients from collapse, and interpret sample grids without treating discriminator loss as a quality score. The companion contains fresh questions; use those before consulting solutions.
+
+<a id="lecture-4"></a>
+## GANs Part 2 — Conditional generation and evaluating samples
+
+**Source:** [Lecture GANs Part 2](Lecture%20GANs%20Part%202.pdf), 97 pages. Page 1 is the title and page 97 the references. The numerical routes below reproduce the lecture's examples and correct its arithmetic or interpretation where necessary.
+
+### 4.1 Conditional GANs: the discriminator judges a matching pair
+
+**Source:** pp. 2–3, 16.
+
+Condition `y` can encode a class, attributes, an image, or text. Both networks receive it: `G(z,y)` makes a sample and `D(x,y)` judges the sample together with its condition. The conditional minimax objective is
+
+`E_(x,y) ln D(x,y) + E_(z,y) ln[1−D(G(z,y),y)]`.
+
+D maximizes this expression; G minimizes its generated term. Keep `y` in **both** discriminator calls. Mismatched real image/text pairs can be added as negatives, but this is an extra training choice, not a third term already present in that two-term equation. For practical non-saturating G training use `−E ln D(G(z,y),y)`; reuse [Part 1's gradient reasoning](numerical-practice.md#n3-2).
+
+**First watch — implementation intuition:** [Aladdin Persson, conditional G/D modifications, 0:56–6:58](https://www.youtube.com/watch?v=Hp-jWm2SzR8&t=56s), **6:02 excerpt**. It shows how to feed labels into both networks. The surrounding implementation uses WGAN-GP; its critic loss and gradient penalty differ from this lecture's vanilla conditional GAN objective.
+
+**Optional depth:** the same tutorial, **12:21** full, for conditional WGAN-GP implementation; compare rather than silently swap objectives. The [original conditional GAN paper](https://arxiv.org/abs/1411.1784) supplies the vanilla formulation.
+
+**Numerical preparation:** [N5.1](numerical-practice.md#n5-1) checks concatenation, parameter counts, conditional losses, and a generator logit gradient. **Self-check:** hold `z` fixed and vary `y`; then hold `y` fixed and vary `z`. What would each test reveal about ignored conditions or lost diversity? Neither test alone proves distribution matching.
+
+### 4.2 The tabular conditional GAN: one-hot fields and all network shapes
+
+**Source:** pp. 4–15, including the image-only architecture builds.
+
+The example uses **20 noise values**, **11 condition values**, and a **20-value generated sample**. The condition contains three categorical fields: 2 academic-performance values, 7 course values, and 2 semester values. Each block is one-hot, so the complete vector has three ones. It is not one 11-class one-hot label. There are `2×7×2=28` possible combinations if every combination is permitted, while the encoding still has length 11.
+
+- G: concatenate `[z,y]` to length 31, then `31 → 256 → 256 → 20`.
+- D: concatenate `[real sample,y]` **or** `[generated sample,y]` to length 31, then `31 → 256 → 256 → 1`.
+- The slide's plus sign means **concatenation**, not elementwise addition. Do not concatenate both real and fake samples into one D input. The masked-vector illustration does not specify a complete imputation algorithm.
+
+**First watch:** reuse the **6:02 conditioning excerpt** in §4.1. Its image/embedding implementation differs from these tabular dimensions; the bullet points above supply the course-specific bridge. **Optional depth:** its **12:21** full implementation. **Calculate:** [N5.1](numerical-practice.md#n5-1), including every bias. **Self-check:** why does adding another category to one field change the input dimension by one rather than multiplying it by the number of other fields?
+
+### 4.3 StackGAN: text, two resolutions, and conditioning augmentation
+
+**Source:** pp. 17–21; text-conditioning motivation p. 16.
+
+Stage I uses a text embedding `φ(t)` and noise `z` to produce a **64×64** sketch of shape and color. Stage II takes that sketch and the text again, encodes the image, combines spatially repeated text features, and uses residual/upsampling blocks to produce **256×256** details. Each stage has its own conditional discriminator. Inspect the bird grid on p. 20 for what improves and what remains wrong.
+
+**Conditioning augmentation (CA):** predict `μ` and positive standard deviations `σ` from text, then sample `ĉ=μ+σ⊙ε`, with `ε~N(0,I)`. This introduces nearby variations in text conditioning. The `σ` here is a standard deviation, not variance. Page 18's “all randomness” wording is too broad: Stage II has no separate fresh `z`, but the p. 21 diagram and [original StackGAN paper](https://arxiv.org/abs/1612.03242) include CA sampling at Stage II too. Fixing the Stage I image does not force Stage II to be deterministic when CA noise is resampled.
+
+**First watch — conceptual architecture:** [Connor Shorten / Henry AI Labs — StackGAN](https://www.youtube.com/watch?v=s7OIHukdD0o), **4:34**, specifically introduces the two scales and CA. This is a specialist creator explanation with a small audience, not a verified worked-number lesson.
+
+**Optional depth:** read the authors' architecture and CA equations in the paper; [the authors' bird demonstration](https://www.youtube.com/watch?v=93yaf_kE0Fg), **19:17**, compares real, Stage I and Stage II outputs across text prompts. The latter is a **results demonstration**, not a derivation video. **Calculate:** [N5.2](numerical-practice.md#n5-2) works CA, derivatives with fixed noise, and the pixel-count increase. **Self-check:** why can two images with the same text differ while still satisfying that text?
+
+### 4.4 GAN versus VAE, and what “good generation” means
+
+**Source:** pp. 22–23, 55–59, 81–82.
+
+Compare fidelity (plausible samples), coverage/diversity (representing the real variation), training behavior, and ability to infer a latent representation. The lecture's sharper GAN versus smoother VAE contrast is a typical outcome of particular architectures/objectives, not a universal ranking. Both models can have continuous latent spaces. A VAE provides an evidence lower bound and ways to estimate likelihood; that does not make exact likelihood automatically tractable.
+
+**First watch — evaluation intuition:** [FAU / Andreas Maier, evaluation and IS, 9:30–11:40](https://www.youtube.com/watch?v=fXO1fOXnOTI&t=570s), **2:10 excerpt**. Then compare to the earlier [AE/VAE video routes](#lecture-2). **Optional depth:** the same FAU lecture, **13:19** full, for GAN context, IS and FID; the [university transcript](https://lme.tf.fau.de/lecture-notes/lecture-notes-dl/lecture-notes-in-deep-learning-unsupervised-learning-part-3/) supports the metric discussion.
+
+Scores supplement image inspection. They do not prove generalization: copying a reference set can give FID zero against that set. In particular, p. 23's suggestion that FID necessarily punishes memorization is incorrect. Compare held-out data and nearest training examples as additional evidence, while keeping the assignment's required reference protocol. **Calculate:** the counterexamples in [N5.4](numerical-practice.md#n5-4) and [N5.5](numerical-practice.md#n5-5). **Self-check:** can realistic samples and poor coverage occur together?
+
+### 4.5 Entropy, confidence, and the marginal class distribution
+
+**Source:** pp. 24–31, 33–37.
+
+Feed each generated image to a **fixed pretrained classifier**. Standard IS uses its 1,000 ImageNet class probabilities `p(y|x)`. Low per-image entropy indicates classifier confidence; high entropy of the average prediction indicates class diversity. The marginal is the **mean probability vector**, `p(y)=(1/N)Σᵢp(y|xᵢ)`, not a histogram of argmax labels. `H(P)=−Σ_c P_c ln P_c`, with zero terms interpreted by their limit.
+
+**First watch — worked-number prerequisite:** [StatQuest, entropy calculations, 9:35–15:50](https://www.youtube.com/watch?v=YtebGVx-Fxw&t=575s), **6:15 excerpt**. Visible coin/chicken probability calculations connect weighted surprise to entropy. StatQuest uses base-two logs (bits); use **natural logs (nats)** in this course's IS formula, or consistently use `2^I` for mutual information in bits. Do not insert bit entropy into `exp`.
+
+**Optional depth:** [the full entropy lesson](https://www.youtube.com/watch?v=YtebGVx-Fxw), **16:34**; [ritvikmath's KL explanation](https://www.youtube.com/watch?v=q0AkK8aYbLY), **18:13**, revisits probability ratios and asymmetric weighting. **Calculate:** [N5.3](numerical-practice.md#n5-3). **Self-check:** a uniform classifier output on every image has a diverse marginal; why does that not imply a high IS?
+
+### 4.6 Derive and calculate Inception Score
+
+**Source:** pp. 32–53: KL/entropy/MI derivation, limiting examples, computation and the four-image example.
+
+`IS=exp[(1/N)Σᵢ KL(p(y|xᵢ) || p(y))] = exp[H(Y)−H(Y|X)] = exp[I(X;Y)]`.
+
+The subtraction rewards confident individual predictions and varied average predictions together. `X` indexes the sampled image and `Y` the classifier label. For `K` classes, `1≤IS≤K`; it is not a percentage. `IS=1` can arise from uncertain identical predictions **or** perfectly confident predictions of the same class. It is not by itself a verdict that images are bad, especially on a genuinely single-class dataset.
+
+**First watch — conceptual metric:** reuse [FAU's 9:30–11:40 excerpt](https://www.youtube.com/watch?v=fXO1fOXnOTI&t=570s), **2:10**. For actual probability arithmetic first use §4.5's **6:15 worked entropy excerpt** and [Serrano's 29:40–30:30 discrete-KL replay](https://www.youtube.com/watch?v=SSXDkfiPs7c&t=1780s), **0:50**; apply the `0.4` correction already explained in §2.8. Neither is claimed to calculate the lecture's four-image IS.
+
+**Numerical preparation:** [N5.3](numerical-practice.md#n5-3) derives the identity and works **all four KL rows**, the marginal, mean and exponential: **IS≈1.674**. The p. 48 explanation overstates why row four has the largest KL: its confidence `.85` is below row one's `.90`, and class three's marginal `.275` is above class two's `.2625`. Use the complete weighted log-ratio, not either ranking alone. **Optional depth:** full FAU **13:19** plus the [original improved-GAN-training paper](https://arxiv.org/abs/1606.03498), which introduced IS.
+
+### 4.7 IS splits, uncertainty and failure cases
+
+**Source:** pp. 38–43, 54–57; misleading single-class claims on pp. 59, 69.
+
+Compute each split's **own marginal and IS**, then report mean and standard deviation, specifying the number of images, splits and standard-deviation convention. The lecture illustrates 50,000 images in five splits of 10,000; this is not the starter notebook's protocol. Preserve [the assignment's documented 5,000-total/ten-split interpretation and ambiguity](#assignment-metrics).
+
+Identical confident cats/dogs give **IS=1**, correcting pp. 59 and 69. Repeating one convincing prototype per class can nevertheless give a high score because IS misses within-class duplication. Domain mismatch, classifier exploitation, and lack of a real-image reference are further limits. More samples or more splits do not fix those conceptual weaknesses.
+
+**First watch:** §4.6's **2:10 IS excerpt**, then do [N5.4](numerical-practice.md#n5-4), which shows a split-order effect and repeated-prototype failure. **Optional depth:** full FAU **13:19** and [A Note on the Inception Score](https://arxiv.org/abs/1801.01973). **Self-check:** is the mean of exponentiated split scores equal to the score computed once on the whole dataset? Give a counterexample.
+
+### 4.8 FID: distributions of features, means and covariance
+
+**Source:** pp. 58–69, 80–82.
+
+Standard FID embeds both real and generated images into fixed Inception-v3 pool features (2,048 dimensions), estimates a Gaussian for each feature set, then computes
+
+`FID=||μr−μg||² + Tr(Σr+Σg−2(ΣrΣg)^(1/2))`.
+
+`μ` is a mean feature vector, `Σ` a covariance matrix, and `Tr` the sum of diagonal entries. This compares **distributions of features**, not matched image pairs or softmax labels. Lower is better **under the same protocol**; values 8, 25 and 75 have no universal quality meaning across datasets or feature extractors. Same feature mean does not imply same spread: the lecture's standard deviations 20 versus 2 produce a one-dimensional covariance penalty `(20−2)²=324`.
+
+**First watch — conceptual formula:** [FAU, FID, 12:00–12:30](https://www.youtube.com/watch?v=fXO1fOXnOTI&t=720s), **0:30 formula-focused excerpt**. It is brief; use §4.4's preceding context or the **13:19 full lecture** if the features/Gaussian idea is new. It does not work a numerical matrix example.
+
+**Numerical preparation:** [N5.5](numerical-practice.md#n5-5) explains each term, solves the source's diagonal example and gives a fresh non-isotropic retry. **Optional depth:** [DeepLearning.AI, Build Better GANs, Week 1](https://www.coursera.org/learn/build-better-generative-adversarial-networks-gans), **“Fréchet Inception Distance (FID)” — approximately 15 minutes**, with the preceding feature/embedding lessons if needed. These are the provider's rounded durations; Coursera may require sign-in/enrollment. The full Week 1 video sequence totals approximately **66 minutes**. The [original FID paper](https://arxiv.org/abs/1706.08500) gives the definition.
+
+### 4.9 FID arithmetic, sample bias, KID and reporting
+
+**Source:** pp. 70–82; toy Gaussian pictures pp. 62–65.
+
+The worked example has `μr=(1,2)`, `μg=(2,3)`, `Σr=diag(2,2)` and `Σg=diag(3,3)`. The mean term is 2; the covariance term is `10−4√6`; **FID=12−4√6≈2.202041**. The square root is a **matrix** square root. Entrywise roots work here only because these covariance matrices are diagonal. The p. 62 pictures supply no full feature data from which to independently reproduce their displayed scores.
+
+Estimated FID depends on sample count and has finite-sample bias. A larger measured score at a smaller sample count is a tendency/estimator issue, not a guarantee for every random subsample. KID is mentioned as an alternative with an unbiased estimator of its squared kernel discrepancy; it is not numerically the same metric and does not replace required assignment FID. FID zero means matching first and second moments of the chosen features, not necessarily identical distributions or freedom from memorization. See [the KID paper](https://arxiv.org/abs/1801.01401) and [finite-sample FID analysis](https://arxiv.org/abs/1911.07023).
+
+**First watch:** reuse §4.8's FID excerpt, then **calculate** [N5.5](numerical-practice.md#n5-5). No matching open worked-number FID video was verified; the written example provides the exact course calculation. **Optional depth:** the approximately **15-minute** DeepLearning.AI FID lesson above. Report feature network/checkpoint, real reference, transforms, sample counts, covariance convention, scores and grids. The assignment uses **128-dimensional features from its own six-digit classifier**, not standard Inception-v3; [assignment E](#assignment-metrics) explains the consequences.
+
+### 4.10 Improved generative precision and recall: quality and coverage separately
+
+**Source:** pp. 83–85, 95–96.
+
+These are generative **feature-support** metrics, not a classification confusion matrix. Precision estimates the fraction of generated feature points inside the estimated real support; recall estimates the fraction of real points inside the estimated generated support. A scalar FID can hide different quality/coverage tradeoffs. High precision with low recall suggests plausible but restricted output; low precision with higher recall suggests broader but partly implausible output. These diagnoses are evidence, not unique proofs of a particular training bug.
+
+**First watch — conceptual:** [DeepLearning.AI, Build Better GANs, Week 1: “Precision and Recall”](https://www.coursera.org/learn/build-better-generative-adversarial-networks-gans), **approximately 6 minutes** (provider-listed duration; navigate to that named lesson). Sign-in/enrollment may be required. This supplies the fidelity/coverage framing, not a verified hand-calculation of this deck's five-point example. A freely accessible, exact numerical video for the 2019 ball estimator was not verified; use the source diagram and [N5.6](numerical-practice.md#n5-6) for that calculation.
+
+**Optional depth:** the same course's approximately **66-minute Week 1 video sequence**, then the [original 2019 paper](https://arxiv.org/abs/1904.06991) and [authors' implementation](https://github.com/kynkaat/improved-precision-and-recall-metric). Do not substitute the different 2018 precision–recall-distribution algorithm solely because it has a similar title.
+
+### 4.11 The k-nearest-neighbor ball algorithm and the lecture's full example
+
+**Source:** pp. 84–94.
+
+1. Extract real and generated features in the **same** fixed feature space. The paper uses VGG16 features; the lecture's hand example is two-dimensional.
+2. Within each set separately, put a ball around every point. Its radius is the distance to its `k`th nearest **other** point; exclude the point itself. The paper's example protocol uses `k=3`; the hand exercise uses `k=1`.
+3. A query is covered if it lies inside **any** reference ball: some center `a` must satisfy `||query−a||≤radius(a)`. Each center has its own radius. Testing only the nearest center can give the wrong answer.
+4. Precision averages the generated-in-real indicators; recall averages the real-in-generated indicators. Their denominators can differ if set sizes differ.
+
+**First watch:** the approximately **6-minute conceptual lesson** in §4.10; then draw the circles while completing [N5.6](numerical-practice.md#n5-6). That worked calculation lists every radius, checks membership both ways, and demonstrates why the closest center alone is insufficient. The corrected source result remains **precision=.8, recall=.6**. On p. 88, `d(r3,r4)=√21.25≈4.610`, not 4.950. On p. 93, `g5` is closest to `r3` at `√5≈2.236`, not `r4` at 2.5; it is outside **all** real balls. Page 92's generated radii are consistent with `k=1`.
+
+**Optional depth:** the 2019 paper's estimator definition and implementation linked above, plus the full Week 1 sequence. **Self-check:** build your own counterexample where a farther center has a wider ball and covers a query rejected by its nearest center.
+
+### 4.12 Truncation, k, sample size and interpreting results
+
+**Source:** pp. 95–96; references p. 97.
+
+For fixed reference points, increasing `k` enlarges or preserves every radius, so estimated coverage cannot decrease. It changes the estimator's tolerance; an inflated score need not reflect better generation. Sample counts, feature representation and outliers also affect the estimated support. Fix these settings for model comparisons.
+
+**First watch — sampling intuition:** [DeepLearning.AI, Week 1: “Sampling and Truncation”](https://www.coursera.org/learn/build-better-generative-adversarial-networks-gans), **approximately 7 minutes**, with the same access caveat as §4.10. Truncation concentrates sampling toward typical latent regions; it can trade diversity for fidelity. The original paper's model experiments show precision increasing and recall decreasing as truncation becomes stronger, but this is not a theorem about every generator. The normalization ablation is likewise model-specific.
+
+**Numerical preparation:** [N5.6](numerical-practice.md#n5-6) interprets `.8/.6` without declaring that image quality has no problem: one of five generated points still fails the support test. **Optional depth:** the full Week 1 sequence and the authors' results table. **Self-check:** why is increasing `k` until both scores look good a change of measurement rather than a model improvement?
+
 
 <a id="assignment-support"></a>
 
@@ -595,7 +741,7 @@ For D2 select one mechanism and implement it: WGAN-GP, spectral normalization of
 
 ### E. IS, FID, and why a single score can mislead
 
-**Source:** PDF pp. 3–4; starter cells 23–28.
+**Source:** PDF pp. 3–4; starter cells 23–28. [GANs Part 2](#lecture-4) now supplies lecture derivations and expanded examples: [N5.3 IS](numerical-practice.md#n5-3), [N5.5 FID](numerical-practice.md#n5-5), and [N5.6 generative precision/recall](numerical-practice.md#n5-6). Precision/recall is new lecture material, not an additional required assignment deliverable. Preserve the assignment-specific features and sample budget below.
 
 **Concise conceptual video:** [Andreas Maier / FAU — Unsupervised Learning, Part 3](https://www.youtube.com/watch?v=fXO1fOXnOTI), **13:19**. The university's [matching transcript and slides](https://lme.tf.fau.de/lecture-notes/lecture-notes-dl/lecture-notes-in-deep-learning-unsupervised-learning-part-3/) explicitly cover IS's confidence/diversity tradeoff and FID's Gaussian feature statistics. This is a focused university explanation with a small audience, not a claimed popular numerical walkthrough. Use [N4.5–N4.6](numerical-practice.md#n4-5) for checked arithmetic.
 
@@ -625,15 +771,18 @@ Every training run needs a CSV: GAN runs use the mandated GAN fields; AE/VAE/den
 | 4 | VAE objective and representation | Differentiate a small example; explain the reconstruction/regularization tradeoff and interpolation limits |
 | 5 | GAN architecture and losses | Calculate D/G losses, compare saturating/non-saturating gradients, and trace which parameters update |
 | 6 | Training failures, DCGAN and stabilization | Explain collapse versus a weak generator; work the convolution/latent and minibatch examples |
-| 7 | Assignment metrics and evidence | Calculate PSNR, mode KL, IS and FID; explain a metric's blind spot and one logged gradient event |
+| 7 | Conditional GANs and StackGAN | Trace both conditional inputs; calculate shapes, parameters and conditioning augmentation |
+| 8 | Part 2 evaluation: entropy, IS, FID and precision/recall | Reproduce the lecture's four-image IS, diagonal FID and both kNN-ball membership counts |
+| 9 | Assignment metrics and evidence | Calculate PSNR, mode KL, IS and FID; explain a metric's blind spot and one logged gradient event |
 
 Treat these as flexible study sessions, not time estimates or an official exam plan. The [numerical companion](numerical-practice.md) supplies worked examples and fresh retries. A useful checkpoint is to explain your first differing intermediate result when an answer is wrong. “I watched it” is not the same as being able to derive, calculate and interpret it.
 
 ## Selection and verification notes
 
-- **Coverage:** Every page of all three supplied lecture decks was inventoried, with image-only material and important formulas inspected visually. The assignment and all starter-notebook cells were read. Brief examples and outline-only future topics are identified separately from developed material.
+- **Coverage:** Every page of all four supplied lecture decks was inventoried, with image-only material and important formulas inspected visually. The assignment and all starter-notebook cells were read. Brief examples and outline-only future topics are identified separately from developed material.
 - **Short-first choices:** Prefer focused lessons or clearly bounded excerpts; give full runtimes for longer exceptions. Some exact course conventions require a written bridge. Conceptual, derivation and worked-number resources are labeled separately; a numerical video is not inferred from a mathematical title alone.
 - **Reception and provenance, checked 15 September 2026:** The selected [IBM overview](https://www.youtube.com/watch?v=hfIUstzHs9A) had over 1.18 million views in public player metadata; [Google's introduction](https://www.youtube.com/watch?v=G2fqAlgmoPo) over 2.27 million; [StatQuest's Naive Bayes](https://www.youtube.com/watch?v=O2L2Uv9pdDA) over 1.40 million, with roughly 34,000 likes on its indexed creator page. These are reach/engagement signals, not a universal quality ranking. Specialist university lessons may have smaller audiences but a closer technical match. Counts change.
+- **Part 2 additions, checked 16 September 2026:** StatQuest's entropy lesson had about 898,000 player-reported views (roughly 26,000 likes on its indexed creator page); Aladdin Persson's conditional tutorial about 35,000 views. The specialist StackGAN and FAU metrics explanations had about 2,800 and 1,100 views respectively; these are smaller-audience technical matches. The linked DeepLearning.AI course was rated **4.7/5 from 685 reviews** on its official Coursera page; that is a course-level reception signal, not an individual-lesson rating. Coursera lesson durations are provider-rounded and access may require enrollment. Exact lecture IS/FID/precision–recall arithmetic is supplied in the checked written examples; it is not attributed to videos without evidence.
 - **Resource checks:** Video identities, authors and runtimes were checked against creator metadata or institutional pages. Clip boundaries use published chapters or inspected segments. Selected numerical-video claims were checked against visible calculations, creator transcripts or institution-provided worked-example material. Not every video was watched end to end; regional playback can differ.
 - **Mathematical checks:** The written worked examples and fresh answer keys have local calculation checks. The guide distinguishes source errors, notation changes, different loss reductions, and model assumptions so that an attractive explanation does not silently teach a different calculation.
 - **Assessment scope:** The course outline and handout contain some ambiguities; the relevant sections state them. The instructor's corrected files and announced quiz/midterm scope determine requirements. Extend this guide when the later lecture files arrive.

@@ -5,8 +5,8 @@ This repository stores candidate PhD research directions and a local audit harne
 ## Course support guides
 
 - [Applied Information Security — Lectures 1–3](courses/first%20sem/Applied%20information%20security/support.md)
-- [Deep Learning — Lectures 1–4](courses/first%20sem/Deep%20Learning/support.md) — concise explanations, worked numerical videos, and optional longer lessons; [numerical practice with checked answers](courses/first%20sem/Deep%20Learning/numerical-practice.md).
-- [Generative AI — Introduction, AE/VAE and GANs Part 1](courses/first%20sem/genai/support.md) — short explanations, numerical video routes, optional depth, and assignment support; [numerical practice with checked answers](courses/first%20sem/genai/numerical-practice.md).
+- [Deep Learning — Lectures 1–5](courses/first%20sem/Deep%20Learning/support.md) — concise explanations, worked numerical videos, and optional longer lessons; [numerical practice with checked answers](courses/first%20sem/Deep%20Learning/numerical-practice.md).
+- [Generative AI — Introduction, AE/VAE and GANs Parts 1–2](courses/first%20sem/genai/support.md) — short explanations, numerical video routes, optional depth, and assignment support; [numerical practice with checked answers](courses/first%20sem/genai/numerical-practice.md).
 
 ## Research directions
 

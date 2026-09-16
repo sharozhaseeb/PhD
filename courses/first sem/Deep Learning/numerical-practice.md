@@ -1,12 +1,12 @@
 # Deep Learning — Numerical Practice for Quizzes and Midterms
 
-Use this with the [support guide](support.md). These original practice problems develop skills in the supplied Lectures 1–4; they are **not past papers or a prediction of the exam syllabus**. Follow any scope and calculator rules announced by your instructor.
+Use this with the [support guide](support.md). These original practice problems develop skills in the supplied Lectures 1–5; they are **not past papers or a prediction of the exam syllabus**. Follow any scope and calculator rules announced by your instructor.
 
-**Jump to:** [Prerequisites](#prerequisite-check) · [Lecture 1](#lecture-1--regression-and-batch-gradient-descent) · [Lecture 2](#l2--logistic-arithmetic-and-network-constructions) · [Lecture 3](#n3--learning-rules-and-a-complete-numerical-backpropagation-pass) · [Lecture 4](#n4-lecture-4--calculating-optimizer-updates) · [Assignment calculations](#assignment-related-calculation-practice) · [Readiness check](#readiness-check-before-a-quiz-or-midterm)
+**Jump to:** [Prerequisites](#prerequisite-check) · [Lecture 1](#lecture-1--regression-and-batch-gradient-descent) · [Lecture 2](#l2--logistic-arithmetic-and-network-constructions) · [Lecture 3](#n3--learning-rules-and-a-complete-numerical-backpropagation-pass) · [Lecture 4](#n4-lecture-4--calculating-optimizer-updates) · [Assignment calculations](#assignment-related-calculation-practice) · [Lecture 5](#n6) · [Readiness check](#readiness-check-before-a-quiz-or-midterm)
 
 ## How to practise
 
-1. Watch the relevant conceptual explanation once, then the guide's **Numerical preparation** video. Pause before the instructor reveals each calculation.
+1. Watch the relevant conceptual explanation once, then use the guide's **Numerical preparation** video or written calculation bridge. Pause before the instructor reveals each calculation.
 2. Solve the worked problem yourself with the answer covered. Show the formula, substituted numbers, intermediate values, and final result.
 3. Attempt the fresh **Try it** problem without looking at the solution. Explain why each operation is valid, not only how to calculate it.
 4. Check the answer and diagnose the first differing intermediate value. Reattempt later from a blank page.
@@ -792,6 +792,299 @@ Accuracy **0.7**, precision **0.75**, recall **0.6**, F1 **2/3 ≈ 0.666667**. P
 
 </details>
 
+<a id="n6"></a>
+
+## N6. Lecture 5 — Stochastic updates, adaptive optimizers, and regularization
+
+**Pairs with:** [Lecture 5 support](support.md#lecture-5). N5 retains its assignment numbering; N6 is the new lecture's practice. The linked short videos teach concepts and formulas; these original worked examples supply numerical traces under explicit conventions. Use them for the instructor's announced scope, not as a prediction of questions. Keep full precision internally and round only displayed answers.
+
+<a id="n6-1"></a>
+
+### N6.1 Full batch, SGD order, mini-batches, and update counts
+
+**Pages:** 6–39, 77–82. Use the constant-output model `ŷ=w` and per-example loss `ℓᵢ=(w−tᵢ)²/2`, with targets `[0,2,4,6]`, initial `w₀=0`, and rate `η=.1`. The full objective is the **mean** of these four losses. A single-example gradient is `w−tᵢ`; a batch gradient is their mean, evaluated at one current `w`.
+
+| Method | Gradients used in order | Weight after each update | Updates in this epoch |
+| --- | --- | --- | --- |
+| Full batch | `(0−2−4−6)/4=−3` | `.3` | `1` |
+| SGD, order `[0,2,4,6]` | `0, −2, −3.8, −5.42` | `0, .2, .58, 1.122` | `4` |
+| SGD, reverse order | `−6, −3.4, −1.06, 1.046` | `.6, .94, 1.046, .9414` | `4` |
+| Mini-batches `[0,2]`, `[4,6]` | `−1`, then `[(.1−4)+(.1−6)]/2=−4.9` | `.1, .59` | `2` |
+
+For example, forward-order SGD's third update is `.2−.1(.2−4)=.58`. Full batch does not use intermediate changed weights inside its gradient average. SGD order matters because each gradient is evaluated after earlier updates. The paths do not prove that the same rate gives a fair or optimal comparison for all methods.
+
+With `103` examples, batch size `20`, and **retaining the final partial batch**, one epoch has `ceil(103/20)=6` updates: sizes `20,20,20,20,20,3`. Average the last batch over **3**, not 20. Twenty epochs give 120 mini-batch updates, 2,060 single-example SGD updates, or 20 full-batch updates.
+
+**Try it:** Use targets `[1,3]`, `w₀=0`, and `η=.2`. Calculate one full-batch update and one epoch of SGD in both orders. Separately, for 10 examples and batch size 4, state the batch sizes and the divisor for the last mean.
+
+<details>
+<summary>Check N6.1</summary>
+
+Full-batch gradient `−2`, final `w=.4`. Forward SGD: gradients `−1,−2.8`, weights `.2,.76`. Reverse SGD: gradients `−3,−.4`, weights `.6,.68`. Batch sizes `4,4,2`; divide the last sum by 2. If a problem instead says to drop incomplete batches, the count changes: state that policy first.
+
+</details>
+
+<a id="n6-2"></a>
+
+### N6.2 Step-size conditions, rate arithmetic, and equal-work comparisons
+
+**Pages:** 40–59, 86. These are calculations using specified theoretical models, not measured convergence predictions.
+
+**Step-size test:** For `ηₖ=c/kᵖ`, start at `k=1`, with `c>0`. The p-series test gives `Σηₖ=∞` when `p≤1` and `Σηₖ²<∞` when `2p>1`; together, `1/2<p≤1`. Thus `p=.75` and `p=1` pass both, `p=.5` fails the square-sum condition, and `p=2` fails the divergent-sum condition. Geometric decay `c(.9)ᵏ` has a finite total sum, so merely “shrinking rapidly” does not establish both conditions. Additional objective/noise/boundedness assumptions are still needed for a convergence theorem.
+
+**Gap bounds:** Suppose a stated bound is `gapₖ≤2/k`, and the target is `gap≤.01`. It suffices that `k≥200`. If instead `gapₖ≤2(.8)ᵏ`, solve `.8ᵏ≤.005`: `k≥ceil(ln(.005)/ln(.8))=24`. The second method uses fewer updates under these stipulated bounds, but a full-gradient update over `T` examples costs roughly `T` example-gradient calculations.
+
+**Page 86's mini-batch expression:** Start with `O(1/√(bk)+1/k)`. If total example evaluations are `M=bk`, substitution gives `O(1/√M+b/M)`. For a numerical illustration only, set the hidden coefficients to 1, `M=10,000`, and `b=25`: `k=400`, so the expression is `.01+.0025=.0125`. With `b=100`, `k=100`, it is `.01+.01=.02`. The leading stochastic term is the same at fixed `M`; the second term differs. Neither the big-O notation nor this arithmetic establishes the slide's blanket `√b` degradation in total sample work, and parallel hardware changes wall time again.
+
+**Try it:** Which of `p=.4,.6,1,1.1` pass both sums? Under bounds `gap≤3/k` and `gap≤3(.5)ᵏ`, how many updates suffice for `gap≤.03`? Evaluate the illustrative mini-batch expression at `M=1600,b=16`.
+
+<details>
+<summary>Check N6.2</summary>
+
+`.6` and `1` pass both. The inverse bound needs 100 updates. The geometric bound needs `ceil(ln(.01)/ln(.5))=7` updates: six give `.046875`, seven `.0234375`. For `M=1600,b=16`, `k=100`; expression `1/40+1/100=.035`. These comparisons assume the given constants and definitions of gap.
+
+</details>
+
+<a id="n6-3"></a>
+
+### N6.3 Expected risk, variance, and the batch mean
+
+**Pages:** 60–91. Freeze the parameters. Suppose a fresh example's loss is `D=1` or `D=3`, each with probability `.5`. Then `E[D]=2` and `Var(D)=[(1−2)²+(3−2)²]/2=1`.
+
+For two **independent** draws, the possible pairs are `(1,1),(1,3),(3,1),(3,3)`, equally likely. Their means are `1,2,2,3`, so the mean is still 2 and its variance is `(1+0+0+1)/4=.5=1/2`. Its standard deviation is `√.5≈.707107`, not `.5`.
+
+More generally, if single-example variance is 9, independent mini-batches of size 9 have mean-loss variance `9/9=1` and standard deviation 1. A mean of 100 independent examples has variance `.09` and standard deviation `.3`.
+
+**Sampling caveat:** If the finite dataset consists of exactly `[1,3]` and we select both **without replacement**, the mean is always 2, so variance is zero. At a fixed parameter state, a uniform size-`b` subset of a fixed dataset of size `N` has variance `σ²_pop/b × (N−b)/(N−1)`, using the dataset variance with divisor `N`. Across training updates the parameters change; do not apply this frozen-parameter enumeration as a theorem about the entire training trajectory or the test error of the selected model.
+
+**Try it:** Loss takes values `0` and `4` with equal probability. Calculate its mean/variance and those of the mean of four independent samples. What is the variance if the entire two-value dataset is selected without replacement?
+
+<details>
+<summary>Check N6.3</summary>
+
+Single draw: mean 2, variance 4. Four independent samples: mean 2, variance 1, standard deviation 1. Taking both members of the fixed two-example dataset without replacement: variance 0. Unbiased risk estimation at each fixed parameter value does not make minimization on that same dataset an unbiased estimate of the selected model's test performance.
+
+</details>
+
+<a id="n6-4"></a>
+
+### N6.4 Momentum and Nesterov over different mini-batches
+
+**Pages:** 93–109. Use the same constant-output model and half-squared-error as N6.1. Batch A has targets `[1,3]`, so its mean gradient at `w` is `w−2`; batch B has `[-3,−1]`, so its mean gradient is `w+2`. Process A then B, starting `w₀=0`, signed displacement `v₀=0`, `η=.1`, `β=.5`.
+
+Momentum: `vₜ=βvₜ₋₁−ηg_batch(wₜ₋₁)`, `wₜ=wₜ₋₁+vₜ`. Nesterov instead evaluates the **current batch** at `q=wₜ₋₁+βvₜ₋₁`. These are signed displacements; no extra `(1−β)` factor is used.
+
+| Method / batch | Gradient point | Batch gradient | New displacement | New weight |
+| --- | --- | --- | --- | --- |
+| Both / A | `0` | `−2` | `.2` | `.2` |
+| Momentum / B | `.2` | `2.2` | `.5(.2)−.1(2.2)=−.12` | `.08` |
+| Nesterov / B | `.2+.5(.2)=.3` | `2.3` | `.5(.2)−.1(2.3)=−.13` | `.07` |
+
+Keep the displacement between batches. Reset only the temporary gradient accumulator used to average the examples in each new batch. Every example in Nesterov's current batch uses the same lookahead parameters.
+
+**Try it:** Replace A with targets `[0,2]` and B with `[2,4]`; retain every other setting. Calculate both two-update paths.
+
+<details>
+<summary>Check N6.4</summary>
+
+Batch means are 1 and 3. Both start with gradient `−1`, displacement `.1`, weight `.1`. Momentum's second gradient is `.1−3=−2.9`, giving displacement `.34` and weight `.44`. Nesterov's lookahead is `.15`; its second gradient is `−2.85`, displacement `.335`, weight `.435`.
+
+</details>
+
+<a id="n6-5"></a>
+
+### N6.5 RMS values and two-parameter RMSProp
+
+**Pages:** 110–118. Page 114's coordinates are `x=[1,1,2,1,1.5]`, `y=[2.5,−3,2.5,−2,1.5]`. Their mean squares are `9.25/5=1.85` and `27.75/5=5.55`; RMS values are **1.360147** and **2.355844**. The larger second RMS suggests a smaller effective rate in that coordinate. This is RMS of the listed sequence; the recursive optimizer uses exponential weighting instead of this uniform average.
+
+**Explicit optimizer convention:** At update `t`, use already averaged mini-batch gradient `gₜ` and elementwise operations:
+
+`sₜ=γsₜ₋₁+(1−γ)gₜ²`, `wₜ=wₜ₋₁−ηgₜ/√(sₜ+ε)`.
+
+The slides place `ε` inside the radical. Some implementations place it outside; state the choice before calculating. Here choose `γ=.5`, `η=.1`, `s₀=(0,0)`, `w₀=(1,1)`, and **ε=0 solely for these hand calculations**, whose denominators are all positive. This is not a recommendation to remove numerical stabilization from an implementation. The supplied gradients are `g₁=(2,4)`, `g₂=(2,−4)`; they are inputs to this optimizer-state exercise, not gradients to be rederived from a fixed quadratic.
+
+| `t` | `gₜ` | `sₜ` | Quantity subtracted `ηgₜ/√sₜ` | `wₜ` |
+| --- | --- | --- | --- | --- |
+| `1` | `(2,4)` | `(2,8)` | `(.141421,.141421)` | `(.858579,.858579)` |
+| `2` | `(2,−4)` | `(3,12)` | `(.115470,−.115470)` | `(.743109,.974049)` |
+
+For the second coordinate at update 2: `s=.5(8)+.5(−4)²=12`; the square does not retain the negative sign, but the parameter update does. Averaging the signed gradients and then squaring would be a different operation.
+
+**Try it:** From `w₀=(0,0),s₀=(0,0)`, use `g₁=(1,2),g₂=(−1,2)` with the same settings. Find both states and weights. Separately, with `s=4,ε=1`, compare `√(s+ε)` and `√s+ε`.
+
+<details>
+<summary>Check N6.5</summary>
+
+`s₁=(.5,2)`, `w₁=(−.141421,−.141421)`. `s₂=(.75,3)`, second subtracted vector `(−.115470,.115470)`, so `w₂=(−.025951,−.256891)`. The two denominators are `√5≈2.236068` and `3`; the placement matters. A second moment is also not a Hessian entry or a centered variance.
+
+</details>
+
+<a id="n6-6"></a>
+
+### N6.6 Adam: corrected moments and a sign-changing gradient
+
+**Pages:** 119–124. Define `t=1,2,…` as the global update counter; keep it and the states across epochs. The slide symbols `δ,γ` correspond here to `β₁,β₂`.
+
+`mₜ=β₁mₜ₋₁+(1−β₁)gₜ`, `vₜ=β₂vₜ₋₁+(1−β₂)gₜ²`.
+
+`m̂ₜ=mₜ/(1−β₁ᵗ)`, `v̂ₜ=vₜ/(1−β₂ᵗ)`, `wₜ=wₜ₋₁−ηm̂ₜ/√(v̂ₜ+ε)`.
+
+Use the slide's inside-radical convention, `w₀=1`, `m₀=v₀=0`, `β₁=.9`, `β₂=.999`, `η=.1`, and supplied gradients `g₁=2,g₂=−1`. As in N6.5, set **ε=0 only for this nonzero-denominator arithmetic example**. The usual original-Adam formula uses `√v̂ₜ+ε` instead; neither formula removes the base learning rate.
+
+| `t` | `gₜ` | `mₜ` | `vₜ` | `m̂ₜ` | `v̂ₜ` | Quantity subtracted | `wₜ` |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `1` | `2` | `.2` | `.004` | `2` | `4` | `.1` | `.9` |
+| `2` | `−1` | `.08` | `.004996` | `.421053` | `2.499250` | `.026634` | `.873366` |
+
+At update 2, `m=.9(.2)+.1(−1)=.08`; divide by `1−.9²=.19`. Similarly, `v=.999(.004)+.001(1)=.004996`; divide by `1−.999²=.001999`. The newest gradient is negative, but the first-moment history is still positive, so this update still subtracts a positive quantity. Bias correction compensates for zero initialization; `1−βᵗ` is not `(1−β)ᵗ`.
+
+**Try it:** Retain every setting but supply gradients `−2,−2`. Calculate raw and corrected moments and both weights.
+
+<details>
+<summary>Check N6.6</summary>
+
+Update 1: `m=−.2,v=.004,m̂=−2,v̂=4,w=1.1`. Update 2: `m=−.38,v=.007996`; denominators `.19,.001999`, so `m̂=−2,v̂=4,w=1.2`. The negative normalized step is subtracted, increasing the weight. Without bias correction, these first updates would use different ratios. For a nonzero-epsilon spot check, with `m̂=2,v̂=4,η=.1,ε=1`, inside-radical step is `.2/√5≈.089443`, outside-radical step is `.2/3≈.066667`.
+
+</details>
+
+<a id="n6-7"></a>
+
+### N6.7 L2 regularization: objective, gradients, and weight decay
+
+**Pages:** 125–143. Use `ŷ=w₁x₁+w₂x₂+b` with one example `x=(2,1),t=1`; initialize `w=(1,−2),b=.5`. Set `λ=.2`, rate `η=.1`, and objective `J=(ŷ−t)²/2 + (λ/2)(w₁²+w₂²)`. **Bias is unpenalized** in this exercise. For multiple examples, average the data-loss term; do not divide the regularizer by batch size under this stated convention.
+
+1. Prediction `ŷ=2−2+.5=.5`, residual `r=−.5`.
+2. Data loss `.125`; penalty `(.2/2)(1+4)=.5`; total `J=.625`.
+3. Data weight gradient `rx=(−1,−.5)`; penalty gradient `λw=(.2,−.4)`; combined gradient `(−.8,−.9)`. Bias gradient is `r=−.5`.
+4. Simultaneous update gives `w=(1.08,−1.91)`, `b=.55`.
+
+Equivalently, `w_new=(1−ηλ)w−ηg_data=.98w−.1g_data`. The objective's lambda and the per-update shrinkage are distinct. Page 138's boxed `1−λ` only matches this derivation if its lambda is redefined to include `η`. In Adam, a penalty contributes to the gradient moments and adaptive scaling; that is generally different from a separately applied weight decay.
+
+**Smoothness check:** For `σ(wx)` at `x=0`, slope is `wσ(0)(1−σ(0))=w/4`. Thus weights `.5` and `5` give slopes `.125` and `1.25`, matching page 133's steepness picture. This local scalar calculation is not a general theorem that deeper networks are smoother.
+
+**Try it:** Set `w=(2,1),b=−1,x=(1,2),t=2,λ=.1,η=.1`, using the same objective and unpenalized bias. Find prediction, loss, all gradients, and the update.
+
+<details>
+<summary>Check N6.7</summary>
+
+Prediction `3`, residual `1`, data loss `.5`, penalty `.25`, total `.75`. Weight gradient `(1,2)+(.2,.1)=(1.2,2.1)`; bias gradient `1`. Updated `w=(1.88,.79)`, `b=−1.1`; shrink factor is `.99`, not `.9`.
+
+</details>
+
+<a id="n6-8"></a>
+
+### N6.8 Dropout: a complete masked pass and inference comparison
+
+**Pages:** 144–158. Use one scalar input `x=1`, two ReLU hidden units, and a **linear, undropped output**:
+
+`z₁=a₁x+c₁`, `z₂=a₂x+c₂`, `hⱼ=max(0,zⱼ)`, `dⱼ=Mⱼhⱼ`, `ŷ=u₁d₁+u₂d₂+b`.
+
+Parameters are `(a₁,a₂,c₁,c₂,u₁,u₂,b)=(1,2,1,−1,3,−2,.5)`. Target `t=1`, loss `L=(ŷ−t)²/2`, learning rate `.01`, keep probability `q=.5`. Drop **hidden activations only**; inputs, output, and bias constants are not masked. For this standard-dropout pass fix mask `M=(1,0)`, and reuse it throughout backward computation.
+
+**Forward:** `z=(2,1)`, `h=(2,1)`, masked `d=(2,0)`. Prediction `ŷ=3(2)−2(0)+.5=6.5`; residual `r=5.5`; loss `15.125`.
+
+**Backward:** `∂L/∂uⱼ=r dⱼ`, `∂L/∂b=r`. Hidden preactivation deltas are `δⱼ=r uⱼ Mⱼ 1[zⱼ>0]`: `δ₁=5.5×3×1=16.5`, `δ₂=5.5×(−2)×0=0`. Then `∂L/∂aⱼ=δⱼx`, `∂L/∂cⱼ=δⱼ`. Use old output weights in these deltas.
+
+| Parameter | Old value | Gradient | Value after simultaneous update |
+| --- | --- | --- | --- |
+| `a₁` | `1` | `16.5` | `.835` |
+| `a₂` | `2` | `0` | `2` |
+| `c₁` | `1` | `16.5` | `.835` |
+| `c₂` | `−1` | `0` | `−1` |
+| `u₁` | `3` | `11` | `2.89` |
+| `u₂` | `−2` | `0` | `−2` |
+| `b` | `.5` | `5.5` | `.445` |
+
+These are data-loss gradients; a separate L2 term could affect a dropped unit's weights. For a finite-difference check, keep the same mask for both perturbed evaluations—resampling would compare different functions.
+
+**Inference and convention comparison, using the original parameters:**
+
+- Standard dropout uses `qh=(1,.5)` at inference: output `3(1)−2(.5)+.5=2.5`. Equivalently scale the hidden units' outgoing weights to `(1.5,−1)` and leave output bias `.5` unchanged.
+- Inverted dropout trains with `d=Mh/q`. For the same mask and original numbers, `d=(4,0)`, output `12.5`, residual `11.5`, loss `66.125`. Its gradients in the table's parameter order are `(69,0,69,0,46,0,11.5)`; the extra `1/q` appears in the backward mask multiplier too.
+- Inverted dropout uses unscaled `h` at inference, giving `3(2)−2(1)+.5=4.5` for these original numbers. These are different conventions applied to fixed illustrative parameters, not two independently trained models expected to have identical parameters or outputs.
+
+**Counting and expectation:** Two eligible units give four masks; with `q=.5` each has probability `.25` and the expected active count is 1. This does not mean four independent models were trained. Even a one-unit nonlinear example shows why mean activation is only an inference approximation: if `Z=2M` with `M~Bernoulli(.5)`, then `E[σ(Z)]=[σ(0)+σ(2)]/2≈.690399`, while `σ(E[Z])=σ(1)≈.731059`.
+
+**Try it:** Reset to the original parameters and use standard-dropout mask `(0,1)`. Find prediction, loss, all seven gradients, and a `.01` update. Separately, with three eligible units and `q=.8`, find the number of masks, expected active count, and probability of the particular mask `(1,1,0)`.
+
+<details>
+<summary>Check N6.8</summary>
+
+Masked activation `(0,1)`, prediction `−1.5`, residual `−2.5`, loss `3.125`. Hidden deltas `(0,5)`. Gradients in order `(a₁,a₂,c₁,c₂,u₁,u₂,b)` are `(0,5,0,5,0,−2.5,−2.5)`. Updated parameters `(1,1.95,1,−1.05,3,−1.975,.525)`. There are `2³=8` masks; expected active count `3(.8)=2.4`; the specified mask has probability `.8²(.2)=.128`. The masks are not uniformly distributed when `q≠.5`.
+
+</details>
+
+<a id="n6-9"></a>
+
+### N6.9 Coordinate clipping versus norm clipping
+
+**Page:** 161. The slide displays a positive ceiling only. For signed gradients, explicitly choose either symmetric coordinate clipping `gᵢ←max(−c,min(gᵢ,c))`, or global-norm clipping `g←g min(1,c/||g||₂)`. The second rule leaves a zero vector unchanged.
+
+Let `g=(6,−8)`, `c=5`, starting weights `w=(1,1)`, rate `.1`.
+
+| Rule | Clipped gradient | Updated weights |
+| --- | --- | --- |
+| Symmetric coordinatewise | `(5,−5)` | `(.5,1.5)` |
+| Global L2 norm: `||g||=10`, scale `.5` | `(3,−4)` | `(.7,1.4)` |
+
+Norm clipping preserves direction; coordinate clipping can change it. A one-sided `gᵢ>5` rule would leave the large `−8` untouched. Clipping gradients does not directly clip weights.
+
+**Try it:** Clip `g=(−12,5)` with `c=6` under both rules. Starting from zero weights and rate `.1`, give the two updates.
+
+<details>
+<summary>Check N6.9</summary>
+
+Coordinate clipping gives `(−6,5)`, so weights become `(.6,−.5)`. Norm is 13; global-norm clipping gives `(−72/13,30/13)≈(−5.538462,2.307692)`, so weights become `(36/65,−3/13)≈(.553846,−.230769)`.
+
+</details>
+
+<a id="n6-10"></a>
+
+### N6.10 Input standardization and optional initialization scales
+
+**Page:** 163. Training feature values are `[2,4,6]`. Use variance with divisor `N=3` for this preprocessing convention: `μ=4`, `σ²=(4+0+4)/3=8/3`, `σ≈1.632993`. Standardized training values `(x−μ)/σ` are `[-1.224745,0,1.224745]`; their mean is zero and their population variance is one. A held-out value `8` becomes `(8−4)/√(8/3)≈2.449490` using **training** statistics.
+
+Dividing by variance instead of standard deviation would not give unit variance. For a constant training feature, define a safe policy such as using denominator 1 after centering; do not divide by zero. Fixed input preprocessing does not include batch normalization's full train/inference machinery.
+
+**Try it:** Fit the transform on training values `[1,4,7]`, then transform a held-out `10`.
+
+<details>
+<summary>Check N6.10</summary>
+
+Training mean 4, variance 6, standard deviation `√6`. Standardized training values `[-1.224745,0,1.224745]`; held-out 10 becomes `6/√6≈2.449490`. The identical normalized pattern reflects rescaling of equally spaced training values, not reuse of the earlier variance.
+
+</details>
+
+**Optional extension — formulas beyond the slide's named list:** If an exercise specifies Xavier normal variance `2/(fan_in+fan_out)` and He normal variance `2/fan_in`, a layer with fan-in 8 and fan-out 4 has variances `1/6` and `1/4`, respectively. The standard deviations used to scale standard-normal draws are `√(1/6)≈.408248` and `.5`; variance is not standard deviation. These formulas assume the stated versions of the initializers, not every implementation/gain setting. With fan-in 4 and fan-out 4, retry answers are Xavier variance `.25`, standard deviation `.5`; He variance `.5`, standard deviation `.707107`. Full Xavier/He/SVD derivations are not supplied in this PDF.
+
+<a id="n6-11"></a>
+
+### N6.11 Early stopping and selecting a run
+
+**Pages:** 160, 162, 164. Define the rule before using it: lower validation loss is better; **any strict decrease** beats the best recorded loss; patience is two consecutive non-improving epochs; save improving checkpoints; restore the best one when stopping. No minimum improvement threshold is used in this example.
+
+| Epoch | Training loss | Validation loss | Best checkpoint so far | Consecutive non-improvements |
+| --- | --- | --- | --- | --- |
+| `1` | `.65` | `.60` | `1` | `0` |
+| `2` | `.50` | `.50` | `2` | `0` |
+| `3` | `.42` | `.51` | `2` | `1` |
+| `4` | `.35` | `.49` | `4` | `0` |
+| `5` | `.30` | `.495` | `4` | `1` |
+| `6` | `.25` | `.50` | `4` | `2`: stop |
+
+Stop after epoch 6, but restore **epoch 4**. Falling training loss is not the checkpoint-selection rule. Keep the test set out of this repeated selection process. A grid of three learning rates, two regularization strengths, and two batch sizes has `3×2×2=12` configurations; three independent seeds per configuration require 36 runs, not 36 different hyperparameter settings.
+
+**Try it:** With the same rule, validation losses are `[.4,.35,.35,.36,.30]`. At which epoch does training stop, and which checkpoint is restored? Can the listed fifth value justify continuing after the rule would already have stopped? How many runs are in a `4×3` grid with two seeds?
+
+<details>
+<summary>Check N6.11</summary>
+
+Best checkpoint is epoch 2. Equality at epoch 3 is not a strict improvement; epoch 4 is the second consecutive non-improvement, so stop there and restore epoch 2. The fifth loss would not have been observed under this run's stopping rule; looking ahead changes the procedure. Grid size is 12 configurations and 24 seeded runs.
+
+</details>
+
+**Augmentation reasoning check:** Create transformations only when they preserve the target meaning; a digit rotation can change a label. Split original examples before generating related variants so augmented siblings do not leak between training and evaluation sets. Synthetic variants are correlated, so counting them does not make the independent-sample variance formulas automatically apply.
+
 ## Readiness check before a quiz or midterm
 
 Use the instructor's announced coverage to choose the relevant items. You are ready to move on when you can solve a changed-value question **without replaying the worked solution** and explain your intermediate steps.
@@ -803,8 +1096,12 @@ Use the instructor's announced coverage to choose the relevant items. You are re
 - [ ] Differentiate a branching graph, evaluate activation derivatives, and explain the Hessian test.
 - [ ] Complete the two-hidden-layer network's forward pass, all deltas, all weight/bias gradients, and a simultaneous update.
 - [ ] Compare gradient descent with Newton, classify quadratic step sizes, and trace RProp/momentum/Nesterov using their stated state variables.
+- [ ] Compare full-batch, SGD, and mini-batch paths and count updates; distinguish fixed-sample variance, convergence assumptions, and sample work.
+- [ ] Trace two-step RMSProp and bias-corrected Adam updates with explicit averaging, state, and epsilon conventions.
+- [ ] Calculate L2 gradients, a fixed-mask dropout forward/backward pass, and the matching inference scaling.
+- [ ] Compare coordinate and norm clipping; normalize with training statistics and apply a stated early-stopping rule.
 - [ ] If assigned for the assessment: count network parameters and calculate classification metrics.
 
 For a timed rehearsal, select one fresh **Try it** from each in-scope calculation family, cover all answers, and work for a time limit you choose. Record where time was lost: selecting the formula, arranging dimensions, arithmetic, or interpreting the answer. Repair that specific skill, then repeat with changed values. This is a study exercise, not an official mock paper or marking scheme.
 
-**Answer validation:** The numerical tables were checked with local calculations; the full-network derivatives were also compared with central finite differences. Displayed precision is for checking work, not a requirement to memorize decimals.
+**Answer validation:** The numerical tables were checked with local calculations; the full-network, L2-regularized, and fixed-mask dropout derivatives were also compared with central finite differences. Lecture 5 additions were checked on 16 September 2026. Displayed precision is for checking work, not a requirement to memorize decimals.

@@ -2,7 +2,7 @@
 
 Use with the [support guide](support.md). These are original study exercises matched to the supplied lectures and assignment. They are not past papers, a marking scheme, or a prediction of assessment coverage.
 
-**Jump to:** [Prerequisites](#prerequisites) · [Introduction](#n1) · [AE/VAE](#n2) · [GANs](#n3) · [Assignment calculations](#n4) · [Readiness check](#readiness)
+**Jump to:** [Prerequisites](#prerequisites) · [Introduction](#n1) · [AE/VAE](#n2) · [GANs](#n3) · [Assignment calculations](#n4) · [GANs Part 2](#n5) · [Readiness check](#readiness)
 
 ## How to practise
 
@@ -862,6 +862,218 @@ Sample means 0 and 2; variances 2 and 8. FID `4+2+8−2sqrt(16)=6`. Diagonal cas
 
 **Assignment sanity checklist:** same data ranges and classifier; `(N,128)` features with variables in columns; finite float64 means/covariances; sample-size convention recorded; identical-set FID approximately zero; only tiny imaginary/negative rounding residuals treated as numerical noise. A real-test split distance will generally be positive from sampling variation. A nonlinear classifier does not supply a theorem requiring FID to rise at every Gaussian-noise scale; investigate deviations without replacing the measured curve.
 
+<a id="n5"></a>
+## GANs Part 2 — Conditioning and evaluation calculations
+
+These exercises follow [GANs Part 2](support.md#lecture-4). `N4` remains the assignment section so existing links keep working. Here `N5` covers the newly supplied lecture. Metric probabilities and covariances below are given inputs, unless an exercise explicitly asks you to estimate them.
+
+<a id="n5-1"></a>
+### N5.1 Conditional encodings, shapes, losses and a gradient
+
+**Source:** pp. 2–15. The parameter count is a study exercise based on the supplied architecture; count dense weights and one bias per output, with no unspecified normalization parameters.
+
+**Worked example**
+
+1. Three one-hot fields of lengths `2,7,2` concatenate to **11 condition values**, with three ones. If all combinations are possible, there are **28 combinations**, not 11. Adding 20 noise values gives G's input length **31**.
+2. G's dense layers are `31→256→256→20`. A layer `a→b` has `(a+1)b` parameters, because each of `b` outputs has `a` weights and a bias. Thus G has `32×256 +257×256 +257×20 =8,192+65,792+5,140=79,124` parameters.
+3. D sees a 20-value real **or** fake sample plus 11 condition values, so its layers are `31→256→256→1`. D has `8,192+65,792+257=74,241` parameters; combined total **153,365**. A batch of size `B` has G input `(B,31)`, fake output `(B,20)`, D input `(B,31)` and D output `(B,1)`.
+4. Let matched-real probability `r=D(x,y)=.8` and generated-pair probability `q=D(G(z,y),y)=.3`. Using one real term plus one fake term, `L_D=−ln r−ln(1−q)=−ln .8−ln .7=.579818`. Practical non-saturating `L_G=−ln q=1.203973`. `y` must accompany both D inputs.
+5. For fake logit `s` with `q=sigmoid(s)`, `dL_G/ds=q−1=−.7`. If, locally, `s=2θ+constant`, with the condition and D parameters held fixed, `dL_G/dθ=−1.4`. Descent with learning rate `.1` raises `θ` by `.14`. Freezing D weights does not detach its input gradient.
+
+A mismatched real pair can be another negative only if the objective explicitly includes it. For example, with mismatch probability `.2` and equally weighted fake/mismatch negatives, `L_D=−ln .8−.5[ln .7+ln .8]=.513053`. That differs from the vanilla two-term loss; state the convention before calculating.
+
+**Fresh retry:** noise length 8; categorical fields of lengths 3 and 4; output length 5. Use G `15→10→5`, D `12→10→1`, dense biases included. Give condition length/combinations, both parameter counts and batch shapes for `B=6`. If `r=.9,q=.4`, calculate vanilla `L_D`, non-saturating `L_G`, and `dL_G/dθ` when `ds/dθ=3`. Do not add a mismatch term.
+
+<details>
+<summary>Check N5.1 answer</summary>
+
+Condition length **7**, two ones, **12 combinations**. G input is `8+7=15`; D input is `5+7=12`. G parameters `16×10+11×5=215`; D `13×10+11=141`. G input/output `(6,15)/(6,5)`; D input/output `(6,12)/(6,1)`. `L_D=−ln .9−ln .6=.616186`; `L_G=−ln .4=.916291`; `dL_G/dθ=(.4−1)×3=−1.8`.
+
+</details>
+
+<a id="n5-2"></a>
+### N5.2 StackGAN conditioning augmentation and resolution
+
+**Source:** pp. 17–21. This small CA vector is an original exercise using the slide's reparameterization, not a complete StackGAN training loss.
+
+**Worked example:** given text-conditioned mean `μ=(1,−2)`, standard deviation `σ=(.5,2)` and fixed noise `ε=(−2,.25)`,
+
+`ĉ=μ+σ⊙ε=(1+.5×(−2),−2+2×.25)=(0,−1.5)`.
+
+The covariance is `diag(.25,4)`, because variances are squares of standard deviations. If the network emits `logvar`, then `σ=exp(logvar/2)`. At fixed `ε`, each coordinate has `∂ĉ/∂μ=1`, `∂ĉ/∂σ=ε`, and `∂ĉ/∂logvar=.5σε`; the last vector is **(−.5,.25)**. This is why gradients can pass through a random sample once its noise draw is held fixed.
+
+For a local scalar downstream objective with incoming gradient `∂L/∂ĉ=(2,−4)`, the chain rule gives `∂L/∂μ=(2,−4)` and `∂L/∂logvar=(−1,−1)`. These are the CA-path derivatives only; additional objective terms would add gradients.
+
+Stage I `64×64×3` contains **12,288** pixel-channel values. Stage II `256×256×3` contains **196,608**: each side grows fourfold, total values **16-fold**, not fourfold. Stage II has no extra separate `z`, but it can resample CA noise; see the correction in §4.3.
+
+**Fresh retry:** `μ=(−1,3)`, `logvar=(ln4,ln.25)`, `ε=(.5,−2)`. Find variance, standard deviation, sample and `∂ĉ/∂logvar`. Incoming gradient is `(3,2)`; find the gradients with respect to `μ` and `logvar`. What is the pixel-count ratio from `32×32` to `128×128` at fixed channels?
+
+<details>
+<summary>Check N5.2 answer</summary>
+
+Variances **(4,.25)**; standard deviations **(2,.5)**; sample **(0,2)**. `∂ĉ/∂logvar=(.5,−.5)`; `∂L/∂μ=(3,2)` and `∂L/∂logvar=(1.5,−1)`. Resolution ratio **16**.
+
+</details>
+
+<a id="n5-3"></a>
+### N5.3 Entropy identity and the lecture's four-image Inception Score
+
+**Source:** pp. 24–53. Use natural logs. `X` chooses one generated image uniformly; `Y` is a classifier label sampled from its prediction vector. `Pᵢc=p(Y=c|X=i)`, and `m_c=(1/N)ΣᵢPᵢc`.
+
+**Derive before substituting:** expand the average KL:
+
+`(1/N)ΣᵢΣ_c Pᵢc ln(Pᵢc/m_c)`
+
+`= (1/N)ΣᵢΣ_c Pᵢc ln Pᵢc −Σ_c [(1/N)ΣᵢPᵢc] ln m_c`
+
+`= −H(Y|X)+H(Y)=I(X;Y)`.
+
+The marginal definition justifies the second term, and the negative sign in entropy explains the subtraction. Finally `IS=exp(I)`. Entropy with base-two logs instead measures bits; it requires `IS=2^I`, not `exp(I)`.
+
+**Quick confidence check:** the four-class vector `(.99,.003,.002,.005)` has entropy **.066298064 nats**, versus **ln4=1.386294** for uniform probabilities. Confidence alone is insufficient: if every image has exactly the same prediction vector, conditional and marginal entropies are equal, so IS is 1.
+
+**Worked lecture example:**
+
+| Image | Cat | Dog | Bird |
+| --- | ---: | ---: | ---: |
+| 1 | .90 | .05 | .05 |
+| 2 | .80 | .10 | .10 |
+| 3 | .10 | .80 | .10 |
+| 4 | .05 | .10 | .85 |
+| Marginal (column mean) | .4625 | .2625 | .2750 |
+
+For image 1, `KL₁=.9 ln(.9/.4625)+.05 ln(.05/.2625)+.05 ln(.05/.275)`. Do not average across classes: their probabilities already supply the weights.
+
+| Image | Cat term | Dog term | Bird term | Sum = KL |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | .599173 | −.082911 | −.085237 | .431025 |
+| 2 | .438372 | −.096508 | −.101160 | .240704 |
+| 3 | −.153148 | .891489 | −.101160 | .637181 |
+| 4 | −.111231 | −.096508 | .959195 | .751456 |
+
+Individual terms can be negative; each complete KL is nonnegative. Average the **four row sums** to get **.515091380**; exponentiate once to obtain **IS=1.673791445≈1.674**. Independently, `H(m)=1.062753285` and mean conditional entropy is `.547661906`; their difference agrees. It is reasonable that the answer lies between 1 and 3.
+
+**Interpretation correction:** row four has the largest KL, but it is not the most confident row, nor is its predicted class the rarest marginal class. Its complete distribution has the greatest weighted log-ratio here. Do not replace a calculation with the incorrect p. 48 ranking explanation.
+
+**Fresh retry:** three predictions over two classes are `(.9,.1),(.5,.5),(.1,.9)`. Calculate the marginal, all three KLs, both entropy quantities and IS. Then replace every row by `(.9,.1)` and recalculate IS. Explain why confidence did not rescue the second result.
+
+<details>
+<summary>Check N5.3 answer</summary>
+
+Marginal **(.5,.5)**. KLs **(.368064207,0,.368064207)**; mean **.245376138**. Marginal entropy **.693147181**; mean conditional entropy **.447771042**; difference **.245376138**. IS **1.278101966**. With identical rows, the marginal equals every conditional, every KL is zero and **IS=1**, despite confidence .9 on each image. For an absent class with zero marginal, every row also has zero there: omit its zero contribution rather than evaluate `0/0`.
+
+</details>
+
+<a id="n5-4"></a>
+### N5.4 IS splits, class collapse and repeated prototypes
+
+**Source:** pp. 38–43, 54–57, 59, 69.
+
+**Worked example:** four perfectly classified images have labels `A,A,B,B`, with prediction vectors `(1,0),(1,0),(0,1),(0,1)`.
+
+- Whole set: marginal `(.5,.5)`, per-image KL `ln2`, hence **IS=2**.
+- Two consecutive splits of two: first contains only A, second only B. Each split's own marginal equals every prediction inside it, so split scores are **1,1**, mean **1**, standard deviation **0**.
+- Reorder as `A,B,A,B`: each two-image split is balanced and has IS **2**. Split mean is **2**, standard deviation **0**.
+
+This is a small deliberate counterexample, not a claim that ordinary large random splits change by this much. Document ordering/shuffling, splits and seed. Averaging split IS values is not the same operation as computing IS on all samples once.
+
+Now suppose the generator memorizes exactly one convincing A image and one convincing B image, and repeats them evenly. Whole-set IS still equals **2**. It measures class-confidence/diversity, not within-class novelty. If it generates only confident A images, IS becomes **1**. This corrects the lecture's “all cats/dogs scores well” claims without denying IS's other blind spots.
+
+**Fresh retry:** two splits of three perfectly predicted images are `A,A,A` and `A,B,C`. Calculate each split's IS, the mean and population standard deviation (`ddof=0`). Calculate whole-set IS separately. Can a generator repeating one prototype of each of six classes reach IS=6 under a perfect six-class classifier?
+
+<details>
+<summary>Check N5.4 answer</summary>
+
+Split scores **1 and 3**, mean **2**, population standard deviation **1** (sample standard deviation with `ddof=1` would be `√2`). Whole-set marginal `(4/6,1/6,1/6)` has entropy **.867563228**; every conditional entropy is zero, so whole-set IS is **2.381101578**, not 2. Yes, balanced repetition of six perfectly classified prototypes gives **IS=6** while missing within-class variation.
+
+</details>
+
+<a id="n5-5"></a>
+### N5.5 FID: exact lecture calculation and blind spots
+
+**Source:** pp. 62–82. The supplied matrices are covariances (variances on the diagonal), not matrices of standard deviations.
+
+**Worked lecture example:** `μr=(1,2)`, `μg=(2,3)`, `Σr=diag(2,2)`, `Σg=diag(3,3)`.
+
+1. Mean difference is `(-1,-1)`; squared Euclidean norm is `1+1=2`.
+2. Multiply covariances: `ΣrΣg=diag(6,6)`.
+3. Its matrix square root is `diag(√6,√6)`, because squaring that matrix recovers `diag(6,6)`.
+4. The covariance expression is `diag(5−2√6,5−2√6)`. Its **trace sums both diagonal entries**, giving `10−4√6=.202041029`.
+5. Add the mean term: **FID=12−4√6=2.202041029**.
+
+For any diagonal covariances, the covariance contribution simplifies to `Σ_j(√variance_r,j−√variance_g,j)²`. Do not apply entrywise square roots to general covariance products; use a matrix square-root method (or its mathematically equivalent symmetric positive-semidefinite formulation).
+
+**Separate mean/spread drills:** a one-dimensional mean change from 10 to 20 with unchanged variance contributes **100**. Equal means but standard deviations 20 versus 2 contribute **324**; their variances are 400 and 4. These are separate scenarios, not a reason to add 100 to every example.
+
+**Counterexamples:** copying the real reference features exactly gives equal means/covariances and FID zero—so FID does not automatically detect memorization. Even different distributions can share moments: population distribution R has values `−1,+1` with probabilities `.5,.5`; G has `−√2,0,+√2` with probabilities `.25,.5,.25`. Both have mean 0 and variance 1, so Gaussian-moment FID is **0**, although their supports differ. These are population moments, not a claim about an arbitrary finite sample using `N−1` covariance.
+
+**Fresh retry:** `μr=(0,1)`, `μg=(2,−1)`, `Σr=diag(1,9)`, `Σg=diag(4,1)`. Calculate mean, covariance and total terms. Then use exactly the same means/covariances for real and fake and explain what zero does and does not establish.
+
+<details>
+<summary>Check N5.5 answer</summary>
+
+Mean term **8**. Covariance term `(1−2)²+(3−1)²=1+4=5`; equivalently matrix product `diag(4,9)`, root `diag(2,3)`, trace of `diag(1,4)` equals 5. Total **FID=13**. With matching moments the score is **0**; this establishes equal fitted Gaussian statistics in this feature space, not equality of arbitrary image distributions or novelty. Sample count and the reference/features/preprocessing must be fixed for meaningful empirical comparisons.
+
+</details>
+
+<a id="n5-6"></a>
+### N5.6 Improved generative precision/recall: all radii and both directions
+
+**Source:** pp. 83–96. Use Euclidean distance, `k=1`, exclude each point itself, and include the boundary (`distance≤radius`). Every point's radius comes from its **own** set. The test uses a union of balls, not classification labels.
+
+**Lecture data:** real points `r1=(1,1), r2=(2,1), r3=(1.5,2), r4=(5,5), r5=(6.5,5)`; generated points `g1=(1.2,1.1), g2=(1.8,1.2), g3=(1.4,1.6), g4=(2.2,1.5), g5=(3.5,3)`.
+
+**Step 1: build each set's balls.** For example, `d(g1,g3)=√[(.2)²+(.5)²]=√.29`; this is smaller than `d(g1,g2)=√.37`, so g3 supplies g1's radius.
+
+| Center | Nearest other point in its own set | Radius |
+| --- | --- | ---: |
+| r1 | r2 | 1 |
+| r2 | r1 | 1 |
+| r3 | r1 or r2 (tie) | √1.25 = 1.118034 |
+| r4 | r5 | 1.5 |
+| r5 | r4 | 1.5 |
+| g1 | g3 | √.29 = .538516 |
+| g2 | g4 | .5 |
+| g3 | g1 | √.29 = .538516 |
+| g4 | g2 | .5 |
+| g5 | g4 | √3.94 = 1.984943 |
+
+**Step 2: precision—test each generated point against the real balls.** One covering ball proves membership; failure needs all balls to fail.
+
+| Query | A covering real ball, or all-center failure | Covered? |
+| --- | --- | --- |
+| g1 | distance to r1 = √.05 = .223607 ≤ 1 | yes |
+| g2 | distance to r2 = √.08 = .282843 ≤ 1 | yes |
+| g3 | distance to r3 = √.17 = .412311 ≤ 1.118034 | yes |
+| g4 | distance to r2 = √.29 = .538516 ≤ 1 | yes |
+| g5 | distances to r1…r5 are 3.201562, 2.5, 2.236068, 2.5, 3.605551; each exceeds that center's radius | no |
+
+Thus **precision=4/5=.8**. Correction: g5's closest real point is **r3**, not r4 as stated on p. 93; the membership conclusion still agrees.
+
+**Step 3: recall—test each real point against the generated balls.**
+
+| Query | A covering generated ball, or all-center failure | Covered? |
+| --- | --- | --- |
+| r1 | distance to g1 = .223607 ≤ .538516 | yes |
+| r2 | distance to g2 = .282843 ≤ .5 | yes |
+| r3 | distance to g3 = .412311 ≤ .538516 | yes |
+| r4 | g1…g4 distances exceed 4; g5 distance 2.5 exceeds 1.984943 | no |
+| r5 | g1…g4 distances exceed 5; g5 distance √13 = 3.605551 exceeds 1.984943 | no |
+
+Thus **recall=3/5=.6**. The left cluster is represented but the right cluster is missed under this estimator. Do not call image quality entirely solved: one generated point is outside the estimated real support. The source's p. 88 cross-distance `r3→r4` should be `√[(3.5)²+3²]=√21.25=4.609772`, not 4.950; this does not change the nearest-neighbor radii or final scores.
+
+**Why “nearest center only” fails:** a separate 1D reference set `{0,1,4}` has `k=1` radii `{1,1,3}`. Query `2.2` is nearest center 1 at distance 1.2, outside that center's radius 1. But center 4's ball has radius 3 and covers the query at distance 1.8. Correct union membership is **true**.
+
+**Fresh retry:** 1D real set `{0,2,10,12}`, generated set `{0,1,2,3}`, `k=1`. List all radii, calculate precision and recall, and explain which set supplies each denominator. Then, without moving points, increase `k`: can any previously covered query become uncovered? Explain using radii, not intuition about “better models.”
+
+<details>
+<summary>Check N5.6 answer</summary>
+
+Real radii **(2,2,2,2)**; generated radii **(1,1,1,1)**. Generated 0,1,2,3 all lie in at least one real ball (3 lies one unit from real 2), so **precision=4 generated hits/4 generated points=1**. Only real 0 and 2 lie in generated balls, so **recall=2 real hits/4 real points=.5**. At fixed centers, raising valid `k` can only enlarge or preserve radii, so coverage cannot fall. Both scores can rise from changing this tolerance without improving the generator. Feature extractor, sample count, k and reference must therefore accompany the scores.
+
+</details>
+
+
 <a id="readiness"></a>
 ## Readiness check before a quiz or midterm
 
@@ -875,7 +1087,10 @@ Choose items within the announced assessment scope. Cover the solutions and comp
 - [ ] Explain why freezing discriminator parameters during a G update still allows gradients through D's input.
 - [ ] Calculate spatial shapes and distinguish class coverage from within-class diversity.
 - [ ] Calculate PSNR with its per-image convention, a strict gradient threshold, mode proportions and reverse KL.
-- [ ] Work IS and FID examples, including a case where a favorable metric hides a defect.
+- [ ] Count conditional encodings and both network inputs; calculate CA samples and distinguish standard deviation from variance.
+- [ ] Derive IS from entropy, reproduce all four lecture KL rows, and explain per-split versus whole-set results.
+- [ ] Work the matrix FID example and a matching-moments counterexample; distinguish the assignment's feature space.
+- [ ] Build kNN radii excluding self; test any-ball membership both ways and reproduce precision .8/recall .6.
 - [ ] Explain an actual run's CSV row and score/image mismatch without replacing measurements with an expected outcome.
 
 For a timed rehearsal, choose one relevant fresh question from each mathematical family and set a realistic time limit. Record whether the difficulty was choosing a formula, arranging shapes, signs, arithmetic, or interpreting the answer. Repair that specific step before trying again. Use the [support guide](support.md) for targeted videos and optional deeper explanations.
