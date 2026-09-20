@@ -1,0 +1,41 @@
+{
+  "gradients": [
+    {
+      "target": 1,
+      "parameter": 0,
+      "analytic": -0.2551026863264517,
+      "finite_difference": -0.2551026862529504
+    },
+    {
+      "target": 1,
+      "parameter": 1,
+      "analytic": -0.20568214756853145,
+      "finite_difference": -0.20568214770255722
+    },
+    {
+      "target": 1,
+      "parameter": 2,
+      "analytic": -0.4533032666916722,
+      "finite_difference": -0.45330326675641075
+    },
+    {
+      "target": 0,
+      "parameter": 0,
+      "analytic": 0.30766115208190337,
+      "finite_difference": 0.30766115199920563
+    },
+    {
+      "target": 0,
+      "parameter": 1,
+      "analytic": 0.24805856572845067,
+      "finite_difference": 0.24805856596588072
+    },
+    {
+      "target": 0,
+      "parameter": 2,
+      "analytic": 0.5466967333083278,
+      "finite_difference": 0.5466967334388784
+    }
+  ],
+  "bias_perturbation_change": -0.00045317936084643407
+}

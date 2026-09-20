@@ -1,0 +1,252 @@
+{
+  "number": 28,
+  "title": "Curvature approximations: conceptual companion",
+  "description": "Understand BFGS, L-BFGS and Levenberg-Marquardt using diagrams and clearly labeled small arithmetic illustrations, with practice answers.",
+  "source_short": "Lecture4 PDF p.50-53 / conceptual overview; optional arithmetic labeled",
+  "source": "Lecture4 PDF pages50-53, especially page53 overview of BFGS/L-BFGS and Levenberg-Marquardt. Secant, memory-count and loading arithmetic are explanatory extensions, not full update algorithms.",
+  "pages": [
+    {
+      "title": "Why approximate curvature?",
+      "subtitle": "Lecture4 PDF page53 names methods and their central ideas, not full update derivations.",
+      "blocks": [
+        "Newton uses a Hessian to account for curvature. A dense Hessian can be expensive to calculate and store, and unsuitable curvature can make its correction unhelpful.",
+        {
+          "eq": "D\\ \\mathrm{parameters}\\quad\\Longrightarrow\\quad D\\times D\\ \\mathrm{Hessian\\ entries}",
+          "size": 22
+        },
+        {
+          "eq": "D=1000\\quad\\Longrightarrow\\quad1000^2=1{,}000{,}000\\ \\mathrm{entries}",
+          "size": 22
+        },
+        "The lecture introduces BFGS, limited-memory BFGS, and Levenberg-Marquardt as approaches that estimate or modify curvature.",
+        "This is the roadmap conceptual companion. The small arithmetic illustrations below explain those ideas; they are explicitly not complete BFGS or LM algorithm iterations."
+      ],
+      "stage": "CONCEPTUAL COMPANION"
+    },
+    {
+      "title": "BFGS learns from changes between iterates",
+      "subtitle": "Compare how far parameters moved with how much their gradients changed.",
+      "blocks": [
+        "BFGS maintains an approximate Hessian or its inverse. Parameter-change and gradient-change information helps update this curvature approximation over successive steps.",
+        "Picture moving along a surface: if a small parameter change causes a large gradient change, that direction has substantial curvature. If the gradient changes little, curvature is weaker.",
+        {
+          "image": "bfgs.png",
+          "width": 655
+        },
+        "The lecture describes estimating the Hessian from finite differences. The next scalar example illustrates the slope-change idea only; multidimensional BFGS uses a structured matrix update."
+      ],
+      "stage": "CONCEPTUAL COMPANION"
+    },
+    {
+      "title": "Optional illustration: curvature from two gradients",
+      "subtitle": "This scalar secant calculation is not the full BFGS update rule.",
+      "blocks": [
+        {
+          "eq": "E(w)=1.5w^2,\\qquad g(w)=3w",
+          "size": 22
+        },
+        {
+          "eq": "w_{old}=1,\\quad g_{old}=3(1)=3",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=1.2,\\quad g_{new}=3(1.2)=3.6",
+          "size": 22
+        },
+        {
+          "eq": "\\Delta w=1.2-1=0.2,\\quad\\Delta g=3.6-3=0.6",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{curvature\\ estimate}=\\frac{\\Delta g}{\\Delta w}=\\frac{0.6}{0.2}=3",
+          "size": 22
+        },
+        "The exact second derivative is also 3. For this quadratic, any two distinct parameter points give the same slope-change ratio. A general curved function need not have constant curvature."
+      ],
+      "stage": "OPTIONAL ARITHMETIC"
+    },
+    {
+      "title": "L-BFGS limits the stored history",
+      "subtitle": "L means limited memory: retain a small number of recent change pairs.",
+      "blocks": [
+        "Instead of storing a full dense curvature matrix, L-BFGS uses recent parameter-change and gradient-change vectors to construct the needed curvature action.",
+        {
+          "eq": "D=1000,\\quad m=5\\ \\mathrm{recent\\ pairs}",
+          "size": 22
+        },
+        {
+          "eq": "2mD=2(5)(1000)=10{,}000\\ \\mathrm{scalar\\ entries}",
+          "size": 22
+        },
+        {
+          "eq": "D^2=1{,}000{,}000,\\qquad\\frac{D^2}{2mD}=100",
+          "size": 22
+        },
+        "Each pair has two vectors of length D. This illustrative history count is 100 times smaller than the dense-matrix entry count. It excludes other state and computational overhead.",
+        "Limited memory describes stored information; it does not mean the exact Hessian was computed and then simply discarded."
+      ],
+      "stage": "CONCEPTUAL COMPANION"
+    },
+    {
+      "title": "Levenberg-Marquardt starts from residual slopes",
+      "subtitle": "The usual context is nonlinear least squares: a sum of squared residuals.",
+      "blocks": [
+        "A residual is prediction minus target. A Jacobian is the table of residual derivatives: rows identify residuals and columns identify parameters.",
+        {
+          "eq": "r(w)=2w-3\\quad\\Longrightarrow\\quad\\frac{dr}{dw}=2",
+          "size": 22
+        },
+        "Here the one-entry Jacobian is 2. With many residuals and parameters, the same idea gives a rectangular table of slopes.",
+        {
+          "image": "lm.png",
+          "width": 620
+        },
+        "The lecture describes estimating curvature from Jacobians and adding diagonal loading. The damping amount affects the correction. This diagram is a conceptual overview, not a complete LM iteration."
+      ],
+      "stage": "CONCEPTUAL COMPANION"
+    },
+    {
+      "title": "Optional illustration: repair zero curvature",
+      "subtitle": "Add 0.5 to diagonal entries only; leave off-diagonal entries unchanged.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "row",
+              "original matrix A",
+              "loaded matrix"
+            ],
+            [
+              "1",
+              "(1, 1)",
+              "(1.5, 1)"
+            ],
+            [
+              "2",
+              "(1, 1)",
+              "(1, 1.5)"
+            ]
+          ],
+          "widths": [
+            80,
+            280,
+            320
+          ]
+        },
+        {
+          "eq": "A(1,-1)=(0,0)=0(1,-1)",
+          "size": 22
+        },
+        {
+          "eq": "(A+0.5I)(1,-1)=(0.5,-0.5)=0.5(1,-1)",
+          "size": 22
+        },
+        {
+          "eq": "(A+0.5I)(1,1)=(2.5,2.5)=2.5(1,1)",
+          "size": 22
+        },
+        "The original eigenvalues are 0 and 2; after loading they are 0.5 and 2.5. The zero-curvature direction now has positive curvature.",
+        "I is the identity matrix. This illustrates diagonal loading only; it does not supply all residual, damping-selection or acceptance steps of LM."
+      ],
+      "stage": "OPTIONAL ARITHMETIC"
+    },
+    {
+      "title": "Compare the ideas without conflating the methods",
+      "subtitle": "Approximate curvature can be represented and used in different ways.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "method",
+              "information emphasized",
+              "central idea"
+            ],
+            [
+              "BFGS",
+              "parameter/gradient changes",
+              "update curvature approximation"
+            ],
+            [
+              "L-BFGS",
+              "recent change pairs",
+              "limit matrix-history storage"
+            ],
+            [
+              "LM",
+              "residual Jacobian",
+              "damp least-squares correction"
+            ]
+          ],
+          "widths": [
+            110,
+            280,
+            290
+          ],
+          "size": 13
+        },
+        "BFGS can store a Hessian approximation or inverse approximation. L-BFGS represents the needed action using recent history rather than a full dense matrix.",
+        "LM exploits least-squares residual structure and damping. It is not another name for BFGS, and the diagonal-loading illustration alone is not the full method.",
+        "The lecture does not provide full update derivations for these methods. Be able to explain what information they use and what difficulty they address."
+      ],
+      "stage": "CONCEPTUAL COMPANION"
+    },
+    {
+      "title": "Your turn: numerical intuition and concept checks",
+      "subtitle": "Use the illustrations to explain the mechanisms in your own words.",
+      "blocks": [
+        {
+          "eq": "g(w)=4w,\\quad w_{old}=1,\\quad w_{new}=1.25",
+          "size": 22
+        },
+        "Calculate both gradients, their difference, the parameter difference, and the scalar curvature estimate.",
+        {
+          "eq": "D=100,\\quad m=3",
+          "size": 22
+        },
+        "Count the entries in a dense Hessian and in three stored change pairs. State what the comparison excludes.",
+        "Which method limits change-pair history? What does a Jacobian row describe? Does adding to the diagonal mean adding to every matrix entry? Why is a secant ratio not a complete multidimensional BFGS step?"
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: substitute every arithmetic quantity",
+      "subtitle": "The scalar estimate uses a ratio of two changes.",
+      "blocks": [
+        {
+          "eq": "g_{old}=4(1)=4,\\quad g_{new}=4(1.25)=5",
+          "size": 22
+        },
+        {
+          "eq": "\\Delta g=5-4=1,\\quad\\Delta w=1.25-1=0.25",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{curvature\\ estimate}=1/0.25=4",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{dense}=100^2=10{,}000\\ \\mathrm{entries}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{history}=2(3)(100)=600\\ \\mathrm{entries}",
+          "size": 22
+        },
+        "This compares only dense-matrix entries with stored history-vector entries. It does not count all auxiliary state, working memory, or runtime cost."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: complete the conceptual explanation",
+      "subtitle": "Correct names are useful only when you can explain their information flow.",
+      "blocks": [
+        "L-BFGS keeps a limited recent history of parameter-change and gradient-change pairs. BFGS more generally updates a curvature approximation using such changes.",
+        "A Jacobian row lists the derivatives of one residual with respect to every parameter. In r(w)=2w-3, the one residual slope is 2.",
+        "Diagonal loading changes only diagonal entries. In the worked matrix, the two off-diagonal 1 values stayed 1.",
+        "The scalar ratio illustrates one-direction curvature. Full multidimensional BFGS requires a structured matrix update and other algorithm choices, so that ratio is not the complete algorithm.",
+        "When studying a supplied formula, work its numbers carefully. When a slide supplies only a conceptual overview, distinguish the stated mechanism from optional deeper formulas."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

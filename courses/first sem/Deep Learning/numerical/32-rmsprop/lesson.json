@@ -1,0 +1,532 @@
+{
+  "number": 32,
+  "title": "RMSProp, one coordinate at a time",
+  "description": "Calculate ordinary RMS, distinguish second moments from variance, and trace two complete two-parameter RMSProp updates with fresh practice.",
+  "source_short": "Lecture 5 PDF p.114,116,118 / epsilon inside square root",
+  "source": "Lecture 5 PDF pages110-118, coordinate sequence114, recurrence116 and mini-batch algorithm118. numerical-practice.md N6.5 supplied-gradient examples; arithmetic-only epsilon0 plus a positive-epsilon comparison.",
+  "pages": [
+    {
+      "title": "Start with root mean square",
+      "subtitle": "RMS means square each value, average the squares, then take the square root.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{RMS}(a_1,\\ldots,a_n)=\\sqrt{\\frac{a_1^2+\\cdots+a_n^2}{n}}",
+          "size": 22
+        },
+        "Squaring removes signs, so large negative and positive movements both contribute. Averaging gives a mean square. The final root returns to the units of the original quantity.",
+        "Lecture 5 page114 lists coordinate movements. We first compute their ordinary RMS values, then use a different, exponentially weighted calculation for RMSProp optimizer memory.",
+        "The optimizer rescales each coordinate using its own recent squared gradients. The base learning rate still controls the overall size of the step."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "RMS of the horizontal coordinate sequence",
+      "subtitle": "Use the five X components listed on lecture page114.",
+      "blocks": [
+        {
+          "eq": "x=(1,1,2,1,1.5)",
+          "size": 22
+        },
+        {
+          "eq": "x^2=(1,1,4,1,2.25)",
+          "size": 22
+        },
+        {
+          "eq": "\\sum x_i^2=1+1+4+1+2.25=9.25",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{mean\\ square}=9.25/5=1.85",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{RMS}_x=\\sqrt{1.85}\\approx1.360147",
+          "size": 22
+        },
+        "This is one root after averaging squares, not an average of square roots or an average of signed components."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "RMS of the vertical coordinate sequence",
+      "subtitle": "Negative movements count positively after squaring.",
+      "blocks": [
+        {
+          "eq": "y=(2.5,-3,2.5,-2,1.5)",
+          "size": 22
+        },
+        {
+          "eq": "y^2=(6.25,9,6.25,4,2.25)",
+          "size": 22
+        },
+        {
+          "eq": "\\sum y_i^2=6.25+9+6.25+4+2.25=27.75",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{mean\\ square}=27.75/5=5.55",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{RMS}_y=\\sqrt{5.55}\\approx2.355844",
+          "size": 22
+        },
+        "The larger vertical RMS suggests more scaling down in that coordinate. This movement illustration motivates the optimizer; it is not its actual recursive state."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "RMS is different from standard deviation",
+      "subtitle": "Variance first subtracts the mean; mean square does not.",
+      "blocks": [
+        {
+          "eq": "a=(2,2),\\quad\\overline{a}=2",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{RMS}=\\sqrt{(2^2+2^2)/2}=2",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{variance}=((2-2)^2+(2-2)^2)/2=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{standard\\ deviation}=\\sqrt{0}=0",
+          "size": 22
+        },
+        "The constant sequence has nonzero magnitude but no variation around its mean. RMS measures the former; standard deviation measures the latter.",
+        "A squared gradient is also not a second derivative or a Hessian entry. Square the numerical first derivative already computed by backpropagation."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "The course RMSProp recurrence",
+      "subtitle": "Lecture 5 page116 places epsilon inside the square root.",
+      "blocks": [
+        {
+          "eq": "s_{t,j}=\\gamma s_{t-1,j}+(1-\\gamma)g_{t,j}^2",
+          "size": 22
+        },
+        {
+          "eq": "w_{t,j}=w_{t-1,j}-\\frac{\\eta g_{t,j}}{\\sqrt{s_{t,j}+\\epsilon}}",
+          "size": 22
+        },
+        "t counts updates and j identifies a parameter coordinate. g is the current averaged batch gradient. s stores an exponentially weighted history of its squares. Every multiplication and square is coordinatewise.",
+        "Gamma retains old memory; 1-gamma weights the new squared gradient. Eta is the base rate. Epsilon is a positive stabilizer in implementations.",
+        "Initialize s once at the start of the training run and retain it across updates. The zero-start estimate is not an unbiased second moment."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Average the current batch before squaring",
+      "subtitle": "Two operations that look similar give different numbers.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{example\\ gradients}=(2,-2)",
+          "size": 22
+        },
+        {
+          "eq": "g=(2+(-2))/2=0\\quad\\Longrightarrow\\quad g^2=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{mean\\ of\\ squares}=(2^2+(-2)^2)/2=4",
+          "size": 22
+        },
+        "For the lecture mini-batch algorithm, use the first result in the RMSProp recurrence. Its g is the already averaged batch gradient. Do not replace it with the mean of squared example gradients.",
+        "Across optimizer updates, keep the squared-gradient memory. Within a batch, clear the temporary sum before averaging new example gradients."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Set up the two-coordinate optimizer exercise",
+      "subtitle": "The gradient vectors are supplied inputs to this state calculation.",
+      "blocks": [
+        {
+          "eq": "w_0=(1,1),\\quad s_0=(0,0),\\quad\\gamma=0.5,\\quad\\eta=0.1",
+          "size": 22
+        },
+        {
+          "eq": "g_1=(2,4),\\qquad g_2=(2,-4)",
+          "size": 22
+        },
+        {
+          "eq": "\\epsilon=0\\quad\\mathrm{for\\ this\\ positive\\ denominator\\ example\\ only}",
+          "size": 22
+        },
+        "These gradients are not claimed to come from a fixed quadratic. Focus on the optimizer calculation after backpropagation has produced them.",
+        "Epsilon is zero only to keep these hand calculations simple; every denominator below is positive. d denotes that denominator. Keep full precision between updates; displayed values are rounded. A positive-epsilon calculation follows."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 1, coordinate 1",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=2,\\quad g^2=(2)^2=4",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(0)+0.5(4)=2",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{2+0}\\approx1.414214",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(2)}{\\sqrt{2}}\\approx0.141421",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx1.000000-(0.141421)=0.858579",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 1, coordinate 2",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=4,\\quad g^2=(4)^2=16",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(0)+0.5(16)=8",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{8+0}\\approx2.828427",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(4)}{\\sqrt{8}}\\approx0.141421",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx1.000000-(0.141421)=0.858579",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 2, coordinate 1",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=2,\\quad g^2=(2)^2=4",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(2)+0.5(4)=3",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{3+0}\\approx1.732051",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(2)}{\\sqrt{3}}\\approx0.115470",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx0.858579-(0.115470)=0.743109",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 2, coordinate 2",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=-4,\\quad g^2=(-4)^2=16",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(8)+0.5(16)=12",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{12+0}\\approx3.464102",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(-4)}{\\sqrt{12}}\\approx-0.115470",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx0.858579-(-0.115470)=0.974049",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Read the vector states together",
+      "subtitle": "Each parameter retains its own squared-gradient history.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "update",
+              "g",
+              "new s",
+              "new w"
+            ],
+            [
+              "1",
+              "(2,4)",
+              "(2,8)",
+              "(.858579,.858579)"
+            ],
+            [
+              "2",
+              "(2,-4)",
+              "(3,12)",
+              "(.743109,.974049)"
+            ]
+          ],
+          "widths": [
+            90,
+            150,
+            160,
+            280
+          ]
+        },
+        {
+          "eq": "\\eta/\\sqrt{s_1}=(0.1/\\sqrt{2},\\ 0.1/\\sqrt{8})",
+          "size": 22
+        },
+        {
+          "eq": "\\approx(0.070711,\\ 0.035355)",
+          "size": 22
+        },
+        "Coordinate2 has twice the first gradient magnitude but half the effective rate, so the first normalized steps are equal. This is a property of these numbers, not a universal equality."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Expand the memory to see its weights",
+      "subtitle": "For gamma=.5 and a zero initial state.",
+      "blocks": [
+        {
+          "eq": "s_1=0.5g_1^2",
+          "size": 22
+        },
+        {
+          "eq": "s_2=0.5s_1+0.5g_2^2=0.25g_1^2+0.5g_2^2",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{coordinate\\ 2}:\\quad0.25(4^2)+0.5((-4)^2)=4+8=12",
+          "size": 22
+        },
+        "The latest squared gradient has weight .5; the preceding one has .25. Their weights sum to .75 because the remaining .25 multiplies the initial zero state.",
+        "This is an exponential moving average, not the uniform mean of the two squares. Opposite signs do not cancel inside this squared memory. RMSProp here has no Adam-style bias correction."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Positive epsilon changes the denominator",
+      "subtitle": "Use a supplied new state s=4, gradient g=2, eta=.1, and epsilon=1.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{course}:\\quad d=\\sqrt{4+1}=\\sqrt{5}\\approx2.236068",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=0.1(2)/\\sqrt{5}\\approx0.089443",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{outside\\ variant}:\\quad d=\\sqrt{4}+1=3",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=0.1(2)/3\\approx0.066667",
+          "size": 22
+        },
+        "For a current parameter1, the course update gives about .910557; the outside-root variant gives .933333. These are different formulas, so declare the convention before substituting."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Why a stabilizer matters at zero",
+      "subtitle": "A zero new state and zero gradient should not create a division by zero.",
+      "blocks": [
+        {
+          "eq": "s=0,\\ g=0,\\ \\epsilon=1:\\quad\\mathrm{step}=0.1(0)/\\sqrt{0+1}=0",
+          "size": 22
+        },
+        {
+          "eq": "\\epsilon=0:\\quad0/\\sqrt{0}=0/0\\quad\\mathrm{undefined}",
+          "size": 22
+        },
+        "The value1 is deliberately large to make the comparison visible. It is an illustration of placement and stabilization, not a recommended practical default.",
+        "The main example safely omitted epsilon only because all its computed denominators were positive."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: a fresh sign-changing coordinate",
+      "subtitle": "Reset both parameter and memory for this separate practice run.",
+      "blocks": [
+        {
+          "eq": "w_0=(0,0),\\quad s_0=(0,0),\\quad g_1=(1,2),\\quad g_2=(-1,2)",
+          "size": 22
+        },
+        {
+          "eq": "\\gamma=0.5,\\quad\\eta=0.1,\\quad\\epsilon=0",
+          "size": 22
+        },
+        "For each update and coordinate, calculate the gradient square, new memory, denominator, signed step and new parameter. Keep the first state when processing update2.",
+        "Separately, compare the course and outside-root denominator for s=4, epsilon=1, and explain why RMS and standard deviation differ on [2,2]."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: update 1, coordinate 1",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=1,\\quad g^2=(1)^2=1",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(0)+0.5(1)=0.5",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{0.5+0}\\approx0.707107",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(1)}{\\sqrt{0.5}}\\approx0.141421",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx0.000000-(0.141421)=-0.141421",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 1, coordinate 2",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=2,\\quad g^2=(2)^2=4",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(0)+0.5(4)=2",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{2+0}\\approx1.414214",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(2)}{\\sqrt{2}}\\approx0.141421",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx0.000000-(0.141421)=-0.141421",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 2, coordinate 1",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=-1,\\quad g^2=(-1)^2=1",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(0.5)+0.5(1)=0.75",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{0.75+0}\\approx0.866025",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(-1)}{\\sqrt{0.75}}\\approx-0.115470",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx-0.141421-(-0.115470)=-0.025951",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 2, coordinate 2",
+      "subtitle": "Square, update memory, take the root, then subtract the signed normalized gradient.",
+      "blocks": [
+        {
+          "eq": "g=2,\\quad g^2=(2)^2=4",
+          "size": 22
+        },
+        {
+          "eq": "s_{new}=0.5(2)+0.5(4)=3",
+          "size": 22
+        },
+        {
+          "eq": "d=\\sqrt{3+0}\\approx1.732051",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1(2)}{\\sqrt{3}}\\approx0.115470",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}\\approx-0.141421-(0.115470)=-0.256891",
+          "size": 22
+        },
+        "The squared state stays nonnegative. The numerator keeps the gradient sign; subtracting a negative step increases the parameter."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice checkpoint and common mistakes",
+      "subtitle": "All new parameters use the state computed in the same update.",
+      "blocks": [
+        {
+          "eq": "s_1=(0.5,2),\\quad w_1\\approx(-0.141421,-0.141421)",
+          "size": 22
+        },
+        {
+          "eq": "s_2=(0.75,3),\\quad w_2\\approx(-0.025951,-0.256891)",
+          "size": 22
+        },
+        {
+          "eq": "\\sqrt{4+1}=\\sqrt{5}\\approx2.236068,\\quad\\sqrt{4}+1=3",
+          "size": 22
+        },
+        "For [2,2], RMS is 2 while standard deviation is 0: magnitude is different from spread around the mean.",
+        "Avoid squaring before averaging the batch, retaining a negative sign after squaring, dropping the gradient sign in the update, using the previous s in the denominator, or resetting memory between batches."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

@@ -1,0 +1,296 @@
+{
+  "number": 18,
+  "title": "Output-layer backpropagation",
+  "description": "Derive sigmoid/BCE delta, calculate every output gradient, and verify sensitivity with a target-flip practice.",
+  "source_short": "Backpropagation handout / PDF pp.2-3, sections4-5.2 / original N3.4 network",
+  "source": "Backpropagation_Derivation.pdf pages 2-3, sections 4-5.2; numerical-practice.md N3.4 and N3.6.",
+  "pages": [
+    {
+      "title": "Start from the saved forward pass",
+      "subtitle": "Keep the original parameters from Lessons16-17 fixed throughout backpropagation.",
+      "blocks": [
+        {
+          "eq": "x=(1,2),\\quad t=1,\\quad y=0.5466967333",
+          "size": 22
+        },
+        {
+          "eq": "y_1^{(2)}=0.5627638384,\\quad y_2^{(2)}=0.4537407133",
+          "size": 22
+        },
+        {
+          "eq": "w_{1,1}^{(3)}=0.3,\\quad w_{2,1}^{(3)}=-0.4,\\quad b_1^{(3)}=0.2",
+          "size": 22
+        },
+        {
+          "eq": "z_1^{(3)}=w_{1,1}^{(3)}y_1^{(2)}+w_{2,1}^{(3)}y_2^{(2)}+b_1^{(3)}",
+          "size": 22
+        },
+        "Our goal is all three output-parameter gradients: how sensitive this one example loss is to each parameter when the others stay fixed.",
+        "The handout calls its per-example loss L. We write ell to keep it distinct from a later batch mean J."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Delta measures sensitivity to preactivation",
+      "subtitle": "The backward calculation follows the same dependencies as the forward calculation.",
+      "blocks": [
+        {
+          "eq": "w\\longrightarrow z\\longrightarrow y=\\sigma(z)\\longrightarrow\\ell",
+          "size": 22
+        },
+        {
+          "eq": "\\delta_1^{(3)}=\\frac{\\partial\\ell}{\\partial z_1^{(3)}}",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w}=\\frac{\\partial\\ell}{\\partial z}\\frac{\\partial z}{\\partial w}=\\delta\\frac{\\partial z}{\\partial w}",
+          "size": 22
+        },
+        "Delta is a derivative with respect to z. A weight gradient is a derivative with respect to a weight. They are connected by the chain rule but are not usually the same number.",
+        "First calculate delta at the output; then multiply by each source activation to get that connection gradient. The bias has constant source activation 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Differentiate binary cross-entropy",
+      "subtitle": "Handout page 2, section 4.2; assume 0 < y < 1.",
+      "blocks": [
+        {
+          "eq": "\\ell=-[t\\ln y+(1-t)\\ln(1-y)]",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial y}=-\\frac{t}{y}+\\frac{1-t}{1-y}",
+          "size": 22
+        },
+        {
+          "eq": "=\\frac{-t(1-y)+(1-t)y}{y(1-y)}",
+          "size": 22
+        },
+        {
+          "eq": "=\\frac{-t+ty+y-ty}{y(1-y)}=\\frac{y-t}{y(1-y)}",
+          "size": 22
+        },
+        "The plus sign in the second term comes from two negatives: the loss has a minus sign and the derivative of (1-y) is -1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Cancel the sigmoid derivative once",
+      "subtitle": "Handout page 2, section 5.1: this shortcut needs sigmoid output and BCE loss.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial y}{\\partial z}=y(1-y)",
+          "size": 22
+        },
+        {
+          "eq": "\\delta=\\frac{\\partial\\ell}{\\partial y}\\frac{\\partial y}{\\partial z}",
+          "size": 22
+        },
+        {
+          "eq": "\\delta=\\frac{y-t}{y(1-y)}\\,y(1-y)=y-t",
+          "size": 22
+        },
+        "Do not multiply by y(1-y) again after using delta = y-t. That sigmoid factor has already cancelled.",
+        "This is a per-example derivative. There is no division by the number of examples here. We will average parameter gradients once in the batch lesson."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Check both factors numerically",
+      "subtitle": "Target t = 1 means the BCE derivative with respect to y is -1/y.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial y}=-\\frac{1}{0.5466967333}\\approx-1.8291676885",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial y}{\\partial z}=0.5466967333(1-0.5466967333)",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial y}{\\partial z}\\approx0.2478194151",
+          "size": 22
+        },
+        {
+          "eq": "\\delta\\approx(-1.8291676885)(0.2478194151)=-0.4533032667",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{shortcut}:\\quad y-t=0.5466967333-1=-0.4533032667",
+          "size": 22
+        },
+        "The two routes agree. Negative delta means a tiny increase in this output preactivation decreases this example loss locally."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "First output weight: use its source activation",
+      "subtitle": "Handout page 3, section 5.2. The source is hidden-layer-2 neuron 1.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial z_1^{(3)}}{\\partial w_{1,1}^{(3)}}=y_1^{(2)}",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,1}^{(3)}}=\\delta_1^{(3)}y_1^{(2)}",
+          "size": 22
+        },
+        {
+          "eq": "=(-0.4533032667)(0.5627638384)",
+          "size": 22
+        },
+        {
+          "eq": "\\approx-0.2551026863",
+          "size": 22
+        },
+        "The source activation multiplies the weight in the forward weighted sum. That is why it becomes the local derivative with respect to the weight.",
+        "Use the activation 0.5627638384, not the hidden preactivation 0.2523866055."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Second output weight: keep its own source",
+      "subtitle": "This connection starts at hidden-layer-2 neuron 2.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial z_1^{(3)}}{\\partial w_{2,1}^{(3)}}=y_2^{(2)}",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,1}^{(3)}}=\\delta_1^{(3)}y_2^{(2)}",
+          "size": 22
+        },
+        {
+          "eq": "=(-0.4533032667)(0.4537407133)",
+          "size": 22
+        },
+        {
+          "eq": "\\approx-0.2056821476",
+          "size": 22
+        },
+        "The current weight is -0.4, but this derivative uses its source activation, not the weight itself. The weight will matter when propagating a derivative back to the source neuron.",
+        "Keep the original -0.4 for the hidden-layer calculation in Lesson19. Do not update it yet."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Output bias: the source is constant one",
+      "subtitle": "Adding one unit to the bias adds one unit to the preactivation.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial z_1^{(3)}}{\\partial b_1^{(3)}}=1",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_1^{(3)}}=\\delta_1^{(3)}(1)=-0.4533032667",
+          "size": 22
+        },
+        {
+          "table": [
+            [
+              "output parameter",
+              "one-example gradient"
+            ],
+            [
+              "w1,1 in layer3",
+              "-0.2551026863"
+            ],
+            [
+              "w2,1 in layer3",
+              "-0.2056821476"
+            ],
+            [
+              "bias in layer3",
+              "-0.4533032667"
+            ]
+          ],
+          "widths": [
+            270,
+            310
+          ]
+        },
+        "The bias gradient equals delta because its multiplier is 1. This equality does not hold for the other two weight gradients."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "What does a negative gradient predict?",
+      "subtitle": "Diagnostic experiment: vary only the output bias; this is not a training update.",
+      "blocks": [
+        {
+          "eq": "\\Delta b=+0.001,\\quad\\Delta\\ell\\approx\\frac{\\partial\\ell}{\\partial b}\\Delta b",
+          "size": 22
+        },
+        {
+          "eq": "\\Delta\\ell\\approx(-0.4533032667)(0.001)=-0.0004533033",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{actual\\ fresh\\ loss\\ change}\\approx-0.0004531794",
+          "size": 22
+        },
+        "The local estimate is close, not exact, for a finite perturbation. All other weights and biases are held fixed.",
+        "Return the bias to its original 0.2. Backpropagation in Lesson19 continues from the original parameter state and forward cache.",
+        "Central finite-difference checks of all three output gradients agree with the analytic results."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: flip only the known target",
+      "subtitle": "Use the same original input (1,2), parameters and forward prediction; set t = 0.",
+      "blocks": [
+        "1. Explain which forward quantities change when only the target changes.",
+        "2. Calculate BCE, the output delta and all three output-parameter gradients.",
+        "3. Explain the sign of the bias gradient using a tiny positive bias change with every other parameter fixed.",
+        "Do not update any parameters. This is the target-flip retry from numerical-practice N3.6."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer: prediction stays the same",
+      "subtitle": "Targets enter the loss; this feedforward model does not use them as inputs.",
+      "blocks": [
+        {
+          "eq": "y=0.5466967333,\\quad\\ell=-\\ln(1-y)\\approx0.7911939146",
+          "size": 22
+        },
+        {
+          "eq": "\\delta=y-t=0.5466967333-0=0.5466967333",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial y}=\\frac{1}{1-y}\\approx2.2060286644",
+          "size": 22
+        },
+        {
+          "eq": "\\delta\\approx(2.2060286644)(0.2478194151)=0.5466967333",
+          "size": 22
+        },
+        "All forward z and y values remain unchanged. The target changes the loss and the backward derivatives. Positive delta means increasing z locally increases the loss for target zero."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice answer: all three output gradients",
+      "subtitle": "Use the same two hidden activations and the new positive delta.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,1}^{(3)}}=(0.5466967333)(0.5627638384)\\approx0.3076611521",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,1}^{(3)}}=(0.5466967333)(0.4537407133)\\approx0.2480585657",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_1^{(3)}}=(0.5466967333)(1)=0.5466967333",
+          "size": 22
+        },
+        "A tiny positive bias change now increases the loss: it raises the probability of class 1 when the known target is 0.",
+        "Checklist: distinguish delta from a weight gradient, use source activations, cancel sigmoid only once, and keep every parameter unchanged until all required gradients are ready."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

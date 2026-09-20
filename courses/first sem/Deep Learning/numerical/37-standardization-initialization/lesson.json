@@ -1,0 +1,371 @@
+{
+  "number": 37,
+  "title": "Standardization and initialization scales",
+  "description": "Fit and verify training statistics, transform held-out data, handle constants, distinguish pixel scaling, and calculate explicitly optional initializer scales.",
+  "source_short": "Lecture 5 PDF p.163 / Assignment 1 p.4 / initializer formulas labeled optional",
+  "source": "Lecture 5 PDF page163 normalization and named initialization methods; Assignment 1 page4 pixel range. numerical-practice.md N6.10. Population-variance convention and optional normal initializer variants explicitly declared.",
+  "pages": [
+    {
+      "title": "Fit preprocessing on training data",
+      "subtitle": "Lecture 5 page 163 calls for zero mean and unit variance.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{training\\ feature}\\ x=(2,4,6),\\quad N=3",
+          "size": 22
+        },
+        {
+          "eq": "\\mu=\\frac{1}{N}\\sum_i x_i,\\quad\\sigma^2=\\frac{1}{N}\\sum_i(x_i-\\mu)^2",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma=\\sqrt{\\sigma^2},\\qquad z_i=\\frac{x_i-\\mu}{\\sigma}",
+          "size": 22
+        },
+        "We choose population variance with divisor N for this finite-training-set transformation. It is different from the N-1 estimator used in some statistical estimation exercises.",
+        "Fit one mean and standard deviation per feature using training data. Save them and reuse them unchanged on validation, test and future inputs."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Calculate the training mean and deviations",
+      "subtitle": "Centering subtracts the same training mean from each value.",
+      "blocks": [
+        {
+          "eq": "\\mu=(2+4+6)/3=12/3=4",
+          "size": 22
+        },
+        {
+          "eq": "x_1-\\mu=2-4=-2",
+          "size": 22
+        },
+        {
+          "eq": "x_2-\\mu=4-4=0",
+          "size": 22
+        },
+        {
+          "eq": "x_3-\\mu=6-4=2",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{centered\\ values}=(-2,0,2)",
+          "size": 22
+        },
+        "The centered values sum to zero. Centering alone does not set their variance to 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Calculate variance, then standard deviation",
+      "subtitle": "Square each deviation before averaging.",
+      "blocks": [
+        {
+          "eq": "(-2)^2=4,\\quad0^2=0,\\quad2^2=4",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma^2=(4+0+4)/3=8/3\\approx2.666667",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma=\\sqrt{8/3}\\approx1.632993",
+          "size": 22
+        },
+        "Variance is a squared quantity. Standard deviation has the original feature units; divide by the standard deviation to obtain the dimensionless standardized feature."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Transform all three training values",
+      "subtitle": "Use the same saved denominator for every example.",
+      "blocks": [
+        {
+          "eq": "z_1=(2-4)/\\sqrt{8/3}=-\\sqrt{3/2}\\approx-1.224745",
+          "size": 22
+        },
+        {
+          "eq": "z_2=(4-4)/\\sqrt{8/3}=0",
+          "size": 22
+        },
+        {
+          "eq": "z_3=(6-4)/\\sqrt{8/3}=\\sqrt{3/2}\\approx1.224745",
+          "size": 22
+        },
+        "Negative z means below the training mean. Positive z means above it. Magnitude measures the distance from that mean in training standard-deviation units."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Verify zero mean and unit variance exactly",
+      "subtitle": "Use exact square roots for the check rather than rounded decimals.",
+      "blocks": [
+        {
+          "eq": "\\overline{z}=(-\\sqrt{3/2}+0+\\sqrt{3/2})/3=0",
+          "size": 22
+        },
+        {
+          "eq": "z_1^2=3/2,\\quad z_2^2=0,\\quad z_3^2=3/2",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{Var}_{pop}(z)=((z_1-0)^2+(z_2-0)^2+(z_3-0)^2)/3",
+          "size": 22
+        },
+        {
+          "eq": "=(1.5+0+1.5)/3=1",
+          "size": 22
+        },
+        "The unit-variance property follows from dividing by the standard deviation computed with the same population convention."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Transform a new input without refitting",
+      "subtitle": "A held-out value is 8; the stored training statistics remain mu=4 and sigma=sqrt(8/3).",
+      "blocks": [
+        {
+          "eq": "z_{new}=\\frac{8-4}{\\sqrt{8/3}}=\\frac{4}{1.632993\\ldots}\\approx2.449490",
+          "size": 22
+        },
+        "This value is about 2.45 training standard deviations above the training mean. It is allowed to lie outside the range of standardized training values.",
+        "Do not add this new value to the training set to recompute statistics. Doing so changes the fitted transformation and lets held-out information influence preprocessing.",
+        "A validation or test set does not need mean 0 and variance 1 after this training-fitted transform."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Check the tempting wrong denominator",
+      "subtitle": "Dividing by variance instead of standard deviation does not produce unit variance.",
+      "blocks": [
+        {
+          "eq": "(-2,0,2)/(8/3)=(-0.75,0,0.75)",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{mean}=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{variance}=(0.75^2+0+0.75^2)/3",
+          "size": 22
+        },
+        {
+          "eq": "=(0.5625+0.5625)/3=0.375\\ne1",
+          "size": 22
+        },
+        "Both transforms center the data, but only division by sigma gives unit variance under the declared convention."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Choose a safe policy for a constant feature",
+      "subtitle": "Training values [5,5,5] have no variation.",
+      "blocks": [
+        {
+          "eq": "\\mu=5,\\quad\\sigma^2=(0^2+0^2+0^2)/3=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{chosen\\ denominator}=1\\quad\\Longrightarrow\\quad z=(0,0,0)",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{new\\ value}\\ 7:\\quad z_{new}=(7-5)/1=2",
+          "size": 22
+        },
+        "This explicit policy centers a constant feature without dividing by zero. Its training variance stays zero; no finite scaling can turn a constant sequence into one with unit variance.",
+        "Other policies can remove such a feature, but the chosen policy must be applied consistently to new data."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Separate standardization from other preprocessing",
+      "subtitle": "The assignment and lecture describe different transformations.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{8\\ bit\\ pixel\\ scale}:\\quad x_{scaled}=x/255",
+          "size": 22
+        },
+        {
+          "eq": "128/255\\approx0.501961,\\quad0/255=0,\\quad255/255=1",
+          "size": 22
+        },
+        "Assignment 1 page 4 requests pixels in [0,1]. Dividing 8-bit values by 255 is a range transformation; it does not promise zero mean and unit variance.",
+        "Fixed input standardization also does not include all of batch normalization: batch-dependent statistics, learned scale/offset and its train/inference behavior are separate machinery."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Optional: calculate named initializer scales",
+      "subtitle": "The slide names Xavier, Kaiming and SVD; it does not derive their numerical algorithms.",
+      "blocks": [
+        "For a dense layer, fan_in is the number of incoming inputs to each unit; fan_out is the number of output units. Bias constants are not counted in these fan values here.",
+        {
+          "eq": "\\mathrm{fan}_{in}=8,\\quad\\mathrm{fan}_{out}=4",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{Xavier\\ normal}:\\quad V_X=\\frac{2}{\\mathrm{fan}_{in}+\\mathrm{fan}_{out}}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{He\\ normal}:\\quad V_H=\\frac{2}{\\mathrm{fan}_{in}}",
+          "size": 22
+        },
+        "These are stated zero-mean normal variants: Xavier is associated with linear/tanh-style variance balance, while He/Kaiming accounts for ReLU. Gains and variants differ; these are not universal guarantees."
+      ],
+      "stage": "OPTIONAL EXTENSION"
+    },
+    {
+      "title": "Take roots before scaling a normal draw",
+      "subtitle": "Initializer variance and initializer standard deviation are different.",
+      "blocks": [
+        {
+          "eq": "V_X=2/(8+4)=1/6,\\quad\\sigma_X=\\sqrt{1/6}\\approx0.408248",
+          "size": 22
+        },
+        {
+          "eq": "V_H=2/8=1/4,\\quad\\sigma_H=\\sqrt{1/4}=0.5",
+          "size": 22
+        },
+        {
+          "eq": "Z\\sim\\mathcal{N}(0,1),\\quad w=\\sigma Z",
+          "size": 22
+        },
+        {
+          "eq": "Z=-1.2:\\quad w_X\\approx0.408248(-1.2)=-0.489898",
+          "size": 22
+        },
+        {
+          "eq": "w_H=0.5(-1.2)=-0.6",
+          "size": 22
+        },
+        "Z~N(0,1) means a draw from a normal distribution with mean 0 and variance 1; ~ means drawn from. The target variance belongs to that distribution, not necessarily to a finite set of drawn weights."
+      ],
+      "stage": "OPTIONAL EXTENSION"
+    },
+    {
+      "title": "Why identical hidden units can stay identical",
+      "subtitle": "A small deterministic symmetry example, with only w1 and w2 trainable.",
+      "blocks": [
+        {
+          "eq": "h_j=\\mathrm{ReLU}(w_jx),\\quad\\widehat y=h_1+h_2,\\quad L=\\frac{1}{2}(\\widehat y-t)^2",
+          "size": 22
+        },
+        {
+          "eq": "x=1,\\quad t=0,\\quad w_1=w_2=1",
+          "size": 22
+        },
+        {
+          "eq": "h_1=h_2=1,\\quad\\widehat y=2,\\quad r=\\widehat y-t=2,\\quad L=2",
+          "size": 22
+        },
+        {
+          "eq": "g_{w_1}=2(1)(1)=2,\\quad g_{w_2}=2(1)(1)=2",
+          "size": 22
+        },
+        {
+          "eq": "\\eta=0.1:\\quad w_1^{new}=w_2^{new}=1-0.1(2)=0.8",
+          "size": 22
+        },
+        "With outgoing weights fixed at 1 and biases at 0, each gradient is residual times ReLU slope times input: 2*1*1. Identical deterministic paths receive identical updates."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Initialization scope and symmetry",
+      "subtitle": "Breaking symmetry lets otherwise interchangeable units begin differently.",
+      "blocks": [
+        "Different initial weights can produce different activations and gradients. Independent draws are one way to avoid the exact symmetry in the preceding example.",
+        "The identical-update argument assumes identical paths and deterministic conditions; asymmetric noise or different dropout masks can break those conditions.",
+        "SVD means singular value decomposition, a matrix factorization that can provide orthogonal directions for certain initialization schemes. The lecture names it without specifying a numerical scheme; a full SVD initializer is outside this source's worked formula coverage.",
+        "Zero initialization of every interchangeable hidden unit is therefore different from initializing a network bias to zero. The symmetry issue concerns matching trainable paths."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: fit a fresh training transform",
+      "subtitle": "Do not reuse the main example variance just because its mean looks familiar.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{training}=(1,4,7),\\quad\\mathrm{held\\ out}=10",
+          "size": 22
+        },
+        "Compute the training mean, centered values, population variance, standard deviation and every standardized training value. Verify their mean/variance and transform 10 using only saved training statistics.",
+        "Optional: for fan_in=4 and fan_out=4, calculate the two stated normal initializer variances and standard deviations. If a standard-normal draw equals 2, what weight does each produce?"
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Answer: fresh training mean and spread",
+      "subtitle": "Use divisor N=3 for this transformation.",
+      "blocks": [
+        {
+          "eq": "\\mu=(1+4+7)/3=4",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{deviations}=(1-4,4-4,7-4)=(-3,0,3)",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma^2=(9+0+9)/3=6",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma=\\sqrt{6}\\approx2.449490",
+          "size": 22
+        },
+        "The mean matches the original example but the variance does not: the fresh training values are farther apart."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: every transformed value and held-out input",
+      "subtitle": "Save the fresh mean 4 and standard deviation sqrt(6).",
+      "blocks": [
+        {
+          "eq": "z_1=-3/\\sqrt{6}=-\\sqrt{3/2}\\approx-1.224745",
+          "size": 22
+        },
+        {
+          "eq": "z_2=0,\\quad z_3=3/\\sqrt{6}=\\sqrt{3/2}\\approx1.224745",
+          "size": 22
+        },
+        {
+          "eq": "\\overline{z}=0,\\quad\\mathrm{Var}_{pop}(z)=(1.5+0+1.5)/3=1",
+          "size": 22
+        },
+        {
+          "eq": "z_{new}=(10-4)/\\sqrt{6}=6/\\sqrt{6}\\approx2.449490",
+          "size": 22
+        },
+        "The normalized pattern matches because both training sequences are equally spaced rescalings, not because we reused the earlier standard deviation."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: optional initializer arithmetic",
+      "subtitle": "Both fan values are 4 in this fresh layer.",
+      "blocks": [
+        {
+          "eq": "V_X=2/(4+4)=0.25,\\quad\\sigma_X=\\sqrt{0.25}=0.5",
+          "size": 22
+        },
+        {
+          "eq": "V_H=2/4=0.5,\\quad\\sigma_H=\\sqrt{0.5}\\approx0.707107",
+          "size": 22
+        },
+        {
+          "eq": "Z=2:\\quad w_X=0.5(2)=1",
+          "size": 22
+        },
+        {
+          "eq": "w_H=\\sqrt{0.5}(2)\\approx1.414214",
+          "size": 22
+        },
+        "Common errors: dividing by variance, fitting statistics on held-out data, expecting a constant feature to gain variance, or using an initializer variance directly as the normal draw multiplier."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

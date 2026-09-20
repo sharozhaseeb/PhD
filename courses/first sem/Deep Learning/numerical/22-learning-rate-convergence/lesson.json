@@ -1,0 +1,466 @@
+{
+  "number": 22,
+  "title": "Learning rate and convergence",
+  "description": "Calculate converging, oscillating and diverging steps, separate parameter-error ratios from loss ratios, and solve a fresh quadratic practice.",
+  "source_short": "Lecture4 PDF p.31-49 / numerical-practice N4.2-N4.3",
+  "source": "Lecture4 PDF pages31-36: scalar convergence; pages37-49: multivariate curvature; numerical-practice.md N4.2-N4.3. Original study values.",
+  "pages": [
+    {
+      "title": "One loss, five learning rates",
+      "subtitle": "The starting point stays fixed so we can isolate the effect of step size.",
+      "blocks": [
+        {
+          "eq": "E(w)=2(w-1)^2=\\frac{4}{2}(w-1)^2,\\quad w_0=3",
+          "size": 21
+        },
+        {
+          "eq": "g(w)=\\frac{dE}{dw}=4(w-1),\\quad w^*=1",
+          "size": 21
+        },
+        {
+          "eq": "w_{k+1}=w_k-\\eta g(w_k)",
+          "size": 21
+        },
+        "Eta is the learning rate: it multiplies the gradient to determine the parameter displacement. Iteration k=0 is initialization; k=1 means one completed update.",
+        "The minimum is at w-star = 1, where loss and gradient are zero. The curvature, or second derivative, is a = 4. This quadratic is the N4.2 study example."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Derive the signed parameter-error factor",
+      "subtitle": "Error here is the signed difference from the optimal parameter.",
+      "blocks": [
+        {
+          "eq": "e_k=w_k-1",
+          "size": 21
+        },
+        {
+          "eq": "w_{k+1}-1=w_k-1-4\\eta(w_k-1)",
+          "size": 21
+        },
+        {
+          "eq": "e_{k+1}=(1-4\\eta)e_k=re_k,\\quad r=1-4\\eta",
+          "size": 21
+        },
+        "A positive r keeps the error on the same side. A negative r switches sides of the minimum. Its magnitude tells us whether the distance shrinks or grows.",
+        {
+          "eq": "E_k=2e_k^2\\quad\\Longrightarrow\\quad\\frac{E_{k+1}}{E_k}=r^2",
+          "size": 21
+        },
+        "The loss ratio is defined when the old loss is nonzero. Absolute parameter-error ratio is |r|; do not confuse it with the squared ratio for loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Learning rate 0.1: same-side convergence",
+      "subtitle": "Evaluate each new gradient at the latest parameter, not at the original point.",
+      "blocks": [
+        {
+          "eq": "g_0=4(3-1)=8",
+          "size": 21
+        },
+        {
+          "eq": "w_{1}=3-0.1(8)=2.2,\\quad E_{1}=2(2.2-1)^2=2.88",
+          "size": 21
+        },
+        {
+          "eq": "g_1=4(2.2-1)=4.8",
+          "size": 21
+        },
+        {
+          "eq": "w_{2}=2.2-0.1(4.8)=1.72,\\quad E_{2}=2(1.72-1)^2=1.0368",
+          "size": 21
+        },
+        {
+          "eq": "r=1-4(0.1)=0.6,\\quad |r|=0.6,\\quad r^2=0.36",
+          "size": 21
+        },
+        {
+          "eq": "E_0=2(3-1)^2=8",
+          "size": 21
+        },
+        "Compare the distance from 1 after each update, as well as the loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Learning rate 0.25: minimum in one step",
+      "subtitle": "Evaluate each new gradient at the latest parameter, not at the original point.",
+      "blocks": [
+        {
+          "eq": "g_0=4(3-1)=8",
+          "size": 21
+        },
+        {
+          "eq": "w_{1}=3-0.25(8)=1,\\quad E_{1}=2(1-1)^2=0",
+          "size": 21
+        },
+        {
+          "eq": "g_1=4(1-1)=0",
+          "size": 21
+        },
+        {
+          "eq": "w_{2}=1-0.25(0)=1,\\quad E_{2}=2(1-1)^2=0",
+          "size": 21
+        },
+        {
+          "eq": "r=1-4(0.25)=0,\\quad |r|=0,\\quad r^2=0",
+          "size": 21
+        },
+        {
+          "eq": "E_0=2(3-1)^2=8",
+          "size": 21
+        },
+        "Compare the distance from 1 after each update, as well as the loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Learning rate 0.4: alternating convergence",
+      "subtitle": "Evaluate each new gradient at the latest parameter, not at the original point.",
+      "blocks": [
+        {
+          "eq": "g_0=4(3-1)=8",
+          "size": 21
+        },
+        {
+          "eq": "w_{1}=3-0.4(8)=-0.2,\\quad E_{1}=2(-0.2-1)^2=2.88",
+          "size": 21
+        },
+        {
+          "eq": "g_1=4(-0.2-1)=-4.8",
+          "size": 21
+        },
+        {
+          "eq": "w_{2}=-0.2-0.4(-4.8)=1.72,\\quad E_{2}=2(1.72-1)^2=1.0368",
+          "size": 21
+        },
+        {
+          "eq": "r=1-4(0.4)=-0.6,\\quad |r|=0.6,\\quad r^2=0.36",
+          "size": 21
+        },
+        {
+          "eq": "E_0=2(3-1)^2=8",
+          "size": 21
+        },
+        "Compare the distance from 1 after each update, as well as the loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Learning rate 0.5: nonshrinking oscillation",
+      "subtitle": "Evaluate each new gradient at the latest parameter, not at the original point.",
+      "blocks": [
+        {
+          "eq": "g_0=4(3-1)=8",
+          "size": 21
+        },
+        {
+          "eq": "w_{1}=3-0.5(8)=-1,\\quad E_{1}=2(-1-1)^2=8",
+          "size": 21
+        },
+        {
+          "eq": "g_1=4(-1-1)=-8",
+          "size": 21
+        },
+        {
+          "eq": "w_{2}=-1-0.5(-8)=3,\\quad E_{2}=2(3-1)^2=8",
+          "size": 21
+        },
+        {
+          "eq": "r=1-4(0.5)=-1,\\quad |r|=1,\\quad r^2=1",
+          "size": 21
+        },
+        {
+          "eq": "E_0=2(3-1)^2=8",
+          "size": 21
+        },
+        "Compare the distance from 1 after each update, as well as the loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Learning rate 0.6: divergence",
+      "subtitle": "Evaluate each new gradient at the latest parameter, not at the original point.",
+      "blocks": [
+        {
+          "eq": "g_0=4(3-1)=8",
+          "size": 21
+        },
+        {
+          "eq": "w_{1}=3-0.6(8)=-1.8,\\quad E_{1}=2(-1.8-1)^2=15.68",
+          "size": 21
+        },
+        {
+          "eq": "g_1=4(-1.8-1)=-11.2",
+          "size": 21
+        },
+        {
+          "eq": "w_{2}=-1.8-0.6(-11.2)=4.92,\\quad E_{2}=2(4.92-1)^2=30.7328",
+          "size": 21
+        },
+        {
+          "eq": "r=1-4(0.6)=-1.4,\\quad |r|=1.4,\\quad r^2=1.96",
+          "size": 21
+        },
+        {
+          "eq": "E_0=2(3-1)^2=8",
+          "size": 21
+        },
+        "Compare the distance from 1 after each update, as well as the loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Compare paths and costs",
+      "subtitle": "Different parameter paths can produce exactly the same loss sequence.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "eta",
+              "r",
+              "w0, w1, w2",
+              "E0, E1, E2"
+            ],
+            [
+              "0.1",
+              "0.6",
+              "3, 2.2, 1.72",
+              "8, 2.88, 1.0368"
+            ],
+            [
+              "0.25",
+              "0",
+              "3, 1, 1",
+              "8, 0, 0"
+            ],
+            [
+              "0.4",
+              "-0.6",
+              "3, -0.2, 1.72",
+              "8, 2.88, 1.0368"
+            ],
+            [
+              "0.5",
+              "-1",
+              "3, -1, 3",
+              "8, 8, 8"
+            ],
+            [
+              "0.6",
+              "-1.4",
+              "3, -1.8, 4.92",
+              "8, 15.68, 30.7328"
+            ]
+          ],
+          "widths": [
+            80,
+            80,
+            255,
+            270
+          ]
+        },
+        "Rates 0.1 and 0.4 have the same |r| and r-squared. One stays on one side; the other alternates, but their error magnitudes and losses match.",
+        "At rate 0.5, this nonoptimal starting point never converges: it keeps switching between 3 and -1. Starting at the optimum would stay there for any finite rate."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Picture the parameter paths after each update",
+      "subtitle": "The horizontal reference w=1 marks the minimum.",
+      "blocks": [
+        {
+          "image": "paths.png",
+          "width": 665
+        },
+        "A crossing of the minimum does not by itself mean failure. Crossing with shrinking distance converges; crossing with constant or growing distance does not."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Derive the stable interval",
+      "subtitle": "We need the error magnitude to shrink after each step.",
+      "blocks": [
+        {
+          "eq": "|r|<1\\quad\\Longleftrightarrow\\quad -1<1-4\\eta<1",
+          "size": 21
+        },
+        {
+          "eq": "-2<-4\\eta<0\\quad\\Longleftrightarrow\\quad0<\\eta<0.5",
+          "size": 21
+        },
+        "Dividing inequalities by a negative number reverses the signs. Rate zero makes no progress; the upper endpoint gives the oscillation seen earlier.",
+        {
+          "eq": "E=\\frac{a}{2}(w-w^*)^2,\\quad a>0\\quad\\Longrightarrow\\quad0<\\eta<\\frac{2}{a}",
+          "size": 21
+        },
+        "This statement assumes a fixed learning rate and a positive-curvature quadratic. It is not an unconditional convergence guarantee for every neural-network loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "What linear convergence means",
+      "subtitle": "The name refers to a constant ratio of error magnitudes.",
+      "blocks": [
+        {
+          "eq": "|e_{k+1}|=q|e_k|,\\quad0<q<1",
+          "size": 21
+        },
+        {
+          "eq": "\\eta=0.1:\\quad|e_0|=2,\\ |e_1|=1.2,\\ |e_2|=0.72",
+          "size": 21
+        },
+        {
+          "eq": "q=0.6,\\qquad E_1/E_0=E_2/E_1=0.36",
+          "size": 21
+        },
+        "Each iteration removes the same fraction of the remaining distance: 40 percent here. The error shrinks geometrically, not by subtracting the same amount each time.",
+        "An alternating path can have linear convergence too: rate 0.4 also has q=0.6. The one-step exact solution at rate 0.25 is a special case, not an asymptotic nonzero error ratio."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Two directions can need different step sizes",
+      "subtitle": "A narrow bowl has one steep direction and one shallow direction.",
+      "blocks": [
+        {
+          "eq": "E(x,y)=\\frac{1}{2}(x^2+100y^2)",
+          "size": 21
+        },
+        {
+          "eq": "\\nabla E=(x,100y),\\qquad H=\\mathrm{diag}(1,100)",
+          "size": 21
+        },
+        {
+          "eq": "x_{k+1}=(1-\\eta)x_k,\\qquad y_{k+1}=(1-100\\eta)y_k",
+          "size": 21
+        },
+        "The diagonal Hessian has eigenvalues 1 and 100. With rate 0.01, the error factors are 0.99 and 0: the steep direction finishes immediately, while the shallow direction moves slowly.",
+        {
+          "eq": "0<\\eta<\\min(2/1,2/100)=0.02",
+          "size": 21
+        },
+        "For a positive-definite quadratic, the largest eigenvalue sets the stable shared-rate bound 2/lambda-max."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Work the two-direction example",
+      "subtitle": "Start at (1,1) and use eta = 0.01 for both coordinates.",
+      "blocks": [
+        {
+          "eq": "g_0=(1,100),\\quad(x_1,y_1)=(1,1)-0.01(1,100)=(0.99,0)",
+          "size": 21
+        },
+        {
+          "eq": "E_0=\\frac{1+100}{2}=50.5,\\quad E_1=\\frac{0.99^2}{2}=0.49005",
+          "size": 21
+        },
+        {
+          "eq": "g_1=(0.99,0),\\quad(x_2,y_2)=(0.99,0)-0.01(0.99,0)",
+          "size": 21
+        },
+        {
+          "eq": "=(0.9801,0),\\quad E_2=\\frac{0.9801^2}{2}=0.480298005",
+          "size": 21
+        },
+        "Most of the initial loss disappears in the steep direction. After that, the shallow-direction error shrinks by only 1 percent per update. This explains why a stable rate can still be slow."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: same loss speed, different paths",
+      "subtitle": "Use a fresh quadratic and keep initialization separate from updates.",
+      "blocks": [
+        {
+          "eq": "F(w)=(w+2)^2,\\quad w_0=0",
+          "size": 21
+        },
+        "Calculate two updates and all three losses for rates 0.25 and 0.75. Find the minimum, curvature, signed error factors, absolute error ratios and loss ratios.",
+        "Explain why one path alternates but both losses can be identical. Derive the stable-rate interval and decide whether both chosen rates lie inside it."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: derivatives and stability",
+      "subtitle": "Here the optimum is -2, so the signed error is w+2.",
+      "blocks": [
+        {
+          "eq": "g(w)=2(w+2),\\quad a=2,\\quad w^*=-2",
+          "size": 21
+        },
+        {
+          "eq": "e_{k+1}=(1-2\\eta)e_k,\\quad e_0=2",
+          "size": 21
+        },
+        {
+          "eq": "\\eta=0.25:\\ r=0.5;\\qquad\\eta=0.75:\\ r=-0.5",
+          "size": 21
+        },
+        {
+          "eq": "|r|=0.5,\\quad r^2=0.25,\\quad0<\\eta<2/2=1",
+          "size": 21
+        },
+        "Both rates are stable for this quadratic. Both halve the error magnitude and quarter the loss each step, but only the negative factor switches sides."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: full working at rate 0.25",
+      "subtitle": "Evaluate the gradient again at each new parameter.",
+      "blocks": [
+        {
+          "eq": "F_0=(0+2)^2=4",
+          "size": 21
+        },
+        {
+          "eq": "g_0=2(0+2)=4,\\quad w_{1}=0-0.25(4)=-1",
+          "size": 21
+        },
+        {
+          "eq": "F_{1}=(-1+2)^2=1",
+          "size": 21
+        },
+        {
+          "eq": "g_1=2(-1+2)=2,\\quad w_{2}=-1-0.25(2)=-1.5",
+          "size": 21
+        },
+        {
+          "eq": "F_{2}=(-1.5+2)^2=0.25",
+          "size": 21
+        },
+        "Distances from -2 are 2, 1 and 0.5. Squaring them gives losses 4, 1 and 0.25 in either path."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: full working at rate 0.75",
+      "subtitle": "Evaluate the gradient again at each new parameter.",
+      "blocks": [
+        {
+          "eq": "F_0=(0+2)^2=4",
+          "size": 21
+        },
+        {
+          "eq": "g_0=2(0+2)=4,\\quad w_{1}=0-0.75(4)=-3",
+          "size": 21
+        },
+        {
+          "eq": "F_{1}=(-3+2)^2=1",
+          "size": 21
+        },
+        {
+          "eq": "g_1=2(-3+2)=-2,\\quad w_{2}=-3-0.75(-2)=-1.5",
+          "size": 21
+        },
+        {
+          "eq": "F_{2}=(-1.5+2)^2=0.25",
+          "size": 21
+        },
+        "Distances from -2 are 2, 1 and 0.5. Squaring them gives losses 4, 1 and 0.25 in either path."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

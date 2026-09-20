@@ -1,0 +1,576 @@
+{
+  "number": 31,
+  "title": "Momentum across changing mini-batches",
+  "description": "Trace batch gradients and persistent displacement through different data groups and an epoch boundary, with a fresh fully worked practice run.",
+  "source_short": "Lecture 5 PDF p.103,106,109 / signed displacement convention",
+  "source": "Lecture 5 PDF pages93-109, specifically103,106,109. Chosen fixed-order numerical-practice.md N6.4 example with an added next-epoch continuation.",
+  "pages": [
+    {
+      "title": "Keep memory when the mini-batch changes",
+      "subtitle": "Chosen small batches make the stored optimizer state visible.",
+      "blocks": [
+        {
+          "eq": "\\widehat y=w,\\quad\\ell(w;t)=\\frac{1}{2}(w-t)^2,\\quad\\frac{d\\ell}{dw}=w-t",
+          "size": 22
+        },
+        {
+          "eq": "A=(1,3),\\quad B=(-3,-1),\\quad w_0=0,\\quad v_0=0",
+          "size": 22
+        },
+        {
+          "eq": "\\eta=0.1,\\qquad\\beta=0.5",
+          "size": 22
+        },
+        "w is the current parameter. v is the previous signed displacement: positive means the last update increased w. Beta retains half of that displacement.",
+        "Process A then B in epoch1, followed by A in epoch2. This explicitly fixed order supports hand calculations; lecture algorithms shuffle the data."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Derive each batch gradient before updating",
+      "subtitle": "Average the two example gradients at one common evaluation point.",
+      "blocks": [
+        {
+          "eq": "g_A(w)=\\frac{(w-1)+(w-3)}{2}=\\frac{2w-4}{2}=w-2",
+          "size": 22
+        },
+        {
+          "eq": "g_B(w)=\\frac{(w+3)+(w+1)}{2}=\\frac{2w+4}{2}=w+2",
+          "size": 22
+        },
+        "A pulls toward its target mean2; B pulls toward its target mean-2. The loss changes with the selected batch, even though the model and optimizer settings stay fixed.",
+        "Reset the temporary sum of example gradients at the start of each batch. Divide by its actual size2 once. Do not reset w or v."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Map the lecture equations to our state",
+      "subtitle": "Lecture5 pages103,106 and109; v is the slide displacement Delta W.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{Momentum}:\\quad v_{new}=\\beta v-\\eta g_B(w),\\quad w_{new}=w+v_{new}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{Nesterov}:\\quad q=w+\\beta v,\\quad v_{new}=\\beta v-\\eta g_B(q)",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=w+v_{new}=q-\\eta g_B(q)",
+          "size": 22
+        },
+        "Here B means whichever batch is current. The lookahead q is temporary; every example of that batch uses this same q. It is not an extra stored training update.",
+        "The slide first moves in place to q, then applies the correction. Our saved-old-w form is algebraically identical. Do not add beta*v twice or insert an extra (1-beta) factor."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Both methods: first A gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0,\\quad v=0,\\quad\\mathrm{targets}=(1,3)",
+          "size": 22
+        },
+        "Both methods use w here: the initial displacement is zero, so Nesterov also has q=w+0.5(0)=w.",
+        {
+          "eq": "g_1=0-(1)=-1,\\quad g_2=0-(3)=-3",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(-1)+(-3)}{2}=-2",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Both methods: first A update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(0)-0.1(-2)=0.2",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0+(0.2)=0.2",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.2,0.2)",
+          "size": 22
+        },
+        "Save both new values for the next batch. Only the temporary gradient sum is discarded."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Momentum: B gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0.2,\\quad v=0.2,\\quad\\mathrm{targets}=(-3,-1)",
+          "size": 22
+        },
+        "Ordinary momentum evaluates this batch at the stored w, before adding the retained displacement.",
+        {
+          "eq": "g_1=0.2-(-3)=3.2,\\quad g_2=0.2-(-1)=1.2",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(3.2)+(1.2)}{2}=2.2",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Momentum: B update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(0.2)-0.1(2.2)=-0.12",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0.2+(-0.12)=0.08",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.08,-0.12)",
+          "size": 22
+        },
+        "Save both new values for the next batch. Only the temporary gradient sum is discarded."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Nesterov: B gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0.2,\\quad v=0.2,\\quad\\mathrm{targets}=(-3,-1)",
+          "size": 22
+        },
+        {
+          "eq": "q=0.2+0.5(0.2)=0.3",
+          "size": 22
+        },
+        {
+          "eq": "g_1=0.3-(-3)=3.3,\\quad g_2=0.3-(-1)=1.3",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(3.3)+(1.3)}{2}=2.3",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Nesterov: B update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(0.2)-0.1(2.3)=-0.13",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0.2+(-0.13)=0.07",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.07,-0.13)",
+          "size": 22
+        },
+        "For Nesterov this is also q minus the gradient correction. Save both new values; discard the temporary gradient sum and temporary lookahead."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Continue into a new epoch without resetting state",
+      "subtitle": "Each method carries its own state from B into the next A.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{Momentum}:\\quad(w,v)=(0.08,-0.12)",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{Nesterov}:\\quad(w,v)=(0.07,-0.13)",
+          "size": 22
+        },
+        "An epoch boundary is a data-pass boundary. It does not restart optimizer memory. The next two calculations continue these states; they are not new comparisons from zero.",
+        "A new batch starts with a fresh gradient accumulator. A new training run initializes w and v once. Confusing these two resets changes the algorithm."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Momentum: next-epoch A gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0.08,\\quad v=-0.12,\\quad\\mathrm{targets}=(1,3)",
+          "size": 22
+        },
+        "Ordinary momentum evaluates this batch at the stored w, before adding the retained displacement.",
+        {
+          "eq": "g_1=0.08-(1)=-0.92,\\quad g_2=0.08-(3)=-2.92",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(-0.92)+(-2.92)}{2}=-1.92",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Momentum: next-epoch A update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(-0.12)-0.1(-1.92)=0.132",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0.08+(0.132)=0.212",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.212,0.132)",
+          "size": 22
+        },
+        "Save both new values for the next batch. Only the temporary gradient sum is discarded."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Nesterov: next-epoch A gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0.07,\\quad v=-0.13,\\quad\\mathrm{targets}=(1,3)",
+          "size": 22
+        },
+        {
+          "eq": "q=0.07+0.5(-0.13)=0.005",
+          "size": 22
+        },
+        {
+          "eq": "g_1=0.005-(1)=-0.995,\\quad g_2=0.005-(3)=-2.995",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(-0.995)+(-2.995)}{2}=-1.995",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Nesterov: next-epoch A update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(-0.13)-0.1(-1.995)=0.1345",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0.07+(0.1345)=0.2045",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.2045,0.1345)",
+          "size": 22
+        },
+        "For Nesterov this is also q minus the gradient correction. Save both new values; discard the temporary gradient sum and temporary lookahead."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Persistent state versus temporary batch quantities",
+      "subtitle": "Keep the saved state across batches and across epochs.",
+      "blocks": [
+        {
+          "image": "state-flow.png",
+          "width": 680
+        },
+        "The flow applies to each batch. Momentum uses q=w; Nesterov uses q=w+beta*v. There is one final stored parameter update per batch."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Read the three-batch traces together",
+      "subtitle": "Each row starts from the preceding row of the same method.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "method / batch",
+              "gradient point",
+              "mean gradient",
+              "new v",
+              "new w"
+            ],
+            [
+              "Momentum / A",
+              "0",
+              "-2",
+              "0.2",
+              "0.2"
+            ],
+            [
+              "Momentum / B",
+              "0.2",
+              "2.2",
+              "-0.12",
+              "0.08"
+            ],
+            [
+              "Momentum / A again",
+              "0.08",
+              "-1.92",
+              "0.132",
+              "0.212"
+            ],
+            [
+              "Nesterov / A",
+              "0",
+              "-2",
+              "0.2",
+              "0.2"
+            ],
+            [
+              "Nesterov / B",
+              "0.3",
+              "2.3",
+              "-0.13",
+              "0.07"
+            ],
+            [
+              "Nesterov / A again",
+              "0.005",
+              "-1.995",
+              "0.1345",
+              "0.2045"
+            ]
+          ],
+          "widths": [
+            205,
+            135,
+            150,
+            95,
+            95
+          ],
+          "size": 13
+        },
+        "After B, negative displacement is retained. On the next A, the new batch gradient reverses the update again. Momentum smooths changing directions; it does not eliminate every reversal or guarantee a better loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: change both mini-batches",
+      "subtitle": "Start a fresh run for each method; retain eta=.1 and beta=.5.",
+      "blocks": [
+        {
+          "eq": "A=(0,2),\\quad B=(2,4),\\quad w_0=v_0=0",
+          "size": 22
+        },
+        "Calculate A then B using ordinary momentum, then repeat from the same initial state using Nesterov. Show both example gradients, their average, each displacement and each parameter.",
+        "For Nesterov, explicitly calculate the common lookahead before both B gradients. Compare the correct B update with the mistaken procedure that resets v to zero just before B."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Both methods: practice A gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0,\\quad v=0,\\quad\\mathrm{targets}=(0,2)",
+          "size": 22
+        },
+        "Both methods use w here: the initial displacement is zero, so Nesterov also has q=w+0.5(0)=w.",
+        {
+          "eq": "g_1=0-(0)=0,\\quad g_2=0-(2)=-2",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(0)+(-2)}{2}=-1",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Both methods: practice A update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(0)-0.1(-1)=0.1",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0+(0.1)=0.1",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.1,0.1)",
+          "size": 22
+        },
+        "Save both new values for the next batch. Only the temporary gradient sum is discarded."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Momentum: practice B gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0.1,\\quad v=0.1,\\quad\\mathrm{targets}=(2,4)",
+          "size": 22
+        },
+        "Ordinary momentum evaluates this batch at the stored w, before adding the retained displacement.",
+        {
+          "eq": "g_1=0.1-(2)=-1.9,\\quad g_2=0.1-(4)=-3.9",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(-1.9)+(-3.9)}{2}=-2.9",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Momentum: practice B update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(0.1)-0.1(-2.9)=0.34",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0.1+(0.34)=0.44",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.44,0.34)",
+          "size": 22
+        },
+        "Save both new values for the next batch. Only the temporary gradient sum is discarded."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Nesterov: practice B gradient",
+      "subtitle": "Carry the parameter and displacement shown below into this batch.",
+      "blocks": [
+        {
+          "eq": "w=0.1,\\quad v=0.1,\\quad\\mathrm{targets}=(2,4)",
+          "size": 22
+        },
+        {
+          "eq": "q=0.1+0.5(0.1)=0.15",
+          "size": 22
+        },
+        {
+          "eq": "g_1=0.15-(2)=-1.85,\\quad g_2=0.15-(4)=-3.85",
+          "size": 22
+        },
+        {
+          "eq": "g=\\frac{(-1.85)+(-3.85)}{2}=-2.85",
+          "size": 22
+        },
+        "Both example gradients use the same evaluation point. Their average is the gradient supplied to this one optimizer update."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Nesterov: practice B update",
+      "subtitle": "Form a new displacement, then add it to the saved old parameter.",
+      "blocks": [
+        {
+          "eq": "v_{new}=\\beta v-\\eta g",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(0.1)-0.1(-2.85)=0.335",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0.1+(0.335)=0.435",
+          "size": 22
+        },
+        {
+          "eq": "(w,v)\\ \\mathrm{to\\ retain}=(0.435,0.335)",
+          "size": 22
+        },
+        "For Nesterov this is also q minus the gradient correction. Save both new values; discard the temporary gradient sum and temporary lookahead."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: why resetting memory gives a different result",
+      "subtitle": "This comparison concerns the fresh practice batches, not the main example.",
+      "blocks": [
+        {
+          "eq": "w_{Momentum}=0.44,\\qquad w_{Nesterov}=0.435",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{wrong\\ reset}:\\quad w=0.1,\\quad v=0\\quad\\Longrightarrow q=0.1",
+          "size": 22
+        },
+        {
+          "eq": "g_B(0.1)=\\frac{(0.1-2)+(0.1-4)}{2}=-2.9",
+          "size": 22
+        },
+        {
+          "eq": "v_{new}=0.5(0)-0.1(-2.9)=0.29",
+          "size": 22
+        },
+        {
+          "eq": "w_{new}=0.1+0.29=0.39",
+          "size": 22
+        },
+        "Both mistaken reset procedures give .39 here. The missing old displacement also removes the Nesterov lookahead shift. Keep optimizer memory; reset only batch-local accumulators."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

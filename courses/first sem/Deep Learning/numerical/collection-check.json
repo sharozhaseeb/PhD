@@ -1,0 +1,196 @@
+{
+  "lessons": [
+    {
+      "lesson": "01-single-feature-linear-regression",
+      "pages": 7,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "02-linear-regression-gradient-descent",
+      "pages": 10,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "03-multiple-feature-linear-regression",
+      "pages": 12,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "04-logistic-regression",
+      "pages": 13,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "06-logistic-decision-boundaries",
+      "pages": 9,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "07-computation-graphs-chain-rule",
+      "pages": 8,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "08-neurons-logic-gates",
+      "pages": 8,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "09-xor-hidden-layer",
+      "pages": 10,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "10-truth-table-boolean-network",
+      "pages": 16,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "11-parity-depth-width",
+      "pages": 9,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "12-regions-function-approximation",
+      "pages": 16,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "13-perceptron-learning",
+      "pages": 20,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "14-activations-derivatives",
+      "pages": 15,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "15-loss-empirical-expected-risk",
+      "pages": 11,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "16-network-shapes-parameters",
+      "pages": 12,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "17-complete-forward-pass",
+      "pages": 16,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "18-output-layer-backpropagation",
+      "pages": 12,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "19-hidden-layer-backpropagation",
+      "pages": 22,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "20-complete-batch-update",
+      "pages": 66,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "21-gradient-hessian-stationary-points",
+      "pages": 15,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "22-learning-rate-convergence",
+      "pages": 17,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "23-saturation-loss-choice",
+      "pages": 14,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "24-newton-method",
+      "pages": 13,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "25-learning-rate-schedules",
+      "pages": 11,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "26-rprop-state-trace",
+      "pages": 14,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "27-momentum-nesterov",
+      "pages": 16,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "28-curvature-approximations",
+      "pages": 10,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "29-batch-sgd-minibatch",
+      "pages": 24,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "30-sgd-rates-variance",
+      "pages": 24,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "31-momentum-changing-batches",
+      "pages": 24,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "32-rmsprop",
+      "pages": 21,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "33-adam",
+      "pages": 21,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "34-l2-weight-decay",
+      "pages": 19,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "35-dropout",
+      "pages": 30,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "36-gradient-clipping",
+      "pages": 13,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "37-standardization-initialization",
+      "pages": 17,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "38-early-stopping-model-selection",
+      "pages": 16,
+      "final_ta_pass": true
+    },
+    {
+      "lesson": "39-classification-metrics",
+      "pages": 20,
+      "final_ta_pass": true
+    }
+  ],
+  "total_pages": 631,
+  "errors": []
+}

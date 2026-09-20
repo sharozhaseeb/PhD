@@ -1,0 +1,200 @@
+{
+  "number": 9,
+  "title": "XOR with a hidden layer",
+  "description": "Evaluate every input pair through both exact lecture architectures.",
+  "source_short": "Lecture 2 / PDF pp.56-58 / inclusive thresholds",
+  "source": "Lecture 2 - Logistic Regression + Neural Network.pdf, pages 56-58.",
+  "pages": [
+    {
+      "title": "XOR asks whether the inputs differ",
+      "subtitle": "Exclusive OR returns 1 for exactly one active input.",
+      "blocks": [
+        {
+          "eq": "(x,y)=(0,0)\\Rightarrow0,\\quad(0,1)\\Rightarrow1"
+        },
+        {
+          "eq": "(x,y)=(1,0)\\Rightarrow1,\\quad(1,1)\\Rightarrow0"
+        },
+        "The two positive points lie at opposite corners of the unit square. No single straight line separates them from both negative corners.",
+        "Lecture 2, page 56: one threshold neuron cannot compute XOR. Hidden neurons create intermediate Boolean features that the output can combine.",
+        {
+          "eq": "H(s)=1\\ \\mathrm{if}\\ s\\geq0;\\qquad H(s)=0\\ \\mathrm{if}\\ s<0"
+        },
+        "Keep this inclusive equality convention for every neuron in the lesson."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "The three-neuron construction",
+      "subtitle": "These are exactly the two hidden gates and output gate on Lecture 2, page 57.",
+      "blocks": [
+        {
+          "eq": "h_{\\mathrm{OR}}=H(x+y-1)"
+        },
+        {
+          "eq": "h_{\\mathrm{NAND}}=H(-x-y+1)"
+        },
+        {
+          "eq": "q=H(h_{\\mathrm{OR}}+h_{\\mathrm{NAND}}-2)"
+        },
+        "The hidden OR says at least one input is 1. Hidden NAND says they are not both 1. The output AND requires both statements to be true.",
+        "NAND has weights (-1, -1), threshold T = -1 and bias +1. OR has threshold 1; the output has threshold 2.",
+        "Compute hidden outputs first. Feed their 0/1 outputs, not their scores, into the final neuron."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Three neurons: work through (0, 0), (0, 1)",
+      "subtitle": "First the two hidden decisions, then the output decision.",
+      "blocks": [
+        {
+          "eq": "(x,y)=(0,0):\\quad h_{\\mathrm{OR}}=H(0+0-1)=H(-1)=0"
+        },
+        {
+          "eq": "h_{\\mathrm{NAND}}=H(-0-0+1)=H(1)=1"
+        },
+        {
+          "eq": "q=H(0+1-2)=H(-1)=0"
+        },
+        {
+          "eq": "(x,y)=(0,1):\\quad h_{\\mathrm{OR}}=H(0+1-1)=H(0)=1"
+        },
+        {
+          "eq": "h_{\\mathrm{NAND}}=H(-0-1+1)=H(0)=1"
+        },
+        {
+          "eq": "q=H(1+1-2)=H(0)=1"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Three neurons: work through (1, 0), (1, 1)",
+      "subtitle": "First the two hidden decisions, then the output decision.",
+      "blocks": [
+        {
+          "eq": "(x,y)=(1,0):\\quad h_{\\mathrm{OR}}=H(1+0-1)=H(0)=1"
+        },
+        {
+          "eq": "h_{\\mathrm{NAND}}=H(-1-0+1)=H(0)=1"
+        },
+        {
+          "eq": "q=H(1+1-2)=H(0)=1"
+        },
+        {
+          "eq": "(x,y)=(1,1):\\quad h_{\\mathrm{OR}}=H(1+1-1)=H(1)=1"
+        },
+        {
+          "eq": "h_{\\mathrm{NAND}}=H(-1-1+1)=H(-1)=0"
+        },
+        {
+          "eq": "q=H(1+0-2)=H(-1)=0"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "The two-neuron construction",
+      "subtitle": "Lecture 2, page 58 allows direct input-to-output connections.",
+      "blocks": [
+        {
+          "eq": "h=H(x+y-2),\\qquad q=H(x+y-2h-1)"
+        },
+        "The hidden neuron h is AND. The output receives x, y and h, with weights 1, 1 and -2. Its threshold is 1.",
+        "If both inputs are 1, the hidden neuron subtracts 2 at the output. This suppresses the 11 case that a simple OR would accept.",
+        "The direct edges bypass the hidden neuron. This is why this construction can use fewer neurons than the previous adjacent-layer construction.",
+        "Both constructions compute the same XOR truth table. Their allowed connections are different."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Two neurons: work through (0, 0), (0, 1)",
+      "subtitle": "Use the newly calculated hidden output in the output score.",
+      "blocks": [
+        {
+          "eq": "(x,y)=(0,0):\\quad h=H(0+0-2)=H(-2)=0"
+        },
+        {
+          "eq": "q=H(0+0-2(0)-1)=H(-1)=0"
+        },
+        {
+          "eq": "(x,y)=(0,1):\\quad h=H(0+1-2)=H(-1)=0"
+        },
+        {
+          "eq": "q=H(0+1-2(0)-1)=H(0)=1"
+        },
+        "The raw inputs go directly to the output as well as to h. Never replace x and y by h."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Two neurons: work through (1, 0), (1, 1)",
+      "subtitle": "Use the newly calculated hidden output in the output score.",
+      "blocks": [
+        {
+          "eq": "(x,y)=(1,0):\\quad h=H(1+0-2)=H(-1)=0"
+        },
+        {
+          "eq": "q=H(1+0-2(0)-1)=H(0)=1"
+        },
+        {
+          "eq": "(x,y)=(1,1):\\quad h=H(1+1-2)=H(0)=1"
+        },
+        {
+          "eq": "q=H(1+1-2(1)-1)=H(-1)=0"
+        },
+        "The raw inputs go directly to the output as well as to h. Never replace x and y by h."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Compare the actual connection patterns",
+      "subtitle": "Counts exclude input nodes. Every neuron contributes one bias parameter.",
+      "blocks": [
+        {
+          "image": "architectures.png",
+          "width": 590
+        },
+        "Left: 2 hidden + 1 output = 3 neurons; 4 input edges + 2 output edges = 6 weights; 6 + 3 biases = 9 parameters.",
+        "Right: 1 hidden + 1 output = 2 neurons; 2 hidden-input + 3 output-input edges = 5 weights; 5 + 2 biases = 7 parameters.",
+        "Depth is 2 in both: the longest path from input to output crosses two computational neurons. These are construction-specific counts."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: equal inputs should return 1",
+      "subtitle": "XNOR is the complement of XOR. Add a NOT neuron after the XOR output q.",
+      "blocks": [
+        {
+          "eq": "r=H(-q)"
+        },
+        "1. Use the XOR outputs for 00, 01, 10 and 11. Calculate the new score -q and output r in each row.",
+        "2. How many neurons, weights and biases did this added gate introduce?",
+        "3. What is the new longest input-to-output depth?",
+        "The new gate uses weight -1 and bias 0. Count its bias as a parameter even though its chosen value is zero."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer: one more layer",
+      "subtitle": "q is XOR; r is XNOR, so r must be 1 precisely when the original inputs agree.",
+      "blocks": [
+        {
+          "eq": "00:\\ q=0\\Rightarrow r=H(-0)=H(0)=1"
+        },
+        {
+          "eq": "01:\\ q=1\\Rightarrow r=H(-1)=0"
+        },
+        {
+          "eq": "10:\\ q=1\\Rightarrow r=H(-1)=0"
+        },
+        {
+          "eq": "11:\\ q=0\\Rightarrow r=H(-0)=H(0)=1"
+        },
+        "Added: 1 neuron, 1 weight and 1 bias. Longest depth rises from 2 to 3 because every old path now ends at the extra NOT neuron.",
+        "Avoid: treating a circle threshold as a bias; forgetting direct edges in the two-neuron version; sending hidden scores instead of hidden outputs."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

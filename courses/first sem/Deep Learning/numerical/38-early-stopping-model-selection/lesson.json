@@ -1,0 +1,375 @@
+{
+  "number": 38,
+  "title": "Early stopping, selection, bagging and augmentation",
+  "description": "Trace every checkpoint and patience decision, restore the correct model, count experimental runs, and distinguish training-data bagging from augmentation.",
+  "source_short": "Lecture 5 PDF p.145,160,162,164 / explicit strict-improvement stopping rule",
+  "source": "Lecture 5 pages145-149 bagging,160 early stopping,162 augmentation,164 setup. numerical-practice.md N6.11. Patience2 and min_delta0 are chosen exercise rules, not supplied pseudocode.",
+  "pages": [
+    {
+      "title": "Choose when to stop and what to restore",
+      "subtitle": "Lecture 5 page 160 motivates early stopping with held-out validation performance.",
+      "blocks": [
+        "Training loss guides parameter gradients. Validation loss guides the stated checkpoint and stopping rule. The test set is reserved for final evaluation, outside repeated run or model selection.",
+        "A checkpoint stores the actual model parameters at an epoch, not just its loss number. Stopping at one epoch does not mean its parameters are the best saved ones.",
+        "The lecture gives the concept; the precise patience rule below is chosen for this study example. Different declared rules can stop at different epochs."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "State the rule before reading future losses",
+      "subtitle": "Lower validation loss is better; min_delta=0 and patience=2.",
+      "blocks": [
+        "Improvement means a strict decrease below the best validation loss seen so far. Equality is not improvement. With min_delta=0, even a tiny strict decrease counts.",
+        "On improvement: replace the best loss, save that epoch checkpoint and reset the consecutive-failure counter to zero.",
+        "Otherwise: leave the best checkpoint unchanged and add one to the counter. Stop immediately after an epoch makes the counter reach 2.",
+        "Restore the saved best checkpoint for evaluation. Because every strict decrease counts, the checkpoint reference and the patience reference are the same best loss.",
+        {
+          "eq": "\\mathrm{improve}\\Longleftrightarrow v_e<v_{best};\\quad\\mathrm{stop}\\Longleftrightarrow\\mathrm{bad\\ count}\\geq2",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Read the supplied training and validation history",
+      "subtitle": "Each row is evaluated after completing that epoch.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "epoch",
+              "training loss",
+              "validation loss"
+            ],
+            [
+              "1",
+              ".65",
+              ".60"
+            ],
+            [
+              "2",
+              ".50",
+              ".50"
+            ],
+            [
+              "3",
+              ".42",
+              ".51"
+            ],
+            [
+              "4",
+              ".35",
+              ".49"
+            ],
+            [
+              "5",
+              ".30",
+              ".495"
+            ],
+            [
+              "6",
+              ".25",
+              ".50"
+            ]
+          ],
+          "widths": [
+            130,
+            240,
+            260
+          ]
+        },
+        "Training loss falls throughout. The rule will still stop when validation loss fails to improve for two consecutive epochs. Read rows in time order; do not choose actions using later values."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epochs 1 and 2: save improvements",
+      "subtitle": "Compare each new validation value with the best seen so far.",
+      "blocks": [
+        "Epoch 1 is the first observation: save its checkpoint and initialize the best validation loss.",
+        {
+          "eq": "\\mathrm{best\\ loss}=0.6,\\quad\\mathrm{checkpoint}=1,\\quad\\mathrm{counter}=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{epoch}\\ 2:\\quad0.5<0.6\\quad\\Longrightarrow\\quad\\mathrm{improves}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{best\\ loss}=0.5,\\quad\\mathrm{checkpoint}=2,\\quad\\mathrm{counter}=0",
+          "size": 22
+        },
+        "Saving a new best checkpoint resets the counter; a failure does not erase the previously saved parameters."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epochs 3 and 4: fail, then reset",
+      "subtitle": "Compare each new validation value with the best seen so far.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{epoch}\\ 3:\\quad0.51>0.5\\quad\\Longrightarrow\\quad\\mathrm{no\\ improvement}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{best\\ loss}=0.5,\\quad\\mathrm{checkpoint}=2,\\quad\\mathrm{counter}=1",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{epoch}\\ 4:\\quad0.49<0.5\\quad\\Longrightarrow\\quad\\mathrm{improves}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{best\\ loss}=0.49,\\quad\\mathrm{checkpoint}=4,\\quad\\mathrm{counter}=0",
+          "size": 22
+        },
+        "Saving a new best checkpoint resets the counter; a failure does not erase the previously saved parameters."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epochs 5 and 6: patience is exhausted",
+      "subtitle": "Compare each new validation value with the best seen so far.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{epoch}\\ 5:\\quad0.495>0.49\\quad\\Longrightarrow\\quad\\mathrm{no\\ improvement}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{best\\ loss}=0.49,\\quad\\mathrm{checkpoint}=4,\\quad\\mathrm{counter}=1",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{epoch}\\ 6:\\quad0.5>0.49\\quad\\Longrightarrow\\quad\\mathrm{no\\ improvement}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{best\\ loss}=0.49,\\quad\\mathrm{checkpoint}=4,\\quad\\mathrm{counter}=2",
+          "size": 22
+        },
+        "The counter reaches 2 after epoch 6: stop now. The best checkpoint remains epoch 4."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "See stopping and restoration as different events",
+      "subtitle": "The best validation checkpoint is earlier than the stopping epoch.",
+      "blocks": [
+        {
+          "image": "history.png",
+          "width": 650
+        },
+        "Stop after epoch 6, then load epoch 4 parameters. The smaller training loss at epoch 6 is not the checkpoint criterion. This is a selection heuristic, not proof of best possible generalization."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Restore the model, not just a recorded score",
+      "subtitle": "The six-epoch run chooses checkpoint 4 for final evaluation.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "decision",
+              "result"
+            ],
+            [
+              "stopping epoch",
+              "6"
+            ],
+            [
+              "restored checkpoint",
+              "4"
+            ],
+            [
+              "validation loss of restored model",
+              ".49"
+            ],
+            [
+              "training loss at that checkpoint",
+              ".35"
+            ]
+          ],
+          "widths": [
+            345,
+            320
+          ]
+        },
+        "For inference, restore the saved model parameters. If training is deliberately resumed, a faithful training checkpoint also needs optimizer state and counters.",
+        "Use validation data for architecture, learning rate and checkpoint choices. Keep the test set out of these choices, then evaluate the selected procedure on it."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Count hyperparameter settings and seeded runs",
+      "subtitle": "A configuration chooses one value from each setting list.",
+      "blocks": [
+        {
+          "eq": "3\\ \\mathrm{rates}\\times2\\ \\mathrm{regularization\\ values}\\times2\\ \\mathrm{batch\\ sizes}=12",
+          "size": 22
+        },
+        {
+          "eq": "12\\ \\mathrm{configurations}\\times3\\ \\mathrm{seeds}=36\\ \\mathrm{runs}",
+          "size": 22
+        },
+        "A seed controls the pseudorandom realization, such as initialization or shuffling. Three seeds repeat a configuration; they do not create three new hyperparameter settings.",
+        "Choose a validation-based comparison procedure in advance, such as mean validation score across seeds. Do not select settings by repeatedly looking at final test scores."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Bagging: sample training data for several models",
+      "subtitle": "A conceptual companion to lecture pages 145-149.",
+      "blocks": [
+        {
+          "image": "bagging.png",
+          "width": 680
+        },
+        "The illustrated bootstrap samples draw training IDs with replacement, so duplicates are allowed. Train separate models, then combine their predictions on a new example. Held-out test examples are not bootstrap training inputs."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Declare how the ensemble combines predictions",
+      "subtitle": "Two common aggregation choices are different procedures.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{hard\\ predictions}=(1,0,1)\\Longrightarrow\\mathrm{majority}=1",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{probabilities}=(0.8,0.4,0.7)",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{mean\\ probability}=(0.8+0.4+0.7)/3=1.9/3\\approx0.633333",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{threshold}\\ 0.5\\Longrightarrow\\mathrm{mean\\ probability\\ prediction}=1",
+          "size": 22
+        },
+        "The two choices agree for these numbers but need not always agree. These are supplied model outputs, not a derivation of how their training produced them.",
+        "Bagging can reduce variability when models make usefully different errors; it does not guarantee an improvement on every dataset."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Augmentation: split originals before creating variants",
+      "subtitle": "A conceptual companion to lecture page 162.",
+      "blocks": [
+        {
+          "image": "augmentation.png",
+          "width": 680
+        },
+        "Keep variants of the same original within its assigned partition. Transform training examples only in ways that preserve the target meaning; a digit rotation can change its label."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Count items, not independent originals",
+      "subtitle": "Suppose 100 training originals each produce two additional variants.",
+      "blocks": [
+        {
+          "eq": "100\\ \\mathrm{originals}+2(100)\\ \\mathrm{variants}=300\\ \\mathrm{training\\ items}",
+          "size": 22
+        },
+        "These are 300 presented items, not 300 independently collected examples. Sibling variants share information; the independent-sample variance formulas cannot be applied merely by counting files.",
+        "Split original examples into training, validation and test groups before producing related variants. Otherwise an original can be in training while a near-copy appears in evaluation.",
+        "Check whether a chosen transformation preserves the label for this task. A valid transformation for one image class may be invalid for another."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: equality and an unobserved future value",
+      "subtitle": "Use the same strict-improvement rule with patience 2.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{listed\\ validation\\ values}=(0.4,0.35,0.35,0.36,0.30)",
+          "size": 22
+        },
+        "Trace the best loss, checkpoint and consecutive-failure counter. When does the run stop, which checkpoint is restored, and is the fifth value actually observed under this rule?",
+        "Count runs for a 4-by-3 configuration grid with two seeds per configuration. For bagging votes [0,1,0], state the majority.",
+        "If 40 training originals each have three additional label-preserving variants, how many items are presented? When must the split occur?"
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Answer: equality does not reset patience",
+      "subtitle": "The observed run ends after the fourth epoch.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "epoch",
+              "validation",
+              "best / checkpoint",
+              "counter"
+            ],
+            [
+              "1",
+              ".40",
+              ".40 / epoch 1",
+              "0"
+            ],
+            [
+              "2",
+              ".35",
+              ".35 / epoch 2",
+              "0"
+            ],
+            [
+              "3",
+              ".35",
+              ".35 / epoch 2",
+              "1"
+            ],
+            [
+              "4",
+              ".36",
+              ".35 / epoch 2",
+              "2: stop"
+            ]
+          ],
+          "widths": [
+            100,
+            140,
+            290,
+            140
+          ]
+        },
+        {
+          "eq": "0.35=0.35\\quad\\Longrightarrow\\quad\\mathrm{no\\ strict\\ improvement}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{stop}=4,\\qquad\\mathrm{restore}=2",
+          "size": 22
+        },
+        "The listed fifth value .30 is hypothetical for this stopped run: it would not have been observed. Using it to justify continuing changes the stated procedure."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: configurations, votes and variants",
+      "subtitle": "Keep configuration count, run count and independent-data count distinct.",
+      "blocks": [
+        {
+          "eq": "4\\times3=12\\ \\mathrm{configurations};\\quad12\\times2=24\\ \\mathrm{runs}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{votes}\\ (0,1,0)\\Longrightarrow\\mathrm{majority}=0",
+          "size": 22
+        },
+        {
+          "eq": "40+3(40)=160\\ \\mathrm{training\\ items}",
+          "size": 22
+        },
+        "Split the original dataset first; the resulting training partition contains these 40 originals. Then add three variants per training original. The 160 items are not 160 independent originals.",
+        "Common errors: restoring the last checkpoint instead of the best, treating equality as improvement, ignoring a counter reset, looking ahead past stopping, tuning on test data, or leaking augmented siblings across partitions."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

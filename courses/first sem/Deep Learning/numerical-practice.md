@@ -1,17 +1,21 @@
 # Deep Learning — Numerical Practice for Quizzes and Midterms
 
+**Prefer illustrated working?** Open the [numerical lesson collection](numerical/README.md) for typeset PDFs and images showing formulas, substitutions, intermediate steps, and practice answers. Its index tracks the TA-reviewed lessons.
+
 Use this with the [support guide](support.md). These original practice problems develop skills in the supplied Lectures 1–5; they are **not past papers or a prediction of the exam syllabus**. Follow any scope and calculator rules announced by your instructor.
 
 **Jump to:** [Prerequisites](#prerequisite-check) · [Lecture 1](#lecture-1--regression-and-batch-gradient-descent) · [Lecture 2](#l2--logistic-arithmetic-and-network-constructions) · [Lecture 3](#n3--learning-rules-and-a-complete-numerical-backpropagation-pass) · [Lecture 4](#n4-lecture-4--calculating-optimizer-updates) · [Assignment calculations](#assignment-related-calculation-practice) · [Lecture 5](#n6) · [Readiness check](#readiness-check-before-a-quiz-or-midterm)
 
 ## How to practise
 
-1. Watch the relevant conceptual explanation once, then use the guide's **Numerical preparation** video or written calculation bridge. Pause before the instructor reveals each calculation.
+1. Use the **Video first** or **Worked video** links directly beneath the exercise heading. **Worked numbers** means the video substitutes values; **derivation**, **concepts**, or **background** does not mean a complete numerical solution. Pause before a worked video reveals each calculation.
 2. Solve the worked problem yourself with the answer covered. Show the formula, substituted numbers, intermediate values, and final result.
 3. Attempt the fresh **Try it** problem without looking at the solution. Explain why each operation is valid, not only how to calculate it.
 4. Check the answer and diagnose the first differing intermediate value. Reattempt later from a blank page.
 
 Use natural logarithms for BCE and retain unrounded intermediate values; printed answers are rounded. A correct method with a small rounding difference is different from an incorrect sign, missing bias, or duplicated averaging factor. Unless a question says otherwise, calculate all gradients from the old parameters and update simultaneously.
+
+**Video access:** Direct links were brought into this companion on **20 September 2026** from the support guide's previously verified selections. Clip links start at the indicated time but do not stop automatically. Full-video alternatives appear where useful; the support guide retains broader optional lectures. Where a matching worked-number video has not been verified, the label says so and the written exercise supplies the calculation.
 
 ## Prerequisite check
 
@@ -78,6 +82,8 @@ Predictions `(0,1)`; residuals `(-3,-1)`; `J=2.5`; gradients `(-2.5,-1.5,-2)`. N
 
 ### N1.2 Explain the setup without calculating
 
+**Video first — concepts:** [StatQuest — gradient-descent setup](https://www.youtube.com/watch?v=sDv4f4s2SB8&t=85s), **1:25–5:38 · 4:13**. Identify the loss and adjustable parameters; the full **23:54** lesson includes N1.1's numerical updates.
+
 For the regression problem above, identify the task, experience, performance measure, features, targets, predictions, and trainable parameters. Explain why two decreasing training losses do not prove good predictions on new data.
 
 <details>
@@ -92,6 +98,10 @@ The task is predicting a real-valued target; experience is the labeled training 
 Use this with [Lecture 2 support](support.md#lecture-2--logistic-regression-and-what-networks-can-represent). The numbers below are new practice examples. Use natural logarithms, retain unrounded values internally, and report six decimal places. A batch cost is the **mean** of its example losses. Every gradient in an update is evaluated at the same old parameters.
 
 ### L2.1 — One sigmoid/BCE example, then a two-example batch
+
+**Start with the visual version:** [Logistic regression — three points, step by step](Logistic%20regression%20-%20visual%20walkthrough.md) displays thirteen illustrated pages directly in Obsidian. It begins with one input feature and explains every prediction, loss, gradient and update before the more compact two-feature exercise below. [Open the PDF](numerical/04-logistic-regression/lesson.pdf).
+
+**Video first — derivation:** [Andrew Ng — Logistic Regression Gradient Descent](https://www.youtube.com/watch?v=z_xiwjEdAC4), **6:43**; then [Gradient Descent on m Examples](https://www.youtube.com/watch?v=KKfZLXcF-aE), **8:00**, for averaging. These explain the equations; the complete numerical BCE pass and changed-value problem are below.
 
 **Worked example.** Start with `w=(0.2,−0.3)`, `b=0.1`, learning rate `α=0.1`. First use only `x=(1,2), t=1`.
 
@@ -139,6 +149,8 @@ For the second row, `ℒ=−ln(1−p)` and `dw1=0.401312×(−1)`. Average each 
 
 ### L2.2 — Evaluate and differentiate the course computation graph
 
+**Video first — worked numbers:** [Andrew Ng — Computation Graph](https://www.youtube.com/watch?v=hCP1vGoCdYU), **3:34**, evaluates a concrete graph. **Longer worked derivatives:** [Derivatives With Computation Graphs](https://www.youtube.com/watch?v=nJyUyKN-XBQ), **14:34**. Follow the intermediate values and local derivatives before trying the changed inputs below.
+
 For `J=3(a+bc)` at `(a,b,c)=(5,3,2)`, evaluate `u=bc=6`, `v=a+u=11`, `J=3v=33`.
 
 Going backward: `dJ/dv=3`; `dv/da=dv/du=1`, so `dJ/da=dJ/du=3`. Then `du/db=c=2` and `du/dc=b=3`, giving **`(dJ/da,dJ/db,dJ/dc)=(3,6,9)`**. No learning rate is involved: this exercise evaluates derivatives, not an update.
@@ -153,6 +165,8 @@ Going backward: `dJ/dv=3`; `dv/da=dv/du=1`, so `dJ/da=dJ/du=3`. Then `du/db=c=2`
 </details>
 
 ### L2.3 — Gates and two different XOR architectures
+
+**Video first — concepts:** [The Coding Train — XOR and hidden units](https://www.youtube.com/watch?v=188B6k_F9jU&t=260s), **4:20–11:49 · 7:29** (full **25:01**, including JavaScript implementation). For choosing weights geometrically, [UNSW — Perceptrons by Hand](https://thebox.unsw.edu.au/video/zzen9444-week-1-perceptrons-by-hand), **about 14 minutes**. Use the weighted truth tables below for these exact architectures.
 
 **Convention:** `H(s)=1` when `s≥0`, otherwise 0; a threshold unit is `H(wᵀx−T)` with bias `−T`. The integer thresholds on PDF pages 54 and 58 require the inclusive comparison to reproduce the labeled gates. Boolean examples below use half-integer thresholds where possible so no input lands on a tie. This is separate from the choice of tie convention in a perceptron *learning* algorithm.
 
@@ -205,6 +219,8 @@ At-least-three: weights `(1,1,1,1)`, `T=2.5`, bias `−2.5`; sums 0–2 give 0, 
 
 ### L2.4 — A truth table, negative literals, and a reducible K-map
 
+**Video first — worked binary example:** [MIT / Silvina Hanono — Worked Examples: Karnaugh Maps](https://www.youtube.com/watch?v=tjIFsdM-hBA), **3:39**, groups a concrete map and simplifies its expression. **Optional longer practice:** [Neso Academy — K Map, Part 1](https://www.youtube.com/watch?v=FPrcIhqNPVo), **25:45**. The exercise below then converts the terms into neuron weights.
+
 **Problem:** For inputs `(A,B,C)`, set `F=1` on `001,011,100,101` and 0 elsewhere. The canonical DNF is:
 
 `F=(¬A∧¬B∧C)∨(¬A∧B∧C)∨(A∧¬B∧¬C)∨(A∧¬B∧C)`.
@@ -255,6 +271,8 @@ Rows in Gray order are `A=0: 0,0,1,1` and `A=1: 0,1,1,0`. Horizontal pairs give 
 
 ### L2.5 — Parity: compare specified constructions
 
+**Video first — conceptual comparison:** [Welch Labs — depth and the exponential comparison](https://www.youtube.com/watch?v=qx7hirqgfuU&t=1467s), **24:27–30:23 · 5:56** (full **34:08**). This motivates efficient representations; it is not a worked count for the exact parity architectures below. For the map prerequisite, reuse [MIT's worked K-map](https://www.youtube.com/watch?v=tjIFsdM-hBA), **3:39**.
+
 Odd parity outputs 1 for an odd number of true inputs. Its three-input K-map is:
 
 | A \ BC | 00 | 01 | 11 | 10 |
@@ -278,6 +296,8 @@ DNF: **8 hidden, 9 total, depth 2**, `4×8+8+8+1=49` dense parameters. Tree: **3
 </details>
 
 ### L2.6 — Construct regions and sum two pulses
+
+**Video first — concepts:** [Welch Labs — universal approximation](https://www.youtube.com/watch?v=qx7hirqgfuU&t=822s), **13:42–15:45 · 2:03**. **Worked-number companion:** [StatQuest — combining hidden-unit curves](https://www.youtube.com/watch?v=CqOfi41LfDw&t=474s), **7:54–15:25 · 7:31** (full **18:54**). StatQuest calculates softplus curves, whereas this exercise constructs hard-threshold regions and pulses; use the stated activation and boundary conventions below.
 
 **Closed rectangle** `1≤x≤3, 0≤y≤2`. Using inclusive `H`, define:
 
@@ -331,6 +351,8 @@ Use natural logarithms. Round displayed results to six decimal places but retain
 <a id="n3-1"></a>
 ### N3.1 Ordered perceptron updates
 
+**Video first — algorithm explanation:** [UNSW — Perceptron Learning Algorithm](https://thebox.unsw.edu.au/video/perceptron-learning), **about 8 minutes**. A complete ordered numerical trace in this clip was not verified; the table below supplies every update and the tie convention.
+
 **Question.** Use signed labels `t∈{−1,+1}`, score `s=w₁x₁+w₂x₂+b`, and predict `+1` when `s≥0`, otherwise `−1`. Initialize `(w₁,w₂,b)=(0,0,0)`, learning rate `η=1`. Process A `(1,0),+1`, B `(0,1),−1`, C `(2,0),+1` in that order repeatedly. On a mistake, use `(w₁,w₂,b)←(w₁,w₂,b)+ηt(x₁,x₂,1)`. Stop after a whole pass with no errors. Record the old score, prediction, mistake status, and new parameters.
 
 <details>
@@ -362,6 +384,8 @@ After B `(0,−0.5,−0.5)`, after A `(0.5,−0.5,0)`, after C unchanged. The ne
 
 <a id="n3-2"></a>
 ### N3.2 Activation derivatives and a branching chain rule
+
+**Video first — derivative formulas:** [Andrew Ng — Derivatives of Activation Functions](https://www.youtube.com/watch?v=P7_jFxTtJEo), **7:57**. **Worked graph derivatives:** [Derivatives With Computation Graphs](https://www.youtube.com/watch?v=nJyUyKN-XBQ), **14:34**. For a shorter numerical forward warm-up, [Computation Graph](https://www.youtube.com/watch?v=hCP1vGoCdYU), **3:34**. The exercise below combines activation derivatives and branching paths.
 
 **Question A.** Find the activation and derivative for sigmoid at `z=0`, softplus at `z=0`, ReLU at `z=2` and `z=−2`, and tanh when its output is `y=0.6`. If the upstream derivative is `∂L/∂y=2` for each, compute its pre-activation delta.
 
@@ -396,6 +420,8 @@ Sigmoid derivative `0.16`, delta `−0.48`; tanh derivative `0.36`. ReLU at zero
 <a id="n3-3"></a>
 ### N3.3 Gradient, Hessian, and stationary-point classification
 
+**Video first — matrix construction:** [Khan Academy — The Hessian matrix](https://www.youtube.com/watch?v=LbBcuZukCAw), **6:10**; [Applying the second derivative test](https://www.khanacademy.org/v/second-derivative-test), **6:12**, for the scalar test. The mixed-term Hessian and eigenvalue classification are worked below; the scalar test alone does not perform that multivariable calculation.
+
 **Question.** For `f(x,y)=x²+xy+2y²`, calculate the gradient and Hessian, locate the stationary point, and classify it. Compare the origin for `g=x²−y²` and `h=x⁴+y⁴`.
 
 <details>
@@ -418,6 +444,14 @@ Gradient `[−2x,−4y]ᵀ`, Hessian `diag(−2,−4)`, and a strict maximum at 
 
 <a id="n3-4"></a>
 ### N3.4 Full 2→2→2→1 sigmoid/BCE calculation
+
+**Video first — worked numbers, in order:**
+
+1. **Forward pass:** [StatQuest — prediction arithmetic](https://www.youtube.com/watch?v=CqOfi41LfDw&t=925s), **15:25–16:38 · 1:13** replay; start at [7:54](https://www.youtube.com/watch?v=CqOfi41LfDw&t=474s) for the **8:44** buildup (full **18:54**).
+2. **Output-layer gradients and updates:** [Backpropagation Details, Part 1](https://www.youtube.com/watch?v=iyn2zdALii8&t=651s), **10:51–17:19 · 6:28** (full **18:31**).
+3. **Hidden-layer gradients and updates:** [Backpropagation Details, Part 2](https://www.youtube.com/watch?v=GKZoOHXGcLo&t=88s), **1:28–11:18 · 9:50** (full **13:08**).
+
+**Match the course convention:** These videos use one softplus hidden layer, a linear output, and summed squared residuals. The exercise below uses two sigmoid hidden layers and sigmoid/BCE, so its output delta is `prediction−target`. Transfer the chain-rule procedure, but recompute derivatives and averaging for the stated loss. The videos do not solve this exact fifteen-parameter network.
 
 This matches the architecture and notation of [the backpropagation handout](Backpropagation_Derivation.pdf). Every computational neuron uses sigmoid. `wᵢ,ⱼ⁽ˡ⁾` sends previous-layer neuron `i` to current-layer neuron `j`; `w₀,ⱼ⁽ˡ⁾` is its bias from constant input `1`. Use input `x=(1,2)`, target `t=1`, and learning rate `η=0.1`.
 
@@ -491,6 +525,8 @@ Use the newly updated fifteen parameters for a **fresh** forward pass. The loss 
 <a id="n3-5"></a>
 ### N3.5 Two-example batch: average exactly once
 
+**Video first — batch derivation:** [Andrew Ng — Gradient Descent on m Examples](https://www.youtube.com/watch?v=KKfZLXcF-aE), **8:00**. For the numerical update procedure, replay [StatQuest's output updates](https://www.youtube.com/watch?v=iyn2zdALii8&t=902s), **15:02–17:19 · 2:17**, and [hidden updates](https://www.youtube.com/watch?v=GKZoOHXGcLo&t=561s), **9:21–11:18 · 1:57**. Their summed squared-error convention differs from this batch's mean BCE; apply the averaging below exactly once.
+
 **Question.** Reset all parameters to the original table in N3.4. Example A is `(x,t)=((1,2),1)`; example B is `((−1,1),0)`. Define `J=(ℓ_A+ℓ_B)/2`. Calculate both examples at the same original parameter state, average the parameter gradients, then make **one** update with `η=0.1`.
 
 <details>
@@ -528,6 +564,8 @@ If instead you define a delta as `∂J/∂z_i`, it already contains `1/2`; sum i
 
 <a id="n3-6"></a>
 ### N3.6 Fresh full-network retry and readiness check
+
+**Optional video replay after attempting the retry:** [StatQuest — output-layer arithmetic](https://www.youtube.com/watch?v=iyn2zdALii8&t=902s), **15:02–17:19 · 2:17**, then [hidden-layer arithmetic](https://www.youtube.com/watch?v=GKZoOHXGcLo&t=561s), **9:21–11:18 · 1:57**. These are worked examples with different activations/loss, as explained in N3.4; use them to diagnose a missed dependency, then recompute the course-specific derivatives yourself.
 
 Reset to N3.4's original weights and keep input `(1,2)`, but change the target to **`t=0`**. Without looking at the worked backward solution, calculate all five deltas, all fifteen gradients, and one `η=0.1` update. Explain which cached forward values change, if any.
 
@@ -570,6 +608,8 @@ Use these problems after the conceptual videos in [Lecture 4](support.md#lecture
 
 ### N4.1 Why the loss changes the saturation calculation
 
+**Video first — concepts and derivation:** [Andrew Ng — Logistic Regression Cost Function](https://www.youtube.com/watch?v=SHEPb1JHw5o) — **8:12**. This explains the loss foundation; the worked comparison below supplies the exact half-squared-error versus BCE saturation arithmetic.
+
 **Slide connection:** Lecture 4 pp8–26; compare the BCE handout.
 
 Let `p = sigmoid(z) = 0.01` and target `t = 1`: the prediction is confidently wrong. For one example:
@@ -592,7 +632,7 @@ Half-squared-error: `0.9×0.9×0.1 = 0.081`; BCE: `0.9`. Weight gradients: `0.16
 
 ### N4.2 Scalar convergence: distinguish parameter error from loss
 
-**Slide connection:** pp31–36. **Worked-number video:** reuse [StatQuest's iterative gradient-descent example](https://www.youtube.com/watch?v=sDv4f4s2SB8&t=580s), **9:40–14:48 · 5:08**; the stability calculation below is the course-specific bridge.
+**Slide connection:** pp31–36. **Video first — worked numbers:** reuse [StatQuest's iterative gradient-descent example](https://www.youtube.com/watch?v=sDv4f4s2SB8&t=580s), **9:40–14:48 · 5:08**; the stability calculation below is the course-specific bridge.
 
 Let `E(w) = 2(w−1)²`, so `a = 4`, `g(w) = 4(w−1)`, and start at `w₀ = 3`. With fixed learning rate `α`,
 
@@ -621,6 +661,8 @@ Here `a=2`, minimum `w*=−2`, initial error `2`, initial loss `4`. At `α=.25`,
 
 ### N4.3 Hessian, eigenvalues, gradient descent, and Newton
 
+**Video first — concepts and derivation:** [Khan Academy — The Hessian matrix](https://www.youtube.com/watch?v=LbBcuZukCAw) — **6:10**; [mathematicalmonk — Newton's method for optimization: intuition](https://www.youtube.com/watch?v=28BMpgxn_Ec) — **11:16**. For actual worked numbers, use the existing one-dimensional application linked below, then complete this section's two-variable calculation.
+
 **Slide connection:** pp37–53. Khan Academy and mathematicalmonk in the main guide supply concepts and derivation; this section supplies a complete two-variable numerical step. An additional genuine one-dimensional application is [Holistic Numerical Methods — Newton optimization example](https://www.youtube.com/watch?v=bOyy2Vlk6RY), **14:15**, solving a gutter-angle optimization problem. The [educational project's page](https://nm.mathforcollege.com/chapter-09-02-newtons-method-for-one-dimensional-optimization-example/) identifies it as the example lesson; it is an application outside neural networks and does not replace the mixed-term calculation below.
 
 **Diagonal warm-up:** If `H = diag(1,100)`, the condition number is `100` and the stable fixed-rate interval is `0 < α < 0.02`. With `α=.01`, error factors in the two directions are `.99` and `0`: the steep quadratic direction finishes in one step while the flat one shrinks slowly.
@@ -648,6 +690,8 @@ Newton finishes this positive-definite quadratic in one exact step because its l
 
 ### N4.4 Learning-rate decay with the slide's exact indexing
 
+**Video first — concepts and formulas:** [Andrew Ng — Learning Rate Decay](https://www.youtube.com/watch?v=QzulmoOg2JE) — **6:44**. Then use the local table to calculate the slides' exact schedules and starting index.
+
 **Slide connection:** p57. The slide calls `ηₖ=η₀/(k+1)` **linear decay** and `ηₖ=η₀/(k+1)²` **quadratic decay**; these are reciprocal schedules. Do not replace the first with subtraction of a fixed amount just because of its name.
 
 Set `η₀=.12`, let `k=0` denote the first update, and use exponential decay `ηₖ=η₀ exp(−βk)` with `β=ln 2`.
@@ -672,7 +716,9 @@ Reciprocal linear: `.2/3=.066666…`; reciprocal quadratic: `.2/9=.022222…`; e
 
 ### N4.5 RProp: keep the state when an attempted step is rejected
 
-**Slide connection:** pp64–72. The Ryan Harris video is a path animation; it is not advertised here as a worked numerical trace of this particular algorithm.
+**Slide connection:** pp64–72.
+
+**Video first — conceptual animation:** [Ryan Harris — Visualize Back Propagation: RProp and iRProp+](https://www.youtube.com/watch?v=Cy2g9_hR-5Y) — **15:00**, a longer focused lesson. It illustrates optimizer paths, not a worked numerical trace of the slides' exact reversal rule; the table below supplies that calculation.
 
 Use the slides' simplified **rollback, shrink, retry** version. Store an accepted position `w`, its derivative `prevD`, and a positive step magnitude `s`. Write the signed quantity subtracted from the parameter as `Δ = sign(prevD)s`, so a trial is `w_trial=w−Δ`. If signs agree, accept the trial, replace `prevD` with its derivative, and grow `s`. If signs reverse, restore the old position, keep its `prevD`, shrink `s`, and retry from that position on the next attempt. Here a zero derivative means stop. Apply lower/upper bounds to **positive magnitudes**, then attach the sign; the slide's signed-Δ shorthand makes its min/max lines ambiguous for negative Δ.
 
@@ -704,7 +750,9 @@ On a separate bound check, growing `s=.9` gives `min(1.2×.9,1)=1`; shrinking `.
 
 ### N4.6 Momentum and Nesterov: two steps from the same state
 
-**Slide connection:** pp75–93. The Ng and Stanford clips in the main guide explain gradient history and lookahead; the following is the numerical companion.
+**Slide connection:** pp75–93.
+
+**Video first — concepts and derivation:** [Andrew Ng — Gradient Descent With Momentum](https://www.youtube.com/watch?v=k8fTYJPd3_I) — **9:20**; [Stanford CS231n — Nesterov Momentum](https://www.youtube.com/watch?v=_JB0AO7QxSA&t=1801s) — **clip 30:01–33:14 · 3:13**. These explain history and lookahead; the two-step numerical trace below uses an explicitly stated signed-displacement convention.
 
 **Convention:** `vₖ` is a **signed parameter displacement**, not an averaged gradient. With current `wₖ` and previous displacement `vₖ`:
 
@@ -740,6 +788,8 @@ The derivative is now `2w`. All first steps give `w₁=.8`; both momentum method
 These skills are useful for the supplied assignment. Inclusion here does not establish that they will be examined.
 
 ### N5.1 Shapes and parameter counts
+
+**Video first — shapes and formulas:** [Andrew Ng — Computing Neural Network Output](https://www.youtube.com/watch?v=rMOdrD61IoU), **9:58**. For the layer/connection picture, [3Blue1Brown — network structure](https://www.youtube.com/watch?v=aircAruvnKk&t=162s), **2:42–8:38 · 5:56** (full **18:40**). Neither is claimed to count this exact network; count every weight and bias below.
 
 **Given:** rows are examples. For one layer, `Yprev` has shape `N×d`, `W` has shape `d×h`, and `b` has shape `1×h`.
 
@@ -802,6 +852,8 @@ Accuracy **0.7**, precision **0.75**, recall **0.6**, F1 **2/3 ≈ 0.666667**. P
 
 ### N6.1 Full batch, SGD order, mini-batches, and update counts
 
+**Video first — concepts and algorithm:** [Andrew Ng — Mini Batch Gradient Descent](https://www.youtube.com/watch?v=4qJaSmvhxi8) — **11:29**. Follow its batch/epoch explanation with the local worked paths and update counts below.
+
 **Pages:** 6–39, 77–82. Use the constant-output model `ŷ=w` and per-example loss `ℓᵢ=(w−tᵢ)²/2`, with targets `[0,2,4,6]`, initial `w₀=0`, and rate `η=.1`. The full objective is the **mean** of these four losses. A single-example gradient is `w−tᵢ`; a batch gradient is their mean, evaluated at one current `w`.
 
 | Method | Gradients used in order | Weight after each update | Updates in this epoch |
@@ -828,6 +880,8 @@ Full-batch gradient `−2`, final `w=.4`. Forward SGD: gradients `−1,−2.8`, 
 
 ### N6.2 Step-size conditions, rate arithmetic, and equal-work comparisons
 
+**Video first — learning-rate intuition:** [Andrew Ng — Learning Rate Decay](https://www.youtube.com/watch?v=QzulmoOg2JE) — **6:44**. The summability tests, bound arithmetic, and equal-work comparison are worked locally below; this video is not a numerical lesson on those convergence bounds.
+
 **Pages:** 40–59, 86. These are calculations using specified theoretical models, not measured convergence predictions.
 
 **Step-size test:** For `ηₖ=c/kᵖ`, start at `k=1`, with `c>0`. The p-series test gives `Σηₖ=∞` when `p≤1` and `Σηₖ²<∞` when `2p>1`; together, `1/2<p≤1`. Thus `p=.75` and `p=1` pass both, `p=.5` fails the square-sum condition, and `p=2` fails the divergent-sum condition. Geometric decay `c(.9)ᵏ` has a finite total sum, so merely “shrinking rapidly” does not establish both conditions. Additional objective/noise/boundedness assumptions are still needed for a convergence theorem.
@@ -849,6 +903,8 @@ Full-batch gradient `−2`, final `w=.4`. Forward SGD: gradients `−1,−2.8`, 
 
 ### N6.3 Expected risk, variance, and the batch mean
 
+**Video first — variance intuition:** [StatQuest — Standard Deviation vs Standard Error](https://www.youtube.com/watch?v=A82brFpdr9g) — **2:52**. Then enumerate the sampling distribution below to calculate the course's variance and batch-size examples.
+
 **Pages:** 60–91. Freeze the parameters. Suppose a fresh example's loss is `D=1` or `D=3`, each with probability `.5`. Then `E[D]=2` and `Var(D)=[(1−2)²+(3−2)²]/2=1`.
 
 For two **independent** draws, the possible pairs are `(1,1),(1,3),(3,1),(3,3)`, equally likely. Their means are `1,2,2,3`, so the mean is still 2 and its variance is `(1+0+0+1)/4=.5=1/2`. Its standard deviation is `√.5≈.707107`, not `.5`.
@@ -869,6 +925,8 @@ Single draw: mean 2, variance 4. Four independent samples: mean 2, variance 1, s
 <a id="n6-4"></a>
 
 ### N6.4 Momentum and Nesterov over different mini-batches
+
+**Video first — concepts and derivation:** [Andrew Ng — Gradient Descent With Momentum](https://www.youtube.com/watch?v=k8fTYJPd3_I) — **9:20**; [Stanford CS231n — Nesterov Momentum](https://www.youtube.com/watch?v=_JB0AO7QxSA&t=1801s) — **clip 30:01–33:14 · 3:13**. Reuse your N4.6 viewing; the local table extends the numerical trace to changing mini-batches under the stated convention.
 
 **Pages:** 93–109. Use the same constant-output model and half-squared-error as N6.1. Batch A has targets `[1,3]`, so its mean gradient at `w` is `w−2`; batch B has `[-3,−1]`, so its mean gradient is `w+2`. Process A then B, starting `w₀=0`, signed displacement `v₀=0`, `η=.1`, `β=.5`.
 
@@ -894,6 +952,8 @@ Batch means are 1 and 3. Both start with gradient `−1`, displacement `.1`, wei
 <a id="n6-5"></a>
 
 ### N6.5 RMS values and two-parameter RMSProp
+
+**Video first — concepts and update formula:** [Andrew Ng — RMSProp](https://www.youtube.com/watch?v=_e-LFe_igno) — **7:42**. If needed, start with [Exponentially Weighted Averages](https://www.youtube.com/watch?v=lAq96T8FkTw) — **5:58**. The two-coordinate RMS calculation and complete optimizer-state arithmetic are worked below with the slides' epsilon convention.
 
 **Pages:** 110–118. Page 114's coordinates are `x=[1,1,2,1,1.5]`, `y=[2.5,−3,2.5,−2,1.5]`. Their mean squares are `9.25/5=1.85` and `27.75/5=5.55`; RMS values are **1.360147** and **2.355844**. The larger second RMS suggests a smaller effective rate in that coordinate. This is RMS of the listed sequence; the recursive optimizer uses exponential weighting instead of this uniform average.
 
@@ -923,6 +983,8 @@ For the second coordinate at update 2: `s=.5(8)+.5(−4)²=12`; the square does 
 
 ### N6.6 Adam: corrected moments and a sign-changing gradient
 
+**Video first — concepts and derivation:** [Andrew Ng — Adam Optimization Algorithm](https://www.youtube.com/watch?v=JXQT_vxqwIs) — **7:08**; [Bias Correction of Exponentially Weighted Averages](https://www.youtube.com/watch?v=lWzo8CajF5s) — **4:12**. Then calculate both updates below, including the corrected moments and the explicitly stated epsilon placement.
+
 **Pages:** 119–124. Define `t=1,2,…` as the global update counter; keep it and the states across epochs. The slide symbols `δ,γ` correspond here to `β₁,β₂`.
 
 `mₜ=β₁mₜ₋₁+(1−β₁)gₜ`, `vₜ=β₂vₜ₋₁+(1−β₂)gₜ²`.
@@ -951,6 +1013,8 @@ Update 1: `m=−.2,v=.004,m̂=−2,v̂=4,w=1.1`. Update 2: `m=−.38,v=.007996`;
 
 ### N6.7 L2 regularization: objective, gradients, and weight decay
 
+**Video first — formula and derivative:** [Andrew Ng — Regularization](https://www.youtube.com/watch?v=6g0t3Phly2M) — **9:42**. Match its normalization to the objective declared below before using the local worked loss, gradients, and update. For intuition, [Why Regularization Reduces Overfitting](https://www.youtube.com/watch?v=NyG-7nRpsW8) — **7:09** — is optional.
+
 **Pages:** 125–143. Use `ŷ=w₁x₁+w₂x₂+b` with one example `x=(2,1),t=1`; initialize `w=(1,−2),b=.5`. Set `λ=.2`, rate `η=.1`, and objective `J=(ŷ−t)²/2 + (λ/2)(w₁²+w₂²)`. **Bias is unpenalized** in this exercise. For multiple examples, average the data-loss term; do not divide the regularizer by batch size under this stated convention.
 
 1. Prediction `ŷ=2−2+.5=.5`, residual `r=−.5`.
@@ -974,6 +1038,8 @@ Prediction `3`, residual `1`, data loss `.5`, penalty `.25`, total `.75`. Weight
 <a id="n6-8"></a>
 
 ### N6.8 Dropout: a complete masked pass and inference comparison
+
+**Video first — concepts and implementation:** [Andrew Ng — Dropout Regularization](https://www.youtube.com/watch?v=D8PJAL-MZv8) — **9:25**. It uses **inverted dropout**; the local seven-parameter worked pass begins with **standard dropout**, then compares both conventions. The video is preparation, not a substitute for this complete numerical forward/backward pass.
 
 **Pages:** 144–158. Use one scalar input `x=1`, two ReLU hidden units, and a **linear, undropped output**:
 
@@ -1018,6 +1084,8 @@ Masked activation `(0,1)`, prediction `−1.5`, residual `−2.5`, loss `3.125`.
 
 ### N6.9 Coordinate clipping versus norm clipping
 
+**Video first — background only:** [Andrew Ng — Vanishing/Exploding Gradients](https://www.youtube.com/watch?v=qhXZsFVxGKo) — **6:07**. It explains why gradients can become extreme; it is not a verified clipping calculation lesson. The worked example below supplies both clipping rules and their numerical updates.
+
 **Page:** 161. The slide displays a positive ceiling only. For signed gradients, explicitly choose either symmetric coordinate clipping `gᵢ←max(−c,min(gᵢ,c))`, or global-norm clipping `g←g min(1,c/||g||₂)`. The second rule leaves a zero vector unchanged.
 
 Let `g=(6,−8)`, `c=5`, starting weights `w=(1,1)`, rate `.1`.
@@ -1042,6 +1110,8 @@ Coordinate clipping gives `(−6,5)`, so weights become `(.6,−.5)`. Norm is 13
 
 ### N6.10 Input standardization and optional initialization scales
 
+**Video first — concepts and formulas:** [Andrew Ng — Normalizing Inputs](https://www.youtube.com/watch?v=FDCfw-YqWTE) — **5:31**. Use the worked example below for training statistics and the held-out transformation. For the optional initialization extension, [Weight Initialization in a Deep Network](https://www.youtube.com/watch?v=s2coXdufOzE) — **6:12** — provides a derivation beyond the slide's named list.
+
 **Page:** 163. Training feature values are `[2,4,6]`. Use variance with divisor `N=3` for this preprocessing convention: `μ=4`, `σ²=(4+0+4)/3=8/3`, `σ≈1.632993`. Standardized training values `(x−μ)/σ` are `[-1.224745,0,1.224745]`; their mean is zero and their population variance is one. A held-out value `8` becomes `(8−4)/√(8/3)≈2.449490` using **training** statistics.
 
 Dividing by variance instead of standard deviation would not give unit variance. For a constant training feature, define a safe policy such as using denominator 1 after centering; do not divide by zero. Fixed input preprocessing does not include batch normalization's full train/inference machinery.
@@ -1060,6 +1130,8 @@ Training mean 4, variance 6, standard deviation `√6`. Standardized training va
 <a id="n6-11"></a>
 
 ### N6.11 Early stopping and selecting a run
+
+**Video first — concepts:** [Andrew Ng — Other Regularization Methods](https://www.youtube.com/watch?v=BOCLq2gpcGU) — **8:24**, on early stopping and augmentation. The local table supplies the numerical patience/checkpoint trace under an explicit stopping rule.
 
 **Pages:** 160, 162, 164. Define the rule before using it: lower validation loss is better; **any strict decrease** beats the best recorded loss; patience is two consecutive non-improving epochs; save improving checkpoints; restore the best one when stopping. No minimum improvement threshold is used in this example.
 

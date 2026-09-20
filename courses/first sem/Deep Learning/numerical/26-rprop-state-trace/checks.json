@@ -1,0 +1,112 @@
+{
+  "main": [
+    {
+      "attempt": 1,
+      "old": 0.0,
+      "prev": -1.0,
+      "s": 0.6,
+      "delta": -0.6,
+      "trial": 0.6,
+      "d": -0.4,
+      "product": 0.4,
+      "decision": "accept",
+      "w": 0.6,
+      "nextprev": -0.4,
+      "nexts": 0.72,
+      "trialloss": 0.08
+    },
+    {
+      "attempt": 2,
+      "old": 0.6,
+      "prev": -0.4,
+      "s": 0.72,
+      "delta": -0.72,
+      "trial": 1.32,
+      "d": 0.32,
+      "product": -0.128,
+      "decision": "reject",
+      "w": 0.6,
+      "nextprev": -0.4,
+      "nexts": 0.36,
+      "trialloss": 0.0512
+    },
+    {
+      "attempt": 3,
+      "old": 0.6,
+      "prev": -0.4,
+      "s": 0.36,
+      "delta": -0.36,
+      "trial": 0.96,
+      "d": -0.04,
+      "product": 0.016,
+      "decision": "accept",
+      "w": 0.96,
+      "nextprev": -0.04,
+      "nexts": 0.432,
+      "trialloss": 0.0008
+    }
+  ],
+  "practice": [
+    {
+      "attempt": 1,
+      "old": 1.0,
+      "prev": 1.0,
+      "s": 0.7,
+      "delta": 0.7,
+      "trial": 0.3,
+      "d": 0.3,
+      "product": 0.3,
+      "decision": "accept",
+      "w": 0.3,
+      "nextprev": 0.3,
+      "nexts": 0.84,
+      "trialloss": 0.045
+    },
+    {
+      "attempt": 2,
+      "old": 0.3,
+      "prev": 0.3,
+      "s": 0.84,
+      "delta": 0.84,
+      "trial": -0.54,
+      "d": -0.54,
+      "product": -0.162,
+      "decision": "reject",
+      "w": 0.3,
+      "nextprev": 0.3,
+      "nexts": 0.42,
+      "trialloss": 0.1458
+    },
+    {
+      "attempt": 3,
+      "old": 0.3,
+      "prev": 0.3,
+      "s": 0.42,
+      "delta": 0.42,
+      "trial": -0.12,
+      "d": -0.12,
+      "product": -0.036,
+      "decision": "reject",
+      "w": 0.3,
+      "nextprev": 0.3,
+      "nexts": 0.21,
+      "trialloss": 0.0072
+    },
+    {
+      "attempt": 4,
+      "old": 0.3,
+      "prev": 0.3,
+      "s": 0.21,
+      "delta": 0.21,
+      "trial": 0.09,
+      "d": 0.09,
+      "product": 0.027,
+      "decision": "accept",
+      "w": 0.09,
+      "nextprev": 0.09,
+      "nexts": 0.252,
+      "trialloss": 0.00405
+    }
+  ],
+  "arithmetic": "exact fractions before display"
+}

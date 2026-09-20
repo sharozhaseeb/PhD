@@ -1,0 +1,321 @@
+{
+  "number": 23,
+  "title": "Sigmoid saturation and loss choice",
+  "description": "Compare half-squared error and BCE on the same wrong prediction, derive every gradient, and work both parameter updates with a fresh practice.",
+  "source_short": "Lecture4 PDF p.8-26 (unhalved square p.12) / BCE handout p.2",
+  "source": "Lecture4 PDF pages8-26: saturation/squared divergence, unhalved formula page12; Backpropagation_Derivation.pdf page2: sigmoid+BCE; numerical-practice.md N4.1. Half-square study convention explicitly labeled.",
+  "pages": [
+    {
+      "title": "The same wrong prediction, two loss functions",
+      "subtitle": "A single sigmoid output predicts p=0.01 while the known target is t=1.",
+      "blocks": [
+        {
+          "eq": "p=\\sigma(z)=\\frac{1}{1+e^{-z}},\\qquad z=wx+b",
+          "size": 21
+        },
+        {
+          "eq": "x=2,\\quad b=0,\\quad z=\\ln\\frac{0.01}{0.99}=-4.59511985",
+          "size": 21
+        },
+        {
+          "eq": "w=z/2=-2.29755993",
+          "size": 21
+        },
+        "The probability is close to zero, so this target-1 prediction is confidently wrong. Sigmoid saturation means the output changes very little when its input z changes a little.",
+        "Lecture4 motivates the saturation problem using squared divergence. This is a separate study example using the handout binary target convention t in {0,1}."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "State the loss scaling before differentiating",
+      "subtitle": "The lecture PDF page12 uses the unhalved square (y-d)-squared.",
+      "blocks": [
+        {
+          "eq": "L_{half}=\\frac{1}{2}(p-t)^2,\\qquad L_{BCE}=-[t\\ln p+(1-t)\\ln(1-p)]",
+          "size": 21
+        },
+        {
+          "eq": "L_{half}=\\frac{1}{2}(0.01-1)^2=0.49005",
+          "size": 21
+        },
+        {
+          "eq": "L_{BCE}=-\\ln(0.01)=4.60517019",
+          "size": 21
+        },
+        "Our half-square convention removes the factor 2 from its derivative. For the lecture unhalved square, double this loss and its gradients: loss 0.9801.",
+        "These loss values use different scales and definitions. A smaller numerical loss across two different formulas does not by itself mean a better prediction. Compare their gradient responses at the same prediction."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Half-squared error keeps the small sigmoid slope",
+      "subtitle": "Use the chain rule through p before reaching z.",
+      "blocks": [
+        {
+          "eq": "\\frac{dL_{half}}{dp}=p-t=0.01-1=-0.99",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{dp}{dz}=p(1-p)=0.01(0.99)=0.0099",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{dL_{half}}{dz}=\\frac{dL_{half}}{dp}\\frac{dp}{dz}",
+          "size": 21
+        },
+        {
+          "eq": "=(-0.99)(0.0099)=-0.009801",
+          "size": 21
+        },
+        "The prediction is badly wrong, yet the derivative with respect to z is small because the sigmoid slope is small. For the unhalved square, the derivative is twice this: -0.019602."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "BCE cancels the sigmoid factor",
+      "subtitle": "This simplification is specific to sigmoid output with binary cross-entropy.",
+      "blocks": [
+        {
+          "eq": "\\frac{dL_{BCE}}{dp}=-\\frac{t}{p}+\\frac{1-t}{1-p}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{dL_{BCE}}{dz}=\\left(-\\frac{t}{p}+\\frac{1-t}{1-p}\\right)p(1-p)",
+          "size": 21
+        },
+        {
+          "eq": "=-t(1-p)+(1-t)p=p-t",
+          "size": 21
+        },
+        {
+          "eq": "t=1:\\quad(-1/0.01)(0.0099)=(-100)(0.0099)=-0.99",
+          "size": 21
+        },
+        "Cancellation assumes 0<p<1, as holds for finite sigmoid logits in exact arithmetic. Do not multiply the simplified p-t by another sigmoid slope."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Translate each output derivative into parameters",
+      "subtitle": "Let delta = dL/dz. The weight source is x=2; the bias source is 1.",
+      "blocks": [
+        {
+          "eq": "\\frac{dL}{dw}=\\frac{dL}{dz}\\frac{dz}{dw}=\\delta x,\\qquad\\frac{dL}{db}=\\delta",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{half:}\\quad g_w=(-0.009801)(2)=-0.019602,\\quad g_b=-0.009801",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{BCE:}\\quad g_w=(-0.99)(2)=-1.98,\\quad g_b=-0.99",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{|\\delta_{BCE}|}{|\\delta_{half}|}=\\frac{0.99}{0.009801}\\approx101.01",
+          "size": 21
+        },
+        "Subtracting either gradient increases z and the target-1 probability. Their magnitudes differ because the two losses weight this error differently."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "one step with half-squared error",
+      "subtitle": "Update both w and b from the same original state, using eta=0.1.",
+      "blocks": [
+        {
+          "eq": "w_{new}=-2.29755993-0.1(-0.01960200)=-2.29559973",
+          "size": 21
+        },
+        {
+          "eq": "b_{new}=0-0.1(-0.00980100)=0.00098010",
+          "size": 21
+        },
+        {
+          "eq": "z_{new}=2(-2.29559973)+(0.00098010)=-4.59021935",
+          "size": 21
+        },
+        {
+          "eq": "p_{new}=\\frac{1}{1+e^{-(-4.59021935)}}=0.01004863",
+          "size": 21
+        },
+        "The updated prediction uses both changed parameters. The comparison starts from the same original weight and bias for each loss; these are alternative steps, not consecutive steps."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "one step with BCE",
+      "subtitle": "Update both w and b from the same original state, using eta=0.1.",
+      "blocks": [
+        {
+          "eq": "w_{new}=-2.29755993-0.1(-1.98000000)=-2.09955993",
+          "size": 21
+        },
+        {
+          "eq": "b_{new}=0-0.1(-0.99000000)=0.09900000",
+          "size": 21
+        },
+        {
+          "eq": "z_{new}=2(-2.09955993)+(0.09900000)=-4.10011985",
+          "size": 21
+        },
+        {
+          "eq": "p_{new}=\\frac{1}{1+e^{-(-4.10011985)}}=0.01630058",
+          "size": 21
+        },
+        "The updated prediction uses both changed parameters. The comparison starts from the same original weight and bias for each loss; these are alternative steps, not consecutive steps."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Why the logit change contains x-squared",
+      "subtitle": "Combine the updates only after you understand both parameter contributions.",
+      "blocks": [
+        {
+          "eq": "z_{new}=(w-\\eta\\delta x)x+(b-\\eta\\delta)",
+          "size": 21
+        },
+        {
+          "eq": "=wx+b-\\eta\\delta(x^2+1)=z-\\eta\\delta(x^2+1)",
+          "size": 21
+        },
+        {
+          "eq": "x=2:\\quad x^2+1=5",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{half:}\\quad\\Delta z=-0.1(-0.009801)(5)=0.0049005",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{BCE:}\\quad\\Delta z=-0.1(-0.99)(5)=0.495",
+          "size": 21
+        },
+        "This is a same-example logit change after updating both its weight and bias. A bias-only update would omit the x-squared term."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Where sigmoid becomes insensitive",
+      "subtitle": "The same sigmoid is used with either loss.",
+      "blocks": [
+        {
+          "image": "sigmoid.png",
+          "width": 650
+        },
+        "The slope is 0.0099 at p=0.01 or 0.99, versus 0.25 at p=0.5. BCE removes this output factor from the logit derivative; it does not remove every hidden-layer sigmoid factor or guarantee easy optimization."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: a wrong target-zero prediction",
+      "subtitle": "Use a new probability and recompute all quantities.",
+      "blocks": [
+        {
+          "eq": "p=0.9,\\quad t=0,\\quad x=2,\\quad b=0",
+          "size": 21
+        },
+        {
+          "eq": "z=\\ln(9),\\quad w=\\ln(9)/2,\\quad\\eta=0.1",
+          "size": 21
+        },
+        "Find both losses, the sigmoid slope, both derivatives with respect to p and z, and the weight/bias gradients. Then make one simultaneous w,b update for each loss and recompute the probability.",
+        "Explain why the new logit decreases. State what would change if the squared loss had no factor 1/2."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: losses and full chain-rule arithmetic",
+      "subtitle": "The target is zero, so BCE uses the logarithm of 1-p.",
+      "blocks": [
+        {
+          "eq": "L_{half}=\\frac{1}{2}(0.9-0)^2=0.405,\\quad L_{BCE}=-\\ln(0.1)=2.30258509",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{dp}{dz}=0.9(1-0.9)=0.09",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{half:}\\quad\\frac{dL}{dp}=0.9,\\quad\\delta=0.9(0.09)=0.081",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{BCE:}\\quad\\frac{dL}{dp}=1/(1-0.9)=10,\\quad\\delta=10(0.09)=0.9",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{half:}\\ (g_w,g_b)=(0.162,0.081);\\quad\\mathrm{BCE:}\\ (1.8,0.9)",
+          "size": 21
+        },
+        "Positive parameter gradients are subtracted, reducing w and b. For this positive input, both changes reduce z and therefore reduce the wrong high probability."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: one step with half-squared error",
+      "subtitle": "Update both w and b from the same original state, using eta=0.1.",
+      "blocks": [
+        {
+          "eq": "w_{new}=1.09861229-0.1(0.16200000)=1.08241229",
+          "size": 21
+        },
+        {
+          "eq": "b_{new}=0-0.1(0.08100000)=-0.00810000",
+          "size": 21
+        },
+        {
+          "eq": "z_{new}=2(1.08241229)+(-0.00810000)=2.15672458",
+          "size": 21
+        },
+        {
+          "eq": "p_{new}=\\frac{1}{1+e^{-(2.15672458)}}=0.89629549",
+          "size": 21
+        },
+        "The updated prediction uses both changed parameters. The comparison starts from the same original weight and bias for each loss; these are alternative steps, not consecutive steps."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: one step with BCE",
+      "subtitle": "Update both w and b from the same original state, using eta=0.1.",
+      "blocks": [
+        {
+          "eq": "w_{new}=1.09861229-0.1(1.80000000)=0.91861229",
+          "size": 21
+        },
+        {
+          "eq": "b_{new}=0-0.1(0.90000000)=-0.09000000",
+          "size": 21
+        },
+        {
+          "eq": "z_{new}=2(0.91861229)+(-0.09000000)=1.74722458",
+          "size": 21
+        },
+        {
+          "eq": "p_{new}=\\frac{1}{1+e^{-(1.74722458)}}=0.85160240",
+          "size": 21
+        },
+        "The updated prediction uses both changed parameters. The comparison starts from the same original weight and bias for each loss; these are alternative steps, not consecutive steps."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice checks and the scope of the conclusion",
+      "subtitle": "Same prediction and architecture; different loss derivatives.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{half:}\\quad z_{new}=\\ln9-0.1(0.081)(5)=\\ln9-0.0405",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{BCE:}\\quad z_{new}=\\ln9-0.1(0.9)(5)=\\ln9-0.45",
+          "size": 21
+        },
+        "Using an unhalved square doubles its loss and gradients. Keeping the same learning rate would therefore double that parameter displacement.",
+        "Do not threshold the probability before the loss, add an extra sigmoid derivative to p-t, confuse a loss derivative with a weight derivative, or infer that BCE eliminates hidden-layer vanishing gradients."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

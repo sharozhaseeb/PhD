@@ -1,0 +1,109 @@
+{
+  "main": [
+    {
+      "epoch": 1,
+      "value": 0.6,
+      "previous": null,
+      "improve": true,
+      "best": 0.6,
+      "checkpoint": 1,
+      "bad": 0,
+      "stop": false
+    },
+    {
+      "epoch": 2,
+      "value": 0.5,
+      "previous": 0.6,
+      "improve": true,
+      "best": 0.5,
+      "checkpoint": 2,
+      "bad": 0,
+      "stop": false
+    },
+    {
+      "epoch": 3,
+      "value": 0.51,
+      "previous": 0.5,
+      "improve": false,
+      "best": 0.5,
+      "checkpoint": 2,
+      "bad": 1,
+      "stop": false
+    },
+    {
+      "epoch": 4,
+      "value": 0.49,
+      "previous": 0.5,
+      "improve": true,
+      "best": 0.49,
+      "checkpoint": 4,
+      "bad": 0,
+      "stop": false
+    },
+    {
+      "epoch": 5,
+      "value": 0.495,
+      "previous": 0.49,
+      "improve": false,
+      "best": 0.49,
+      "checkpoint": 4,
+      "bad": 1,
+      "stop": false
+    },
+    {
+      "epoch": 6,
+      "value": 0.5,
+      "previous": 0.49,
+      "improve": false,
+      "best": 0.49,
+      "checkpoint": 4,
+      "bad": 2,
+      "stop": true
+    }
+  ],
+  "fresh": [
+    {
+      "epoch": 1,
+      "value": 0.4,
+      "previous": null,
+      "improve": true,
+      "best": 0.4,
+      "checkpoint": 1,
+      "bad": 0,
+      "stop": false
+    },
+    {
+      "epoch": 2,
+      "value": 0.35,
+      "previous": 0.4,
+      "improve": true,
+      "best": 0.35,
+      "checkpoint": 2,
+      "bad": 0,
+      "stop": false
+    },
+    {
+      "epoch": 3,
+      "value": 0.35,
+      "previous": 0.35,
+      "improve": false,
+      "best": 0.35,
+      "checkpoint": 2,
+      "bad": 1,
+      "stop": false
+    },
+    {
+      "epoch": 4,
+      "value": 0.36,
+      "previous": 0.35,
+      "improve": false,
+      "best": 0.35,
+      "checkpoint": 2,
+      "bad": 2,
+      "stop": true
+    }
+  ],
+  "main_configurations": 12,
+  "main_runs": 36,
+  "practice_runs": 24
+}

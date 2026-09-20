@@ -1,0 +1,278 @@
+[
+  {
+    "epoch": 1,
+    "point": "A",
+    "X": [
+      1,
+      1,
+      0
+    ],
+    "target": 1,
+    "old": [
+      0,
+      0,
+      0
+    ],
+    "score": 0,
+    "prediction": 1,
+    "new": [
+      0,
+      0,
+      0
+    ],
+    "mistake": false
+  },
+  {
+    "epoch": 1,
+    "point": "B",
+    "X": [
+      1,
+      0,
+      1
+    ],
+    "target": -1,
+    "old": [
+      0,
+      0,
+      0
+    ],
+    "score": 0,
+    "prediction": 1,
+    "new": [
+      -1,
+      0,
+      -1
+    ],
+    "mistake": true
+  },
+  {
+    "epoch": 1,
+    "point": "C",
+    "X": [
+      1,
+      1,
+      1
+    ],
+    "target": 1,
+    "old": [
+      -1,
+      0,
+      -1
+    ],
+    "score": -2,
+    "prediction": -1,
+    "new": [
+      0,
+      1,
+      0
+    ],
+    "mistake": true
+  },
+  {
+    "epoch": 2,
+    "point": "A",
+    "X": [
+      1,
+      1,
+      0
+    ],
+    "target": 1,
+    "old": [
+      0,
+      1,
+      0
+    ],
+    "score": 1,
+    "prediction": 1,
+    "new": [
+      0,
+      1,
+      0
+    ],
+    "mistake": false
+  },
+  {
+    "epoch": 2,
+    "point": "B",
+    "X": [
+      1,
+      0,
+      1
+    ],
+    "target": -1,
+    "old": [
+      0,
+      1,
+      0
+    ],
+    "score": 0,
+    "prediction": 1,
+    "new": [
+      -1,
+      1,
+      -1
+    ],
+    "mistake": true
+  },
+  {
+    "epoch": 2,
+    "point": "C",
+    "X": [
+      1,
+      1,
+      1
+    ],
+    "target": 1,
+    "old": [
+      -1,
+      1,
+      -1
+    ],
+    "score": -1,
+    "prediction": -1,
+    "new": [
+      0,
+      2,
+      0
+    ],
+    "mistake": true
+  },
+  {
+    "epoch": 3,
+    "point": "A",
+    "X": [
+      1,
+      1,
+      0
+    ],
+    "target": 1,
+    "old": [
+      0,
+      2,
+      0
+    ],
+    "score": 2,
+    "prediction": 1,
+    "new": [
+      0,
+      2,
+      0
+    ],
+    "mistake": false
+  },
+  {
+    "epoch": 3,
+    "point": "B",
+    "X": [
+      1,
+      0,
+      1
+    ],
+    "target": -1,
+    "old": [
+      0,
+      2,
+      0
+    ],
+    "score": 0,
+    "prediction": 1,
+    "new": [
+      -1,
+      2,
+      -1
+    ],
+    "mistake": true
+  },
+  {
+    "epoch": 3,
+    "point": "C",
+    "X": [
+      1,
+      1,
+      1
+    ],
+    "target": 1,
+    "old": [
+      -1,
+      2,
+      -1
+    ],
+    "score": 0,
+    "prediction": 1,
+    "new": [
+      -1,
+      2,
+      -1
+    ],
+    "mistake": false
+  },
+  {
+    "epoch": 4,
+    "point": "A",
+    "X": [
+      1,
+      1,
+      0
+    ],
+    "target": 1,
+    "old": [
+      -1,
+      2,
+      -1
+    ],
+    "score": 1,
+    "prediction": 1,
+    "new": [
+      -1,
+      2,
+      -1
+    ],
+    "mistake": false
+  },
+  {
+    "epoch": 4,
+    "point": "B",
+    "X": [
+      1,
+      0,
+      1
+    ],
+    "target": -1,
+    "old": [
+      -1,
+      2,
+      -1
+    ],
+    "score": -2,
+    "prediction": -1,
+    "new": [
+      -1,
+      2,
+      -1
+    ],
+    "mistake": false
+  },
+  {
+    "epoch": 4,
+    "point": "C",
+    "X": [
+      1,
+      1,
+      1
+    ],
+    "target": 1,
+    "old": [
+      -1,
+      2,
+      -1
+    ],
+    "score": 0,
+    "prediction": 1,
+    "new": [
+      -1,
+      2,
+      -1
+    ],
+    "mistake": false
+  }
+]

@@ -1,0 +1,199 @@
+{
+  "number": 2,
+  "title": "Linear-regression gradient descent",
+  "description": "Derive, calculate and verify one simultaneous training step.",
+  "source_short": "Lecture 1 / PDF pp.36,41,44 / simultaneous updates",
+  "source": "Lecture 1 - Introduction.pdf, pages 36, 41 and 44.",
+  "pages": [
+    {
+      "title": "Use error to choose a better line",
+      "subtitle": "Continue Lesson01. A gradient tells us how cost changes when a parameter changes.",
+      "blocks": [
+        "Data: (1, 2), (2, 3), (3, 5). Initial intercept theta 0 = 0; slope theta 1 = 1.",
+        {
+          "eq": "h_\\theta(x)=\\theta_0+\\theta_1x,\\quad r_i=h_\\theta(x^{(i)})-y^{(i)}"
+        },
+        {
+          "eq": "(r_1,r_2,r_3)=(-1,-1,-2),\\qquad J=1"
+        },
+        "A partial derivative holds the other parameter fixed. Read dJ/dtheta as the sensitivity of cost to a small parameter increase.",
+        {
+          "eq": "\\frac{\\partial J}{\\partial\\theta_0},\\quad\\frac{\\partial J}{\\partial\\theta_1},\\qquad\\alpha=0.1"
+        },
+        "Alpha is the learning rate: it scales the size of our parameter step."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Derive the intercept gradient",
+      "subtitle": "Every prediction increases by 1 when the intercept increases by 1.",
+      "blocks": [
+        {
+          "eq": "J=\\frac{1}{2m}\\sum_i r_i^2,\\qquad r_i=\\theta_0+\\theta_1x^{(i)}-y^{(i)}"
+        },
+        {
+          "eq": "\\frac{\\partial r_i}{\\partial\\theta_0}=1"
+        },
+        {
+          "eq": "\\frac{\\partial J}{\\partial\\theta_0}=\\frac{1}{2m}\\sum_i 2r_i\\frac{\\partial r_i}{\\partial\\theta_0}"
+        },
+        {
+          "eq": "=\\frac{1}{2m}\\sum_i 2r_i(1)=\\frac{1}{m}\\sum_i r_i"
+        },
+        "The derivative of a square gives 2r. That 2 cancels the 1/2 in the cost. The remaining gradient is the mean signed residual."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Derive the slope gradient",
+      "subtitle": "A slope change affects a prediction in proportion to that example's input.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial r_i}{\\partial\\theta_1}=x^{(i)}"
+        },
+        "For x = 3, increasing the slope by 0.01 increases the prediction by 0.03.",
+        {
+          "eq": "\\frac{\\partial J}{\\partial\\theta_1}=\\frac{1}{2m}\\sum_i2r_i x^{(i)}=\\frac{1}{m}\\sum_i r_ix^{(i)}"
+        },
+        "Same residuals, different influence: multiply each residual by its own input before averaging.",
+        "These are the two gradients in Lecture 1, PDF page 44. Do not square residuals again when calculating them."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Substitute all three examples",
+      "subtitle": "Both gradients use the same old parameters, before any update.",
+      "blocks": [
+        {
+          "eq": "g_0=\\frac{\\partial J}{\\partial\\theta_0}=\\frac{-1+(-1)+(-2)}{3}=-\\frac{4}{3}"
+        },
+        {
+          "eq": "r_1x^{(1)}=(-1)(1)=-1"
+        },
+        {
+          "eq": "r_2x^{(2)}=(-1)(2)=-2"
+        },
+        {
+          "eq": "r_3x^{(3)}=(-2)(3)=-6"
+        },
+        {
+          "eq": "g_1=\\frac{\\partial J}{\\partial\\theta_1}=\\frac{-1-2-6}{3}=-3"
+        },
+        "g is a short name for the gradient value. A negative gradient suggests a small increase in that parameter will lower cost."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Update both parameters together",
+      "subtitle": "Lecture 1, page 41: calculate temporary values, then replace both parameters.",
+      "blocks": [
+        {
+          "eq": "\\theta_j^{\\mathrm{new}}=\\theta_j^{\\mathrm{old}}-\\alpha g_j\\qquad(j=0,1)"
+        },
+        {
+          "eq": "\\theta_0^{\\mathrm{new}}=0-0.1(-4/3)=\\frac{2}{15}\\approx0.133333"
+        },
+        {
+          "eq": "\\theta_1^{\\mathrm{new}}=1-0.1(-3)=1+0.3=1.3"
+        },
+        "Subtracting a negative number increases the parameter. Both the intercept and the slope rise in this example.",
+        "Do not replace the intercept and then recalculate the slope gradient. That would mix old and new states."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Predict again with the new line",
+      "subtitle": "Keep exact fractions until the final decimal to avoid rounding drift.",
+      "blocks": [
+        {
+          "eq": "h_1=\\frac{2}{15}+1.3(1)=\\frac{43}{30},\\quad r_1=\\frac{43}{30}-2=-\\frac{17}{30}"
+        },
+        {
+          "eq": "h_2=\\frac{2}{15}+1.3(2)=\\frac{41}{15},\\quad r_2=\\frac{41}{15}-3=-\\frac{4}{15}"
+        },
+        {
+          "eq": "h_3=\\frac{2}{15}+1.3(3)=\\frac{121}{30},\\quad r_3=\\frac{121}{30}-5=-\\frac{29}{30}"
+        },
+        "The predictions are approximately 1.433333, 2.733333 and 4.033333. They are all closer to their targets than before."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Check that the cost really decreased",
+      "subtitle": "A useful update must be checked using new predictions, not old residuals.",
+      "blocks": [
+        {
+          "eq": "J_{\\mathrm{new}}=\\frac{(-17/30)^2+(-4/15)^2+(-29/30)^2}{6}"
+        },
+        {
+          "eq": "=\\frac{289/900+64/900+841/900}{6}=\\frac{1194}{5400}"
+        },
+        {
+          "eq": "J_{\\mathrm{new}}=\\frac{199}{900}\\approx0.221111<1=J_{\\mathrm{old}}"
+        },
+        "One full-batch step uses all 3 examples and makes one simultaneous update.",
+        "A negative gradient is a local direction clue. An excessively large learning rate can still overshoot and increase cost."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: one step from another line",
+      "subtitle": "Use the same data, but begin at intercept 1 and slope 1.",
+      "blocks": [
+        {
+          "eq": "\\theta_0=1,\\quad\\theta_1=1,\\quad\\alpha=0.1,\\quad m=3"
+        },
+        "1. Predict all three targets and calculate signed residuals.",
+        "2. Calculate both mean gradients.",
+        "3. Update the intercept and slope simultaneously.",
+        "4. Recompute the predictions and half-MSE. Did the cost decrease?",
+        "Write the old and new parameter values in separate columns."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer: gradients and update",
+      "subtitle": "First finish all old-state calculations; then change the parameters.",
+      "blocks": [
+        {
+          "eq": "h=(2,3,4),\\qquad r=(2-2,3-3,4-5)=(0,0,-1)"
+        },
+        {
+          "eq": "g_0=\\frac{0+0-1}{3}=-\\frac{1}{3}"
+        },
+        {
+          "eq": "g_1=\\frac{0(1)+0(2)+(-1)(3)}{3}=-1"
+        },
+        {
+          "eq": "\\theta_0^{\\mathrm{new}}=1-0.1(-1/3)=\\frac{31}{30}"
+        },
+        {
+          "eq": "\\theta_1^{\\mathrm{new}}=1-0.1(-1)=1.1"
+        },
+        "Initial practice cost: (0 + 0 + 1) / 6 = 1/6."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice answer: verify the new cost",
+      "subtitle": "Two predictions now overshoot, but the overall fit improves.",
+      "blocks": [
+        {
+          "eq": "h_1=31/30+1.1(1)=32/15,\\quad r_1=32/15-2=2/15"
+        },
+        {
+          "eq": "h_2=31/30+1.1(2)=97/30,\\quad r_2=97/30-3=7/30"
+        },
+        {
+          "eq": "h_3=31/30+1.1(3)=13/3,\\quad r_3=13/3-5=-2/3"
+        },
+        {
+          "eq": "J=\\frac{(2/15)^2+(7/30)^2+(-2/3)^2}{6}=\\frac{31}{360}\\approx0.086111"
+        },
+        "This is below 1/6. Improving average loss does not require every example to improve.",
+        "Avoid: reversed residual signs; averaging twice; updating one parameter before computing the other gradient."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

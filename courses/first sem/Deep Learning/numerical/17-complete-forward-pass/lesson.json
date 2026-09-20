@@ -1,0 +1,477 @@
+{
+  "number": 17,
+  "title": "A complete network forward pass",
+  "description": "Every weighted sum, sigmoid and loss for the shared five-neuron network, followed by a full fresh-input practice.",
+  "source_short": "Backpropagation handout / PDF pp.1-2; numerical-practice N3.4-N3.5",
+  "source": "Backpropagation_Derivation.pdf pages 1-2; numerical-practice.md N3.4 and N3.5 chosen parameters and examples.",
+  "pages": [
+    {
+      "title": "Forward means calculate the prediction",
+      "subtitle": "Use the same 2-to-2-to-2-to-1 sigmoid network as Lesson16.",
+      "blocks": [
+        {
+          "eq": "x=(1,2),\\quad t=1,\\quad y_1^{(0)}=1,\\quad y_2^{(0)}=2",
+          "size": 21
+        },
+        {
+          "eq": "z_j^{(l)}=\\sum_i w_{i,j}^{(l)}y_i^{(l-1)}+b_j^{(l)},\\quad y_j^{(l)}=\\frac{1}{1+e^{-z_j^{(l)}}}",
+          "size": 21
+        },
+        "The handout uses y for each neuron activation and t for the known target. z is the weighted sum before sigmoid. The bias b is the handout weight w0,j.",
+        "Calculate both neurons of layer 1, then both neurons of layer 2, then the output. A later layer uses activations y from the previous layer, not its preactivations z.",
+        "Displayed decimals are rounded. Carry unrounded values internally, or at least 8-10 decimal places on a calculator. No parameter changes during this forward pass."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Start from the original study parameters",
+      "subtitle": "Weights use source index first, destination index second.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "layer",
+              "w1,1",
+              "w1,2",
+              "w2,1",
+              "w2,2",
+              "b1",
+              "b2"
+            ],
+            [
+              "1",
+              "0.1",
+              "-0.2",
+              "0.3",
+              "0.2",
+              "0",
+              "0.1"
+            ],
+            [
+              "2",
+              "0.4",
+              "-0.3",
+              "-0.2",
+              "0.2",
+              "0.1",
+              "-0.1"
+            ],
+            [
+              "3",
+              "0.3",
+              "\u2014",
+              "-0.4",
+              "\u2014",
+              "0.2",
+              "\u2014"
+            ]
+          ],
+          "widths": [
+            65,
+            95,
+            95,
+            95,
+            95,
+            95,
+            95
+          ]
+        },
+        "These are the original N3.4 numerical-practice values, shared with Lesson16. They illustrate the handout equations; the handout does not supply these numbers.",
+        "A dash means that destination neuron does not exist. There are 10 ordinary weights and 5 biases. All five computational neurons use sigmoid."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 1, neuron 1",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{1}^{(1)}=w_{1,1}^{(1)}y_1^{(0)}+w_{2,1}^{(1)}y_2^{(0)}+b_{1}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.1)(1.00000000)+(0.3)(2.00000000)+(0)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.10000000)+(0.60000000)+(0)=0.70000000",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.70000000)}\\approx 0.49658530",
+          "size": 21
+        },
+        {
+          "eq": "y_{1}^{(1)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.49658530}=0.66818777",
+          "size": 21
+        },
+        "Cache this activation for the next layer. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 1, neuron 2",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{2}^{(1)}=w_{1,2}^{(1)}y_1^{(0)}+w_{2,2}^{(1)}y_2^{(0)}+b_{2}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.2)(1.00000000)+(0.2)(2.00000000)+(0.1)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.20000000)+(0.40000000)+(0.1)=0.30000000",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.30000000)}\\approx 0.74081822",
+          "size": 21
+        },
+        {
+          "eq": "y_{2}^{(1)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.74081822}=0.57444252",
+          "size": 21
+        },
+        "Cache this activation for the next layer. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 2, neuron 1",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{1}^{(2)}=w_{1,1}^{(2)}y_1^{(1)}+w_{2,1}^{(2)}y_2^{(1)}+b_{1}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.4)(0.66818777)+(-0.2)(0.57444252)+(0.1)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.26727511)+(-0.11488850)+(0.1)=0.25238661",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.25238661)}\\approx 0.77694431",
+          "size": 21
+        },
+        {
+          "eq": "y_{1}^{(2)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.77694431}=0.56276384",
+          "size": 21
+        },
+        "Cache this activation for the next layer. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 2, neuron 2",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{2}^{(2)}=w_{1,2}^{(2)}y_1^{(1)}+w_{2,2}^{(2)}y_2^{(1)}+b_{2}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.3)(0.66818777)+(0.2)(0.57444252)+(-0.1)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.20045633)+(0.11488850)+(-0.1)=-0.18556783",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(-0.18556783)}\\approx 1.20390186",
+          "size": 21
+        },
+        {
+          "eq": "y_{2}^{(2)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+1.20390186}=0.45374071",
+          "size": 21
+        },
+        "The preactivation is negative, so minus z is positive inside the exponential. Sigmoid still returns a positive number below 0.5."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 3: the output neuron",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{1}^{(3)}=w_{1,1}^{(3)}y_1^{(2)}+w_{2,1}^{(3)}y_2^{(2)}+b_{1}^{(3)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.3)(0.56276384)+(-0.4)(0.45374071)+(0.2)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.16882915)+(-0.18149629)+(0.2)=0.18733287",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.18733287)}\\approx 0.82916769",
+          "size": 21
+        },
+        {
+          "eq": "y_{1}^{(3)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.82916769}=0.54669673",
+          "size": 21
+        },
+        "Cache the output probability for the loss. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Use the probability in binary cross-entropy",
+      "subtitle": "The target first enters here; it did not enter any forward neuron calculation.",
+      "blocks": [
+        {
+          "eq": "\\ell=-[t\\ln y+(1-t)\\ln(1-y)]",
+          "size": 21
+        },
+        {
+          "eq": "t=1,\\quad y=0.5466967333",
+          "size": 21
+        },
+        {
+          "eq": "\\ell=-[1\\ln(0.5466967333)+0\\ln(1-0.5466967333)]",
+          "size": 21
+        },
+        {
+          "eq": "\\ell=-\\ln(0.5466967333)\\approx0.6038610484",
+          "size": 21
+        },
+        "Use natural logarithms and the probability y. Do not threshold y into class 0 or 1 before calculating cross-entropy.",
+        "This is one example loss, not an average over a batch. Changing the target would change the loss, but not this prediction at fixed input and parameters."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Keep a forward cache for backpropagation",
+      "subtitle": "Later derivatives reuse these activations and preactivations.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "neuron",
+              "z",
+              "y = sigmoid(z)"
+            ],
+            [
+              "layer1 / 1",
+              "0.7000000000",
+              "0.6681877722"
+            ],
+            [
+              "layer1 / 2",
+              "0.3000000000",
+              "0.5744425168"
+            ],
+            [
+              "layer2 / 1",
+              "0.2523866055",
+              "0.5627638384"
+            ],
+            [
+              "layer2 / 2",
+              "-0.1855678283",
+              "0.4537407133"
+            ],
+            [
+              "layer3 / 1",
+              "0.1873328662",
+              "0.5466967333"
+            ]
+          ],
+          "widths": [
+            180,
+            220,
+            260
+          ]
+        },
+        "This table is a checkpoint, not a replacement for the substitutions. Lessons18-19 start from these same forward values and original weights.",
+        "Common mistakes: swapping weight indices, feeding z instead of y to the next layer, forgetting a bias, rounding too early, or changing parameters midway."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: a different input and target",
+      "subtitle": "Reset to the same original parameter table. No training update has happened.",
+      "blocks": [
+        {
+          "eq": "x=(-1,1),\\quad t=0",
+          "size": 21
+        },
+        "Calculate all five z values and all five sigmoid activations. Then calculate the one-example binary cross-entropy.",
+        "Write each neuron as two weight-times-activation products plus its bias. Watch the negative input and the negative preactivation in hidden layer 2.",
+        "This is example B from numerical-practice N3.5. It will join example A in the later batch-update lesson."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: layer 1, neuron 1",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{1}^{(1)}=w_{1,1}^{(1)}y_1^{(0)}+w_{2,1}^{(1)}y_2^{(0)}+b_{1}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.1)(-1.00000000)+(0.3)(1.00000000)+(0)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.10000000)+(0.30000000)+(0)=0.20000000",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.20000000)}\\approx 0.81873075",
+          "size": 21
+        },
+        {
+          "eq": "y_{1}^{(1)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.81873075}=0.54983400",
+          "size": 21
+        },
+        "Cache this activation for the next layer. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: layer 1, neuron 2",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{2}^{(1)}=w_{1,2}^{(1)}y_1^{(0)}+w_{2,2}^{(1)}y_2^{(0)}+b_{2}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.2)(-1.00000000)+(0.2)(1.00000000)+(0.1)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.20000000)+(0.20000000)+(0.1)=0.50000000",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.50000000)}\\approx 0.60653066",
+          "size": 21
+        },
+        {
+          "eq": "y_{2}^{(1)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.60653066}=0.62245933",
+          "size": 21
+        },
+        "Cache this activation for the next layer. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: layer 2, neuron 1",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{1}^{(2)}=w_{1,1}^{(2)}y_1^{(1)}+w_{2,1}^{(2)}y_2^{(1)}+b_{1}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.4)(0.54983400)+(-0.2)(0.62245933)+(0.1)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.21993360)+(-0.12449187)+(0.1)=0.19544173",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.19544173)}\\approx 0.82247127",
+          "size": 21
+        },
+        {
+          "eq": "y_{1}^{(2)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.82247127}=0.54870550",
+          "size": 21
+        },
+        "Cache this activation for the next layer. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: layer 2, neuron 2",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{2}^{(2)}=w_{1,2}^{(2)}y_1^{(1)}+w_{2,2}^{(2)}y_2^{(1)}+b_{2}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.3)(0.54983400)+(0.2)(0.62245933)+(-0.1)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(-0.16495020)+(0.12449187)+(-0.1)=-0.14045833",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(-0.14045833)}\\approx 1.15080113",
+          "size": 21
+        },
+        {
+          "eq": "y_{2}^{(2)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+1.15080113}=0.46494303",
+          "size": 21
+        },
+        "The preactivation is negative, so minus z is positive inside the exponential. Sigmoid still returns a positive number below 0.5."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: layer 3: the output neuron",
+      "subtitle": "First multiply and add, then apply sigmoid to this neuron only.",
+      "blocks": [
+        {
+          "eq": "z_{1}^{(3)}=w_{1,1}^{(3)}y_1^{(2)}+w_{2,1}^{(3)}y_2^{(2)}+b_{1}^{(3)}",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.3)(0.54870550)+(-0.4)(0.46494303)+(0.2)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx(0.16461165)+(-0.18597721)+(0.2)=0.17863444",
+          "size": 21
+        },
+        {
+          "eq": "e^{-z}=e^{-(0.17863444)}\\approx 0.83641161",
+          "size": 21
+        },
+        {
+          "eq": "y_{1}^{(3)}=\\frac{1}{1+e^{-z}}\\approx\\frac{1}{1+0.83641161}=0.54454023",
+          "size": 21
+        },
+        "Cache the output probability for the loss. Keep its preactivation separately; they are different quantities."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice answer: loss for target zero",
+      "subtitle": "Keep the probability; use the other term of binary cross-entropy.",
+      "blocks": [
+        {
+          "eq": "y=0.5445402309851674,\\quad t=0",
+          "size": 21
+        },
+        {
+          "eq": "\\ell=-[0\\ln y+1\\ln(1-y)]=-\\ln(1-y)",
+          "size": 21
+        },
+        {
+          "eq": "1-y=1-0.5445402309851674=0.4554597690148326",
+          "size": 21
+        },
+        {
+          "eq": "\\ell=-\\ln(0.4554597690148326)\\approx0.7864478889",
+          "size": 21
+        },
+        "The model assigns more than half its probability to class 1, although the target is 0, so this is an incorrect thresholded prediction. The cross-entropy uses the probability, not just that mistake count.",
+        "Every parameter is still at its original value. Only the input, target and resulting cached quantities changed."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

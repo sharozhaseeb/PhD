@@ -1,0 +1,556 @@
+{
+  "number": 19,
+  "title": "Hidden-layer backpropagation",
+  "description": "Calculate every hidden delta and all twelve hidden gradients, including every branching path and a full target-flip practice.",
+  "source_short": "Backpropagation handout / PDF p.3, sections5.3-6 / original N3.4 network",
+  "source": "Backpropagation_Derivation.pdf page 3, sections5.3-6; numerical-practice.md N3.4 and N3.6.",
+  "pages": [
+    {
+      "title": "Continue backward from the output delta",
+      "subtitle": "Keep the original weights and the Lesson17 forward cache.",
+      "blocks": [
+        {
+          "eq": "x=(1,2),\\quad t=1,\\quad\\delta_1^{(3)}=-0.4533032667",
+          "size": 21
+        },
+        {
+          "eq": "y^{(1)}=(0.6681877722,0.5744425168)",
+          "size": 21
+        },
+        {
+          "eq": "y^{(2)}=(0.5627638384,0.4537407133)",
+          "size": 21
+        },
+        {
+          "eq": "W^{(2)}\\ \\mathrm{rows}:\\ (0.4,-0.3),\\ (-0.2,0.2)",
+          "size": 21
+        },
+        {
+          "eq": "W^{(3)}\\ \\mathrm{rows}:\\ (0.3),\\ (-0.4)",
+          "size": 21
+        },
+        "The goal is four hidden deltas and all twelve hidden-layer parameter gradients. The three output gradients were calculated in Lesson18.",
+        "Each delta is the derivative of this one example loss with respect to one neuron preactivation. No batch averaging or parameter update happens here."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Sum downstream paths, then apply the local slope",
+      "subtitle": "Handout page 3, sections 5.3-6: every outgoing connection is a dependency.",
+      "blocks": [
+        {
+          "eq": "\\delta_j^{(l)}=\\left(\\sum_k w_{j,k}^{(l+1)}\\delta_k^{(l+1)}\\right)y_j^{(l)}(1-y_j^{(l)})",
+          "size": 21
+        },
+        "The incoming backward derivative is also called the upstream gradient; it comes from downstream neurons in the forward graph. For each next-layer neuron k, multiply its delta by the connecting weight. Add all these path contributions, then multiply by the current neuron sigmoid slope.",
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,j}^{(l)}}=y_i^{(l-1)}\\delta_j^{(l)},\\quad\\frac{\\partial\\ell}{\\partial b_j^{(l)}}=\\delta_j^{(l)}",
+          "size": 21
+        },
+        "A hidden neuron has no direct target label. Do not use hidden activation minus target as its delta. The y-t shortcut was specific to the output sigmoid plus BCE.",
+        "Use original connecting weights. Updating the output weights before computing hidden deltas would mix two different parameter states."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Hidden layer 2, neuron 1: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(0.3)(-0.4533032667)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (-0.1359909800)=-0.1359909800",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.5627638384(1-0.5627638384)\\approx0.2460607006",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{1}^{(2)}\\approx(-0.1359909800)(0.2460607006)=-0.0334620358",
+          "size": 21
+        },
+        "There is only one next-layer output neuron, so this upstream sum has just one term.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Hidden layer 2, neuron 2: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(-0.4)(-0.4533032667)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (0.1813213067)=0.1813213067",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.4537407133(1-0.4537407133)\\approx0.2478600784",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{2}^{(2)}\\approx(0.1813213067)(0.2478600784)=0.0449423133",
+          "size": 21
+        },
+        "There is only one next-layer output neuron, so this upstream sum has just one term.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 2, neuron 1: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,1}^{(2)}}=y_i^{(1)}\\delta_{1}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,1}^{(2)}}\\approx(0.6681877722)(-0.0334620358)=-0.0223589232",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,1}^{(2)}}\\approx(0.5744425168)(-0.0334620358)=-0.0192220161",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{1}^{(2)}}=1\\delta_{1}^{(2)}\\approx-0.0334620358",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 2 the sources are hidden-layer-1 activations, not the original inputs."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 2, neuron 2: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,2}^{(2)}}=y_i^{(1)}\\delta_{2}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,2}^{(2)}}\\approx(0.6681877722)(0.0449423133)=0.0300299042",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,2}^{(2)}}\\approx(0.5744425168)(0.0449423133)=0.0258167756",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{2}^{(2)}}=1\\delta_{2}^{(2)}\\approx0.0449423133",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 2 the sources are hidden-layer-1 activations, not the original inputs."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Hidden layer 1, neuron 1: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(0.4)(-0.0334620358)+(-0.3)(0.0449423133)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (-0.0133848143)+(-0.0134826940)=-0.0268675083",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.6681877722(1-0.6681877722)\\approx0.2217128733",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{1}^{(1)}\\approx(-0.0268675083)(0.2217128733)=-0.0059568725",
+          "size": 21
+        },
+        "Both path contributions are included before applying the local slope.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Hidden layer 1, neuron 2: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(-0.2)(-0.0334620358)+(0.2)(0.0449423133)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (0.0066924072)+(0.0089884627)=0.0156808698",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.5744425168(1-0.5744425168)\\approx0.2444583117",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{2}^{(1)}\\approx(0.0156808698)(0.2444583117)=0.0038333190",
+          "size": 21
+        },
+        "Both path contributions are included before applying the local slope.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 1, neuron 1: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,1}^{(1)}}=y_i^{(0)}\\delta_{1}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,1}^{(1)}}\\approx(1.0000000000)(-0.0059568725)=-0.0059568725",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,1}^{(1)}}\\approx(2.0000000000)(-0.0059568725)=-0.0119137449",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{1}^{(1)}}=1\\delta_{1}^{(1)}\\approx-0.0059568725",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 1 the source activations are the measured inputs x1 = 1 and x2 = 2."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Layer 1, neuron 2: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,2}^{(1)}}=y_i^{(0)}\\delta_{2}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,2}^{(1)}}\\approx(1.0000000000)(0.0038333190)=0.0038333190",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,2}^{(1)}}\\approx(2.0000000000)(0.0038333190)=0.0076666379",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{2}^{(1)}}=1\\delta_{2}^{(1)}\\approx0.0038333190",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 1 the source activations are the measured inputs x1 = 1 and x2 = 2."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Why the first hidden neuron needs both paths",
+      "subtitle": "The diagram isolates its two outgoing connections to hidden layer 2.",
+      "blocks": [
+        {
+          "image": "branch.png",
+          "width": 660
+        },
+        {
+          "eq": "0.4\\delta_1^{(2)}+(-0.3)\\delta_2^{(2)}=-0.0268675083",
+          "size": 21
+        },
+        "The two next-layer neurons both depend on this first-hidden activation. The chain rule adds the effects through both branches, even when a connecting weight is negative."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Checkpoint: every hidden parameter is covered",
+      "subtitle": "All values are derivatives of the same one-example loss at the same original state.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "parameter",
+              "layer1 gradient",
+              "layer2 gradient"
+            ],
+            [
+              "w1,1",
+              "-0.0059568725",
+              "-0.0223589232"
+            ],
+            [
+              "w1,2",
+              "0.0038333190",
+              "0.0300299042"
+            ],
+            [
+              "w2,1",
+              "-0.0119137449",
+              "-0.0192220161"
+            ],
+            [
+              "w2,2",
+              "0.0076666379",
+              "0.0258167756"
+            ],
+            [
+              "b1",
+              "-0.0059568725",
+              "-0.0334620358"
+            ],
+            [
+              "b2",
+              "0.0038333190",
+              "0.0449423133"
+            ]
+          ],
+          "widths": [
+            180,
+            240,
+            240
+          ]
+        },
+        "The twelve hidden gradients plus three output gradients cover all fifteen trainable parameters. Independent finite-difference checks of all fifteen agree."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: propagate the target-flip delta",
+      "subtitle": "Use the original input (1,2), original parameters, but target t = 0.",
+      "blocks": [
+        {
+          "eq": "\\delta_1^{(3)}=+0.5466967333",
+          "size": 21
+        },
+        "The forward cache is unchanged, as shown in Lesson18. Recalculate both layer-2 deltas, both layer-1 deltas, and all twelve hidden-parameter gradients.",
+        "Write the separate downstream contributions at layer 1 before adding them. Then apply each neuron local sigmoid slope.",
+        "Explain why hidden deltas are not hidden y minus target, and why you cannot update an output weight before this calculation."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: Hidden layer 2, neuron 1: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(0.3)(0.5466967333)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (0.1640090200)=0.1640090200",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.5627638384(1-0.5627638384)\\approx0.2460607006",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{1}^{(2)}\\approx(0.1640090200)(0.2460607006)=0.0403561744",
+          "size": 21
+        },
+        "There is only one next-layer output neuron, so this upstream sum has just one term.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: Hidden layer 2, neuron 2: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(-0.4)(0.5466967333)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (-0.2186786933)=-0.2186786933",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.4537407133(1-0.4537407133)\\approx0.2478600784",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{2}^{(2)}\\approx(-0.2186786933)(0.2478600784)=-0.0542017181",
+          "size": 21
+        },
+        "There is only one next-layer output neuron, so this upstream sum has just one term.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: Layer 2, neuron 1: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,1}^{(2)}}=y_i^{(1)}\\delta_{1}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,1}^{(2)}}\\approx(0.6681877722)(0.0403561744)=0.0269655022",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,1}^{(2)}}\\approx(0.5744425168)(0.0403561744)=0.0231823024",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{1}^{(2)}}=1\\delta_{1}^{(2)}\\approx0.0403561744",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 2 the sources are hidden-layer-1 activations, not the original inputs."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: Layer 2, neuron 2: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,2}^{(2)}}=y_i^{(1)}\\delta_{2}^{(2)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,2}^{(2)}}\\approx(0.6681877722)(-0.0542017181)=-0.0362169252",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,2}^{(2)}}\\approx(0.5744425168)(-0.0542017181)=-0.0311357713",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{2}^{(2)}}=1\\delta_{2}^{(2)}\\approx-0.0542017181",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 2 the sources are hidden-layer-1 activations, not the original inputs."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: Hidden layer 1, neuron 1: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(0.4)(0.0403561744)+(-0.3)(-0.0542017181)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (0.0161424697)+(0.0162605154)=0.0324029852",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.6681877722(1-0.6681877722)\\approx0.2217128733",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{1}^{(1)}\\approx(0.0324029852)(0.2217128733)=0.0071841589",
+          "size": 21
+        },
+        "Both path contributions are included before applying the local slope.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: Hidden layer 1, neuron 2: delta",
+      "subtitle": "Multiply each downstream delta by its original connecting weight.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{upstream\\ sum}=(-0.2)(0.0403561744)+(0.2)(-0.0542017181)",
+          "size": 21
+        },
+        {
+          "eq": "\\approx (-0.0080712349)+(-0.0108403436)=-0.0189115785",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{local\\ slope}=0.5744425168(1-0.5744425168)\\approx0.2444583117",
+          "size": 21
+        },
+        {
+          "eq": "\\delta_{2}^{(1)}\\approx(-0.0189115785)(0.2444583117)=-0.0046230925",
+          "size": 21
+        },
+        "Both path contributions are included before applying the local slope.",
+        "This delta belongs to the destination neuron. All incoming parameter gradients for that neuron reuse it."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: Layer 1, neuron 1: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,1}^{(1)}}=y_i^{(0)}\\delta_{1}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,1}^{(1)}}\\approx(1.0000000000)(0.0071841589)=0.0071841589",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,1}^{(1)}}\\approx(2.0000000000)(0.0071841589)=0.0143683179",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{1}^{(1)}}=1\\delta_{1}^{(1)}\\approx0.0071841589",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 1 the source activations are the measured inputs x1 = 1 and x2 = 2."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: Layer 1, neuron 2: three gradients",
+      "subtitle": "Formula, substitution and value for both incoming weights and the bias.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{i,2}^{(1)}}=y_i^{(0)}\\delta_{2}^{(1)}",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{1,2}^{(1)}}\\approx(1.0000000000)(-0.0046230925)=-0.0046230925",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial w_{2,2}^{(1)}}\\approx(2.0000000000)(-0.0046230925)=-0.0092461851",
+          "size": 21
+        },
+        {
+          "eq": "\\frac{\\partial\\ell}{\\partial b_{2}^{(1)}}=1\\delta_{2}^{(1)}\\approx-0.0046230925",
+          "size": 21
+        },
+        "Two ordinary incoming weights use two different source activations. The one bias uses constant source 1.",
+        "For layer 1 the source activations are the measured inputs x1 = 1 and x2 = 2."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice check: what changed and what did not?",
+      "subtitle": "The known target changed the output delta; all forward values stayed fixed.",
+      "blocks": [
+        {
+          "eq": "\\delta^{(2)}\\approx(0.0403561744,-0.0542017181)",
+          "size": 21
+        },
+        {
+          "eq": "\\delta^{(1)}\\approx(0.0071841589,-0.0046230925)",
+          "size": 21
+        },
+        "All twelve hidden gradients were recalculated on the preceding pages. Their signs reverse relative to target 1 because the output delta changes sign and all other factors stay fixed.",
+        "Here every gradient is multiplied by the same ratio of new to old output delta. That is a check for this fixed-input, fixed-parameter, single-output example; it does not replace the chain-rule working.",
+        "Common mistakes: dropping a downstream path, using an incoming instead of outgoing weight in the delta, using a preactivation as a source, or changing weights before all gradients are ready."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

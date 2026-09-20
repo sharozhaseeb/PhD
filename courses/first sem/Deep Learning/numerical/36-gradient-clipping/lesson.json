@@ -1,0 +1,314 @@
+{
+  "number": 36,
+  "title": "Coordinate and global-norm gradient clipping",
+  "description": "Work the slide ceiling and two signed-gradient extensions, compare vector directions and updates, handle zero, and solve fresh clipping practice.",
+  "source_short": "Lecture 5 PDF p.161 / symmetric and norm rules are supporting extensions",
+  "source": "Lecture 5 PDF page 161 gives the one-sided positive ceiling. Symmetric coordinate and global L2-norm clipping are explicitly labeled supporting extensions; numerical-practice.md N6.9.",
+  "pages": [
+    {
+      "title": "Clip a gradient before using it in an update",
+      "subtitle": "Lecture 5 page 161 gives a ceiling on an individual positive derivative.",
+      "blocks": [
+        {
+          "eq": "g=(6,-8),\\quad c=5,\\quad w=(1,1),\\quad\\eta=0.1",
+          "size": 22
+        },
+        "g is the gradient vector supplied by backpropagation; w is the parameter vector. c is our threshold, called theta on the slide. We compare different clipping rules on the same original g.",
+        {
+          "eq": "w^{new}=w-\\eta g_{used}",
+          "size": 22
+        },
+        "First choose and compute the clipped gradient. Then apply the parameter update. Clipping gradients does not mean clipping the values of the weights.",
+        "The symmetric coordinate and global-norm rules below are labeled supporting extensions to the slide's one-sided ceiling."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Work the slide one-sided ceiling literally",
+      "subtitle": "Only a derivative greater than c is replaced by c.",
+      "blocks": [
+        {
+          "eq": "g_i>c\\Longrightarrow g_i^{used}=c;\\quad\\mathrm{otherwise}\\ g_i^{used}=g_i",
+          "size": 22
+        },
+        {
+          "eq": "6>5\\Longrightarrow g_1^{used}=5",
+          "size": 22
+        },
+        {
+          "eq": "-8>5\\ \\mathrm{is\\ false}\\Longrightarrow g_2^{used}=-8",
+          "size": 22
+        },
+        {
+          "eq": "g^{used}=(5,-8)",
+          "size": 22
+        },
+        {
+          "eq": "w^{new}=(1-0.1(5),\\ 1-0.1(-8))=(0.5,1.8)",
+          "size": 22
+        },
+        "A large negative derivative remains untouched. The next extension bounds both positive and negative components."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Symmetric coordinate clipping",
+      "subtitle": "Supporting extension: cap each component between -c and +c.",
+      "blocks": [
+        {
+          "eq": "g_i^{clip}=\\max(-c,\\min(g_i,c))",
+          "size": 22
+        },
+        {
+          "eq": "g_1^{clip}=\\max(-5,\\min(6,5))=\\max(-5,5)=5",
+          "size": 22
+        },
+        {
+          "eq": "g_2^{clip}=\\max(-5,\\min(-8,5))=\\max(-5,-8)=-5",
+          "size": 22
+        },
+        {
+          "eq": "g^{clip}=(5,-5)",
+          "size": 22
+        },
+        {
+          "eq": "w^{new}=(1-0.1(5),\\ 1-0.1(-5))=(0.5,1.5)",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Global norm clipping: measure the vector length",
+      "subtitle": "Supporting extension: cap total Euclidean length instead of individual components.",
+      "blocks": [
+        {
+          "eq": "\\|g\\|_2=\\sqrt{g_1^2+g_2^2}=\\sqrt{6^2+(-8)^2}=\\sqrt{100}=10",
+          "size": 22
+        },
+        "The Euclidean norm is the length of the vector, calculated from its squared components. For a nonzero vector, choose one shared scale factor.",
+        {
+          "eq": "a=\\min(1,c/\\|g\\|_2)=\\min(1,5/10)=0.5",
+          "size": 22
+        },
+        {
+          "eq": "g^{clip}=a g=0.5(6,-8)=(3,-4)",
+          "size": 22
+        },
+        {
+          "eq": "\\|g^{clip}\\|_2=\\sqrt{3^2+(-4)^2}=5",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Use the norm-clipped vector in the update",
+      "subtitle": "Both components were scaled by the same factor .5.",
+      "blocks": [
+        {
+          "eq": "w_1^{new}=1-0.1(3)=0.7",
+          "size": 22
+        },
+        {
+          "eq": "w_2^{new}=1-0.1(-4)=1.4",
+          "size": 22
+        },
+        {
+          "eq": "w^{new}=(0.7,1.4)",
+          "size": 22
+        },
+        {
+          "eq": "\\|\\Delta w\\|_2=\\eta\\|g^{clip}\\|_2=0.1(5)=0.5",
+          "size": 22
+        },
+        "For this plain gradient-descent update, a global clipped-gradient length at most c gives a displacement length at most eta*c. It is not a bound on the parameter vector itself."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "A component cap is not a length cap",
+      "subtitle": "The coordinate-clipped vector still has length greater than 5.",
+      "blocks": [
+        {
+          "eq": "\\|(5,-5)\\|_2=\\sqrt{25+25}=\\sqrt{50}\\approx7.071>5",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{global\\ ratios}:\\quad3/6=(-4)/(-8)=0.5",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{coordinate\\ ratios}:\\quad5/6\\ne(-5)/(-8)",
+          "size": 22
+        },
+        "Global clipping multiplies a nonzero vector by one positive number, preserving direction. Coordinate clipping can use different effective factors and change direction.",
+        "A threshold 5 means different things in these two rules: largest allowed component magnitude versus largest allowed total vector length."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "See the directions and allowed regions",
+      "subtitle": "Arrows are gradients from the origin, not parameter paths.",
+      "blocks": [
+        {
+          "image": "clipping.png",
+          "width": 650
+        },
+        "The square is the coordinate constraint; the circle is the norm constraint. The norm-clipped arrow lies on the same ray as the original vector."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Compare the resulting parameter states",
+      "subtitle": "Restart from w=(1,1) for each independent comparison.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "rule",
+              "gradient used",
+              "new parameters"
+            ],
+            [
+              "none",
+              "(6,-8)",
+              "(.4,1.8)"
+            ],
+            [
+              "slide positive ceiling",
+              "(5,-8)",
+              "(.5,1.8)"
+            ],
+            [
+              "symmetric coordinate",
+              "(5,-5)",
+              "(.5,1.5)"
+            ],
+            [
+              "global norm",
+              "(3,-4)",
+              "(.7,1.4)"
+            ]
+          ],
+          "widths": [
+            250,
+            200,
+            230
+          ]
+        },
+        "The differences come from different rules, not arithmetic disagreements. Name the rule before computing it.",
+        "These supplied gradients illustrate updates; without a declared objective they do not establish which update achieves the lowest loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Handle a small vector, a boundary and zero",
+      "subtitle": "A clipping operation should not amplify a vector already within its cap.",
+      "blocks": [
+        {
+          "eq": "g=(1,-2),\\ c=5:\\quad\\|g\\|_2=\\sqrt{5}<5\\Longrightarrow a=1",
+          "size": 22
+        },
+        {
+          "eq": "g=(3,4),\\ c=5:\\quad\\|g\\|_2=5\\Longrightarrow a=1",
+          "size": 22
+        },
+        {
+          "eq": "g=(0,0)\\Longrightarrow g^{clip}=(0,0)",
+          "size": 22
+        },
+        "For the zero vector, leave it unchanged directly; do not evaluate c/0. At the exact norm boundary, the shared scale is 1. Symmetric coordinate clipping also leaves all these example components unchanged."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: a large negative component",
+      "subtitle": "Start from zero weights and compare all three rules.",
+      "blocks": [
+        {
+          "eq": "g=(-12,5),\\quad c=6,\\quad w=(0,0),\\quad\\eta=0.1",
+          "size": 22
+        },
+        "Calculate the slide one-sided ceiling, symmetric coordinate clipping and global-norm clipping. Show both components, the norm and shared scale where needed, then each parameter update.",
+        "Explain why a component magnitude limit 6 does not imply a total gradient length limit 6."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Answer: one-sided and symmetric coordinate rules",
+      "subtitle": "The slide ceiling only changes components greater than +6.",
+      "blocks": [
+        {
+          "eq": "-12\\leq6,\\quad5\\leq6\\Longrightarrow g_{slide}=(-12,5)",
+          "size": 22
+        },
+        {
+          "eq": "w_{slide}^{new}=(0-0.1(-12),\\ 0-0.1(5))=(1.2,-0.5)",
+          "size": 22
+        },
+        {
+          "eq": "g_1^{coord}=\\max(-6,\\min(-12,6))=-6",
+          "size": 22
+        },
+        {
+          "eq": "g_2^{coord}=\\max(-6,\\min(5,6))=5",
+          "size": 22
+        },
+        {
+          "eq": "w_{coord}^{new}=(0-0.1(-6),\\ 0-0.1(5))=(0.6,-0.5)",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: norm, scale and clipped components",
+      "subtitle": "One shared factor rescales both coordinates.",
+      "blocks": [
+        {
+          "eq": "\\|g\\|_2=\\sqrt{(-12)^2+5^2}=\\sqrt{144+25}=13",
+          "size": 22
+        },
+        {
+          "eq": "a=\\min(1,6/13)=6/13",
+          "size": 22
+        },
+        {
+          "eq": "g_1^{norm}=(-12)(6/13)=-72/13\\approx-5.538462",
+          "size": 22
+        },
+        {
+          "eq": "g_2^{norm}=5(6/13)=30/13\\approx2.307692",
+          "size": 22
+        },
+        {
+          "eq": "\\|g^{norm}\\|_2=(6/13)(13)=6",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: the final norm-clipped update",
+      "subtitle": "Subtracting a negative first component increases the first weight.",
+      "blocks": [
+        {
+          "eq": "w_1^{new}=0-0.1(-72/13)=36/65\\approx0.553846",
+          "size": 22
+        },
+        {
+          "eq": "w_2^{new}=0-0.1(30/13)=-3/13\\approx-0.230769",
+          "size": 22
+        },
+        {
+          "eq": "\\|(-6,5)\\|_2=\\sqrt{36+25}=\\sqrt{61}\\approx7.81025>6",
+          "size": 22
+        },
+        "The last line checks the symmetric coordinate result: each magnitude is at most 6, but total length exceeds 6. Global clipping caps the length itself.",
+        "Common mistakes: ignoring a large negative component when a symmetric rule was requested, clipping weights instead of gradients, applying a different norm scale to each coordinate, or dividing by a zero norm."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

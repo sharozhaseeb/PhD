@@ -1,0 +1,521 @@
+{
+  "number": 10,
+  "title": "Truth tables to Boolean networks",
+  "description": "Build row detectors, verify all rows, simplify with a Karnaugh map and rebuild.",
+  "source_short": "Lecture 2 / PDF pp.61-72 / original three-input example",
+  "source": "Lecture 2 - Logistic Regression + Neural Network.pdf, pages 61-72. The three-input dataset is a study example.",
+  "pages": [
+    {
+      "title": "Start from a truth table",
+      "subtitle": "A small study example applying Lecture 2, pages 61-72; not the slide's five-input data.",
+      "blocks": [
+        "Inputs A, B and C are Boolean. Output F must be 1 on exactly four input rows.",
+        {
+          "table": [
+            [
+              "ABC",
+              "F"
+            ],
+            [
+              "000",
+              0
+            ],
+            [
+              "001",
+              1
+            ],
+            [
+              "010",
+              0
+            ],
+            [
+              "011",
+              1
+            ],
+            [
+              "100",
+              1
+            ],
+            [
+              "101",
+              1
+            ],
+            [
+              "110",
+              0
+            ],
+            [
+              "111",
+              0
+            ]
+          ],
+          "widths": [
+            160,
+            160
+          ]
+        },
+        "A literal is one input or its negation. NOT A means 1 - A for a Boolean input."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Write one AND term per true row",
+      "subtitle": "DNF means an OR of AND terms. The bar over a letter means NOT.",
+      "blocks": [
+        {
+          "eq": "001:\\quad t_1=\\overline{A}\\,\\overline{B}\\,C"
+        },
+        {
+          "eq": "011:\\quad t_2=\\overline{A}\\,B\\,C"
+        },
+        {
+          "eq": "100:\\quad t_3=A\\,\\overline{B}\\,\\overline{C}"
+        },
+        {
+          "eq": "101:\\quad t_4=A\\,\\overline{B}\\,C"
+        },
+        {
+          "eq": "F=t_1\\vee t_2\\vee t_3\\vee t_4"
+        },
+        "Juxtaposed literals mean AND, not a new variable. A term tests all three bits; the final OR accepts any matching true row."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Turn a row detector into a neuron",
+      "subtitle": "For row 001, all three matching literal values must be 1.",
+      "blocks": [
+        {
+          "eq": "t_1=H((1-A)+(1-B)+C-2.5)"
+        },
+        {
+          "eq": "=H(2-A-B+C-2.5)=H(-A-B+C-0.5)"
+        },
+        "Three matches sum to 3 and give score +0.5. Any mismatch lowers that sum to at most 2, so the score is at most -0.5.",
+        {
+          "eq": "(w_A,w_B,w_C)=(-1,-1,1),\\quad b=-0.5,\\quad T=0.5"
+        },
+        "Negative weights encode the negated literals directly. No separate NOT neuron is needed.",
+        "We use H(s) = 1 when s >= 0. Half-integer thresholds avoid ties on Boolean inputs."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "The four hidden row detectors",
+      "subtitle": "Expand the complements in each matching-literal test in exactly the same way.",
+      "blocks": [
+        {
+          "eq": "t_1=H(-A-B+C-0.5)"
+        },
+        {
+          "eq": "t_2=H((1-A)+B+C-2.5)=H(-A+B+C-1.5)"
+        },
+        {
+          "eq": "t_3=H(A+(1-B)+(1-C)-2.5)=H(A-B-C-0.5)"
+        },
+        {
+          "eq": "t_4=H(A+(1-B)+C-2.5)=H(A-B+C-1.5)"
+        },
+        {
+          "eq": "F=H(t_1+t_2+t_3+t_4-0.5)"
+        },
+        "The output uses weights (1, 1, 1, 1) and threshold 0.5: at least one detector must fire."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Work one row through every neuron",
+      "subtitle": "For input 001, only its own row detector should fire.",
+      "blocks": [
+        {
+          "eq": "s_{001}=-0-0+1-0.5=0.5\\Rightarrow t_1=1"
+        },
+        {
+          "eq": "s_{011}=-0+0+1-1.5=-0.5\\Rightarrow t_2=0"
+        },
+        {
+          "eq": "s_{100}=0-0-1-0.5=-1.5\\Rightarrow t_3=0"
+        },
+        {
+          "eq": "s_{101}=0-0+1-1.5=-0.5\\Rightarrow t_4=0"
+        },
+        {
+          "eq": "F=H(1+0+0+0-0.5)=H(0.5)=1"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Verify every canonical-network row",
+      "subtitle": "Scores are before H; hidden is the four-bit vector after H in detector order.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "ABC",
+              "s001",
+              "s011",
+              "s100",
+              "s101",
+              "hidden",
+              "output"
+            ],
+            [
+              "000",
+              -0.5,
+              -1.5,
+              -0.5,
+              -1.5,
+              "0000",
+              0
+            ],
+            [
+              "001",
+              0.5,
+              -0.5,
+              -1.5,
+              -0.5,
+              "1000",
+              1
+            ],
+            [
+              "010",
+              -1.5,
+              -0.5,
+              -1.5,
+              -2.5,
+              "0000",
+              0
+            ],
+            [
+              "011",
+              -0.5,
+              0.5,
+              -2.5,
+              -1.5,
+              "0100",
+              1
+            ],
+            [
+              "100",
+              -1.5,
+              -2.5,
+              0.5,
+              -0.5,
+              "0010",
+              1
+            ],
+            [
+              "101",
+              -0.5,
+              -1.5,
+              -0.5,
+              0.5,
+              "0001",
+              1
+            ],
+            [
+              "110",
+              -2.5,
+              -1.5,
+              -0.5,
+              -1.5,
+              "0000",
+              0
+            ],
+            [
+              "111",
+              -1.5,
+              -0.5,
+              -1.5,
+              -0.5,
+              "0000",
+              0
+            ]
+          ],
+          "widths": [
+            70,
+            85,
+            85,
+            85,
+            110,
+            100,
+            70
+          ]
+        },
+        "Detector order: 001, 011, 100, 101. A positive score becomes 1; every negative score becomes 0.",
+        "In each true row, hidden sums to 1 and output score is +0.5. In every false row, hidden sums to 0 and output score is -0.5."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Arrange the same table as a K-map",
+      "subtitle": "Columns use Gray order: 00, 01, 11, 10. Adjacent columns differ by one bit.",
+      "blocks": [
+        {
+          "image": "kmap.png",
+          "width": 660
+        },
+        "Top pair 001/011: A = 0 and C = 1 stay fixed; B changes, so remove B.",
+        "Bottom pair 100/101: A = 1 and B = 0 stay fixed; C changes, so remove C.",
+        "Groups have power-of-two size. Adjacent edge cells may wrap around; diagonal cells are not adjacent."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "The reduced expression needs two detectors",
+      "subtitle": "Grouping removed tests whose input can change without changing the output.",
+      "blocks": [
+        {
+          "eq": "F=(\\overline{A}\\wedge C)\\vee(A\\wedge\\overline{B})"
+        },
+        {
+          "eq": "h_1=H((1-A)+C-1.5)=H(-A+C-0.5)"
+        },
+        {
+          "eq": "h_2=H(A+(1-B)-1.5)=H(A-B-0.5)"
+        },
+        {
+          "eq": "F=H(h_1+h_2-0.5)"
+        },
+        "h1 ignores B; h2 ignores C. Each detector now checks two literals rather than three.",
+        "This reduces the number of hidden neurons from four to two without changing the truth table."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Verify reduced network: rows 1-2",
+      "subtitle": "Substitute inputs, threshold both hidden scores, then threshold their sum.",
+      "blocks": [
+        {
+          "eq": "000:\\quad h_1=H(-0+0-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "h_2=H(0-0-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "F=H(0+0-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "001:\\quad h_1=H(-0+1-0.5)=H(0.5)=1"
+        },
+        {
+          "eq": "h_2=H(0-0-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "F=H(1+0-0.5)=H(0.5)=1"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Verify reduced network: rows 3-4",
+      "subtitle": "Substitute inputs, threshold both hidden scores, then threshold their sum.",
+      "blocks": [
+        {
+          "eq": "010:\\quad h_1=H(-0+0-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "h_2=H(0-1-0.5)=H(-1.5)=0"
+        },
+        {
+          "eq": "F=H(0+0-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "011:\\quad h_1=H(-0+1-0.5)=H(0.5)=1"
+        },
+        {
+          "eq": "h_2=H(0-1-0.5)=H(-1.5)=0"
+        },
+        {
+          "eq": "F=H(1+0-0.5)=H(0.5)=1"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Verify reduced network: rows 5-6",
+      "subtitle": "Substitute inputs, threshold both hidden scores, then threshold their sum.",
+      "blocks": [
+        {
+          "eq": "100:\\quad h_1=H(-1+0-0.5)=H(-1.5)=0"
+        },
+        {
+          "eq": "h_2=H(1-0-0.5)=H(0.5)=1"
+        },
+        {
+          "eq": "F=H(0+1-0.5)=H(0.5)=1"
+        },
+        {
+          "eq": "101:\\quad h_1=H(-1+1-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "h_2=H(1-0-0.5)=H(0.5)=1"
+        },
+        {
+          "eq": "F=H(0+1-0.5)=H(0.5)=1"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Verify reduced network: rows 7-8",
+      "subtitle": "Substitute inputs, threshold both hidden scores, then threshold their sum.",
+      "blocks": [
+        {
+          "eq": "110:\\quad h_1=H(-1+0-0.5)=H(-1.5)=0"
+        },
+        {
+          "eq": "h_2=H(1-1-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "F=H(0+0-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "111:\\quad h_1=H(-1+1-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "h_2=H(1-1-0.5)=H(-0.5)=0"
+        },
+        {
+          "eq": "F=H(0+0-0.5)=H(-0.5)=0"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Count what the simplification saved",
+      "subtitle": "A stored zero weight still counts as a parameter of a dense layer.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{canonical:}\\quad3(4)+4+4(1)+1=21"
+        },
+        "Four hidden neurons each have three input weights and a bias; the output has four weights and one bias.",
+        {
+          "eq": "\\mathrm{reduced\\ dense:}\\quad3(2)+2+2(1)+1=11"
+        },
+        {
+          "eq": "\\mathrm{reduced\\ sparse:}\\quad2+2+2+3=9"
+        },
+        "The sparse version omits the unused B-to-h1 and C-to-h2 edges: six present weights plus three biases. Counts depend on how connections are stored."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: a different truth table",
+      "subtitle": "Set F = 1 for 010, 011, 101 and 111; set F = 0 elsewhere.",
+      "blocks": [
+        "1. Place all eight rows into a K-map with columns BC = 00, 01, 11, 10.",
+        "2. Group adjacent ones and write a reduced OR-of-ANDs expression.",
+        "3. Convert each term into a hidden neuron, then add an OR output.",
+        "4. Check all eight rows against the requested truth table.",
+        "Use the same H convention and half-integer thresholds."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer: group and translate",
+      "subtitle": "Each group removes the input that changes inside that group.",
+      "blocks": [
+        {
+          "image": "practice-map.png",
+          "width": 500
+        },
+        "Top pair 010/011 keeps A = 0, B = 1: NOT A AND B. Bottom pair 101/111 keeps A = 1, C = 1: A AND C.",
+        {
+          "eq": "F=(\\overline{A}\\wedge B)\\vee(A\\wedge C)"
+        },
+        {
+          "eq": "h_1=H(-A+B-0.5),\\quad h_2=H(A+C-1.5)"
+        },
+        {
+          "eq": "F=H(h_1+h_2-0.5)"
+        }
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice answer: all eight rows",
+      "subtitle": "The output applies H(h1 + h2 - 0.5) to each row.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "ABC",
+              "s1=-A+B-.5",
+              "s2=A+C-1.5",
+              "h1,h2",
+              "F"
+            ],
+            [
+              "000",
+              -0.5,
+              -1.5,
+              "0,0",
+              0
+            ],
+            [
+              "001",
+              -0.5,
+              -0.5,
+              "0,0",
+              0
+            ],
+            [
+              "010",
+              0.5,
+              -1.5,
+              "1,0",
+              1
+            ],
+            [
+              "011",
+              0.5,
+              -0.5,
+              "1,0",
+              1
+            ],
+            [
+              "100",
+              -1.5,
+              -0.5,
+              "0,0",
+              0
+            ],
+            [
+              "101",
+              -1.5,
+              0.5,
+              "0,1",
+              1
+            ],
+            [
+              "110",
+              -0.5,
+              -0.5,
+              "0,0",
+              0
+            ],
+            [
+              "111",
+              -0.5,
+              0.5,
+              "0,1",
+              1
+            ]
+          ],
+          "widths": [
+            80,
+            170,
+            170,
+            100,
+            70
+          ]
+        },
+        "Example 010: h1 = H(-0 + 1 - 0.5) = 1; h2 = H(0 + 0 - 1.5) = 0; F = H(1 + 0 - 0.5) = 1.",
+        "Avoid: ordinary binary column order in the map; diagonal grouping; forgetting to adjust the bias when expanding NOT literals."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

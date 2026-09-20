@@ -1,0 +1,502 @@
+{
+  "number": 13,
+  "title": "Perceptron learning",
+  "description": "Every visit and mistake update across four epochs, with an independent practice problem.",
+  "source_short": "Lecture 3 / PDF pp.41,53-54 / explicit sign(0)=+1 convention",
+  "source": "Lecture 3 - Learning Neural Network.pdf, algorithm page 41 and nonseparable data pages 53-54. Original study dataset.",
+  "pages": [
+    {
+      "title": "Learn a threshold neuron from mistakes",
+      "subtitle": "Lecture 3, PDF page 41: labels are +1 and -1, with a unit-size update.",
+      "blocks": [
+        "Original study data, always visited in this order: A = (1,0), target +1; B = (0,1), target -1; C = (1,1), target +1.",
+        {
+          "eq": "X=(1,x_1,x_2),\\quad W=(b,w_1,w_2),\\quad s=W^T X=b+w_1x_1+w_2x_2",
+          "size": 21
+        },
+        "The leading 1 is a bookkeeping input for the bias. It is not another measured feature.",
+        {
+          "eq": "\\hat y=+1\\ \\mathrm{if}\\ s\\geq0;\\quad\\hat y=-1\\ \\mathrm{if}\\ s<0",
+          "size": 21
+        },
+        "The slide does not define sign(0). We choose +1 explicitly. These labels differ from the 0/1 labels used in logistic regression."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Update only after a mistaken prediction",
+      "subtitle": "An epoch is one complete pass through A, B, C in that order.",
+      "blocks": [
+        {
+          "eq": "\\hat y\\neq y:\\quad W_{\\mathrm{new}}=W_{\\mathrm{old}}+yX",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=y:\\quad W_{\\mathrm{new}}=W_{\\mathrm{old}}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{start}}=(0,0,0)",
+          "size": 21
+        },
+        "Use the newest weights for the very next example. The update is not a batch average and does not wait until the epoch ends.",
+        "Stop only after an entire epoch has no classification errors. With our tie rule, score zero is correct for target +1 and incorrect for target -1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 1, point A: keep the weights",
+      "subtitle": "Visit 1 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(0,0,0),\\quad X=(1,1,0),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(0)+(0)(1)+(0)(0)=0",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{correct}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=W_{\\mathrm{old}}=(0,0,0)",
+          "size": 21
+        },
+        "No update: a correctly classified point does not change any parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 1, point B: correct the mistake",
+      "subtitle": "Visit 2 of 12. Target label -1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(0,0,0),\\quad X=(1,0,1),\\quad y=-1",
+          "size": 21
+        },
+        {
+          "eq": "s=(0)+(0)(0)+(0)(1)=0",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=-1\\quad\\Rightarrow\\quad\\mathrm{mistake}",
+          "size": 21
+        },
+        {
+          "eq": "yX=(-1)(1,0,1)=(-1,0,-1)",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=(0,0,0)+(-1,0,-1)=(-1,0,-1)",
+          "size": 21
+        },
+        "Carry these updated values into the next visit. The bias changes too because the first input component is 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 1, point C: correct the mistake",
+      "subtitle": "Visit 3 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(-1,0,-1),\\quad X=(1,1,1),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(-1)+(0)(1)+(-1)(1)=-2",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=-1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{mistake}",
+          "size": 21
+        },
+        {
+          "eq": "yX=(1)(1,1,1)=(1,1,1)",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=(-1,0,-1)+(1,1,1)=(0,1,0)",
+          "size": 21
+        },
+        "Carry these updated values into the next visit. The bias changes too because the first input component is 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 2, point A: keep the weights",
+      "subtitle": "Visit 4 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(0,1,0),\\quad X=(1,1,0),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(0)+(1)(1)+(0)(0)=1",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{correct}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=W_{\\mathrm{old}}=(0,1,0)",
+          "size": 21
+        },
+        "No update: a correctly classified point does not change any parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 2, point B: correct the mistake",
+      "subtitle": "Visit 5 of 12. Target label -1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(0,1,0),\\quad X=(1,0,1),\\quad y=-1",
+          "size": 21
+        },
+        {
+          "eq": "s=(0)+(1)(0)+(0)(1)=0",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=-1\\quad\\Rightarrow\\quad\\mathrm{mistake}",
+          "size": 21
+        },
+        {
+          "eq": "yX=(-1)(1,0,1)=(-1,0,-1)",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=(0,1,0)+(-1,0,-1)=(-1,1,-1)",
+          "size": 21
+        },
+        "Carry these updated values into the next visit. The bias changes too because the first input component is 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 2, point C: correct the mistake",
+      "subtitle": "Visit 6 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(-1,1,-1),\\quad X=(1,1,1),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(-1)+(1)(1)+(-1)(1)=-1",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=-1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{mistake}",
+          "size": 21
+        },
+        {
+          "eq": "yX=(1)(1,1,1)=(1,1,1)",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=(-1,1,-1)+(1,1,1)=(0,2,0)",
+          "size": 21
+        },
+        "Carry these updated values into the next visit. The bias changes too because the first input component is 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 3, point A: keep the weights",
+      "subtitle": "Visit 7 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(0,2,0),\\quad X=(1,1,0),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(0)+(2)(1)+(0)(0)=2",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{correct}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=W_{\\mathrm{old}}=(0,2,0)",
+          "size": 21
+        },
+        "No update: a correctly classified point does not change any parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 3, point B: correct the mistake",
+      "subtitle": "Visit 8 of 12. Target label -1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(0,2,0),\\quad X=(1,0,1),\\quad y=-1",
+          "size": 21
+        },
+        {
+          "eq": "s=(0)+(2)(0)+(0)(1)=0",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=-1\\quad\\Rightarrow\\quad\\mathrm{mistake}",
+          "size": 21
+        },
+        {
+          "eq": "yX=(-1)(1,0,1)=(-1,0,-1)",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=(0,2,0)+(-1,0,-1)=(-1,2,-1)",
+          "size": 21
+        },
+        "Carry these updated values into the next visit. The bias changes too because the first input component is 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 3, point C: keep the weights",
+      "subtitle": "Visit 9 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(-1,2,-1),\\quad X=(1,1,1),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(-1)+(2)(1)+(-1)(1)=0",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{correct}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=W_{\\mathrm{old}}=(-1,2,-1)",
+          "size": 21
+        },
+        "No update: a correctly classified point does not change any parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 4, point A: keep the weights",
+      "subtitle": "Visit 10 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(-1,2,-1),\\quad X=(1,1,0),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(-1)+(2)(1)+(-1)(0)=1",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{correct}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=W_{\\mathrm{old}}=(-1,2,-1)",
+          "size": 21
+        },
+        "No update: a correctly classified point does not change any parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 4, point B: keep the weights",
+      "subtitle": "Visit 11 of 12. Target label -1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(-1,2,-1),\\quad X=(1,0,1),\\quad y=-1",
+          "size": 21
+        },
+        {
+          "eq": "s=(-1)+(2)(0)+(-1)(1)=-2",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=-1,\\quad y=-1\\quad\\Rightarrow\\quad\\mathrm{correct}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=W_{\\mathrm{old}}=(-1,2,-1)",
+          "size": 21
+        },
+        "No update: a correctly classified point does not change any parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Epoch 4, point C: keep the weights",
+      "subtitle": "Visit 12 of 12. Target label +1; prediction follows the stated sign rule.",
+      "blocks": [
+        {
+          "eq": "W_{\\mathrm{old}}=(-1,2,-1),\\quad X=(1,1,1),\\quad y=+1",
+          "size": 21
+        },
+        {
+          "eq": "s=(-1)+(2)(1)+(-1)(1)=0",
+          "size": 21
+        },
+        {
+          "eq": "\\hat y=+1,\\quad y=+1\\quad\\Rightarrow\\quad\\mathrm{correct}",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=W_{\\mathrm{old}}=(-1,2,-1)",
+          "size": 21
+        },
+        "No update: a correctly classified point does not change any parameter."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Why the mistake update helps this point",
+      "subtitle": "Examine the first mistaken visit: B in epoch 1.",
+      "blocks": [
+        {
+          "eq": "X_B=(1,0,1),\\quad y_B=-1,\\quad W_{\\mathrm{old}}=(0,0,0)",
+          "size": 21
+        },
+        {
+          "eq": "W_{\\mathrm{new}}=(-1,0,-1),\\quad s_{\\mathrm{new}}=-1+0(0)-1(1)=-2",
+          "size": 21
+        },
+        {
+          "eq": "\\Delta s=(yX)^T X=y\\Vert X\\Vert^2=(-1)(1^2+0^2+1^2)=-2",
+          "size": 21
+        },
+        "Squared length means the sum of squared components. The score moves downward toward the negative target. A positive target moves its own score upward. Other points can become wrong again, which is why we repeat epochs.",
+        "Do not replace the mistake test by y times score <= 0 under this tie convention: a zero score with target +1 is already correct."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Verify the final neuron and stop",
+      "subtitle": "The fourth epoch has zero errors; the third still had one.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "epoch",
+              "mistakes",
+              "weights at end"
+            ],
+            [
+              1,
+              2,
+              "(0,1,0)"
+            ],
+            [
+              2,
+              2,
+              "(0,2,0)"
+            ],
+            [
+              3,
+              1,
+              "(-1,2,-1)"
+            ],
+            [
+              4,
+              0,
+              "(-1,2,-1)"
+            ]
+          ],
+          "widths": [
+            130,
+            160,
+            260
+          ]
+        },
+        {
+          "eq": "s=-1+2x_1-x_2",
+          "size": 21
+        },
+        {
+          "eq": "A:s=1\\Rightarrow+1;\\quad B:s=-2\\Rightarrow-1;\\quad C:s=0\\Rightarrow+1",
+          "size": 21
+        },
+        "Five updates occurred over twelve visits. A visit, a mistake update and an epoch are different counts."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Picture the final separating boundary",
+      "subtitle": "Points on the line receive +1 because sign(0) = +1.",
+      "blocks": [
+        {
+          "image": "boundary.png",
+          "width": 640
+        },
+        "The boundary is 2x1 - x2 - 1 = 0. C lies exactly on it; our tie convention matters.",
+        "Lecture 3, pages 53-54: a single perceptron cannot solve nonseparable data such as XOR. Repeating the loop then need not produce an error-free epoch."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: two points, one measured feature",
+      "subtitle": "Keep +1/-1 labels, sign(0) = +1 and the unit mistake update.",
+      "blocks": [
+        {
+          "eq": "X=(1,x),\\quad W=(b,w),\\quad W_{\\mathrm{start}}=(0,-1)",
+          "size": 21
+        },
+        "Fixed order: first x = -1 with target -1; then x = 2 with target +1.",
+        "Show the old weights, score, predicted label and resulting weights for every visit. Repeat until a complete epoch has no errors.",
+        "How many visits, mistake updates and epochs are required? Explain why the first epoch alone is not enough."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer: correct both first-epoch errors",
+      "subtitle": "The second point uses the weights already changed by the first.",
+      "blocks": [
+        {
+          "eq": "x=-1:\\quad s=0+(-1)(-1)=1\\Rightarrow\\hat y=+1\\neq-1",
+          "size": 21
+        },
+        {
+          "eq": "W=(0,-1)+(-1)(1,-1)=(0,-1)+(-1,1)=(-1,0)",
+          "size": 21
+        },
+        {
+          "eq": "x=2:\\quad s=-1+0(2)=-1\\Rightarrow\\hat y=-1\\neq+1",
+          "size": 21
+        },
+        {
+          "eq": "W=(-1,0)+(+1)(1,2)=(-1,0)+(1,2)=(0,2)",
+          "size": 21
+        },
+        "Both visits made an update. Even though the final weights may now be correct, the stopping rule requires another complete pass."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice answer: check the whole second epoch",
+      "subtitle": "The first correct point is not yet an error-free epoch.",
+      "blocks": [
+        {
+          "eq": "x=-1:\\quad s=0+2(-1)=-2\\Rightarrow\\hat y=-1=y",
+          "size": 21
+        },
+        {
+          "eq": "W\\ \\mathrm{stays}\\ (0,2)",
+          "size": 21
+        },
+        {
+          "eq": "x=2:\\quad s=0+2(2)=4\\Rightarrow\\hat y=+1=y",
+          "size": 21
+        },
+        {
+          "eq": "W\\ \\mathrm{stays}\\ (0,2)",
+          "size": 21
+        },
+        "Now stop: 2 epochs, 4 visits, 2 mistake updates. Remember to update the bias, preserve visit order, and distinguish a score from its predicted label."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

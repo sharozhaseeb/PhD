@@ -1,0 +1,76 @@
+{
+  "main": {
+    "predictions": [
+      1,
+      1,
+      0,
+      0,
+      0,
+      1,
+      1,
+      0
+    ],
+    "outcomes": [
+      "TP",
+      "FP",
+      "FN",
+      "TN",
+      "TN",
+      "TP",
+      "FP",
+      "TN"
+    ],
+    "counts": {
+      "TP": 2,
+      "FN": 1,
+      "FP": 2,
+      "TN": 3
+    },
+    "metrics": {
+      "accuracy": "5/8",
+      "precision": "1/2",
+      "recall": "2/3",
+      "F1": "4/7"
+    }
+  },
+  "fresh": {
+    "predictions": [
+      1,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    "outcomes": [
+      "TP",
+      "TP",
+      "FN",
+      "FN",
+      "FP",
+      "TN",
+      "TN",
+      "TN"
+    ],
+    "counts": {
+      "TP": 2,
+      "FN": 2,
+      "FP": 1,
+      "TN": 3
+    },
+    "metrics": {
+      "accuracy": "5/8",
+      "precision": "2/3",
+      "recall": "1/2",
+      "F1": "4/7"
+    }
+  },
+  "challenge": {
+    "accuracy": "7/10",
+    "precision": "3/4",
+    "recall": "3/5",
+    "F1": "2/3"
+  }
+}

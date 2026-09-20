@@ -1,0 +1,16 @@
+{
+  "4": {
+    "dnf_hidden": 8,
+    "dnf_total": 9,
+    "dnf_params": 49,
+    "tree_neurons": 9,
+    "tree_params": 27
+  },
+  "8": {
+    "dnf_hidden": 128,
+    "dnf_total": 129,
+    "dnf_params": 1281,
+    "tree_neurons": 21,
+    "tree_params": 63
+  }
+}

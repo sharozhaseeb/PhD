@@ -1,0 +1,133 @@
+{
+  "number": 1,
+  "title": "Single-feature linear regression",
+  "description": "Three points, signed residuals and the lecture's half-MSE cost.",
+  "source_short": "Lecture 1 / PDF pp.33,36 / half-MSE convention",
+  "source": "Lecture 1 - Introduction.pdf, pages 33 and 36 (PDF page numbers).",
+  "pages": [
+    {
+      "title": "A line makes a numerical prediction",
+      "subtitle": "Our goal: measure how well one chosen line fits three observed points.",
+      "blocks": [
+        "Data: (x, y) = (1, 2), (2, 3), (3, 5). x is an input; y is its known target.",
+        {
+          "eq": "h_\\theta(x)=\\theta_0+\\theta_1x\\qquad\\mathrm{(Lecture\\ 1,\\ p.33)}"
+        },
+        "h is the prediction. Theta names the model parameters: theta 0 is the intercept (bias); theta 1 is the slope (weight).",
+        {
+          "eq": "\\theta_0=0,\\quad\\theta_1=1,\\quad m=3\\quad\\Longrightarrow\\quad h_\\theta(x)=x"
+        },
+        "m counts examples. One shared line predicts all three points. These starting parameters are chosen for this study example."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Predict all three targets",
+      "subtitle": "Substitute each input into the same line. Do not change the parameters.",
+      "blocks": [
+        {
+          "eq": "h_\\theta(x^{(i)})=\\theta_0+\\theta_1x^{(i)}"
+        },
+        "The superscript (i) identifies an example; it is not an exponent.",
+        {
+          "eq": "h_\\theta(x^{(1)})=0+1\\times1=1\\qquad y^{(1)}=2"
+        },
+        {
+          "eq": "h_\\theta(x^{(2)})=0+1\\times2=2\\qquad y^{(2)}=3"
+        },
+        {
+          "eq": "h_\\theta(x^{(3)})=0+1\\times3=3\\qquad y^{(3)}=5"
+        },
+        "Predictions (1, 2, 3) differ from targets (2, 3, 5). Now measure the gaps."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Keep the sign, then square",
+      "subtitle": "Residual means prediction minus target. A negative residual is an underprediction.",
+      "blocks": [
+        {
+          "eq": "r_i=h_\\theta(x^{(i)})-y^{(i)}"
+        },
+        {
+          "eq": "r_1=1-2=-1\\qquad r_1^2=(-1)^2=1"
+        },
+        {
+          "eq": "r_2=2-3=-1\\qquad r_2^2=(-1)^2=1"
+        },
+        {
+          "eq": "r_3=3-5=-2\\qquad r_3^2=(-2)^2=4"
+        },
+        "Squaring makes every contribution nonnegative. A gap twice as large contributes four times as much squared error.",
+        "Keep the signed residuals too: the next lesson needs them for gradients."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Combine errors into one cost",
+      "subtitle": "The lecture uses half the mean squared error: be careful with the factor 2.",
+      "blocks": [
+        {
+          "eq": "J(\\theta_0,\\theta_1)=\\frac{1}{2m}\\sum_{i=1}^{m}(h_\\theta(x^{(i)})-y^{(i)})^2"
+        },
+        "Lecture 1, PDF page 36. The summation sign means add all example contributions.",
+        {
+          "eq": "J=\\frac{1}{2\\times3}(1+1+4)=\\frac{6}{6}=1"
+        },
+        {
+          "eq": "\\mathrm{MSE}=\\frac{1+1+4}{3}=2\\qquad J=\\frac{1}{2}\\mathrm{MSE}=1"
+        },
+        "The factor 1/2 keeps the best-fit line the same and simplifies derivatives later. It is a convention, not part of every definition of MSE.",
+        "A smaller J means a closer fit under this squared-error measure."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Picture what the cost measures",
+      "subtitle": "The vertical gaps are target minus prediction; our signed residual is the reverse.",
+      "blocks": [
+        {
+          "image": "fit.png",
+          "width": 660
+        },
+        "All three predictions lie below their targets. Squaring the gaps loses their direction; cost alone does not tell us how to move the line."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: shift the line upward",
+      "subtitle": "Stop here and calculate before looking at the answer page.",
+      "blocks": [
+        "Use the same three pairs: (1, 2), (2, 3), (3, 5). Change only the intercept.",
+        {
+          "eq": "\\theta_0=1,\\qquad\\theta_1=1,\\qquad h_\\theta(x)=1+x"
+        },
+        "1. Calculate all three predictions.",
+        "2. Calculate each residual: prediction minus target.",
+        "3. Square the residuals and add them.",
+        "4. Divide by 2m. Is this cost lower than the original J = 1?",
+        "This is a new candidate line, not a gradient-descent update yet."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer and common mistakes",
+      "subtitle": "Compare each intermediate result with your working.",
+      "blocks": [
+        {
+          "eq": "h_1=1+1(1)=2,\\quad h_2=1+1(2)=3,\\quad h_3=1+1(3)=4"
+        },
+        {
+          "eq": "r_1=2-2=0,\\quad r_2=3-3=0,\\quad r_3=4-5=-1"
+        },
+        {
+          "eq": "J=\\frac{0^2+0^2+(-1)^2}{2\\times3}=\\frac{1}{6}\\approx0.166667<1"
+        },
+        "This candidate fits better overall. It predicts the first two targets exactly and underpredicts the third by 1.",
+        "Common mistakes: dividing by 3 instead of 6; treating (-1)^2 as -1; using a target as the model prediction.",
+        "Next: calculate gradients to choose a useful parameter change automatically."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

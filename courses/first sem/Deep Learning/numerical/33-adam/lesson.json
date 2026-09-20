@@ -1,0 +1,486 @@
+{
+  "number": 33,
+  "title": "Adam moments and bias correction",
+  "description": "Calculate raw moments, correction powers, denominator and parameter updates through a gradient sign change; solve a fresh complete two-step practice.",
+  "source_short": "Lecture 5 PDF p.121-122 / epsilon inside root; global update count",
+  "source": "Lecture 5 PDF pages119-124, equations121-122. Slide delta maps to beta1 and gamma to beta2. numerical-practice.md N6.6 supplied-gradient examples, with positive-epsilon convention comparison.",
+  "pages": [
+    {
+      "title": "Adam remembers direction and squared magnitude",
+      "subtitle": "The same parameter has two memories and one global update counter.",
+      "blocks": [
+        "m is an exponential moving average of signed gradients. v is an exponential moving average of squared gradients. A hat marks a value corrected for zero initialization.",
+        "In the momentum lessons, v meant signed parameter displacement. In this Adam lesson, v has a different meaning: squared-gradient memory. Neither m nor Adam v is the actual parameter displacement.",
+        {
+          "eq": "\\mathrm{slide}\\ \\delta\\longleftrightarrow\\beta_1,\\qquad\\gamma\\longleftrightarrow\\beta_2",
+          "size": 22
+        },
+        "Lecture 5 pages 121-122 use delta and gamma for the two decay factors. We use beta1 and beta2 to match the usual Adam notation.",
+        "Initialize m, v and the update counter once. Keep all three across batches and epochs."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Read the raw and corrected moment formulas",
+      "subtitle": "First average the current batch gradient, then square that result for v.",
+      "blocks": [
+        {
+          "eq": "m_t=\\beta_1m_{t-1}+(1-\\beta_1)g_t",
+          "size": 22
+        },
+        {
+          "eq": "v_t=\\beta_2v_{t-1}+(1-\\beta_2)g_t^2",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat m_t=\\frac{m_t}{1-\\beta_1^t},\\qquad\\widehat v_t=\\frac{v_t}{1-\\beta_2^t}",
+          "size": 22
+        },
+        "The powers use the global update number t, starting at 1. Correction removes the moments' startup bias toward zero; this is unrelated to a network bias parameter b. The second moment is uncentered, not a variance or a Hessian.",
+        {
+          "eq": "\\mathrm{batch}\\ (2,-2):\\quad g=0,\\ g^2=0\\ne(2^2+(-2)^2)/2=4",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Use the course denominator convention",
+      "subtitle": "The square-root bar includes epsilon in the lecture equation.",
+      "blocks": [
+        {
+          "eq": "w_t=w_{t-1}-\\eta\\frac{\\widehat m_t}{\\sqrt{\\widehat v_t+\\epsilon}}",
+          "size": 22
+        },
+        "Eta is still the base learning rate. Epsilon stabilizes the denominator. A common alternative places epsilon outside the root; we compare them numerically later.",
+        {
+          "eq": "w_0=1,\\quad m_0=v_0=0,\\quad\\beta_1=0.9,\\quad\\beta_2=0.999",
+          "size": 22
+        },
+        {
+          "eq": "\\eta=0.1,\\quad g_1=2,\\quad g_2=-1,\\quad\\epsilon=0",
+          "size": 22
+        },
+        "The gradients are supplied inputs, not claimed to come from a fixed objective. Epsilon 0 is used only for these positive-denominator hand calculations. Keep full precision between steps."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 1: raw moments",
+      "subtitle": "Retain the previous raw moments, not their corrected versions.",
+      "blocks": [
+        {
+          "eq": "g_1=2,\\qquad g_1^2=(2)^2=4",
+          "size": 22
+        },
+        {
+          "eq": "m_1=0.9(0)+0.1(2)=0.2",
+          "size": 22
+        },
+        {
+          "eq": "v_1=0.999(0)+0.001(4)=0.004",
+          "size": 22
+        },
+        "The signed gradient can reduce or reverse m. Its square is nonnegative, so opposite signs do not cancel in v.",
+        {
+          "eq": "\\mathrm{save\\ raw}:\\quad(m_1,v_1)=(0.2,0.004)",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 1: bias correction",
+      "subtitle": "Evaluate each power before subtracting from 1.",
+      "blocks": [
+        {
+          "eq": "1-\\beta_1^1=1-0.9^1=0.1",
+          "size": 22
+        },
+        {
+          "eq": "1-\\beta_2^1=1-0.999^1=0.001",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat m_1=\\frac{0.2}{0.1}\\approx2.000000000",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat v_1=\\frac{0.004}{0.001}\\approx4.000000000",
+          "size": 22
+        },
+        "The two decay factors produce different correction denominators. Use both corrected values in the parameter update. Keep the raw values for the next recurrence."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 1: denominator and parameter",
+      "subtitle": "d denotes the positive denominator; step is the signed quantity subtracted.",
+      "blocks": [
+        {
+          "eq": "d=\\sqrt{\\widehat v_1+0}\\approx\\sqrt{4.000000000}\\approx2.000000000",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1\\widehat m_1}{d}\\approx\\frac{0.1(2.000000000)}{2.000000000}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}\\approx0.100000000",
+          "size": 22
+        },
+        {
+          "eq": "w_1\\approx1.000000000-(0.100000000)=0.900000000",
+          "size": 22
+        },
+        "A negative step increases the parameter because it is subtracted. A positive step decreases it. The sign comes from the corrected first moment, not directly from the latest gradient."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 2: raw moments",
+      "subtitle": "Retain the previous raw moments, not their corrected versions.",
+      "blocks": [
+        {
+          "eq": "g_2=-1,\\qquad g_2^2=(-1)^2=1",
+          "size": 22
+        },
+        {
+          "eq": "m_2=0.9(0.2)+0.1(-1)=0.08",
+          "size": 22
+        },
+        {
+          "eq": "v_2=0.999(0.004)+0.001(1)=0.004996",
+          "size": 22
+        },
+        "The signed gradient can reduce or reverse m. Its square is nonnegative, so opposite signs do not cancel in v.",
+        {
+          "eq": "\\mathrm{save\\ raw}:\\quad(m_2,v_2)=(0.08,0.004996)",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 2: bias correction",
+      "subtitle": "Evaluate each power before subtracting from 1.",
+      "blocks": [
+        {
+          "eq": "1-\\beta_1^2=1-0.9^2=0.19",
+          "size": 22
+        },
+        {
+          "eq": "1-\\beta_2^2=1-0.999^2=0.001999",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat m_2=\\frac{0.08}{0.19}\\approx0.421052632",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat v_2=\\frac{0.004996}{0.001999}\\approx2.499249625",
+          "size": 22
+        },
+        "The two decay factors produce different correction denominators. Use both corrected values in the parameter update. Keep the raw values for the next recurrence."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "update 2: denominator and parameter",
+      "subtitle": "d denotes the positive denominator; step is the signed quantity subtracted.",
+      "blocks": [
+        {
+          "eq": "d=\\sqrt{\\widehat v_2+0}\\approx\\sqrt{2.499249625}\\approx1.580901523",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1\\widehat m_2}{d}\\approx\\frac{0.1(0.421052632)}{1.580901523}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}\\approx0.026633704",
+          "size": 22
+        },
+        {
+          "eq": "w_2\\approx0.900000000-(0.026633704)=0.873366296",
+          "size": 22
+        },
+        "A negative step increases the parameter because it is subtracted. A positive step decreases it. The sign comes from the corrected first moment, not directly from the latest gradient."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "The latest gradient changed sign, but m did not",
+      "subtitle": "At update 2, old positive history outweighs the new negative contribution.",
+      "blocks": [
+        {
+          "eq": "m_2=0.9(0.2)+0.1(-1)=0.18-0.1=0.08>0",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat m_2=0.08/0.19>0",
+          "size": 22
+        },
+        {
+          "eq": "w_2\\approx0.9-0.026633704=0.873366296",
+          "size": 22
+        },
+        "The new gradient is negative, but the retained first moment is positive. Adam still subtracts a positive step in this update.",
+        "A supplied gradient sequence is enough to trace optimizer state. Without a declared objective, it does not establish that each parameter update lowers the loss."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Why dividing by 1 minus beta to the t helps",
+      "subtitle": "For this illustration, suppose the same scalar gradient g is repeated.",
+      "blocks": [
+        {
+          "eq": "m_0=0,\\quad m_1=(1-\\beta)g",
+          "size": 22
+        },
+        {
+          "eq": "m_2=\\beta(1-\\beta)g+(1-\\beta)g=(1-\\beta^2)g",
+          "size": 22
+        },
+        {
+          "eq": "m_t=(1-\\beta^t)g\\quad\\Longrightarrow\\quad m_t/(1-\\beta^t)=g",
+          "size": 22
+        },
+        "The initial zero leaves the exponential weights summing to less than 1. Dividing by their total removes that zero-start attenuation. The same calculation applies to repeated g squared for the second moment.",
+        "For random gradients with a stationary expectation, the correction removes this initialization bias in expectation. It does not make an arbitrary changing sequence equal to its latest gradient."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Two common correction errors",
+      "subtitle": "Use the power of beta, not the power of its complement.",
+      "blocks": [
+        {
+          "eq": "1-0.9^2=1-0.81=0.19",
+          "size": 22
+        },
+        {
+          "eq": "(1-0.9)^2=0.1^2=0.01\\quad\\mathrm{different}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{uncorrected\\ first\\ step}=0.1(0.2)/\\sqrt{0.004}\\approx0.316228",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{corrected\\ first\\ step}=0.1(2)/\\sqrt{4}=0.1",
+          "size": 22
+        },
+        "Omitting both corrections does not make them cancel: the first and second decay factors differ, and the second moment is under a square root.",
+        "Do not restart t at an epoch boundary. In a new training run, reset t and both moment states together."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Positive epsilon: the placement is visible",
+      "subtitle": "Use corrected moments m-hat=2 and v-hat=4, eta=.1, epsilon=1.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{course\\ step}=\\frac{0.1(2)}{\\sqrt{4+1}}\\approx0.089443",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{alternative\\ step}=\\frac{0.1(2)}{\\sqrt{4}+1}\\approx0.066667",
+          "size": 22
+        },
+        {
+          "eq": "w_{old}=1:\\quad w_{course}\\approx0.910557,\\quad w_{alternative}\\approx0.933333",
+          "size": 22
+        },
+        "The course puts epsilon inside the root. The comparison uses a deliberately visible epsilon value, not a recommended default.",
+        "With both corrected moments zero, positive epsilon yields a zero step; epsilon 0 would make the ratio 0/0 undefined."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: repeat a negative gradient",
+      "subtitle": "Start a separate run from the original initial state.",
+      "blocks": [
+        {
+          "eq": "w_0=1,\\quad m_0=v_0=0,\\quad(g_1,g_2)=(-2,-2)",
+          "size": 22
+        },
+        {
+          "eq": "\\beta_1=0.9,\\quad\\beta_2=0.999,\\quad\\eta=0.1,\\quad\\epsilon=0",
+          "size": 22
+        },
+        "For both updates, calculate raw moments, correction denominators, corrected moments, final denominator, signed step and new parameter. Work the second update using retained raw states.",
+        "Explain why the corrected second moment can equal 4 while the variance of the constant sequence [-2,-2] is 0. Then identify where to add a positive epsilon under the lecture convention."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: update 1: raw moments",
+      "subtitle": "Retain the previous raw moments, not their corrected versions.",
+      "blocks": [
+        {
+          "eq": "g_1=-2,\\qquad g_1^2=(-2)^2=4",
+          "size": 22
+        },
+        {
+          "eq": "m_1=0.9(0)+0.1(-2)=-0.2",
+          "size": 22
+        },
+        {
+          "eq": "v_1=0.999(0)+0.001(4)=0.004",
+          "size": 22
+        },
+        "The signed gradient can reduce or reverse m. Its square is nonnegative, so opposite signs do not cancel in v.",
+        {
+          "eq": "\\mathrm{save\\ raw}:\\quad(m_1,v_1)=(-0.2,0.004)",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 1: bias correction",
+      "subtitle": "Evaluate each power before subtracting from 1.",
+      "blocks": [
+        {
+          "eq": "1-\\beta_1^1=1-0.9^1=0.1",
+          "size": 22
+        },
+        {
+          "eq": "1-\\beta_2^1=1-0.999^1=0.001",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat m_1=\\frac{-0.2}{0.1}\\approx-2.000000000",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat v_1=\\frac{0.004}{0.001}\\approx4.000000000",
+          "size": 22
+        },
+        "The two decay factors produce different correction denominators. Use both corrected values in the parameter update. Keep the raw values for the next recurrence."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 1: denominator and parameter",
+      "subtitle": "d denotes the positive denominator; step is the signed quantity subtracted.",
+      "blocks": [
+        {
+          "eq": "d=\\sqrt{\\widehat v_1+0}\\approx\\sqrt{4.000000000}\\approx2.000000000",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1\\widehat m_1}{d}\\approx\\frac{0.1(-2.000000000)}{2.000000000}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}\\approx-0.100000000",
+          "size": 22
+        },
+        {
+          "eq": "w_1\\approx1.000000000-(-0.100000000)=1.100000000",
+          "size": 22
+        },
+        "A negative step increases the parameter because it is subtracted. A positive step decreases it. The sign comes from the corrected first moment, not directly from the latest gradient."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 2: raw moments",
+      "subtitle": "Retain the previous raw moments, not their corrected versions.",
+      "blocks": [
+        {
+          "eq": "g_2=-2,\\qquad g_2^2=(-2)^2=4",
+          "size": 22
+        },
+        {
+          "eq": "m_2=0.9(-0.2)+0.1(-2)=-0.38",
+          "size": 22
+        },
+        {
+          "eq": "v_2=0.999(0.004)+0.001(4)=0.007996",
+          "size": 22
+        },
+        "The signed gradient can reduce or reverse m. Its square is nonnegative, so opposite signs do not cancel in v.",
+        {
+          "eq": "\\mathrm{save\\ raw}:\\quad(m_2,v_2)=(-0.38,0.007996)",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 2: bias correction",
+      "subtitle": "Evaluate each power before subtracting from 1.",
+      "blocks": [
+        {
+          "eq": "1-\\beta_1^2=1-0.9^2=0.19",
+          "size": 22
+        },
+        {
+          "eq": "1-\\beta_2^2=1-0.999^2=0.001999",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat m_2=\\frac{-0.38}{0.19}\\approx-2.000000000",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat v_2=\\frac{0.007996}{0.001999}\\approx4.000000000",
+          "size": 22
+        },
+        "The two decay factors produce different correction denominators. Use both corrected values in the parameter update. Keep the raw values for the next recurrence."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update 2: denominator and parameter",
+      "subtitle": "d denotes the positive denominator; step is the signed quantity subtracted.",
+      "blocks": [
+        {
+          "eq": "d=\\sqrt{\\widehat v_2+0}\\approx\\sqrt{4.000000000}\\approx2.000000000",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}=\\frac{0.1\\widehat m_2}{d}\\approx\\frac{0.1(-2.000000000)}{2.000000000}",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{step}\\approx-0.100000000",
+          "size": 22
+        },
+        {
+          "eq": "w_2\\approx1.100000000-(-0.100000000)=1.200000000",
+          "size": 22
+        },
+        "A negative step increases the parameter because it is subtracted. A positive step decreases it. The sign comes from the corrected first moment, not directly from the latest gradient."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice checkpoint: magnitude is not variability",
+      "subtitle": "The two repeated negative gradients are a useful bias-correction check.",
+      "blocks": [
+        {
+          "eq": "m_1=-0.2,\\quad v_1=0.004,\\quad m_2=-0.38,\\quad v_2=0.007996",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat m_1=\\widehat m_2=-2,\\quad\\widehat v_1=\\widehat v_2=4",
+          "size": 22
+        },
+        {
+          "eq": "w_1=1-(-0.1)=1.1,\\quad w_2=1.1-(-0.1)=1.2",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{variance}=((-2-(-2))^2+(-2-(-2))^2)/2=0",
+          "size": 22
+        },
+        "The squared-gradient level is 4, but deviation around its constant mean is 0. Adam uses the former. With positive epsilon, its course denominator is sqrt(v-hat + epsilon)."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

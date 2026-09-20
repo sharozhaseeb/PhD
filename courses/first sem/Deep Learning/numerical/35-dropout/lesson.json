@@ -1,0 +1,710 @@
+{
+  "number": 35,
+  "title": "Dropout: full masked forward and backward passes",
+  "description": "Trace all seven parameter gradients and updates under a fixed mask, compare standard/inverted scaling and inference, enumerate masks, and solve the opposite-mask practice.",
+  "source_short": "Lecture 5 PDF p.153-156 / declared hidden-only mask; fixed mask for derivatives",
+  "source": "Lecture 5 pages144-158; forward153, backward154, expectation approximation155, inference scaling156. numerical-practice.md N6.8 seven-parameter study network. Inverted dropout is a labeled comparison.",
+  "pages": [
+    {
+      "title": "Drop hidden activations with a fixed binary mask",
+      "subtitle": "The course convention is standard dropout: train with M*h; infer with q*h.",
+      "blocks": [
+        "A mask entry is 1 when its hidden unit is kept and 0 when dropped. Each entry is an independent Bernoulli draw: it equals 1 with keep probability q, called alpha in the lecture.",
+        {
+          "eq": "q=0.5,\\quad M=(1,0),\\quad x=1,\\quad t=1,\\quad\\eta=0.01",
+          "size": 22
+        },
+        "Only the two hidden activations are eligible for dropout in this exercise. The input, linear output and bias constants are not masked.",
+        "Cache the sampled mask for the entire forward/backward pass. A later example or update can receive a new mask under the chosen sampling policy."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Define all seven trainable parameters",
+      "subtitle": "Two ReLU hidden units feed one linear output.",
+      "blocks": [
+        {
+          "eq": "z_j=a_jx+c_j,\\quad h_j=\\max(0,z_j),\\quad d_j=M_jh_j",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y=u_1d_1+u_2d_2+b,\\quad L=\\frac{1}{2}(\\widehat y-t)^2",
+          "size": 22
+        },
+        {
+          "eq": "(a_1,a_2,c_1,c_2,u_1,u_2,b)=(1,2,1,-1,3,-2,0.5)",
+          "size": 22
+        },
+        "a1 and a2 are input weights; c1 and c2 are hidden biases; u1 and u2 are output weights; b is the output bias. Count each bias once.",
+        "The lecture uses general layer notation. This small network makes its mask and chain-rule equations explicit. There is no additional L2 penalty in this lesson."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Follow the two hidden paths",
+      "subtitle": "The second hidden unit is computed, then its activation is multiplied by zero.",
+      "blocks": [
+        {
+          "image": "network.png",
+          "width": 680
+        },
+        "A dropped path sends zero activation to the output and zero data-loss derivative backward through the mask. Its parameters remain stored; they are not deleted."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: hidden activations",
+      "subtitle": "Use the original parameters for this separate pass.",
+      "blocks": [
+        {
+          "eq": "z_1=1(1)+1=2,\\quad z_2=2(1)+(-1)=1",
+          "size": 22
+        },
+        {
+          "eq": "h_1=\\max(0,2)=2,\\quad h_2=\\max(0,1)=1",
+          "size": 22
+        },
+        {
+          "eq": "M=(1,0),\\quad q=0.5",
+          "size": 22
+        },
+        "Both preactivations are positive, so each ReLU local derivative is 1. A zero dropout mask is different from a ReLU being inactive because of a nonpositive preactivation.",
+        "Standard dropout multiplies the hidden activations by the fixed mask with no training-time division by q."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: mask, output and loss",
+      "subtitle": "Use the masked activations in the output weighted sum.",
+      "blocks": [
+        {
+          "eq": "d_1=1(2)=2,\\quad d_2=0(1)=0",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y=3(2)+(-2)(0)+0.5=6.5",
+          "size": 22
+        },
+        {
+          "eq": "r=\\widehat y-t=6.5-1=5.5",
+          "size": 22
+        },
+        {
+          "eq": "L=\\frac{1}{2}(5.5)^2=15.125",
+          "size": 22
+        },
+        "The output is linear, so its derivative with respect to the weighted sum is 1. The output bias is added once and is not scaled by the hidden mask."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: output gradients",
+      "subtitle": "Derivative of the half-square with respect to prediction is the residual.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial L}{\\partial\\widehat y}=r,\\quad\\frac{\\partial L}{\\partial u_j}=r d_j,\\quad\\frac{\\partial L}{\\partial b}=r",
+          "size": 22
+        },
+        {
+          "eq": "g_{u_1}=5.5(2)=11",
+          "size": 22
+        },
+        {
+          "eq": "g_{u_2}=5.5(0)=0,\\quad g_b=5.5",
+          "size": 22
+        },
+        "The outgoing weight of a dropped unit has zero data gradient because its source activation d is zero. The output bias can still have a nonzero gradient."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: hidden deltas",
+      "subtitle": "Multiply the backward derivative through the same cached mask and the local ReLU slope.",
+      "blocks": [
+        {
+          "eq": "\\delta_j=\\frac{\\partial L}{\\partial z_j}=r u_j\\frac{\\partial d_j}{\\partial h_j}\\mathrm{ReLU}^{\\prime}(z_j)",
+          "size": 22
+        },
+        {
+          "eq": "\\partial d_j/\\partial h_j=M_j",
+          "size": 22
+        },
+        {
+          "eq": "\\delta_1=5.5(3)(1)(1)=16.5",
+          "size": 22
+        },
+        {
+          "eq": "\\delta_2=5.5(-2)(0)(1)=0",
+          "size": 22
+        },
+        "Use original output weights 3 and -2, not values updated from the preceding gradient calculation. No parameter has been changed during this backward pass."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: input weights and hidden biases",
+      "subtitle": "An input weight contributes x; a hidden bias contributes 1.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial L}{\\partial a_j}=\\delta_jx,\\qquad\\frac{\\partial L}{\\partial c_j}=\\delta_j",
+          "size": 22
+        },
+        {
+          "eq": "g_{a_1}=16.5(1)=16.5,\\quad g_{c_1}=16.5",
+          "size": 22
+        },
+        {
+          "eq": "g_{a_2}=0(1)=0,\\quad g_{c_2}=0",
+          "size": 22
+        },
+        "A dropped hidden bias has zero data gradient through the masked path. This does not mean that the bias constant itself was directly masked.",
+        "These are data-loss gradients. If a separate regularizer penalized a dropped unit's weights, it could still contribute nonzero gradients."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: update hidden parameters",
+      "subtitle": "Subtract eta times each gradient; unchanged zero-gradient parameters remain stored.",
+      "blocks": [
+        {
+          "eq": "(a_1)_{new}=1-0.01(16.5)=0.835",
+          "size": 22
+        },
+        {
+          "eq": "(a_2)_{new}=2-0.01(0)=2",
+          "size": 22
+        },
+        {
+          "eq": "(c_1)_{new}=1-0.01(16.5)=0.835",
+          "size": 22
+        },
+        {
+          "eq": "(c_2)_{new}=-1-0.01(0)=-1",
+          "size": 22
+        },
+        "All seven new values use the gradients from the original common state. Do not recompute later gradients using already updated parameters."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: update output parameters",
+      "subtitle": "Subtract eta times each gradient; unchanged zero-gradient parameters remain stored.",
+      "blocks": [
+        {
+          "eq": "(u_1)_{new}=3-0.01(11)=2.89",
+          "size": 22
+        },
+        {
+          "eq": "(u_2)_{new}=-2-0.01(0)=-2",
+          "size": 22
+        },
+        {
+          "eq": "(b)_{new}=0.5-0.01(5.5)=0.445",
+          "size": 22
+        },
+        "All seven new values use the gradients from the original common state. Do not recompute later gradients using already updated parameters."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Main pass: check the updated pass",
+      "subtitle": "Diagnostic only: reuse the cached mask to evaluate the same loss function.",
+      "blocks": [
+        {
+          "eq": "z^{new}=(0.835+0.835,\\ 2+(-1))=(1.67,1)",
+          "size": 22
+        },
+        {
+          "eq": "d^{new}=(1.67,0)",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y^{new}=2.89(1.67)+(-2)(0)+0.445=5.2713",
+          "size": 22
+        },
+        {
+          "eq": "L^{new}=\\frac{1}{2}(4.2713)^2=9.122001845",
+          "size": 22
+        },
+        "This same-mask diagnostic is not a requirement to reuse this mask forever. Later training examples or updates sample new masks under the declared policy."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Standard-dropout inference: reset original parameters",
+      "subtitle": "Use the original h=(2,1), u=(3,-2), b=.5 for this comparison.",
+      "blocks": [
+        {
+          "eq": "\\mathbb{E}[M_jh_j]=q h_j\\quad\\mathrm{for\\ fixed}\\ h_j",
+          "size": 22
+        },
+        {
+          "eq": "d_{test}=q h=(0.5(2),0.5(1))=(1,0.5)",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y_{test}=3(1)+(-2)(0.5)+0.5=2.5",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{equivalently}:\\quad(qu)=(1.5,-1)",
+          "size": 22
+        },
+        {
+          "eq": "1.5(2)+(-1)(1)+0.5=2.5",
+          "size": 22
+        },
+        "Scale the activations OR their outgoing weights, not both. The next additive output bias stays .5. No random mask is sampled for this standard deterministic inference rule."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Inverted comparison: hidden activations",
+      "subtitle": "Use the original parameters for this separate pass.",
+      "blocks": [
+        {
+          "eq": "z_1=1(1)+1=2,\\quad z_2=2(1)+(-1)=1",
+          "size": 22
+        },
+        {
+          "eq": "h_1=\\max(0,2)=2,\\quad h_2=\\max(0,1)=1",
+          "size": 22
+        },
+        {
+          "eq": "M=(1,0),\\quad q=0.5",
+          "size": 22
+        },
+        "Both preactivations are positive, so each ReLU local derivative is 1. A zero dropout mask is different from a ReLU being inactive because of a nonpositive preactivation.",
+        "This is an inverted-dropout comparison, reset to original parameters; retained activations divide by q during training."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Inverted comparison: mask, output and loss",
+      "subtitle": "Use the masked activations in the output weighted sum.",
+      "blocks": [
+        {
+          "eq": "d_1=1(2)/0.5=4,\\quad d_2=0(1)/0.5=0",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y=3(4)+(-2)(0)+0.5=12.5",
+          "size": 22
+        },
+        {
+          "eq": "r=\\widehat y-t=12.5-1=11.5",
+          "size": 22
+        },
+        {
+          "eq": "L=\\frac{1}{2}(11.5)^2=66.125",
+          "size": 22
+        },
+        "The output is linear, so its derivative with respect to the weighted sum is 1. The output bias is added once and is not scaled by the hidden mask."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Inverted comparison: output gradients",
+      "subtitle": "Derivative of the half-square with respect to prediction is the residual.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial L}{\\partial\\widehat y}=r,\\quad\\frac{\\partial L}{\\partial u_j}=r d_j,\\quad\\frac{\\partial L}{\\partial b}=r",
+          "size": 22
+        },
+        {
+          "eq": "g_{u_1}=11.5(4)=46",
+          "size": 22
+        },
+        {
+          "eq": "g_{u_2}=11.5(0)=0,\\quad g_b=11.5",
+          "size": 22
+        },
+        "The outgoing weight of a dropped unit has zero data gradient because its source activation d is zero. The output bias can still have a nonzero gradient."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Inverted comparison: hidden deltas",
+      "subtitle": "Multiply the backward derivative through the same cached mask and the local ReLU slope.",
+      "blocks": [
+        {
+          "eq": "\\delta_j=\\frac{\\partial L}{\\partial z_j}=r u_j\\frac{\\partial d_j}{\\partial h_j}\\mathrm{ReLU}^{\\prime}(z_j)",
+          "size": 22
+        },
+        {
+          "eq": "\\partial d_j/\\partial h_j=M_j/q",
+          "size": 22
+        },
+        {
+          "eq": "\\delta_1=11.5(3)(2)(1)=69",
+          "size": 22
+        },
+        {
+          "eq": "\\delta_2=11.5(-2)(0)(1)=0",
+          "size": 22
+        },
+        "Use original output weights 3 and -2, not values updated from the preceding gradient calculation. No parameter has been changed during this backward pass."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Inverted comparison: input weights and hidden biases",
+      "subtitle": "An input weight contributes x; a hidden bias contributes 1.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial L}{\\partial a_j}=\\delta_jx,\\qquad\\frac{\\partial L}{\\partial c_j}=\\delta_j",
+          "size": 22
+        },
+        {
+          "eq": "g_{a_1}=69(1)=69,\\quad g_{c_1}=69",
+          "size": 22
+        },
+        {
+          "eq": "g_{a_2}=0(1)=0,\\quad g_{c_2}=0",
+          "size": 22
+        },
+        "A dropped hidden bias has zero data gradient through the masked path. This does not mean that the bias constant itself was directly masked.",
+        "These are data-loss gradients. If a separate regularizer penalized a dropped unit's weights, it could still contribute nonzero gradients."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Inverted-dropout inference: original parameters",
+      "subtitle": "Training uses M*h/q; inference uses the unscaled h.",
+      "blocks": [
+        {
+          "eq": "\\mathbb{E}[M_jh_j/q]=h_j",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y_{test}=3(2)+(-2)(1)+0.5=4.5",
+          "size": 22
+        },
+        {
+          "table": [
+            [
+              "convention",
+              "training activation",
+              "inference activation"
+            ],
+            [
+              "standard",
+              "M*h",
+              "q*h"
+            ],
+            [
+              "inverted",
+              "M*h/q",
+              "h"
+            ]
+          ],
+          "widths": [
+            180,
+            235,
+            265
+          ]
+        },
+        "The standard result 2.5 and inverted result 4.5 use the same fixed original parameters under different conventions. They are not two separately trained models whose parameters or outputs must match.",
+        "Choose one convention and keep its training, backward and inference scaling consistent."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Enumerate all masks at the original state",
+      "subtitle": "Two independent mask entries with q=.5 give four equally likely masks.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "M",
+              "probability",
+              "active units",
+              "standard output"
+            ],
+            [
+              "(0,0)",
+              ".25",
+              "0",
+              ".5"
+            ],
+            [
+              "(0,1)",
+              ".25",
+              "1",
+              "-1.5"
+            ],
+            [
+              "(1,0)",
+              ".25",
+              "1",
+              "6.5"
+            ],
+            [
+              "(1,1)",
+              ".25",
+              "2",
+              "4.5"
+            ]
+          ],
+          "widths": [
+            135,
+            155,
+            175,
+            215
+          ]
+        },
+        {
+          "eq": "\\mathbb{E}[\\mathrm{active}]=0.25(0+1+1+2)=1",
+          "size": 22
+        },
+        {
+          "eq": "\\mathbb{E}[\\widehat y]=0.25(0.5-1.5+6.5+4.5)=2.5",
+          "size": 22
+        },
+        "The mean output equals standard inference exactly here because the output is linear in the masked, fixed hidden activations. These masks share parameters; four masks do not mean four independently trained models."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Nonlinear output: expectation is only approximated",
+      "subtitle": "The lecture page 155 uses an approximation for a general network.",
+      "blocks": [
+        {
+          "eq": "Z=2M,\\quad P(M=0)=P(M=1)=0.5",
+          "size": 22
+        },
+        {
+          "eq": "\\mathbb{E}[\\sigma(Z)]=0.5\\sigma(0)+0.5\\sigma(2)",
+          "size": 22
+        },
+        {
+          "eq": "=0.5(0.5)+0.5(0.880797)\\approx0.690399",
+          "size": 22
+        },
+        {
+          "eq": "\\mathbb{E}[Z]=0.5(0)+0.5(2)=1",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma(\\mathbb{E}[Z])=\\sigma(1)\\approx0.731059",
+          "size": 22
+        },
+        "A function of the mean is not generally the mean of the function. Replacing random activations by their expectations is not an exact ensemble-output identity for arbitrary nonlinear networks."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: keep the other hidden unit",
+      "subtitle": "Reset to the original seven parameters; use standard dropout.",
+      "blocks": [
+        {
+          "eq": "M=(0,1),\\quad q=0.5,\\quad x=1,\\quad t=1,\\quad\\eta=0.01",
+          "size": 22
+        },
+        "Compute the hidden activations, masked values, prediction, loss, all seven gradients and all seven simultaneous updates. Recompute the loss with the same mask as a diagnostic.",
+        "Separately, consider three independently masked eligible units with keep probability .8. Find the number of possible masks, expected active count and probability of the particular ordered mask (1,1,0)."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice: hidden activations",
+      "subtitle": "Use the original parameters for this separate pass.",
+      "blocks": [
+        {
+          "eq": "z_1=1(1)+1=2,\\quad z_2=2(1)+(-1)=1",
+          "size": 22
+        },
+        {
+          "eq": "h_1=\\max(0,2)=2,\\quad h_2=\\max(0,1)=1",
+          "size": 22
+        },
+        {
+          "eq": "M=(0,1),\\quad q=0.5",
+          "size": 22
+        },
+        "Both preactivations are positive, so each ReLU local derivative is 1. A zero dropout mask is different from a ReLU being inactive because of a nonpositive preactivation.",
+        "Standard dropout multiplies the hidden activations by the fixed mask with no training-time division by q."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: mask, output and loss",
+      "subtitle": "Use the masked activations in the output weighted sum.",
+      "blocks": [
+        {
+          "eq": "d_1=0(2)=0,\\quad d_2=1(1)=1",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y=3(0)+(-2)(1)+0.5=-1.5",
+          "size": 22
+        },
+        {
+          "eq": "r=\\widehat y-t=-1.5-1=-2.5",
+          "size": 22
+        },
+        {
+          "eq": "L=\\frac{1}{2}(-2.5)^2=3.125",
+          "size": 22
+        },
+        "The output is linear, so its derivative with respect to the weighted sum is 1. The output bias is added once and is not scaled by the hidden mask."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: output gradients",
+      "subtitle": "Derivative of the half-square with respect to prediction is the residual.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial L}{\\partial\\widehat y}=r,\\quad\\frac{\\partial L}{\\partial u_j}=r d_j,\\quad\\frac{\\partial L}{\\partial b}=r",
+          "size": 22
+        },
+        {
+          "eq": "g_{u_1}=-2.5(0)=0",
+          "size": 22
+        },
+        {
+          "eq": "g_{u_2}=-2.5(1)=-2.5,\\quad g_b=-2.5",
+          "size": 22
+        },
+        "The outgoing weight of a dropped unit has zero data gradient because its source activation d is zero. The output bias can still have a nonzero gradient."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: hidden deltas",
+      "subtitle": "Multiply the backward derivative through the same cached mask and the local ReLU slope.",
+      "blocks": [
+        {
+          "eq": "\\delta_j=\\frac{\\partial L}{\\partial z_j}=r u_j\\frac{\\partial d_j}{\\partial h_j}\\mathrm{ReLU}^{\\prime}(z_j)",
+          "size": 22
+        },
+        {
+          "eq": "\\partial d_j/\\partial h_j=M_j",
+          "size": 22
+        },
+        {
+          "eq": "\\delta_1=-2.5(3)(0)(1)=0",
+          "size": 22
+        },
+        {
+          "eq": "\\delta_2=-2.5(-2)(1)(1)=5",
+          "size": 22
+        },
+        "Use original output weights 3 and -2, not values updated from the preceding gradient calculation. No parameter has been changed during this backward pass."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: input weights and hidden biases",
+      "subtitle": "An input weight contributes x; a hidden bias contributes 1.",
+      "blocks": [
+        {
+          "eq": "\\frac{\\partial L}{\\partial a_j}=\\delta_jx,\\qquad\\frac{\\partial L}{\\partial c_j}=\\delta_j",
+          "size": 22
+        },
+        {
+          "eq": "g_{a_1}=0(1)=0,\\quad g_{c_1}=0",
+          "size": 22
+        },
+        {
+          "eq": "g_{a_2}=5(1)=5,\\quad g_{c_2}=5",
+          "size": 22
+        },
+        "A dropped hidden bias has zero data gradient through the masked path. This does not mean that the bias constant itself was directly masked.",
+        "These are data-loss gradients. If a separate regularizer penalized a dropped unit's weights, it could still contribute nonzero gradients."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update hidden parameters",
+      "subtitle": "Subtract eta times each gradient; unchanged zero-gradient parameters remain stored.",
+      "blocks": [
+        {
+          "eq": "(a_1)_{new}=1-0.01(0)=1",
+          "size": 22
+        },
+        {
+          "eq": "(a_2)_{new}=2-0.01(5)=1.95",
+          "size": 22
+        },
+        {
+          "eq": "(c_1)_{new}=1-0.01(0)=1",
+          "size": 22
+        },
+        {
+          "eq": "(c_2)_{new}=-1-0.01(5)=-1.05",
+          "size": 22
+        },
+        "All seven new values use the gradients from the original common state. Do not recompute later gradients using already updated parameters."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: update output parameters",
+      "subtitle": "Subtract eta times each gradient; unchanged zero-gradient parameters remain stored.",
+      "blocks": [
+        {
+          "eq": "(u_1)_{new}=3-0.01(0)=3",
+          "size": 22
+        },
+        {
+          "eq": "(u_2)_{new}=-2-0.01(-2.5)=-1.975",
+          "size": 22
+        },
+        {
+          "eq": "(b)_{new}=0.5-0.01(-2.5)=0.525",
+          "size": 22
+        },
+        "All seven new values use the gradients from the original common state. Do not recompute later gradients using already updated parameters."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice: check the updated pass",
+      "subtitle": "Diagnostic only: reuse the cached mask to evaluate the same loss function.",
+      "blocks": [
+        {
+          "eq": "z^{new}=(1+1,\\ 1.95+(-1.05))=(2,0.9)",
+          "size": 22
+        },
+        {
+          "eq": "d^{new}=(0,0.9)",
+          "size": 22
+        },
+        {
+          "eq": "\\widehat y^{new}=3(0)+(-1.975)(0.9)+0.525=-1.2525",
+          "size": 22
+        },
+        {
+          "eq": "L^{new}=\\frac{1}{2}(-2.2525)^2=2.536878125",
+          "size": 22
+        },
+        "This same-mask diagnostic is not a requirement to reuse this mask forever. Later training examples or updates sample new masks under the declared policy."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: mask count and probability",
+      "subtitle": "Independent entries can each be kept or dropped.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{possible\\ masks}=2^3=8",
+          "size": 22
+        },
+        {
+          "eq": "\\mathbb{E}[\\mathrm{active}]=0.8+0.8+0.8=2.4",
+          "size": 22
+        },
+        {
+          "eq": "P(M=(1,1,0))=0.8(0.8)(1-0.8)=0.128",
+          "size": 22
+        },
+        "The expected count 2.4 is an average across masks; each actual count is an integer. The eight masks are not equally probable because q is not .5.",
+        "There is no combinatorial factor for one specified ordered mask. If asked for any mask with exactly two active units, three different masks qualify, so that probability would be 3(.128)=.384.",
+        "Before an exam calculation, name the dropout convention, cache the mask, keep original weights during backpropagation and scale only eligible activations."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

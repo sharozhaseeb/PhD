@@ -1,0 +1,114 @@
+[
+  {
+    "z": -1.0986122886681098,
+    "activation": "sigmoid",
+    "value": 0.25,
+    "analytic": 0.1875,
+    "finite_difference": 0.187499999984575
+  },
+  {
+    "z": -1.0986122886681098,
+    "activation": "tanh",
+    "value": -0.8,
+    "analytic": 0.3599999999999999,
+    "finite_difference": 0.35999999997704535
+  },
+  {
+    "z": -1.0986122886681098,
+    "activation": "ReLU",
+    "value": 0.0,
+    "analytic": 0.0,
+    "finite_difference": 0.0
+  },
+  {
+    "z": -1.0986122886681098,
+    "activation": "softplus",
+    "value": 0.2876820724517809,
+    "analytic": 0.25,
+    "finite_difference": 0.24999999997943334
+  },
+  {
+    "z": 1.0986122886681098,
+    "activation": "sigmoid",
+    "value": 0.75,
+    "analytic": 0.1875,
+    "finite_difference": 0.18750000002620837
+  },
+  {
+    "z": 1.0986122886681098,
+    "activation": "tanh",
+    "value": 0.8,
+    "analytic": 0.3599999999999999,
+    "finite_difference": 0.35999999997704535
+  },
+  {
+    "z": 1.0986122886681098,
+    "activation": "ReLU",
+    "value": 1.0986122886681098,
+    "analytic": 1.0,
+    "finite_difference": 0.9999999999177334
+  },
+  {
+    "z": 1.0986122886681098,
+    "activation": "softplus",
+    "value": 1.3862943611198908,
+    "analytic": 0.75,
+    "finite_difference": 0.7499999998827889
+  },
+  {
+    "z": 0.6931471805599453,
+    "activation": "sigmoid",
+    "value": 0.6666666666666666,
+    "analytic": 0.22222222222222224,
+    "finite_difference": 0.22222222223478028
+  },
+  {
+    "z": 0.6931471805599453,
+    "activation": "tanh",
+    "value": 0.6,
+    "analytic": 0.64,
+    "finite_difference": 0.6399999999961992
+  },
+  {
+    "z": 0.6931471805599453,
+    "activation": "ReLU",
+    "value": 0.6931471805599453,
+    "analytic": 1.0,
+    "finite_difference": 1.0000000000287557
+  },
+  {
+    "z": 0.6931471805599453,
+    "activation": "softplus",
+    "value": 1.0986122886681096,
+    "analytic": 0.6666666666666666,
+    "finite_difference": 0.666666666759852
+  },
+  {
+    "z": 4,
+    "activation": "sigmoid",
+    "value": 0.9820137900379085,
+    "analytic": 0.017662706213291107,
+    "finite_difference": 0.017662706242038695
+  },
+  {
+    "z": 4,
+    "activation": "tanh",
+    "value": 0.999329299739067,
+    "analytic": 0.0013409506830258655,
+    "finite_difference": 0.0013409506838257812
+  },
+  {
+    "z": 4,
+    "activation": "ReLU",
+    "value": 4.0,
+    "analytic": 1.0,
+    "finite_difference": 1.000000000139778
+  },
+  {
+    "z": 4,
+    "activation": "softplus",
+    "value": 4.0181499279178094,
+    "analytic": 0.9820137900379085,
+    "finite_difference": 0.9820137902849524
+  }
+]

@@ -1,0 +1,250 @@
+{
+  "number": 11,
+  "title": "Parity and depth versus width",
+  "description": "Propagate parity values and count two specified network constructions.",
+  "source_short": "Lecture 2 / PDF pp.80,83-87 / construction-specific counts",
+  "source": "Lecture 2 - Logistic Regression + Neural Network.pdf, pages 80 and 83-87.",
+  "pages": [
+    {
+      "title": "Parity counts whether the number is odd",
+      "subtitle": "Odd parity is 1 for an odd number of ones and 0 for an even number.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "ABC",
+              "ones",
+              "odd parity"
+            ],
+            [
+              "000",
+              0,
+              0
+            ],
+            [
+              "001",
+              1,
+              1
+            ],
+            [
+              "010",
+              1,
+              1
+            ],
+            [
+              "011",
+              2,
+              0
+            ],
+            [
+              "100",
+              1,
+              1
+            ],
+            [
+              "101",
+              2,
+              0
+            ],
+            [
+              "110",
+              2,
+              0
+            ],
+            [
+              "111",
+              3,
+              1
+            ]
+          ],
+          "widths": [
+            140,
+            150,
+            160
+          ]
+        },
+        "XOR combines two parity bits. Combining all input bits by repeated XOR computes the parity of the whole input."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Why a parity K-map cannot merge pairs",
+      "subtitle": "Flipping one bit switches odd to even or even to odd.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "A / BC",
+              "00",
+              "01",
+              "11",
+              "10"
+            ],
+            [
+              "0",
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              "1",
+              1,
+              0,
+              1,
+              0
+            ]
+          ],
+          "widths": [
+            170,
+            100,
+            100,
+            100,
+            100
+          ]
+        },
+        "Every horizontal or vertical neighbor has the opposite output, including wraparound neighbors. There is no adjacent pair of ones to merge.",
+        {
+          "eq": "2^3=8\\ \\mathrm{rows};\\qquad 8/2=4\\ \\mathrm{true\\ rows}"
+        },
+        "For N inputs, pair every row with the row obtained by flipping its first bit. Each pair has one odd and one even row, so exactly half are true."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Eight inputs: count the shallow DNF",
+      "subtitle": "Lecture 2, pages 80 and 87: one hidden row detector per true row, then one OR.",
+      "blocks": [
+        {
+          "eq": "2^8=256,\\quad\\mathrm{hidden}=256/2=128,\\quad\\mathrm{total}=128+1=129"
+        },
+        "Depth is the longest number of computational neurons along an input-to-output path. Here: detector then OR, so depth = 2.",
+        {
+          "eq": "\\mathrm{weights}=8(128)+128(1)=1152"
+        },
+        {
+          "eq": "\\mathrm{biases}=128+1=129,\\quad\\mathrm{parameters}=1152+129=1281"
+        },
+        "Width is the largest number of neurons at one depth: 128. These counts describe the specified dense DNF construction, not every possible shallow network."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Reuse the lecture's three-neuron XOR",
+      "subtitle": "Each module uses the page-57 construction from Lesson09.",
+      "blocks": [
+        {
+          "eq": "h_1=H(x+y-1),\\quad h_2=H(-x-y+1),\\quad q=H(h_1+h_2-2)"
+        },
+        {
+          "eq": "(x,y)=(1,1):\\quad h_1=H(1+1-1)=H(1)=1"
+        },
+        {
+          "eq": "h_2=H(-1-1+1)=H(-1)=0"
+        },
+        {
+          "eq": "q=H(1+0-2)=H(-1)=0"
+        },
+        "Per module: 2 hidden + 1 output = 3 neurons; 4 + 2 = 6 weights; 3 biases; 9 parameters; depth 2.",
+        "Use the same module throughout the comparison. Switching to the two-neuron skip variant would change the counts."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Balance the XOR modules in a tree",
+      "subtitle": "The boxes below are XOR modules, each containing three actual neurons.",
+      "blocks": [
+        {
+          "image": "tree.png",
+          "width": 670
+        },
+        "First combine four pairs, then combine the two pairs of intermediate results, then combine the final pair.",
+        {
+          "eq": "\\mathrm{modules}=4+2+1=7=N-1\\quad(N=8)"
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Propagate an eight-bit input",
+      "subtitle": "Input: 1, 0, 1, 1, 0, 0, 1, 0. There are four ones, so parity should be 0.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{level\\ 1}:\\quad1\\oplus0=1,\\quad1\\oplus1=0,\\quad0\\oplus0=0,\\quad1\\oplus0=1"
+        },
+        {
+          "eq": "\\mathrm{level\\ 2}:\\quad1\\oplus0=1,\\qquad0\\oplus1=1"
+        },
+        {
+          "eq": "\\mathrm{level\\ 3}:\\quad1\\oplus1=0"
+        },
+        "The symbol with a plus inside a circle means XOR. A module outputs 1 when its two input bits differ.",
+        "Three module levels are not three neuron layers: each module takes two computational layers."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Count neurons, depth and parameters",
+      "subtitle": "Lecture 2, pages 86-87 give the 3(N - 1) construction and balanced depth.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{neurons}=3(8-1)=21"
+        },
+        {
+          "eq": "\\mathrm{depth}=2\\log_2(8)=2(3)=6"
+        },
+        {
+          "eq": "\\mathrm{weights}=7(6)=42,\\quad\\mathrm{biases}=7(3)=21"
+        },
+        {
+          "eq": "\\mathrm{parameters}=42+21=63"
+        },
+        "First layer width = 4 modules times 2 hidden neurons = 8, the maximum. Total 21 is not the width.",
+        "A sequential chain of seven modules has the same neuron count but depth 14. The depth-6 result needs a balanced arrangement."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: four inputs",
+      "subtitle": "Use the same dense DNF and the same three-neuron XOR module.",
+      "blocks": [
+        {
+          "eq": "(x_1,x_2,x_3,x_4)=(1,1,0,1)"
+        },
+        "1. Compute parity through a balanced two-level XOR tree.",
+        "2. For DNF, calculate hidden neurons, total neurons, depth and all parameters.",
+        "3. For the tree, calculate modules, neurons, depth, weights, biases and total parameters.",
+        "Inputs have depth zero and are excluded from neuron counts. Compare these specific constructions, not a universal lower bound."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer: equal totals can mislead",
+      "subtitle": "Four-input DNF and the tree both have nine neurons, but different connections.",
+      "blocks": [
+        {
+          "eq": "1\\oplus1=0,\\quad0\\oplus1=1,\\quad0\\oplus1=1",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{DNF\\ hidden}=2^{4-1}=8,\\quad\\mathrm{total}=8+1=9,\\quad\\mathrm{depth}=2",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{DNF\\ parameters}=4(8)+8+8(1)+1=49",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{tree\\ modules}=2+1=3,\\quad\\mathrm{neurons}=3(3)=9,\\quad\\mathrm{depth}=2(2)=4",
+          "size": 21
+        },
+        {
+          "eq": "\\mathrm{weights}=3(6)=18,\\quad\\mathrm{biases}=3(3)=9,\\quad\\mathrm{parameters}=27",
+          "size": 21
+        },
+        "For a non-power-of-two input count, balance an uneven tree and count actual levels; never report a fractional number of layers."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

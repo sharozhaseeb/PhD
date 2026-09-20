@@ -1,0 +1,80 @@
+{
+  "update_trace": [
+    {
+      "k": 0,
+      "rate": 0.12,
+      "gradient": 1.0,
+      "new_w": 0.88
+    },
+    {
+      "k": 1,
+      "rate": 0.06,
+      "gradient": 0.88,
+      "new_w": 0.8272
+    },
+    {
+      "k": 2,
+      "rate": 0.04,
+      "gradient": 0.8272,
+      "new_w": 0.794112
+    }
+  ],
+  "plateau": [
+    {
+      "epoch": 1,
+      "loss": 0.5,
+      "best": 0.5,
+      "counter": 0,
+      "dropped": false,
+      "next_rate": 0.12
+    },
+    {
+      "epoch": 2,
+      "loss": 0.45,
+      "best": 0.45,
+      "counter": 0,
+      "dropped": false,
+      "next_rate": 0.12
+    },
+    {
+      "epoch": 3,
+      "loss": 0.46,
+      "best": 0.45,
+      "counter": 1,
+      "dropped": false,
+      "next_rate": 0.12
+    },
+    {
+      "epoch": 4,
+      "loss": 0.47,
+      "best": 0.45,
+      "counter": 0,
+      "dropped": true,
+      "next_rate": 0.012
+    },
+    {
+      "epoch": 5,
+      "loss": 0.44,
+      "best": 0.44,
+      "counter": 0,
+      "dropped": false,
+      "next_rate": 0.012
+    },
+    {
+      "epoch": 6,
+      "loss": 0.445,
+      "best": 0.44,
+      "counter": 1,
+      "dropped": false,
+      "next_rate": 0.012
+    },
+    {
+      "epoch": 7,
+      "loss": 0.446,
+      "best": 0.44,
+      "counter": 0,
+      "dropped": true,
+      "next_rate": 0.0012000000000000001
+    }
+  ]
+}

@@ -8,6 +8,8 @@ Matched to the lecture files available on **16 September 2026**, including the b
 
 ## How to use this guide
 
+**Visual lessons:** Open the [numerical lesson collection](numerical/README.md) for step-by-step PDFs and Obsidian images, or follow the [ordered worked-example roadmap](Visual%20worked%20examples%20-%20roadmap.md). Each completed lesson has passed a TA review of its calculations and student understanding.
+
 1. Open the relevant lecture pages and read the **Study** checklist.
 2. Watch the **First watch** selection. Most are about 3–12 minutes; longer exceptions are labeled. A **clip** is an explicitly bounded part of a longer video, with both start and stop times. YouTube start links do not stop playback automatically.
 3. For quizzes and midterms, follow **Numerical preparation** where listed. These identify worked calculations separately from intuition or symbolic derivations. Do not skip numerical practice just because the concept feels familiar.

@@ -1,0 +1,355 @@
+{
+  "number": 14,
+  "title": "Activations and derivatives",
+  "description": "Substitute into all four lecture activation formulas, understand slopes, and practise the chain rule.",
+  "source_short": "Lecture 3 / PDF p.156; Assignment 1 / PDF p.2 / zero convention stated",
+  "source": "Lecture 3 - Learning Neural Network.pdf, page 156; Assignment 1.pdf, page 2. Original numerical inputs.",
+  "pages": [
+    {
+      "title": "An activation and its slope are different",
+      "subtitle": "Lecture 3, PDF page 156 lists the four functions and their derivatives.",
+      "blocks": [
+        {
+          "eq": "z=b+\\sum_i w_ix_i,\\quad a=f(z),\\quad f^{\\prime}(z)=\\frac{da}{dz}",
+          "size": 22
+        },
+        "z is the weighted input before activation. We write a for the activation; the notes often write y. Here a is not a known target label.",
+        "The derivative is the local slope: how much the activation changes for a tiny increase in z.",
+        {
+          "eq": "\\Delta a\\approx f^{\\prime}(z)\\Delta z",
+          "size": 22
+        },
+        "Our main input is z = ln(3). Natural logarithm ln(3) means the number whose exponential is 3. This choice makes hand arithmetic simple.",
+        {
+          "eq": "e^{\\ln3}=3,\\quad e^{-\\ln3}=1/3,\\quad\\ln3\\approx1.098612",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Sigmoid: calculate the activation first",
+      "subtitle": "The output is between zero and one; its derivative is a different number.",
+      "blocks": [
+        {
+          "eq": "a=\\sigma(z)=\\frac{1}{1+e^{-z}}",
+          "size": 22
+        },
+        {
+          "eq": "z=\\ln3:\\quad a=\\frac{1}{1+1/3}=\\frac{1}{4/3}=\\frac{3}{4}=0.75",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma^{\\prime}(z)=a(1-a)",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma^{\\prime}(\\ln3)=\\frac{3}{4}\\left(1-\\frac{3}{4}\\right)=\\frac{3}{4}\\frac{1}{4}=\\frac{3}{16}=0.1875",
+          "size": 22
+        },
+        {
+          "eq": "\\Delta z=0.01\\Rightarrow\\Delta a\\approx0.1875(0.01)=0.001875",
+          "size": 22
+        },
+        "A small increase of 0.01 in input changes this activation by about 0.001875. This is a local approximation, not an exact finite difference."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Tanh: use the two exponential values",
+      "subtitle": "The assignment gives this exponential form; the lecture gives the derivative.",
+      "blocks": [
+        {
+          "eq": "a=\\tanh z=\\frac{e^z-e^{-z}}{e^z+e^{-z}}",
+          "size": 22
+        },
+        {
+          "eq": "a=\\frac{3-1/3}{3+1/3}=\\frac{8/3}{10/3}=\\frac{8}{10}=\\frac{4}{5}=0.8",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh^{\\prime}(z)=1-a^2",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh^{\\prime}(\\ln3)=1-(4/5)^2=1-16/25=9/25=0.36",
+          "size": 22
+        },
+        "Square the activation before subtracting it from 1. The formula is not (1 - a) squared. Unlike sigmoid, tanh may output negative values."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "ReLU: choose the correct branch",
+      "subtitle": "ReLU means rectified linear unit: keep positive input, otherwise output zero.",
+      "blocks": [
+        {
+          "eq": "a=\\max(0,z)",
+          "size": 22
+        },
+        {
+          "eq": "z=\\ln3>0\\Rightarrow a=\\ln3\\approx1.098612",
+          "size": 22
+        },
+        {
+          "eq": "f^{\\prime}(z)=1\\quad\\mathrm{for}\\ z>0",
+          "size": 22
+        },
+        {
+          "eq": "f^{\\prime}(\\ln3)=1",
+          "size": 22
+        },
+        "At a positive input, increasing z by 0.01 increases the activation by exactly 0.01 as long as both inputs remain positive.",
+        "Zero is a special point where the classical derivative does not exist. We will compare the source conventions explicitly."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Softplus: a smooth positive activation",
+      "subtitle": "Use the natural logarithm, not a base-10 calculator logarithm.",
+      "blocks": [
+        {
+          "eq": "a=\\ln(1+e^z)",
+          "size": 22
+        },
+        {
+          "eq": "a=\\ln(1+3)=\\ln4\\approx1.386294",
+          "size": 22
+        },
+        {
+          "eq": "f^{\\prime}(z)=\\frac{1}{1+e^{-z}}=\\sigma(z)",
+          "size": 22
+        },
+        {
+          "eq": "f^{\\prime}(\\ln3)=\\frac{1}{1+1/3}=\\frac{3}{4}=0.75",
+          "size": 22
+        },
+        "Softplus and sigmoid have different outputs. Softplus has sigmoid as its derivative; do not replace its activation by sigmoid."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Negative input: sigmoid and tanh",
+      "subtitle": "Now z = -ln(3), so exp(z) = 1/3 and exp(-z) = 3.",
+      "blocks": [
+        {
+          "eq": "\\sigma(-\\ln3)=\\frac{1}{1+3}=\\frac{1}{4}=0.25",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma^{\\prime}(-\\ln3)=\\frac{1}{4}(1-1/4)=\\frac{3}{16}=0.1875",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh(-\\ln3)=\\frac{1/3-3}{1/3+3}=\\frac{-8/3}{10/3}=-\\frac{4}{5}",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh^{\\prime}(-\\ln3)=1-(-4/5)^2=1-16/25=9/25",
+          "size": 22
+        },
+        "The activation of tanh is negative, but its slope here is positive. A negative activation does not imply a negative derivative."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Negative input: ReLU and softplus",
+      "subtitle": "The two functions behave differently on the negative side.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{ReLU}(-\\ln3)=\\max(0,-\\ln3)=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{ReLU}^{\\prime}(-\\ln3)=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{softplus}(-\\ln3)=\\ln(1+1/3)=\\ln(4/3)\\approx0.287682",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{softplus}^{\\prime}(-\\ln3)=\\frac{1}{1+3}=\\frac{1}{4}",
+          "size": 22
+        },
+        "ReLU is flat for strictly negative input. Softplus is smooth and still has a small positive output and slope."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "At zero: three smooth functions",
+      "subtitle": "Substitute exp(0) = 1 before calculating the derivatives.",
+      "blocks": [
+        {
+          "eq": "\\sigma(0)=\\frac{1}{1+1}=\\frac{1}{2},\\quad\\sigma^{\\prime}(0)=\\frac{1}{2}(1-1/2)=\\frac{1}{4}",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh(0)=\\frac{1-1}{1+1}=0,\\quad\\tanh^{\\prime}(0)=1-0^2=1",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{softplus}(0)=\\ln(1+1)=\\ln2\\approx0.693147",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{softplus}^{\\prime}(0)=\\frac{1}{1+1}=\\frac{1}{2}",
+          "size": 22
+        },
+        "Zero activation and zero derivative are different claims. Tanh has activation 0 at the origin but slope 1."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "ReLU at zero: reconcile the two sources",
+      "subtitle": "The left and right slopes disagree, so there is no classical derivative.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{ReLU}(0)=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{left\\ slope}=\\frac{f(0)-f(-0.01)}{0.01}=\\frac{0-0}{0.01}=0",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{right\\ slope}=\\frac{f(0.01)-f(0)}{0.01}=\\frac{0.01-0}{0.01}=1",
+          "size": 22
+        },
+        "Lecture 3, PDF page 156 assigns slope 1 when z >= 0. Assignment 1, PDF page 2 assigns slope 1 only when z > 0, otherwise 0.",
+        "These are chosen backpropagation conventions at the kink, not classical derivatives. For assignment-aligned work, use 0 at zero and state that convention."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Compare the activation curves",
+      "subtitle": "Same input z, different outputs and local slopes.",
+      "blocks": [
+        {
+          "image": "activations.png",
+          "width": 660
+        },
+        "Sigmoid and tanh flatten near their upper and lower limits. ReLU has a corner at zero. Softplus smoothly bends from a near-flat negative side to a near-linear positive side."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Saturation means a small local slope",
+      "subtitle": "At z = 4 the smooth bounded activations change slowly; their slopes are not zero.",
+      "blocks": [
+        {
+          "eq": "\\sigma(4)=\\frac{1}{1+e^{-4}}\\approx0.982014",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma^{\\prime}(4)=0.982014(1-0.982014)\\approx0.017663",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh(4)\\approx0.999329,\\quad\\tanh^{\\prime}(4)=1-0.999329^2\\approx0.001341",
+          "size": 22
+        },
+        {
+          "eq": "\\Delta z=0.01:\\quad\\Delta\\sigma\\approx0.00017663,\\quad\\Delta\\tanh\\approx0.00001341",
+          "size": 22
+        },
+        "At zero the same small input change gives about 0.0025 for sigmoid and 0.01 for tanh. Repeated small slope factors can shrink gradients in a deep network."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Use the local slope in the chain rule",
+      "subtitle": "Suppose the incoming loss derivative is dL/da = 2 at z = ln(3).",
+      "blocks": [
+        {
+          "eq": "\\frac{dL}{dz}=\\frac{dL}{da}\\frac{da}{dz}=2f^{\\prime}(z)",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{sigmoid}:\\quad2(3/16)=3/8=0.375",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{tanh}:\\quad2(9/25)=18/25=0.72",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{ReLU}:\\quad2(1)=2",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{softplus}:\\quad2(3/4)=3/2=1.5",
+          "size": 22
+        },
+        "The incoming derivative depends on the rest of the network and loss. Here it is a supplied value, used to isolate the role of the activation derivative."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: an input with simple exponentials",
+      "subtitle": "Use z = ln(2), so exp(z) = 2 and exp(-z) = 1/2.",
+      "blocks": [
+        "For sigmoid, tanh, ReLU and softplus, calculate both the activation and its local derivative. Show the substitutions before simplifying.",
+        "Then suppose dL/da = -3. Calculate dL/dz for each activation using the chain rule.",
+        "Finally, state the derivative convention you would use for ReLU at zero in Assignment 1, and why it is a convention."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Practice answer: sigmoid and tanh",
+      "subtitle": "Keep exact fractions until the final result.",
+      "blocks": [
+        {
+          "eq": "\\sigma(\\ln2)=\\frac{1}{1+1/2}=\\frac{2}{3}",
+          "size": 22
+        },
+        {
+          "eq": "\\sigma^{\\prime}(\\ln2)=\\frac{2}{3}(1-2/3)=\\frac{2}{9}",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{dL}{dz}=(-3)(2/9)=-2/3",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh(\\ln2)=\\frac{2-1/2}{2+1/2}=\\frac{3/2}{5/2}=\\frac{3}{5}",
+          "size": 22
+        },
+        {
+          "eq": "\\tanh^{\\prime}(\\ln2)=1-(3/5)^2=16/25",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{dL}{dz}=(-3)(16/25)=-48/25=-1.92",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Practice answer: ReLU and softplus",
+      "subtitle": "The sign of the loss derivative comes from the incoming value -3.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{ReLU}(\\ln2)=\\ln2\\approx0.693147,\\quad f^{\\prime}=1",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{dL}{dz}=(-3)(1)=-3",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{softplus}(\\ln2)=\\ln(1+2)=\\ln3\\approx1.098612",
+          "size": 22
+        },
+        {
+          "eq": "f^{\\prime}=\\frac{1}{1+1/2}=\\frac{2}{3},\\quad\\frac{dL}{dz}=(-3)(2/3)=-2",
+          "size": 22
+        },
+        "Assignment 1 uses ReLU slope 0 at zero. Its left and right slopes are 0 and 1, so the usual derivative does not exist there.",
+        "Checklist: do not confuse activation with slope, tanh derivative with (1-a)^2, or softplus output with sigmoid output."
+      ],
+      "stage": "WORKED ANSWER"
+    }
+  ]
+}

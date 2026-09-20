@@ -1,0 +1,622 @@
+{
+  "number": 39,
+  "title": "Classification metrics from every prediction",
+  "description": "Threshold probabilities, build a labeled confusion matrix, and compute accuracy, precision, recall and F1 with two fully worked practice problems.",
+  "source_short": "Assignment 1 PDF p.4 / numerical-practice N5.2 / supplied study predictions",
+  "source": "Assignment 1 PDF page 4: digit 0 is positive target 1, threshold 0.5, report accuracy, precision, recall, F1 and confusion matrix. Exact tie assigned positive as explicit study convention. numerical-practice.md N5.2.",
+  "pages": [
+    {
+      "title": "Measure whether the model detects digit zero",
+      "subtitle": "Assignment 1 PDF page 4: MNIST digit 0 versus every other digit.",
+      "blocks": [
+        "Positive means the class we want to detect: the image contains digit 0. The assignment encodes that class as target t=1. All other digits are encoded as t=0.",
+        {
+          "eq": "\\mathrm{digit}\\ 0\\Longrightarrow t=1;\\qquad\\mathrm{digits}\\ 1\\ldots9\\Longrightarrow t=0",
+          "size": 22
+        },
+        "Do not confuse the original digit value 0 with the encoded negative label 0. We will evaluate eight supplied study predictions, not actual measured MNIST results.",
+        "A confusion matrix counts correct and incorrect decisions. Accuracy, precision, recall and F1 summarize different aspects of those counts."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Turn each probability into one class decision",
+      "subtitle": "Use the explicit study convention: equality at 0.5 predicts positive.",
+      "blocks": [
+        {
+          "eq": "p=\\hat y=\\mathrm{predicted\\ probability\\ of\\ class}\\ 1",
+          "size": 22
+        },
+        {
+          "eq": "p\\geq0.5\\Longrightarrow\\hat t=1;\\qquad p<0.5\\Longrightarrow\\hat t=0",
+          "size": 22
+        },
+        "The assignment specifies a threshold of 0.5. This example explicitly assigns an exact tie to class 1. A probability and a thresholded class are different quantities.",
+        {
+          "eq": "p=0.9\\geq0.5\\Longrightarrow\\hat t=1",
+          "size": 22
+        },
+        {
+          "eq": "p=0.4<0.5\\Longrightarrow\\hat t=0",
+          "size": 22
+        },
+        "Compare the predicted class with the known target only after applying the threshold. Do not round probabilities before thresholding."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Name the four possible outcomes",
+      "subtitle": "True or false describes correctness; positive or negative describes the prediction.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "actual t",
+              "predicted class",
+              "name",
+              "meaning"
+            ],
+            [
+              "1",
+              "1",
+              "TP",
+              "correctly detected zero"
+            ],
+            [
+              "1",
+              "0",
+              "FN",
+              "missed a zero"
+            ],
+            [
+              "0",
+              "1",
+              "FP",
+              "false alarm: nonzero called zero"
+            ],
+            [
+              "0",
+              "0",
+              "TN",
+              "correctly rejected nonzero"
+            ]
+          ],
+          "widths": [
+            90,
+            140,
+            90,
+            370
+          ]
+        },
+        "TP = true positive; FN = false negative; FP = false positive; TN = true negative. Each example belongs to exactly one category.",
+        "A false positive is a positive prediction that is wrong. A false negative is a negative prediction that is wrong."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Classify all eight examples, one row at a time",
+      "subtitle": "The original digit helps keep the positive-class encoding visible.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "ID",
+              "digit",
+              "target t",
+              "p",
+              "decision",
+              "outcome"
+            ],
+            [
+              "1",
+              "0",
+              "1",
+              "0.9",
+              "1",
+              "TP"
+            ],
+            [
+              "2",
+              "7",
+              "0",
+              "0.7",
+              "1",
+              "FP"
+            ],
+            [
+              "3",
+              "0",
+              "1",
+              "0.4",
+              "0",
+              "FN"
+            ],
+            [
+              "4",
+              "2",
+              "0",
+              "0.1",
+              "0",
+              "TN"
+            ],
+            [
+              "5",
+              "8",
+              "0",
+              "0.2",
+              "0",
+              "TN"
+            ],
+            [
+              "6",
+              "0",
+              "1",
+              "0.8",
+              "1",
+              "TP"
+            ],
+            [
+              "7",
+              "9",
+              "0",
+              "0.6",
+              "1",
+              "FP"
+            ],
+            [
+              "8",
+              "4",
+              "0",
+              "0.3",
+              "0",
+              "TN"
+            ]
+          ],
+          "widths": [
+            65,
+            80,
+            105,
+            90,
+            130,
+            140
+          ],
+          "row_height": 26
+        },
+        "Rows 1 and 6 detect zeros; row 3 misses a zero. Rows 2 and 7 are false alarms. Rows 4, 5 and 8 correctly reject nonzero digits."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Collect the counts before computing any metric",
+      "subtitle": "Actual positives and predicted positives need not be the same examples.",
+      "blocks": [
+        {
+          "eq": "TP=2,\\quad FN=1,\\quad FP=2,\\quad TN=3",
+          "size": 22
+        },
+        {
+          "eq": "N=TP+FN+FP+TN=2+1+2+3=8",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{actual\\ positives}=TP+FN=2+1=3",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{predicted\\ positives}=TP+FP=2+2=4",
+          "size": 22
+        },
+        "There are 3 actual zeros and 5 actual nonzeros: positive proportion 3/8 and negative proportion 5/8. These are the study sample proportions, not the full MNIST proportions."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Read the confusion matrix with its axes",
+      "subtitle": "Rows are actual classes; columns are predicted classes.",
+      "blocks": [
+        {
+          "image": "matrix.png",
+          "width": 590
+        },
+        "Read across an actual-class row to see what happened to that class. Read down a predicted-class column to see which actual examples received that prediction."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Accuracy: what fraction of all decisions is correct?",
+      "subtitle": "Both correctly detected zeros and correctly rejected nonzeros count.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{accuracy}=\\frac{TP+TN}{TP+FN+FP+TN}",
+          "size": 22
+        },
+        {
+          "eq": "=\\frac{2+3}{2+1+2+3}=\\frac{5}{8}=0.625=62.5\\%",
+          "size": 22
+        },
+        "Five of the eight predictions are correct. The denominator includes every example; accuracy does not separately show whether either class is neglected.",
+        "Check: the correct IDs are 1, 4, 5, 6 and 8. Counting these directly gives the same numerator 5."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Precision: how reliable are positive predictions?",
+      "subtitle": "Restrict attention to the four examples that the model called zero.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{precision}=\\frac{TP}{TP+FP}",
+          "size": 22
+        },
+        {
+          "eq": "=\\frac{2}{2+2}=\\frac{2}{4}=0.5=50\\%",
+          "size": 22
+        },
+        "Predicted-positive IDs are 1, 2, 6 and 7. Only IDs 1 and 6 are actual zeros. Half the model alarms are correct.",
+        "The denominator is the predicted-positive group, not the actual-positive group. False positives reduce precision."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Recall: what fraction of actual zeros is detected?",
+      "subtitle": "Restrict attention to the three examples that really are zero.",
+      "blocks": [
+        {
+          "eq": "\\mathrm{recall}=\\frac{TP}{TP+FN}",
+          "size": 22
+        },
+        {
+          "eq": "=\\frac{2}{2+1}=\\frac{2}{3}\\approx0.666667=66.6667\\%",
+          "size": 22
+        },
+        "Actual-positive IDs are 1, 3 and 6. The model detects IDs 1 and 6 but misses ID 3. It finds two of the three zeros.",
+        "The denominator is the actual-positive group. False negatives reduce recall. Precision and recall answer different questions even though both use TP in the numerator."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "F1: combine precision and recall",
+      "subtitle": "F1 is their harmonic mean, not their ordinary arithmetic average.",
+      "blocks": [
+        {
+          "eq": "F_1=\\frac{2PR}{P+R},\\qquad P=\\frac{1}{2},\\quad R=\\frac{2}{3}",
+          "size": 22
+        },
+        {
+          "eq": "2PR=2\\left(\\frac{1}{2}\\right)\\left(\\frac{2}{3}\\right)=\\frac{2}{3}",
+          "size": 22
+        },
+        {
+          "eq": "P+R=\\frac{1}{2}+\\frac{2}{3}=\\frac{3}{6}+\\frac{4}{6}=\\frac{7}{6}",
+          "size": 22
+        },
+        {
+          "eq": "F_1=\\frac{2/3}{7/6}=\\frac{2}{3}\\times\\frac{6}{7}=\\frac{4}{7}\\approx0.571429",
+          "size": 22
+        },
+        "The ordinary average would be 7/12, a different number. F1 emphasizes having both useful precision and useful recall."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Compute the same F1 directly from counts",
+      "subtitle": "Substituting the precision and recall definitions simplifies the formula.",
+      "blocks": [
+        {
+          "eq": "F_1=\\frac{2TP}{2TP+FP+FN}",
+          "size": 22
+        },
+        {
+          "eq": "=\\frac{2(2)}{2(2)+2+1}=\\frac{4}{7}\\approx57.1429\\%",
+          "size": 22
+        },
+        "The direct-count form agrees with the harmonic form when both are defined. It is also useful in some edge cases where precision itself is undefined.",
+        "TN does not appear in this positive-class F1 formula. Many correctly rejected negatives can raise accuracy without rescuing missed positives."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "The same accuracy can hide a failed detector",
+      "subtitle": "Compare with a baseline that predicts negative for every example.",
+      "blocks": [
+        {
+          "eq": "TP=0,\\quad FN=3,\\quad FP=0,\\quad TN=5",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{accuracy}=\\frac{0+5}{8}=62.5\\%",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{recall}=\\frac{0}{0+3}=0;\\qquad F_1=\\frac{0}{0+0+3}=0",
+          "size": 22
+        },
+        "This baseline has exactly the same accuracy as our model, yet detects none of the three zeros. Its five correct decisions come entirely from the five nonzero images.",
+        "Precision is 0/(0+0), which is undefined mathematically: there are no positive predictions to assess. Do not describe this as a measured precision of zero without declaring a reporting convention."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Handle empty denominators explicitly",
+      "subtitle": "A zero numerator is not the same as a zero denominator.",
+      "blocks": [
+        "If actual positives exist but none are predicted: precision is undefined, recall is zero, and direct-count F1 is zero. The harmonic formula cannot be evaluated using an undefined precision.",
+        {
+          "eq": "TP=FP=FN=0\\Longrightarrow F_1=\\frac{0}{0}\\quad\\mathrm{undefined}",
+          "size": 22
+        },
+        "If truth and prediction are both entirely negative, there are no actual or predicted positives. Precision, recall and positive-class F1 are all undefined by their mathematical fractions.",
+        "Software may replace undefined scores with zero or another stated convention. Report the convention alongside the counts. Never silently divide by zero."
+      ],
+      "stage": "WORKED EXAMPLE"
+    },
+    {
+      "title": "Your turn: include the exact threshold tie",
+      "subtitle": "Use the same positive class and predict 1 when p is at least 0.5.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "ID",
+              "target t",
+              "p"
+            ],
+            [
+              "1",
+              "1",
+              ".5"
+            ],
+            [
+              "2",
+              "1",
+              ".7"
+            ],
+            [
+              "3",
+              "1",
+              ".3"
+            ],
+            [
+              "4",
+              "1",
+              ".1"
+            ],
+            [
+              "5",
+              "0",
+              ".6"
+            ],
+            [
+              "6",
+              "0",
+              ".2"
+            ],
+            [
+              "7",
+              "0",
+              ".4"
+            ],
+            [
+              "8",
+              "0",
+              ".1"
+            ]
+          ],
+          "widths": [
+            140,
+            220,
+            220
+          ],
+          "row_height": 24
+        },
+        "Write every predicted class and outcome, build the matrix with labeled axes, then compute accuracy, precision, recall and F1. Keep fractions until the last step."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Answer: threshold, compare, then count",
+      "subtitle": "The first probability is exactly 0.5, so its prediction is positive.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "ID",
+              "target",
+              "p",
+              "prediction",
+              "outcome"
+            ],
+            [
+              "1",
+              "1",
+              "0.5",
+              "1",
+              "TP"
+            ],
+            [
+              "2",
+              "1",
+              "0.7",
+              "1",
+              "TP"
+            ],
+            [
+              "3",
+              "1",
+              "0.3",
+              "0",
+              "FN"
+            ],
+            [
+              "4",
+              "1",
+              "0.1",
+              "0",
+              "FN"
+            ],
+            [
+              "5",
+              "0",
+              "0.6",
+              "1",
+              "FP"
+            ],
+            [
+              "6",
+              "0",
+              "0.2",
+              "0",
+              "TN"
+            ],
+            [
+              "7",
+              "0",
+              "0.4",
+              "0",
+              "TN"
+            ],
+            [
+              "8",
+              "0",
+              "0.1",
+              "0",
+              "TN"
+            ]
+          ],
+          "widths": [
+            90,
+            100,
+            100,
+            160,
+            160
+          ],
+          "row_height": 25
+        },
+        {
+          "eq": "TP=2,\\quad FN=2,\\quad FP=1,\\quad TN=3",
+          "size": 22
+        }
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: matrix and accuracy",
+      "subtitle": "The practice set has four actual positives and four actual negatives.",
+      "blocks": [
+        {
+          "table": [
+            [
+              "actual / predicted",
+              "positive 1",
+              "negative 0",
+              "row total"
+            ],
+            [
+              "positive 1",
+              "TP = 2",
+              "FN = 2",
+              "4"
+            ],
+            [
+              "negative 0",
+              "FP = 1",
+              "TN = 3",
+              "4"
+            ],
+            [
+              "column total",
+              "3",
+              "5",
+              "8"
+            ]
+          ],
+          "widths": [
+            240,
+            150,
+            150,
+            150
+          ]
+        },
+        {
+          "eq": "\\mathrm{accuracy}=\\frac{TP+TN}{N}=\\frac{2+3}{8}=\\frac{5}{8}=62.5\\%",
+          "size": 22
+        },
+        "There are three positive predictions, of which two are correct. There are four actual positives, of which two are detected."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "Answer: precision, recall and F1",
+      "subtitle": "Apply each denominator to the correct group.",
+      "blocks": [
+        {
+          "eq": "P=\\frac{2}{2+1}=\\frac{2}{3}\\approx66.6667\\%",
+          "size": 22
+        },
+        {
+          "eq": "R=\\frac{2}{2+2}=\\frac{1}{2}=50\\%",
+          "size": 22
+        },
+        {
+          "eq": "F_1=\\frac{2(2)}{2(2)+1+2}=\\frac{4}{7}\\approx57.1429\\%",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{2PR}{P+R}=\\frac{2(2/3)(1/2)}{2/3+1/2}=\\frac{2/3}{7/6}=\\frac{4}{7}",
+          "size": 22
+        },
+        "Compared with the main example, precision and recall trade values, but F1 stays the same. They are symmetric inputs to the harmonic mean."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "A second quiz: start from supplied counts",
+      "subtitle": "A different model has TP=6, TN=8, FP=2 and FN=4.",
+      "blocks": [
+        "Compute the total number of examples and all four metrics. State the number of actual positives and the number of predicted positives before substituting.",
+        "Explain why swapping FP and FN would exchange precision and recall while leaving accuracy and F1 unchanged.",
+        "Do this without reading the next page. These counts are a new independent example, not extra rows appended to either earlier dataset."
+      ],
+      "stage": "INDEPENDENT PRACTICE"
+    },
+    {
+      "title": "Answer: supplied counts to all four metrics",
+      "subtitle": "Check every denominator before simplifying.",
+      "blocks": [
+        {
+          "eq": "N=6+8+2+4=20;\\quad TP+FN=10;\\quad TP+FP=8",
+          "size": 22
+        },
+        {
+          "eq": "\\mathrm{accuracy}=\\frac{6+8}{20}=\\frac{14}{20}=0.7",
+          "size": 22
+        },
+        {
+          "eq": "P=\\frac{6}{6+2}=\\frac{6}{8}=0.75;\\qquad R=\\frac{6}{6+4}=\\frac{6}{10}=0.6",
+          "size": 22
+        },
+        {
+          "eq": "F_1=\\frac{2(6)}{2(6)+2+4}=\\frac{12}{18}=\\frac{2}{3}",
+          "size": 22
+        },
+        {
+          "eq": "\\frac{2PR}{P+R}=\\frac{2(0.75)(0.6)}{0.75+0.6}=\\frac{0.9}{1.35}=\\frac{2}{3}",
+          "size": 22
+        },
+        "Swapping FP and FN exchanges the two denominators for precision and recall. Their sum in F1 and the total in accuracy do not change."
+      ],
+      "stage": "WORKED ANSWER"
+    },
+    {
+      "title": "A reliable exam workflow",
+      "subtitle": "Class definition, threshold, counts, denominators, interpretation.",
+      "blocks": [
+        "1. Write which real-world class is positive and its encoded label. For this assignment, digit 0 is positive label 1.",
+        "2. State the threshold and exact-tie rule. Convert each probability into a class once, without premature rounding.",
+        "3. Compare with truth, count TP/FN/FP/TN, and check that counts sum to the number of examples. Label both confusion-matrix axes.",
+        "4. Use all examples for accuracy, predicted positives for precision, actual positives for recall, and the harmonic/direct-count formula for F1.",
+        "5. Check zero denominators and explain what the scores mean. Accuracy alone can hide failure on the class of interest."
+      ],
+      "stage": "WORKED EXAMPLE"
+    }
+  ]
+}

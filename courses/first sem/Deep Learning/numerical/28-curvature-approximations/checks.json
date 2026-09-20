@@ -1,0 +1,12 @@
+{
+  "secant_main": 3,
+  "secant_practice": 4,
+  "dense_main": 1000000,
+  "history_main": 10000,
+  "dense_practice": 10000,
+  "history_practice": 600,
+  "loaded_eigenvalues": [
+    0.5,
+    2.5
+  ]
+}
