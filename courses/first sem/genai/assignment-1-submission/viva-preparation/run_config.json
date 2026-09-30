@@ -1,0 +1,113 @@
+{
+  "roll": "20L-11327",
+  "R": 27,
+  "seed": 1327,
+  "held_out_digit": 7,
+  "digits": [
+    0,
+    2,
+    3,
+    6,
+    7,
+    9
+  ],
+  "attribute": "Blond_Hair",
+  "run_id": "main_v1",
+  "device": "cuda",
+  "torch_version": "2.11.0+cu128",
+  "created_at": "2026-09-17 16:35:51",
+  "result_policy": "all reported values must come from saved run artifacts",
+  "seed_offsets": {
+    "A1": 10,
+    "B1": 20,
+    "classifier": 30,
+    "C_runs": 0,
+    "B1_test_noise": 101,
+    "C1_samples": 301,
+    "C3_samples": 303,
+    "D1_samples": 401,
+    "D2_samples": 402,
+    "E_real_test": 701,
+    "E_real_train": 702,
+    "E3_real_test": 703,
+    "E3_noise": 909
+  },
+  "experiments": {
+    "ae": {
+      "epochs": 10,
+      "batch_size": 64,
+      "lr": 0.001,
+      "latent": 64
+    },
+    "vae": {
+      "epochs": 10,
+      "batch_size": 64,
+      "lr": 0.001,
+      "latent": 64
+    },
+    "B1_denoiser": {
+      "epochs": 5,
+      "batch_size": 128,
+      "lr": 0.001,
+      "noise_sigma": 0.3
+    },
+    "clf": {
+      "minimum_epochs": 3,
+      "max_epochs": 5,
+      "actual_epochs": 3,
+      "batch_size": 128,
+      "lr": 0.001,
+      "digits": [
+        0,
+        2,
+        3,
+        6,
+        7,
+        9
+      ]
+    },
+    "C1": {
+      "zdim": 64,
+      "iterations": 3000,
+      "d_steps": 5,
+      "g_steps": 1,
+      "lr_d": 0.0008,
+      "lr_g": 0.0002,
+      "saturating": true
+    },
+    "C2": {
+      "zdim": 64,
+      "iterations": 3000,
+      "d_steps": 5,
+      "g_steps": 1,
+      "lr_d": 0.0008,
+      "lr_g": 0.0002,
+      "saturating": false
+    },
+    "C3": {
+      "zdim": 2,
+      "iterations": 3000,
+      "d_steps": 1,
+      "g_steps": 5,
+      "lr_d": 0.0002,
+      "lr_g": 0.002,
+      "saturating": false
+    },
+    "D1": {
+      "zdim": 64,
+      "iterations": 5000,
+      "d_steps": 1,
+      "g_steps": 1,
+      "lr_d": 0.0002,
+      "lr_g": 0.0002,
+      "saturating": false
+    },
+    "D2": {
+      "zdim": 64,
+      "iterations": 5000,
+      "critic_steps": 5,
+      "lr": 0.0001,
+      "gradient_penalty": 10.0
+    }
+  }
+}
