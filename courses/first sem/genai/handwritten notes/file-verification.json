@@ -1,0 +1,375 @@
+{
+  "status": "all 37 selected PNGs verified",
+  "pages": [
+    {
+      "id": "L1-01",
+      "file": "l1-01-introduction-what-a-generative-model-learns.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "238a3d761991d0c17026caacf17433e152c00f417af8e3a8320ccb684577119b",
+      "bytes": 1916144
+    },
+    {
+      "id": "L1-02",
+      "file": "l1-02-bayes-from-a-generative-model-to-a-spam-decision.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "b960c762d0e20dbdae71b457fa82917e4173378093f6e0a652656d2cb420081a",
+      "bytes": 1903434
+    },
+    {
+      "id": "L1-03",
+      "file": "l1-03-data-vs-model-fidelity-coverage-and-sampling.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "112c0455bf9c68f9e6c9dee8aa98066d9393ae72c0591f00c9b9e7a5ee4a12c5",
+      "bytes": 1998188
+    },
+    {
+      "id": "L2-01",
+      "file": "l2-01-autoencoder-reconstruction-and-a-chain-rule-update.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "f6f7b0487db64a4c889e249b98635c3eb925561b9d7eb3da89e741e306823878",
+      "bytes": 1903287
+    },
+    {
+      "id": "L2-02",
+      "file": "l2-02-ae-applications-targets-retrieval-and-thresholds.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "c2f1a17e1f3850b087efcff06e5a5172a2ed453a44f5e858b871387d0658f048",
+      "bytes": 1950133
+    },
+    {
+      "id": "L2-03",
+      "file": "l2-03-vae-distributions-sampling-and-latent-meaning-v2.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "cb5ee2955da44ab1f48cfba94d94ce16faa5b67e06e4336992f57831df97d35b",
+      "bytes": 1676839
+    },
+    {
+      "id": "L2-04",
+      "file": "l2-04-discrete-kl-direction-and-weighted-log-ratios.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "3014e62084dc113709df237c1cbd19f338d7d597219e18c71ed842cf89c49b7c",
+      "bytes": 1944595
+    },
+    {
+      "id": "L2-05",
+      "file": "l2-05-gaussian-kl-derive-it-then-calculate.png",
+      "dimensions": [
+        1060,
+        1484
+      ],
+      "sha256": "9632bd9dd65d683dfee28054298d49f1e67409052380a489cfa4b1aeded61ec7",
+      "bytes": 1919486
+    },
+    {
+      "id": "L2-06",
+      "file": "l2-06-vae-objective-reconstruction-plus-regularization-v2.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "7d5360ca32641de88c83dcd2a2a08f5123140b0d2dfeacb3ca2bac67ef33fbca",
+      "bytes": 1660891
+    },
+    {
+      "id": "L2-07",
+      "file": "l2-07-reparameterization-gradients-and-latent-interpolation.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "799f2140feaaeafa0aeaa590d381ee2e25c8b2a6c407f9e3b0c57365fd0f95e5",
+      "bytes": 2057162
+    },
+    {
+      "id": "L3-01",
+      "file": "l3-01-gan-the-game-and-loss-arithmetic.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "0c140c6ddeb745c5f3a74c781b21c92a47e9d5417c8a1b09bf7c9850b34e6fa5",
+      "bytes": 1926713
+    },
+    {
+      "id": "L3-02",
+      "file": "l3-02-gan-gradients-why-non-saturating-loss-helps.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "7418f5d49d2af26a585975558f7bb57904868380f91a5390d85aa508a08a9522",
+      "bytes": 1954987
+    },
+    {
+      "id": "L3-03",
+      "file": "l3-03-gan-one-complete-alternating-update.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "d0fd04ed724c8df71006452596ec826846f0947e9c9a7ea16e4529d14c55d89d",
+      "bytes": 1888995
+    },
+    {
+      "id": "L3-04",
+      "file": "l3-04-dcgan-shapes-and-parameter-counts.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "75de8e3d0c8540142de8995c59939ffe8f1db506faceed132b51e28880e5025c",
+      "bytes": 2070116
+    },
+    {
+      "id": "L3-05",
+      "file": "l3-05-gan-failures-diagnostics-and-latent-arithmetic.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "f7f5dce9354358c6e2e248c9ac1d3c55da6a7f2a21be97e37fcc385dde297f90",
+      "bytes": 1880939
+    },
+    {
+      "id": "L4-01",
+      "file": "l4-01-conditional-gan-pairs-encodings-and-losses.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "57d7332c4a16441bdf51623031add4308d5a1833c7781b31e577c529c81352a1",
+      "bytes": 1936714
+    },
+    {
+      "id": "L4-02",
+      "file": "l4-02-stackgan-sketch-refine-and-conditioning-augmentation-v2.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "650e9115a2fd7c1d115c7696662748389d0ca37714891167d8e3f3ad075fe4a9",
+      "bytes": 1736942
+    },
+    {
+      "id": "L4-03",
+      "file": "l4-03-inception-score-entropy-kl-and-a-worked-example.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "5f601d9350d17c0505be2c11526867c65ed773138c99c88bde12e54365b075f4",
+      "bytes": 1969184
+    },
+    {
+      "id": "L4-04",
+      "file": "l4-04-fid-means-covariances-and-a-worked-calculation.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "8f81d0e6d0c8f8ad4fcb1fb14540e46cfdc40df67625a490eed0d174b7bb3187",
+      "bytes": 1981573
+    },
+    {
+      "id": "L4-05",
+      "file": "l4-05-generative-precision-recall-quality-vs-coverage.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "496865c18444a2d08dafa68f25950c7ed619b156ff5ed0a1f29daeaed53646cc",
+      "bytes": 2046953
+    },
+    {
+      "id": "L5-01",
+      "file": "l5-01-forward-diffusion-why-the-square-roots-matter.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "559b3082dfb485f369e200fdf129c56b5781e41aa2cc8241828b34045e0ab36c",
+      "bytes": 1909369
+    },
+    {
+      "id": "L5-02",
+      "file": "l5-02-closed-form-noising-derive-any-timestep.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "97c8b750a5f7652c819e83b413af183dc7bdbe991b7800417d6f42b00172f045",
+      "bytes": 1810500
+    },
+    {
+      "id": "L5-03",
+      "file": "l5-03-sequential-vs-one-shot-matching-the-noise-correctly.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "989546545eeb7517118749f5a837530b1e2e71654475e01d5fad1b16cdfbabe5",
+      "bytes": 1909173
+    },
+    {
+      "id": "L6-01",
+      "file": "l6-01-noise-schedules-linear-vs-normalized-cosine.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "60c4c183b3534d5231f151390ee0b1c0d20aacbfdb0c3ff8f42a7d2274e9db24",
+      "bytes": 1917070
+    },
+    {
+      "id": "L6-02",
+      "file": "l6-02-forward-diffusion-the-lecture-s-2-2-numerical.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "13676089bf6382c2283791bc92a0a379e859ca62b2846dd9ff6a09d2b28bff93",
+      "bytes": 1969596
+    },
+    {
+      "id": "L6-03",
+      "file": "l6-03-ddpm-objective-from-gaussian-kl-to-noise-error.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "c7e139c64e70d3cfe498a401ea5b97c1183093ae8b8e86da7861c9234c963c8c",
+      "bytes": 1936770
+    },
+    {
+      "id": "L6-04",
+      "file": "l6-04-noise-prediction-training-a-loss-and-gradient-update.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "44634e2cc7ee5aa95c5fb2b51ce5ff042c3de50de9dc02a508c8afb14af8b9ad",
+      "bytes": 1974922
+    },
+    {
+      "id": "L6-05",
+      "file": "l6-05-reverse-mean-derive-the-noise-prediction-formula.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "5735726631b50aa811849b9e745444f355889504f76b18b03d880c9b6d3e5942",
+      "bytes": 1901321
+    },
+    {
+      "id": "L6-06",
+      "file": "l6-06-reverse-sampling-a-full-stochastic-step.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "3c7c4bfbf0cb782d19c567d836cd896d344d1ad72699e4d5439dd24caaaf0f37",
+      "bytes": 2006028
+    },
+    {
+      "id": "L7-01",
+      "file": "l7-01-transformer-tokens-embeddings-and-the-architecture.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "ddf98fd5ec306708eb1e4e5ab7b52f2aa9aa23a90dd6aac6beb4f6620b5063fd",
+      "bytes": 1967653
+    },
+    {
+      "id": "L7-02",
+      "file": "l7-02-self-attention-the-lecture-s-robot-calculation.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "898cb490e9342912b057bce7b65c84113e5ee98d730ecf0cd13b4fb8786b296c",
+      "bytes": 2060137
+    },
+    {
+      "id": "L7-03",
+      "file": "l7-03-multi-head-attention-ffn-and-add-norm.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "00cbbd498faca8e503cbb75353ce942bd0ce9b9c9a7623869307877845ce17a1",
+      "bytes": 1854808
+    },
+    {
+      "id": "L7-04",
+      "file": "l7-04-positional-encoding-the-full-d-10-example.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "3a1eeb28da5b4db071294d6e1d04567fc2fb10f9668daf4f1945fc1f57372106",
+      "bytes": 2020967
+    },
+    {
+      "id": "L7-05",
+      "file": "l7-05-decoder-self-attention-mask-future-tokens.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "d591be90c06e145162b43eb82fd6ecdb47ab2ac0dd9e6bfb4fa5f2e07510e04c",
+      "bytes": 1992288
+    },
+    {
+      "id": "L7-06",
+      "file": "l7-06-cross-attention-the-lecture-s-translation-numerical.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "f0c20e029a2f4fb14799fcf2fe1a8a35bf0dd0c06f0bcf3151fd81a795d33a67",
+      "bytes": 1929800
+    },
+    {
+      "id": "L7-07",
+      "file": "l7-07-transformer-training-teacher-forcing-and-cross-entropy.png",
+      "dimensions": [
+        1054,
+        1492
+      ],
+      "sha256": "c0e8608b4e1e68e374000cbf3273d94b68c67d5d12d59c604201d611949328f0",
+      "bytes": 1989886
+    },
+    {
+      "id": "L7-08",
+      "file": "l7-08-generation-greedy-decoding-vs-beam-search.png",
+      "dimensions": [
+        1055,
+        1491
+      ],
+      "sha256": "ed064aa2083f25487d6f3c638d845bd7620e84bf51e0a7224b8e2f935840e7bb",
+      "bytes": 1964586
+    }
+  ]
+}
