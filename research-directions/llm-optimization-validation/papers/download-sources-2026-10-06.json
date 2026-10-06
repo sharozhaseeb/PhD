@@ -1,0 +1,35 @@
+[
+  {
+    "filename": "2026-SemOpt-TOSEM-author-version.pdf",
+    "title": "SemOpt: LLM-Driven Code Optimization via Rule-Based Analysis",
+    "source_url": "https://xiongyingfei.github.io/papers/TOSEM26.pdf",
+    "publication_url": "https://doi.org/10.1145/3820167",
+    "version": "Author-hosted manuscript; journal venue TOSEM 2026",
+    "pages": 47,
+    "bytes": 2453475,
+    "sha256": "191119de1103d4bda5364c5a4185ff38f954812e0592b408254d9db5f5236d29",
+    "downloaded_on": "2026-10-06"
+  },
+  {
+    "filename": "2024-PIE-Learning-Performance-Improving-Code-Edits-arXiv-v5.pdf",
+    "title": "Learning Performance-Improving Code Edits",
+    "source_url": "https://arxiv.org/pdf/2302.07867v5",
+    "publication_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/ce65173b994cf7c925c71b482ee14a8d-Abstract-Conference.html",
+    "version": "arXiv v5; PDF identifies publication at ICLR 2024",
+    "pages": 25,
+    "bytes": 752099,
+    "sha256": "79d6ad67ce9dad613b185904d77fd99ae1d2a921d8ae04b1f57697289b818955",
+    "downloaded_on": "2026-10-06"
+  },
+  {
+    "filename": "2026-Time-Efficiency-LLM-Code-TSE-author-version.pdf",
+    "title": "On the Time Efficiency of Code Generated and Optimized by Large Language Models",
+    "source_url": "https://timm.fyi/26coffe.pdf",
+    "publication_url": "https://doi.org/10.1109/TSE.2026.3709872",
+    "version": "Author-hosted accepted manuscript; TSE journal article, not the earlier COFFE conference paper",
+    "pages": 23,
+    "bytes": 966350,
+    "sha256": "e26bed5034139865a4c0068058c082921d71df93360151572a64b6a63514bce8",
+    "downloaded_on": "2026-10-06"
+  }
+]
