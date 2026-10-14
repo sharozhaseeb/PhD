@@ -1,0 +1,839 @@
+GENERATIVE AI: COMPLETE MIDTERM REVISION
+
+Duration: 01:37:25.248
+Voice: en-US-AriaNeural, synthetic English narration.
+Based on seven supplied lecture PDFs, existing handwritten examples, and Quiz 1.
+Use chapter navigation or these timestamps to revisit topics.
+
+
+FULL TRANSCRIPT
+
+[00:00:00] Foundations / What the entire course is trying to do
+Source: Lecture1 Introduction.pdf; PDF page 15.
+Handwritten source: l1-01-introduction-what-a-generative-model-learns.png.
+
+Welcome. This revision starts from the ideas underneath the equations. A generative model learns how probability is distributed over possible observations, then uses that learned structure to produce samples. An observation might be an image, a sentence, or one row of measurements. The symbol x usually means one observation. Theta means the collection of learned weights.
+
+A discriminative classifier asks, given this observation, what label is likely? A generative model asks, what observations are plausible, and how can I draw one? A generative classifier can also classify, by modeling each class and applying Bayes' rule.
+
+We will connect five ideas. An autoencoder learns reconstruction. A variational autoencoder organizes its latent space for sampling. A G A N learns through a competing judge. Diffusion learns denoising. A Transformer learns context and next-token probabilities. Evaluation asks whether the resulting samples have quality and variety.
+
+For every model, keep two questions separate: what happens during training, and what happens when we generate a new sample?
+
+Takeaway: Learn a distribution; distinguish training from generation.
+
+[00:01:25] Foundations / The probability vocabulary you need
+Source: Lecture1 Introduction.pdf; PDF page 16.
+Handwritten source: Custom teaching panel / original slide.
+
+A probability distribution allocates probability across possibilities. For a discrete set, the probabilities add to one. A sample is one random draw. Ten samples need not reproduce the exact probabilities, but their long-run frequencies approach them.
+
+The vertical bar means given. Probability of a label given an image is different from probability of an image given a label. A prior is our distribution before observing the current evidence. A posterior incorporates that evidence.
+
+Mean describes location. Variance describes squared spread, and standard deviation is its square root. Standard normal noise has mean zero and variance one. Its individual draws are random numbers, not always zero.
+
+An expectation is a probability-weighted average. In training, a minibatch often estimates that average. The natural logarithm, written l n on these notes, is the logarithm we use throughout. Exponentiation reverses it. For probabilities below one, the logarithm is negative, so negative log probability is a positive penalty.
+
+Keep these definitions nearby: they reappear in every chapter.
+
+Takeaway: E = weighted average; standard deviation = sqrt(variance).
+
+[00:02:53] Foundations / How learning changes a weight
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 7.
+Handwritten source: l2-01-autoencoder-reconstruction-and-a-chain-rule-update.png.
+
+A neural network is a differentiable computation with adjustable weights. It receives inputs, computes an output, and receives a loss: a number measuring how undesirable that output is under our objective.
+
+A derivative measures local sensitivity. If one weight changes slightly, how does the loss change? With many weights, the collection of derivatives is the gradient. Gradient descent updates each weight by subtracting the learning rate times its derivative. A negative derivative therefore increases the weight during this update.
+
+Backpropagation applies the chain rule. When a weight influences an intermediate code, which influences the output, multiply the sensitivities along that path. When multiple paths reach the same quantity, add their contributions.
+
+A vector is an ordered list of numbers. A dot product multiplies corresponding entries and adds them. Matrix multiplication performs collections of dot products. It is different from elementwise multiplication.
+
+You do not need to remember a whole calculus course. Remember local sensitivity, multiply along paths, add across paths, and subtract the gradient. We will use an actual autoencoder calculation shortly.
+
+Takeaway: Update = old value − learning rate × gradient.
+
+[00:04:23] Foundations / Bayes, calculated rather than memorized
+Source: Lecture1 Introduction.pdf; PDF page 29.
+Handwritten source: l1-02-bayes-from-a-generative-model-to-a-spam-decision.png.
+
+Here is the lecture's spam example. S means spam, H means ordinary mail, and W means the word win. Forty percent of messages are spam. Sixty percent are ordinary. The word appears in sixty percent of spam and five percent of ordinary mail.
+
+First multiply likelihood by prior. The spam-and-win joint probability is zero point six times zero point four, giving zero point two four. The ordinary-and-win joint is zero point zero five times zero point six, giving zero point zero three.
+
+Now normalize across the two explanations. Total probability of seeing win is zero point two seven. The spam posterior is zero point two four divided by zero point two seven: approximately zero point eight eight eight nine. The ordinary posterior is approximately zero point one one one one. They sum to one.
+
+Why is zero point two four not the answer?
+
+It is a joint probability, before normalization. Bayes turns joint scores into probabilities conditional on the evidence. Also, probability of spam without win is not one minus probability of spam with win. Those are different conditioning events.
+
+Takeaway: Likelihood × prior → joint; normalize → posterior.
+
+[00:05:51] Foundations / Quality, coverage and the model map
+Source: Lecture1 Introduction.pdf; PDF page 38.
+Handwritten source: l1-03-data-vs-model-fidelity-coverage-and-sampling.png.
+
+A model needs both fidelity and coverage. Fidelity means its outputs resemble real examples. Coverage means it represents the different kinds of examples that occur in reality.
+
+In this table, real data has probability zero in region A, zero point four in B, and zero point six in C. The model puts zero point two in A, nothing in B, and zero point eight in C. Region A is invalid generation. Region B is a missing real possibility, also called a missing mode.
+
+A hundred model draws have expected counts twenty, zero, and eighty. Drawing more samples cannot recover a region assigned exactly zero probability. Conversely, a mode missing from a small sample grid does not prove its probability is zero.
+
+Older generative families include Naive Bayes, Gaussian mixtures, and hidden Markov models. Our neural families approach the same distribution problem through different training tasks. Remember the distinction between a believable individual output and a good overall distribution. We will return to it when diagnosing G A Ns and calculating evaluation scores.
+
+Takeaway: Fidelity = plausibility; coverage = represented real modes.
+
+[00:07:14] Autoencoders and VAEs / Reconstruction creates a useful code
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 5.
+Handwritten source: l2-01-autoencoder-reconstruction-and-a-chain-rule-update.png.
+
+An autoencoder receives an observation and tries to reproduce it. Follow the diagram: input x passes through an encoder, producing a latent code z. A decoder maps that code to a reconstruction, called x hat. Both networks learn from reconstruction error.
+
+The code is a compact representation. A bottleneck encourages it to preserve useful structure. Nonlinear networks can learn nonlinear representations, unlike ordinary linear principal component analysis.
+
+The same pattern supports several applications. A denoising autoencoder receives corrupted input but targets the clean image. Colorization can receive grayscale and target color. Retrieval compares latent representations. Anomaly detection can flag high reconstruction error, although that heuristic can fail.
+
+An important limitation appears when we ask for generation. Reconstruction training teaches the decoder at the codes reached by the encoder. It does not impose a known distribution over every possible latent point. Arbitrary random codes can land in poorly trained gaps.
+
+Before solving that problem with a V A E, let us calculate one small autoencoder and watch a weight learn.
+
+Takeaway: x → encoder → z → decoder → reconstruction.
+
+[00:08:44] Autoencoders and VAEs / A complete tiny forward pass
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 8.
+Handwritten source: l2-01-autoencoder-reconstruction-and-a-chain-rule-update.png.
+
+This is a practice example from your handwritten notes, using two input values and one latent number. The input is one, zero. The encoder computes a times the first input, plus b times the second input, plus c. The initial a is zero point five, b is zero point two five, and c is zero point one.
+
+The code is therefore zero point five times one, plus zero point two five times zero, plus zero point one: zero point six.
+
+The first reconstruction is zero point eight times the code, plus zero point one, giving zero point five eight. The second is negative zero point five times the code, plus zero point six, giving zero point three.
+
+Subtract the original input. The errors are negative zero point four two and zero point three. Square and add: zero point one seven six four plus zero point zero nine equals zero point two six six four.
+
+That is sum squared error. Mean squared error divides by the two coordinates, giving zero point one three three two. State which reduction you use.
+
+Takeaway: SSE = 0.2664; MSE = 0.1332.
+
+[00:10:04] Autoencoders and VAEs / Backpropagation through both decoder paths
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 9.
+Handwritten source: l2-01-autoencoder-reconstruction-and-a-chain-rule-update.png.
+
+For this sum squared error, the derivative at each reconstructed coordinate is twice its error. We get negative zero point eight four and positive zero point six.
+
+Both reconstructed coordinates depend on the same latent code. The first path contributes negative zero point eight four times zero point eight. The second contributes positive zero point six times negative zero point five. Add the two contributions. The latent derivative is negative zero point nine seven two.
+
+The encoder code depends on a through the first input, which is one. So the derivative with respect to a is also negative zero point nine seven two.
+
+At learning rate zero point one, subtract that derivative times the rate from the original a. Zero point five minus zero point one times negative zero point nine seven two gives zero point five nine seven two.
+
+What made this calculation easy to get wrong?
+
+There are two decoder paths. We must add both, and compute all derivatives using the original forward-pass weights before applying the update. Changing from summed error to mean error would also change gradient scale.
+
+Takeaway: Add all paths; a_new = 0.5972.
+
+[00:11:26] Autoencoders and VAEs / A VAE encodes a distribution
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 22.
+Handwritten source: l2-03-vae-distributions-sampling-and-latent-meaning-v2.png.
+
+A variational autoencoder addresses latent sampling by changing what the encoder outputs and how it is trained. Instead of one deterministic code, the encoder outputs parameters of a probability distribution for this input.
+
+In the common diagonal Gaussian case, it outputs a mean vector, mu, and a log variance vector, ell. The approximate latent distribution is called q phi of z given x. Phi names the encoder weights. A prior, commonly a standard normal distribution, is called p of z.
+
+We sample a latent code from the encoder's distribution, and the decoder reconstructs the input. The decoder weights are often named theta. If the latent code has two coordinates, the mean has two values and log variance has two values. Sampling combines those parameters into a two-coordinate code; the decoder does not receive four coordinates.
+
+For reconstruction, we start from a specific input and use its encoder distribution. For new generation, sample z from the prior and decode it. The generation path needs no input image and no encoder.
+
+Takeaway: Encoder → mean and log variance → sampled z.
+
+[00:12:45] Autoencoders and VAEs / Variance, standard deviation and an actual sample
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 50.
+Handwritten source: l2-03-vae-distributions-sampling-and-latent-meaning-v2.png.
+
+Use the handwritten values on screen. The mean is one, negative one. Log variances are the natural logarithm of zero point two five, and the natural logarithm of four. The sampled standard normal noise is two, negative zero point five.
+
+Exponentiating log variance gives variances zero point two five and four. Taking square roots gives standard deviations zero point five and two. Equivalently, exponentiate half the log variance.
+
+The reparameterized sample is mean plus standard deviation times noise, coordinate by coordinate. First coordinate: one plus zero point five times two equals two. Second: negative one plus two times negative zero point five equals negative two. The sampled code is therefore two, negative two.
+
+Variance, standard deviation and log variance are three different quantities. The decoder receives the sampled code, not the noise alone.
+
+Why did we draw noise separately?
+
+It lets us describe the random code as a differentiable transformation of learned mean and scale. During backpropagation, hold the particular noise draw fixed and differentiate that transformation.
+
+Takeaway: z = μ + exp(logvar/2) ⊙ ε = (2, −2).
+
+[00:14:12] Autoencoders and VAEs / What KL divergence is doing
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 36.
+Handwritten source: l2-04-discrete-kl-direction-and-weighted-log-ratios.png.
+
+The V A E objective needs a way to encourage encoder distributions to resemble the prior. It uses K L divergence, named after Kullback and Leibler. It is a directional measure of distribution mismatch.
+
+For discrete distributions P and Q, take each probability from P, multiply it by the natural logarithm of P divided by Q, then sum across outcomes. The first distribution supplies the weights. Reversing direction changes both the ratios and the weights. K L is therefore not generally symmetric.
+
+Individual weighted terms can be negative, because a probability ratio can be below one. The complete divergence cannot be negative. If the distributions match, the divergence is zero.
+
+On this page, P has probabilities zero point three six, zero point four eight, and zero point one six. Q is uniform over three possibilities. The forward divergence is approximately zero point zero eight five three. Reversing direction gives approximately zero point zero nine seven four five five.
+
+For the V A E we use the encoder distribution as the first distribution, and the prior as the second.
+
+Takeaway: KL(q || p): q supplies the averaging weights.
+
+[00:15:38] Autoencoders and VAEs / Derive Gaussian KL one expectation at a time
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 40.
+Handwritten source: l2-05-gaussian-kl-derive-it-then-calculate.png.
+
+For one coordinate, let q be a Gaussian with mean mu and variance v. Let p be standard normal. By definition, K L is the expectation under q of log q minus log p.
+
+Subtract the two Gaussian log densities. Their common constant cancels. What remains is negative one half log v, minus the squared deviation from mu divided by two v, plus z squared divided by two.
+
+Now average under q. The expected squared deviation from its own mean is v. Therefore the middle term becomes negative one half. The expected value of z squared is variance plus mean squared, giving v plus mu squared.
+
+Combine these three pieces. We obtain one half times v plus mu squared minus one minus log v.
+
+For a diagonal Gaussian, add this expression over coordinates. If the network gives log variance ell, replace v with exp ell and log v with ell.
+
+A quick correctness check: put mean zero and variance one into the expression. Everything cancels, giving zero. A negative final K L signals a mistake.
+
+Takeaway: KL = ½ Σ(v + μ² − 1 − ln v).
+
+[00:17:02] Autoencoders and VAEs / Calculate KL and the reconstruction balance
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 45.
+Handwritten source: l2-05-gaussian-kl-derive-it-then-calculate.png.
+
+Return to the same distribution used for our sample. Its mean is one, negative one, and variances are zero point two five and four.
+
+For coordinate one, substitute into one half times variance plus mean squared minus one minus log variance. That is one half times zero point two five plus one minus one minus the logarithm of zero point two five. It gives approximately zero point eight one eight one four seven.
+
+For coordinate two, use variance four and mean squared one. We get approximately one point three zero six eight five three. Add them: total K L is two point one two five.
+
+Notice that the mean's sign disappears in its square. A positive and negative mean equally far from zero receive the same mean penalty.
+
+The V A E balances this regularization against reconstruction. Too little regularization can leave unsuitable latent regions. Excessive pressure toward the prior can lose information about individual inputs. It is a tradeoff, rather than a claim that every possible code will decode meaningfully.
+
+Takeaway: For μ=(1,−1), v=(0.25,4): KL = 2.125.
+
+[00:18:21] Autoencoders and VAEs / The objective, reductions and the gradient trick
+Source: Lecture 2 AE and VAE v2.pdf; PDF page 46.
+Handwritten source: l2-06-vae-objective-reconstruction-plus-regularization-v2.png.
+
+The probabilistic V A E maximizes an evidence lower bound, or E L B O: expected reconstruction log likelihood minus K L to the prior. Equivalently, minimize reconstruction negative log likelihood plus K L. A squared-error reconstruction corresponds to a Gaussian likelihood with a specified scale.
+
+Our handwritten practice uses pixel mean squared error plus summed latent K L, then averages over images. For image A, reconstruction error is zero point zero five one two five. Add K L two point one two five, giving two point one seven six two five. Image B contributes zero point six two five. Their batch mean is one point four zero zero six two five. Changing only one reduction changes the relative balance.
+
+Reparameterization preserves a gradient path through sampling: z equals mu plus exp of half ell times epsilon. With noise held fixed, its derivative with respect to mu is one, and with respect to ell is one half times standard deviation times epsilon.
+
+Reconstruction and K L both influence encoder parameters. Add both gradient contributions. Latent interpolation after training is a separate operation, not the sampling trick used for gradients.
+
+Takeaway: VAE loss = reconstruction term + KL; state reductions.
+
+[00:19:54] GANs and conditional generation / Two networks and two objectives
+Source: Lecture GANs Part 1.pdf; PDF page 28.
+Handwritten source: l3-01-gan-the-game-and-loss-arithmetic.png.
+
+A G A N, or generative adversarial network, learns using two networks. The generator converts random latent noise into a synthetic observation. The discriminator receives real or synthetic observations and scores how real they appear.
+
+The generator wants its outputs accepted as real. The discriminator wants real examples scored high and generated examples scored low. The discriminator is a learned judge; its confidence is not ground truth.
+
+The original value function averages log discriminator score on real examples, plus log one minus discriminator score on fake examples. The discriminator maximizes that value. The generator minimizes its fake term. For ordinary loss minimization software, negate the discriminator's objective.
+
+The original generator term is called the minimax or saturating loss: log one minus the fake score. A commonly used alternative is the non-saturating loss: negative log fake score. Both encourage higher fake scores, but their gradient behavior differs.
+
+An expectation here averages over real observations or random latent draws. We approximate these averages with batches. Next we will calculate the losses and derive why the alternative gives better early feedback.
+
+Takeaway: D: classify real/fake; G: make fake scores rise.
+
+[00:21:27] GANs and conditional generation / Loss arithmetic with the handwritten batch
+Source: Lecture GANs Part 1.pdf; PDF page 40.
+Handwritten source: l3-01-gan-the-game-and-loss-arithmetic.png.
+
+This handwritten batch contains real discriminator scores zero point eight and zero point six, and fake scores zero point two five and zero point one.
+
+The real discriminator penalty is the mean of negative log zero point eight and negative log zero point six. It is approximately zero point three six six nine eight five.
+
+For fake inputs, the correct discriminator target is zero, so use negative log one minus the score. The mean of negative log zero point seven five and negative log zero point nine is approximately zero point one nine six five two one.
+
+Adding the two separate means gives discriminator loss zero point five six three five zero six. This convention differs from averaging all four examples together, which would halve the answer.
+
+The saturating generator loss is the mean of log zero point seven five and log zero point nine: negative zero point one nine six five two one. Negative loss values are allowed here.
+
+The non-saturating generator loss is the mean of negative log zero point two five and negative log zero point one: approximately one point eight four four four four zero.
+
+Takeaway: L_D = 0.563506; L_G,NS = 1.844440.
+
+[00:22:48] GANs and conditional generation / Derive the two generator gradients
+Source: Lecture GANs Part 1.pdf; PDF page 38.
+Handwritten source: l3-02-gan-gradients-why-non-saturating-loss-helps.png.
+
+This is the central reasoning in Quiz One. Name the fake score q. Let it be sigmoid of a, where a is the discriminator's logit before its final sigmoid. The sigmoid derivative is q times one minus q.
+
+For the saturating loss, log one minus q, first differentiate with respect to q. We get negative one divided by one minus q. Multiply by the sigmoid derivative. The one minus q terms cancel, leaving negative q.
+
+For the non-saturating loss, negative log q, the derivative with respect to q is negative one divided by q. Multiply by q times one minus q. The q terms cancel, leaving negative one plus q, or q minus one.
+
+These are derivatives with respect to the logit a. That detail matters. If you look only at the loss derivative with respect to the probability, you miss the sigmoid's effect.
+
+Both derivatives are negative when the score is between zero and one. Gradient descent therefore pushes the logit upward along a useful parameter path. But their magnitudes are very different near zero.
+
+Takeaway: dL_sat/da = −q; dL_NS/da = q − 1.
+
+[00:24:08] GANs and conditional generation / Why saturation matters, and the remaining chain
+Source: Lecture GANs Part 1.pdf; PDF page 47.
+Handwritten source: l3-02-gan-gradients-why-non-saturating-loss-helps.png.
+
+Suppose the discriminator confidently rejects the generated example, giving q equal to zero point zero one. The saturating logit derivative is negative zero point zero one. The non-saturating derivative is negative zero point nine nine. The latter has ninety-nine times the magnitude.
+
+The handwritten example adds a generator parameter whose effect on the logit has derivative two. Multiply by this remaining chain-rule factor. The saturating parameter derivative becomes negative zero point zero two. The non-saturating derivative becomes negative one point nine eight.
+
+Starting that parameter at zero point five, with learning rate zero point one, the non-saturating update is zero point five minus zero point one times negative one point nine eight. The new value is zero point six nine eight.
+
+A stronger logit derivative avoids this particular early saturation. It does not guarantee every generator weight receives a strong gradient. In a full network, the remaining chain includes the discriminator's input derivative and the generator's derivatives, or Jacobians.
+
+Nor does this loss change automatically solve mode collapse. Gradient strength and output diversity are different problems.
+
+Takeaway: At q=0.01: logit gradients −0.01 versus −0.99.
+
+[00:25:39] GANs and conditional generation / Alternating updates and what frozen means
+Source: Lecture GANs Part 1.pdf; PDF page 42.
+Handwritten source: l3-03-gan-one-complete-alternating-update.png.
+
+G A N training alternates players. During the discriminator step, generate fake observations, detach them from the generator's graph, and update only discriminator parameters. During the generator step, freeze discriminator weights but backpropagate through the discriminator into the generator.
+
+The practice example makes this concrete. Real x is one. Latent z is one. Generator output is g times z, initially zero. Discriminator is sigmoid of w x plus b, with w one and b zero.
+
+The real score is about zero point seven three one zero five nine, and the fake score is one half. With the stated summed loss, the discriminator gradients are negative zero point two six eight nine four one for w, and positive zero point two three one zero five nine for b.
+
+At learning rate zero point one, simultaneously update w to approximately one point zero two six eight nine four, and b to negative zero point zero two three one zero six.
+
+Both gradients use the same old forward-pass parameters. The next phase will use these newly updated discriminator weights, held fixed.
+
+Takeaway: D step: detach G output; G step: differentiate through frozen D.
+
+[00:27:04] GANs and conditional generation / Finish the alternating numerical
+Source: Lecture GANs Part 1.pdf; PDF page 44.
+Handwritten source: l3-03-gan-one-complete-alternating-update.png.
+
+Now update the generator using the new discriminator. Generator parameter g is still zero, so its generated observation is zero. The discriminator logit equals the new bias, approximately negative zero point zero two three one zero six. Its score is about zero point four nine four two two four.
+
+For non-saturating generator loss, the logit derivative is score minus one: approximately negative zero point five zero five seven seven six.
+
+The logit depends on the generated observation through the new weight, one point zero two six eight nine four. The generated observation depends on g through z, which is one. Multiply all three factors. The gradient with respect to g is approximately negative zero point five one nine three seven nine.
+
+Subtract learning rate zero point one times this derivative from zero. The new g is approximately zero point zero five one nine three eight.
+
+Would detaching the generated observation here still train the generator?
+
+No. It would cut the very gradient path we need. Freezing discriminator weights means not updating them, while still using their input sensitivity.
+
+Takeaway: Use updated D: g_new = 0.051938.
+
+[00:28:31] GANs and conditional generation / Architecture, collapse and diagnosis
+Source: Lecture GANs Part 1.pdf; PDF page 46.
+Handwritten source: l3-05-gan-failures-diagnostics-and-latent-arithmetic.png.
+
+A deep convolutional G A N, or D C G A N, provides an image-oriented architecture. The generator projects noise to a small feature map, then upsamples through convolutional stages. The discriminator reduces spatial structure toward a real-or-fake score. Spatial size and channel count are different dimensions, and shared filters avoid a separate weight for every pixel location.
+
+Recognize three training failures. Vanishing gradient means the generator gets weak feedback. Mode collapse means many noise inputs produce too few output types. Oscillation means the two changing players fail to settle.
+
+Match the remedy to the mechanism. Non-saturating loss strengthens early output feedback. Minibatch discrimination lets the discriminator see similarity across generated examples, exposing repetition. Adjusting learning rates and update balance can help coupled dynamics. None guarantees success.
+
+Inspect samples from fixed noise inputs over training, gradients, and diversity; a loss curve alone does not establish quality.
+
+Latent interpolation and vector arithmetic may reveal useful structure. An attribute direction can be formed by subtracting codes, then added to another code. Decode and check the result: arithmetic alone does not guarantee a semantic edit.
+
+Takeaway: Weak gradient ≠ mode collapse; inspect quality and diversity.
+
+[00:30:09] GANs and conditional generation / Conditional GANs judge matching pairs
+Source: Lecture GANs Part 2.pdf; PDF page 7.
+Handwritten source: l4-01-conditional-gan-pairs-encodings-and-losses.png.
+
+An unconditional generator asks what plausible observation to produce. A conditional generator also receives a request, called y. It can be a class label, a text representation, or another image.
+
+Supply y to both networks. The generator receives noise and condition. The discriminator receives observation and condition, and must judge whether the pair is realistic and matching. Judging the label alone would not enforce realistic images; judging the image alone would not enforce the request.
+
+The note uses noise of length four and a three-class one-hot vector. Concatenating them gives generator input length seven. If the image representation contains twenty values, concatenating its condition gives discriminator input length twenty-three.
+
+One-hot means one active entry within one categorical field. Several concatenated fields can have several active entries. Concatenated widths add; numbers of possible category combinations multiply.
+
+To test whether a generator uses its condition, hold the noise fixed and change y. The requested attribute should change appropriately. Conditioning improves control, but does not automatically repair adversarial training instability.
+
+Takeaway: G(z,y), D(x,y): realism and condition matching.
+
+[00:31:39] GANs and conditional generation / StackGAN connects conditioning to the VAE ideas
+Source: Lecture GANs Part 2.pdf; PDF page 18.
+Handwritten source: l4-02-stackgan-sketch-refine-and-conditioning-augmentation-v2.png.
+
+StackGAN breaks text-to-image generation into two stages. Encode the text, then form a conditioning representation. Stage One combines that condition with noise to create a sixty-four by sixty-four color sketch. Stage Two receives the sketch and text condition, refining them to a two-hundred-and-fifty-six by two-hundred-and-fifty-six image. Each stage has a conditioned discriminator.
+
+Growing each side by four multiplies pixel count by sixteen. For three color channels, the displayed counts are twelve thousand two hundred eighty-eight values and one hundred ninety-six thousand six hundred eight values.
+
+Conditioning augmentation samples a condition near the text embedding using a learned mean and standard deviation. It applies K L regularization toward standard normal. This reuses the same sampling and variance conventions we learned with the V A E.
+
+Stage Two has no separate fresh latent z, although resampling the conditioning augmentation can still introduce randomness.
+
+Can you now distinguish the families?
+
+An autoencoder trains reconstruction. A V A E adds a probabilistic latent distribution and prior pressure. A G A N learns through an adversarial judge. Next we need measurements that separate realism from coverage.
+
+Takeaway: StackGAN: 64×64 sketch → 256×256 refinement.
+
+[00:33:12] Evaluation / Realistic is only half the goal
+Source: Lecture GANs Part 2.pdf; PDF page 83.
+Handwritten source: l4-05-generative-precision-recall-quality-vs-coverage.png.
+
+We have now built several generators. How do we decide whether one is good? Imagine a generator producing a beautiful cat photograph, but producing that same cat every single time. Each individual image is convincing. The collection is poor because it misses almost everything the real data can contain. Now imagine a generator producing many different noisy blobs. There is variation, but little realism. We need to ask two separate questions: are the samples plausible, and do they cover the possibilities?
+Those questions will keep returning as fidelity and coverage, or precision and recall. Evaluation is particularly important for your exam because Quiz One already contained a complete Inception Score calculation. We will work through that calculation, but first understand what the score is trying to measure. A number only becomes useful when you know which failure it can detect and which failure it can hide. Keep the repeated cat in mind as our running test case.
+
+Takeaway: Judge both fidelity and coverage
+
+[00:34:23] Evaluation / Inception Score: two kinds of certainty
+Source: Lecture GANs Part 2.pdf; PDF page 32.
+Handwritten source: l4-03-inception-score-entropy-kl-and-a-worked-example.png.
+
+Inception Score borrows a fixed image classifier. For each generated image, the classifier gives a probability vector over its classes. For one image, we want a confident prediction. For example, ninety percent cat and very little probability elsewhere. That means low uncertainty for the individual image. Across the whole generated collection, however, we want different classes to appear. The average prediction should not concentrate entirely on cats.
+Entropy measures uncertainty. Its formula is minus the sum of each probability times its natural logarithm. A concentrated vector has low entropy. A uniform vector has high entropy. Inception Score rewards high entropy of the average prediction and low average entropy of individual predictions. That sounds contradictory only until we separate the two levels: certainty about each image, variety across images.
+The marginal distribution is simply the column average of the prediction table. Calculate that first. Then compare each image's vector to this common marginal using K L divergence. Finally average those divergences across images and exponentiate once.
+
+Takeaway: Confident images + diverse predicted classes
+
+[00:35:52] Evaluation / The handwritten four-image example
+Source: Lecture GANs Part 2.pdf; PDF page 44.
+Handwritten source: l4-03-inception-score-entropy-kl-and-a-worked-example.png.
+
+Look at the handwritten cat, dog and bird example. There are four images and three class columns. Average the cat column: point nine plus point eight plus point one plus point zero five, divided by four. That gives point four six two five. The dog average is point two six two five, and the bird average is point two seven five. Check that they sum to one.
+Now take the first row. Its K L divergence is point nine times the log of point nine divided by point four six two five; plus point zero five times the log of point zero five divided by point two six two five; plus another point zero five times the log of point zero five divided by point two seven five. The result is about point four three one zero two five.
+You do not divide that row sum by three. The class probabilities already provide the weights. The four row divergences are shown below. Average the four row sums to get point five one five zero nine one. Exponentiating gives an Inception Score of about one point six seven four. The handwritten page records the whole sequence.
+
+Takeaway: Column means -> row KLs -> mean -> exp
+
+[00:37:14] Evaluation / Solve the actual Quiz 1 question
+Source: Quiz 1 MSDS solution.pdf; PDF page 2.
+Handwritten source: Custom teaching panel / original slide.
+
+Now let us solve the actual quiz rather than a similar example. The three rows are point eight, point one five, point zero five; then point zero two, point nine five, point zero three; then point one, point seven, point two. Average each class column across the three images. The marginal becomes approximately point three zero six six seven, point six, and point zero nine three three three.
+For image one, use its own probabilities as the weights in the log ratios. Point eight times log of point eight over point three zero six six seven, plus point one five times log of point one five over point six, plus point zero five times log of point zero five over point zero nine three three three. The row sum is point five two seven nine two eight.
+Repeat for images two and three. Their divergences are point three four seven nine zero six and point one four eight two seven four. The mean across the three rows is point three four one three six nine five. Exponentiate once: one point four zero six eight seven three, or one point four one to two decimals. Show every stage; that is the reliable exam method.
+
+Takeaway: Quiz 1: IS = 1.406873, approximately 1.41
+
+[00:38:40] Evaluation / What Inception Score can miss
+Source: Lecture GANs Part 2.pdf; PDF page 54.
+Handwritten source: l4-03-inception-score-entropy-kl-and-a-worked-example.png.
+
+Here is the most useful sanity check. Suppose every generated image has exactly the same prediction vector. The marginal is then identical to every row. Every log ratio is log of one, which is zero. Every K L divergence is zero, and the Inception Score is the exponential of zero: one. This remains true even if the classifier is very confident. So a collection of only identical confident cat predictions does not score highly under this formula.
+But the score has another blind spot. A generator can memorize one excellent cat, one excellent dog and one excellent bird, and repeat them in balance. Predictions are confident and the marginal spans classes. The score can be high despite no variation within each class and no novelty. Inception Score also never looks at your real reference images. It measures the relationship between generated images and classifier labels.
+The entropy derivation says exactly this: log Inception Score equals entropy of the marginal minus mean conditional entropy. When explaining the score, distinguish class diversity from complete image diversity, and never equate a high score with proof of generalization.
+
+Takeaway: Identical predictions always give IS = 1
+
+[00:40:08] Evaluation / FID compares two feature clouds
+Source: Lecture GANs Part 2.pdf; PDF page 71.
+Handwritten source: l4-04-fid-means-covariances-and-a-worked-calculation.png.
+
+Fréchet Inception Distance, usually called F I D, asks a different question. We pass both real and generated images through a fixed feature extractor. Think of each image becoming a point in a feature space. We summarize each point cloud by its mean and covariance. The mean tells us where the cloud is centered. The covariance tells us its spread and how feature coordinates vary together.
+The F I D formula has two parts. The first is squared distance between the two mean vectors. The second compares the two covariance matrices. Lower is preferred because we want the generated feature cloud to resemble the real cloud. This is the opposite direction from Inception Score, where higher is preferred.
+The lecture gives diagonal covariance matrices. That makes the matrix square root simple. The diagonal entries are variances. Their square roots are standard deviations. Do not confuse those two. Also, covariance is a matrix, while a trace is one number obtained by adding the matrix's diagonal entries. We will now use these meanings to make the formula manageable.
+
+Takeaway: FID: mean difference + covariance difference
+
+[00:41:31] Evaluation / FID: work through every term
+Source: Lecture GANs Part 2.pdf; PDF page 78.
+Handwritten source: l4-04-fid-means-covariances-and-a-worked-calculation.png.
+
+The real mean is one, two, and the generated mean is two, three. Subtract corresponding coordinates to get minus one, minus one. Square and add: the mean contribution is two.
+The real covariance is diagonal with entries two and two. The generated covariance is diagonal with entries three and three. Multiplying these matrices gives diagonal entries six and six. The matrix square root therefore has square root of six on both diagonal positions. Add the two original covariance matrices, then subtract twice that root. Each diagonal entry becomes five minus two times square root of six.
+Now take the trace. There are two diagonal entries, so their sum is ten minus four times square root of six, approximately point two zero two zero four one. Add the mean contribution of two. The total F I D is about two point two zero two zero four one.
+Most of the discrepancy here is between the centers. For any diagonal example, you can also sum squared differences between corresponding standard deviations. Zero F I D means matching fitted moments in this feature space. It does not prove the true distributions are identical or that the generator never copied training images.
+
+Takeaway: Lecture FID = 2 + 0.202041 = 2.202041
+
+[00:43:04] Evaluation / Precision and recall use two directions
+Source: Lecture GANs Part 2.pdf; PDF page 90.
+Handwritten source: l4-05-generative-precision-recall-quality-vs-coverage.png.
+
+One distance cannot tell us whether a generator is unrealistic or merely too narrow. Generative precision and recall separate these cases using neighborhoods in feature space. Imagine drawing a ball around every real point. Its radius reaches the k-th nearest other real point. Do the same within the generated set, using generated neighbors. Exclude each point itself; otherwise the nearest distance would always be zero.
+Precision asks: what fraction of generated points fall inside the union of real balls? Its denominator is the number generated. Recall asks: what fraction of real points fall inside the union of generated balls? Its denominator is the number real. The same membership operation is used in opposite directions.
+High precision with low recall means samples tend to be plausible, but the generator misses parts of the real distribution. Low precision with high recall means broad coverage with many implausible outputs. These are geometric distribution metrics, not the confusion-matrix precision and recall from a classifier. A query only needs one covering ball. Do not assume that checking just the nearest center always tests the entire union correctly.
+
+Takeaway: Precision: generated -> real / Recall: real -> generated
+
+[00:44:33] Evaluation / Precision and recall on a number line
+Source: Lecture GANs Part 2.pdf; PDF page 94.
+Handwritten source: l4-05-generative-precision-recall-quality-vs-coverage.png.
+
+The handwritten example uses real points zero, two, ten and twelve. Generated points are zero, one, two and three. Let k equal one. Each real point's nearest other real neighbor is two units away. All real radii are therefore two. Each generated point has another generated point one unit away, so all generated radii are one.
+The real balls cover an interval from minus two to four, and another from eight to fourteen. Every generated point lies in the first interval. Precision is four out of four, or one. The generated balls together cover minus one through four. Only real points zero and two lie inside. Recall is two out of four, or point five.
+This is a perfect example of locally convincing generation missing an entire real mode. The two-dimensional lecture example follows the same method and gives precision point eight and recall point six. Increasing k enlarges neighborhoods, which may raise scores without improving the generator. Always state the feature space, neighborhood choice and sample protocol. Before we move on, ask yourself: which denominator belongs to precision, and which belongs to recall?
+
+Takeaway: R={0,2,10,12}, G={0,1,2,3}: P=1, R=0.5
+
+[00:46:02] Diffusion / Turn generation into denoising
+Source: Lecture Diffusion Models Part 1.pdf; PDF page 4.
+Handwritten source: l5-01-forward-diffusion-why-the-square-roots-matter.png.
+
+Diffusion gives us a different way to train a generator. Instead of asking a network to create a complex image in one jump, we gradually corrupt real images with Gaussian noise and train a network to help reverse that corruption. The forward process is fixed. We choose its noise schedule. The reverse process is learned.
+Call the clean image x zero. After one corruption step we have x one, then x two, and eventually x capital T, which is approximately pure Gaussian noise under a suitable schedule. During generation we start with random noise and repeatedly move toward a cleaner image. That is why the architecture diagram has arrows in both directions.
+The critical distinction is training versus generation. In training, a clean image is available, so we can manufacture a noisy input and know the noise target. During generation the clean image is exactly what we are trying to obtain, so it is unavailable. The learned network predicts noise from the current noisy image and timestep. Once that distinction is clear, the equations become instructions rather than mysterious symbols.
+
+Takeaway: Fixed forward noising / learned reverse generation
+
+[00:47:24] Diffusion / Why the square roots appear
+Source: Lecture Diffusion Models Part 1.pdf; PDF page 20.
+Handwritten source: l5-01-forward-diffusion-why-the-square-roots-matter.png.
+
+Focus on a single pixel coordinate. Suppose the previous value and a fresh standard Gaussian noise draw are independent and both have variance one. Make a new value by multiplying the old value by a coefficient a, and adding noise multiplied by a coefficient b. Because scaling a random variable multiplies its variance by the square of the coefficient, the new variance is a squared plus b squared.
+We want to control the variance rather than let it explode. Define beta as the variance contributed by fresh noise. Then b squared equals beta, so b is square root of beta. To keep total variance one under our assumption, a squared must equal one minus beta. Therefore a is square root of one minus beta.
+That is the forward diffusion rule: attenuated signal plus scaled fresh noise. The square roots are necessary because beta describes variance, not amplitude. If beta is zero, nothing changes. If beta is one, the old signal disappears entirely. One caution: variance one here refers to the marginal assumption over data. Conditional on one fixed image, the noise variance has its own smaller value. Do not mix those two statements.
+
+Takeaway: Var(aX+bE)=a^2 Var(X)+b^2 Var(E)
+
+[00:48:52] Diffusion / A complete single-pixel step
+Source: Lecture Diffusion Models Part 1.pdf; PDF page 22.
+Handwritten source: l5-01-forward-diffusion-why-the-square-roots-matter.png.
+
+Use beta equal to point one nine, previous pixel point eight, and a noise draw of one. The signal coefficient is square root of point eight one, which is point nine. The noise coefficient is square root of point one nine, approximately point four three five eight nine. Multiply point nine by point eight to get point seven two. Add point four three five eight nine times one. The new noisy value is one point one five five eight nine.
+You might worry that the original pixel was scaled between minus one and one, but the noisy result exceeds one. That is allowed. Gaussian corruption is not restricted to the clean image's original range. Do not silently clip it unless the problem specifically tells you to.
+The conditional distribution of this step has mean point seven two and variance point one nine. That gives you both ways to describe the same operation: a sampling equation for a particular noise draw, or a Gaussian distribution for all possible draws. Keep those two descriptions connected; many diffusion questions switch between them.
+
+Takeaway: 0.9(0.8)+sqrt(0.19)(1)=1.155890
+
+[00:50:09] Diffusion / Alpha and cumulative alpha
+Source: Lecture Diffusion Models Part 1.pdf; PDF page 34.
+Handwritten source: l5-02-closed-form-noising-derive-any-timestep.png.
+
+We introduce alpha to shorten the notation. Alpha at timestep t is one minus beta at timestep t. It is the signal variance share for that step. Alpha bar is the product of all alphas from the first step through the current step. The bar means cumulative, not an average.
+Why a product? At each step, signal amplitude is multiplied by square root of alpha. After two steps those coefficients multiply. Their product is square root of alpha one times alpha two. After many steps the signal coefficient is square root of alpha bar.
+In the handwritten example, beta one is point one nine and beta two is point three six. So alpha one is point eight one, alpha two is point six four, and alpha bar two is point five one eight four. Its square root is point seven two. That is how much the clean signal is scaled after both steps.
+Say the distinctions aloud: beta is newly added noise variance, alpha is one-step retained signal share, and alpha bar is cumulative retained signal share. Confusing alpha with alpha bar is one of the easiest ways to get an otherwise sensible numerical wrong.
+
+Takeaway: alpha=1-beta / alpha_bar=product of alphas
+
+[00:51:34] Diffusion / Derive the one-shot forward formula
+Source: Lecture Diffusion Models Part 1.pdf; PDF page 31.
+Handwritten source: l5-02-closed-form-noising-derive-any-timestep.png.
+
+Let us expand two steps so you can see where the closed form comes from. First write x two as square root of alpha two times x one, plus square root of beta two times the second noise. Then replace x one with its own signal-plus-noise expression. The clean signal coefficient becomes square root of alpha one times alpha two.
+There are now two noise terms. Their variances add because their fresh noise draws are independent. The first noise has variance alpha two times beta one. The second has variance beta two. Add them, substitute beta equals one minus alpha, and simplify. The result is one minus alpha one times alpha two.
+A sum of independent Gaussian terms is Gaussian, so these terms can be represented by one standard Gaussian draw multiplied by square root of that total variance. Repeating the argument gives the general rule: x at timestep t equals square root of alpha bar times the clean image, plus square root of one minus alpha bar times aggregate noise.
+This lets training sample any noisy timestep directly, without actually simulating every earlier step. It is a forward noising shortcut, not a claim that image generation takes one reverse step.
+
+Takeaway: x_t = sqrt(alpha_bar)x0 + sqrt(1-alpha_bar)epsilon
+
+[00:53:04] Diffusion / One-shot does not mean last-step noise
+Source: Lecture Diffusion Models Part 1.pdf; PDF page 29.
+Handwritten source: l5-03-sequential-vs-one-shot-matching-the-noise-correctly.png.
+
+There is an important difference between getting the same distribution and getting exactly the same sample. The handwritten sequential example starts from point eight, with beta values point one nine and point three six. Using first-step noise one and second-step noise minus point five gives x one about one point one five five eight nine, and x two about point six two four seven one two.
+If you now use minus point five as the aggregate noise in the one-shot formula, you will get a different number, about point two two nine zero one three. Nothing is wrong: you changed the overall noise draw. The last incremental noise is not the aggregate of both steps.
+To reproduce the exact sequential sample, combine the two scaled noise contributions and divide by square root of the total noise variance. Here the equivalent aggregate draw is about point zero seven zero one nine three. Put that into the one-shot formula and you recover point six two four seven one two.
+For the exam, use the noise the question actually supplies, and label whether it is a step noise or aggregate noise. Matching the distribution does not mean arbitrary draws must match numerically.
+
+Takeaway: Aggregate noise is not the final incremental noise
+
+[00:54:27] Diffusion / Schedules control signal decay
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 7.
+Handwritten source: l6-01-noise-schedules-linear-vs-normalized-cosine.png.
+
+A noise schedule specifies beta at each timestep. A linear schedule makes beta increase evenly from a small starting value to an ending value. The retained signal does not decrease linearly, because alpha bar is a product of one minus those betas.
+The small example on the left uses betas point one, point two and point three. Alphas are point nine, point eight and point seven. Cumulative alphas are point nine, point seven two and point five zero four. The final signal amplitude is square root of point five zero four, about point seven one.
+A cosine schedule takes another approach: choose a smooth cumulative signal curve first, then derive the betas from ratios between successive cumulative values. Normalize the cosine curve by its initial value so alpha bar at zero is exactly one. A cap prevents a beta from becoming exactly one.
+You mainly need to know what is being scheduled and why the two curves differ. In the lecture comparison, cosine retains useful signal longer than the chosen linear schedule. Square root of alpha bar is a coefficient, not literally a percentage of pixels surviving unchanged. Use the stated schedule consistently throughout a calculation.
+
+Takeaway: Linear beta does not imply linear signal decay
+
+[00:55:57] Diffusion / The lecture two-by-two image example
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 11.
+Handwritten source: l6-02-forward-diffusion-the-lecture-s-2-2-numerical.png.
+
+Now use the actual two-by-two lecture image. Its clean values are point eight and minus point six on the top row; point four and one on the bottom row. The supplied aggregate noise is one and minus point five on top; point five and minus one below. The three betas are point one nine, point three six and point five one.
+Subtract each beta from one to obtain alphas point eight one, point six four and point four nine. Multiply cumulatively. At step three, alpha bar is point two five four zero one six. Its square root is point five zero four. The noise coefficient, square root of one minus alpha bar, is about point eight six three seven zero four.
+The same two coefficients apply to every matrix entry. We are not doing matrix multiplication here. We scale the clean matrix and the noise matrix element by element, then add them. First build the schedule table; then apply the formula. That separation avoids repeatedly calculating coefficients and makes your written answer easier to follow.
+
+Takeaway: Step 3 coefficients: 0.504 and 0.863704
+
+[00:57:15] Diffusion / Finish every image entry
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 14.
+Handwritten source: l6-02-forward-diffusion-the-lecture-s-2-2-numerical.png.
+
+For the top-left entry, multiply point five zero four by point eight, then add point eight six three seven zero four times one. The answer is one point two six six nine zero four. For top-right, multiply point five zero four by minus point six, then add the noise coefficient times minus point five. The answer is minus point seven three four two five two.
+Bottom-left is point five zero four times point four, plus the noise coefficient times point five. That gives point six three three four five two. Bottom-right is point five zero four times one, plus the noise coefficient times minus one. That gives minus point three five nine seven zero four.
+Check the displayed final matrix against these four operations. If your values differ slightly because you rounded the noise coefficient, explain your precision. Keep alpha bar at point two five four zero one six until the final rounding. And remember: this question supplies one aggregate noise matrix, so you do not need the separate incremental noise matrices to compute x three by the closed form.
+
+Takeaway: Apply the same scalar coefficients to all four pixels
+
+[00:58:36] Diffusion / What the U-Net learns
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 25.
+Handwritten source: l6-04-noise-prediction-training-a-loss-and-gradient-update.png.
+
+We can now explain diffusion training without any missing pieces. Sample a clean training image. Sample a random timestep. Sample standard Gaussian noise. Use the closed-form equation to build the noisy image at that timestep. Feed the noisy image and the timestep into one neural network. Its target is the exact aggregate noise you used to corrupt the image.
+The timestep is essential because the network must know which noise level it is looking at. A common architecture is a U-Net: downsampling extracts broader structure, upsampling reconstructs spatial detail, and skip connections preserve useful spatial information. Time embeddings condition its blocks. The output has the same shape as the noise target.
+The simplified loss is squared prediction error between true noise and predicted noise. We sample timesteps randomly to estimate the training objective across noise levels efficiently. We are not asking the network to memorize the chronological order of a particular corruption trajectory. We also do not run the entire reverse chain for every training image.
+At inference, by contrast, there is no clean training image and no known true noise target. We repeatedly use the trained predictor to guide reverse transitions from an initial noise sample.
+
+Takeaway: Training input=(x_t,t), target=aggregate epsilon
+
+[01:00:10] Diffusion / A noise-loss and weight update
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 24.
+Handwritten source: l6-04-noise-prediction-training-a-loss-and-gradient-update.png.
+
+The handwritten loss example makes this look like an ordinary regression problem. The true noise vector is one, minus point five. The network predicts point eight, minus point two. Subtract true values from predictions: minus point two and plus point three. Square them: point zero four and point zero nine. Mean over the two coordinates gives point zero six five.
+For this mean squared error, the derivative with respect to each predicted coordinate is twice the error divided by two. So the prediction gradient is minus point two, plus point three. The negative sign in the first coordinate means gradient descent should raise that predicted value toward one. The positive sign in the second means it should lower that prediction toward minus point five.
+To isolate a single weight, suppose the first prediction is w times a noisy input of point five, with w equal to one point six. Chain rule multiplies the incoming gradient, minus point two, by point five. The weight gradient is minus point one. With learning rate point one, the new weight becomes one point six one. The real U-Net repeats this chain-rule idea through many layers.
+
+Takeaway: Mean noise MSE = 0.065 / scalar weight 1.6 -> 1.61
+
+[01:01:36] Diffusion / Why noise regression relates to likelihood
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 23.
+Handwritten source: l6-03-ddpm-objective-from-gaussian-kl-to-noise-error.png.
+
+You may also be asked why a probabilistic model ends up using squared noise error. Here is the bridge. Direct image likelihood is difficult, so diffusion training uses a variational bound. That bound contains a terminal distribution comparison, reverse posterior comparisons, and a reconstruction term at the final clean-data step.
+For two Gaussians with the same covariance, K L divergence reduces to squared distance between their means, divided by twice the variance in the isotropic case. In the handwritten scalar example, the means are point five and point three, and variance is point two. Square their difference to get point zero four. Divide by point four to get a K L of point one.
+The reverse mean can be expressed using predicted noise. Substitute that parameterization into the Gaussian mean error, and you obtain a timestep-dependent weight times squared noise-prediction error. The commonly used simplified objective drops that weight and trains on unweighted noise error.
+Be precise about the last step: a weight can be independent of model parameters yet still change how different timesteps contribute. Removing it intentionally changes the weighting; it is not an algebraic statement that the original and simplified objectives are identical. Understand the connection even if you do not reproduce the complete variational derivation.
+
+Takeaway: Equal-covariance Gaussian KL -> squared mean error
+
+[01:03:12] Diffusion / Recover a clean estimate, then a reverse mean
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 21.
+Handwritten source: l6-05-reverse-mean-derive-the-noise-prediction-formula.png.
+
+How can predicted noise tell us where to go backward? Start with the one-shot forward equation. It says the current noisy image is scaled clean image plus scaled noise. If we knew the noise, we could subtract its contribution and divide by the clean-signal coefficient to recover the original image.
+We do not know the true noise at inference, so substitute the network's predicted noise. This gives an estimated clean image, called x zero hat. It is an estimate, not access to the real clean target.
+The true reverse posterior is especially convenient when both the current noisy image and the clean image are known: it is Gaussian with a mean that combines those two images. The handwritten page calls the clean-image coefficient A and the current-image coefficient B. At generation time replace the unavailable clean image with x zero hat.
+Now the reverse mean is entirely expressed in terms of the noisy image, the schedule and predicted noise, all of which are available. This is the conceptual reason the reverse step is possible. Predicting noise is useful because it supplies a clean-image estimate implicitly, and that estimate guides the reverse Gaussian transition.
+
+Takeaway: Predict epsilon -> estimate x0 -> form reverse mean
+
+[01:04:37] Diffusion / The reverse-mean algebra in plain language
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 46.
+Handwritten source: l6-05-reverse-mean-derive-the-noise-prediction-formula.png.
+
+Look at the two coefficients after substituting the clean estimate into A times x zero plus B times x t. The current image appears twice, so collect its coefficients. Predicted noise appears once with a minus sign, so keep its coefficient separately.
+Use the identity alpha bar t equals alpha t times alpha bar at the previous step. Also use beta t equals one minus alpha t. With a common denominator, the current-image numerator simplifies to one minus alpha bar t. It cancels the same factor below, leaving one over square root of alpha t.
+The predicted-noise coefficient simplifies to beta t divided by the product of square root of alpha t and square root of one minus alpha bar t. Factor out one over square root of alpha t. Inside the brackets, you now have x t minus beta t over square root of one minus alpha bar t, multiplied by predicted noise. That is the standard noise-based reverse-mean formula.
+This derivation explains why true x zero disappears from the sampling equation. In an exam, define A and B, substitute x zero hat, collect the two terms, and show these identities. Do not claim the clean image was given during generation.
+
+Takeaway: mu = [x_t-beta_t*eps_hat/sqrt(1-alpha_bar_t)]/sqrt(alpha_t)
+
+[01:06:06] Diffusion / A full stochastic reverse numerical
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 29.
+Handwritten source: l6-06-reverse-sampling-a-full-stochastic-step.png.
+
+Now calculate an entire reverse step using the handwritten values. Beta is point three six, alpha is point six four, cumulative alpha is point five one eight four, and previous cumulative alpha is point eight one. The current sample is point five and predicted noise is point two.
+Square root of alpha is point eight. Square root of one minus cumulative alpha is square root of point four eight one six. In the reverse-mean formula, subtract point three six divided by that noise coefficient, times point two, from point five. Then divide by point eight. The mean is approximately point four nine five three one two.
+That is the center of the next reverse distribution, but we still need to sample. This example chooses posterior variance. Multiply point three six by one minus point eight one, then divide by one minus point five one eight four. Variance is about point one four two zero two seven. Its square root, the standard deviation, is point three seven six eight six four.
+With a fresh Gaussian draw of point three, add standard deviation times that draw to the mean. The next sample is approximately point six zero eight three seven one. Multiply noise by standard deviation, not variance. At the final step, omit the added-noise term.
+
+Takeaway: Reverse mean 0.495312 -> sample 0.608371
+
+[01:07:44] Diffusion / The generation loop and model comparison
+Source: Lecture Diffusion Models Part 2.pdf; PDF page 35.
+Handwritten source: l6-06-reverse-sampling-a-full-stochastic-step.png.
+
+Put the reverse operation in a loop. Start from a standard Gaussian image. At each descending timestep, predict noise, compute the reverse mean, and add the specified sampling noise when the timestep is greater than one. Reuse the same trained network, with a new timestep input. The final step outputs the mean without a fresh noise term in this basic D D P M algorithm.
+Training samples random timesteps; generation walks backward through a sequence. Forward one-shot noising makes training efficient; it does not eliminate iterative reverse sampling. The random reverse term models uncertainty in the transition. It does not by itself prove the model cannot memorize. Other diffusion samplers can be deterministic, so do not turn a property of this particular algorithm into a universal rule.
+Compare the families now. An autoencoder reconstructs through a code. A variational autoencoder regularizes a distribution over codes. A G A N learns using an adversarial judge and often samples in one generator pass. Basic diffusion samples with repeated denoiser calls, so inference is usually slower. Each family gives us a different training signal for learning to generate data.
+
+Takeaway: Training: random t / generation: T down to 1
+
+[01:09:15] Transformers / Tokens and learned embeddings
+Source: Transformer.pdf; PDF page 11.
+Handwritten source: l7-01-transformer-tokens-embeddings-and-the-architecture.png.
+
+Our last topic is Transformers. The generative task is now often a sequence: predict the next token given the available context, append it, and repeat. A token may be a word or part of a word. Its integer I D is only a lookup index. Token number six thousand is not numerically more meaningful than token number five.
+An embedding table maps each token I D to a learned vector. The same token initially gets the same lookup vector wherever it appears. Contextual processing then changes its representation based on surrounding tokens. Position information must also be provided, because attention without position information does not by itself encode the sequence order.
+The original Transformer has an encoder and a decoder. The encoder represents a source sentence. The decoder generates a target sentence, attending to its available prefix and the encoded source. Some other Transformer systems use only one side, but we will follow your lecture's encoder-decoder design.
+Attention makes information from different token positions directly available. It addresses the difficulty recurrent networks have with sequential processing and long-range dependencies. We will first understand one attention calculation, then place it inside the complete architecture.
+
+Takeaway: Token ID -> embedding -> position -> contextual representation
+
+[01:10:49] Transformers / Query, key and value: three different jobs
+Source: Transformer.pdf; PDF page 20.
+Handwritten source: l7-02-self-attention-the-lecture-s-robot-calculation.png.
+
+For each token, learned linear projections produce a query, a key and a value. A helpful analogy is a search system. The query describes what the current token is looking for. Keys describe what each token can match. Values contain the information that will be mixed into the output. The analogy is only a guide; all three are learned vectors.
+We use row vectors consistently. Multiply the embedding matrix X by W Q to obtain queries, by W K to obtain keys, and by W V to obtain values. For one query, dot it with every key. A dot product multiplies corresponding coordinates and adds them, producing one relevance score per key.
+Divide the scores by square root of the key dimension. This controls the scale that otherwise grows with dimension and can make softmax too concentrated. Apply softmax across keys: exponentiate and normalize to get weights summing to one. Finally take a weighted sum of value vectors.
+The attention output is a contextual vector. It is not yet a vocabulary probability and not necessarily a selected word. Keep the five operations in order: project, score, scale, normalize, mix values.
+
+Takeaway: Project -> dot products -> scale -> softmax -> weighted values
+
+[01:12:20] Transformers / Project the lecture robot example
+Source: Transformer.pdf; PDF page 21.
+Handwritten source: l7-02-self-attention-the-lecture-s-robot-calculation.png.
+
+Your lecture sentence is smart, robot, quickly. We need the encoder self-attention output for robot. Robot's embedding is one point five, point five. Multiply this row by the query matrix shown on screen. The first query coordinate is one point five times zero plus point five times two point five, which is one point two five. The second is one point five times point seven plus point five times one point six, which is one point eight five.
+Compute the key and value projections for all three words, not just robot. Their key rows are one point six, two point one five; one point two, one point three; and point six four, point five six. The value rows are six point two five, two point five; three point seven five, one point two five; and one point six, point four.
+Now dot robot's query with each key. The three raw scores are five point nine seven seven five, three point nine zero five, and one point eight three six. Notice that one query produces three scores. The scoring step compares robot with every possible source of information in the sentence.
+
+Takeaway: q_robot=(1.25,1.85); raw scores=(5.9775,3.905,1.836)
+
+[01:13:44] Transformers / Normalize and mix the robot values
+Source: Transformer.pdf; PDF page 22.
+Handwritten source: l7-02-self-attention-the-lecture-s-robot-calculation.png.
+
+There are two key coordinates, so divide each raw score by square root of two. The scaled scores are approximately four point two two six seven three one, two point seven six one two five two, and one point two nine eight two four eight. For a stable softmax, subtract the largest score from all three before exponentiating. This does not change the normalized probabilities.
+The resulting weights are approximately point seven seven eight five four six, point one seven nine eight one nine, and point zero four one six three five. They sum to one. Multiply each value row by its weight and add. The first output coordinate is the weighted sum of six point two five, three point seven five, and one point six. The second is the weighted sum of two point five, one point two five, and point four.
+The output is approximately five point six zero six eight five zero, two point one eight seven seven nine three. Your original slide's displayed answer has an arithmetic error; this corrected handwritten page uses the supplied matrices consistently. If your method is correct but your result disagrees with that slide, use the recomputed checkpoint. Most weight here falls on smart, but the output is a mixture of all three values, not a hard choice of one token.
+
+Takeaway: Corrected robot output = (5.606850, 2.187793)
+
+[01:15:18] Transformers / Multiple heads and dimensions
+Source: Transformer.pdf; PDF page 23.
+Handwritten source: l7-03-multi-head-attention-ffn-and-add-norm.png.
+
+A single attention head creates one learned way to compare and combine tokens. Multi-head attention runs several such calculations with different projection matrices. Heads can learn different relationships or representation subspaces. We should not insist that a particular head always means grammar or always means position; those roles are learned.
+The head outputs are concatenated, not averaged. Then a learned output projection mixes their combined features. The handwritten shape example uses three tokens, model width five hundred twelve, and eight heads of width sixty-four. Each head's query, key and value matrix is three by sixty-four. Its score matrix is three by three, because every query compares with every key. Its output is three by sixty-four.
+Concatenate eight head outputs along the feature dimension and the shape becomes three by five hundred twelve. The output projection preserves the model width. These shape checks are a practical way to catch mistakes before calculating any numbers.
+Ask yourself what changes if the number of tokens doubles. The score matrix grows in both dimensions. That is the origin of ordinary full self-attention's quadratic dependence on sequence length for its score matrix. Multiple heads change the feature projections, not the fundamental query-versus-key meaning.
+
+Takeaway: 8 heads x 64 features -> concatenate to 512 features
+
+[01:16:55] Transformers / FFN, residual addition and LayerNorm
+Source: Transformer.pdf; PDF page 54.
+Handwritten source: l7-03-multi-head-attention-ffn-and-add-norm.png.
+
+Attention mixes information across token positions. A feed-forward network then transforms the features within each token position, using the same feed-forward weights across positions in a block. In the lecture example, feature width expands from five hundred twelve to two thousand forty-eight, passes through a nonlinear activation such as ReLU, then returns to five hundred twelve. The nonlinearity matters: two linear maps without it could be collapsed into one linear map. Returning to the original width lets us add the result to the residual stream.
+A residual connection adds the original input to a sublayer's output. The shapes must match. In the lecture's post-normalization convention, we then apply layer normalization to the summed features. layer normalization normalizes across one token's feature coordinates, rather than treating all tokens as one giant vector.
+Use the tiny handwritten example. Original features are one, three; the sublayer output is one, one. Their sum is two, four. The mean is three. Subtract the mean to get minus one, one. The feature variance is one, so ignoring the tiny numerical stabilizer, normalized features are minus one, one when scale is one and shift is zero.
+This is what Add and Norm contributes: a direct residual path and controlled feature scale. It is not another attention calculation, and it does not average the attention heads.
+
+Takeaway: Attention mixes tokens / FFN transforms features
+
+[01:18:40] Transformers / Position is information too
+Source: Transformer.pdf; PDF page 36.
+Handwritten source: l7-04-positional-encoding-the-full-d-10-example.png.
+
+Consider the same words in a different order. Their meanings can change, but the original embedding lookups are the same set of vectors. We therefore add a position vector to each token embedding before the attention blocks.
+Your lecture uses fixed sinusoidal position encodings. For a pair of feature coordinates, the even coordinate uses sine and the following odd coordinate uses cosine of the same angle. The angle is position divided by ten thousand raised to the power two i over model width. Here i labels the coordinate pair, starting at zero. Use radians, not degrees.
+Different pairs use different frequencies. Some change rapidly between neighboring positions; others change gradually over long distances. The position vector has the same width as the token embedding so they can be added coordinate by coordinate.
+At position zero, every sine coordinate is zero and every cosine coordinate is one. That is a useful immediate check. The formula is parameter-free, so these fixed encodings do not need to be learned. But being able to compute a position vector for a longer sequence does not guarantee the trained model will perform well at that length.
+
+Takeaway: Pair i: sin(angle), cos(angle) / same denominator
+
+[01:20:06] Transformers / Calculate all ten position coordinates
+Source: Transformer.pdf; PDF page 36.
+Handwritten source: l7-04-positional-encoding-the-full-d-10-example.png.
+
+The lecture exercise asks for position three with model dimension ten. There are five sine-cosine pairs. For pair zero, the denominator is one. The angle is three radians. Sine gives about point one four one one two, and cosine gives minus point nine eight nine nine nine.
+For pair one, the denominator is ten thousand to the power point two, approximately six point three zero nine five seven three. Divide three by it to get an angle of about point four seven five four six eight. The sine and cosine are approximately point four five seven seven five five and point eight eight nine zero seven nine.
+For pair two, the denominator is about thirty-nine point eight one zero seven one seven. The angle is about point zero seven five three five seven. The pair becomes point zero seven five two eight five and point nine nine seven one six two. Pairs three and four use still larger denominators, so their sine values are small and their cosine values are near one.
+Read the remaining two pairs from the table, then interleave the five sine-cosine pairs into the ten-coordinate vector. Do not collect all sines first. Both coordinates in each pair share a denominator. This problem is repetitive arithmetic, so a small table is clearer than ten disconnected substitutions.
+
+Takeaway: d=10, pos=3: five sin/cos pairs, interleaved
+
+[01:21:43] Transformers / How positions reveal relative offsets
+Source: Transformer.pdf; PDF page 43.
+Handwritten source: l7-04-positional-encoding-the-full-d-10-example.png.
+
+There is one more positional idea in your slides. Take a single sine-cosine pair for position i and another for position j. Their dot product is sine i times sine j, plus cosine i times cosine j. A trigonometric identity turns this into cosine of i minus j. The offset between positions appears naturally. For positions three and one, this expression is cosine of two radians, approximately minus point four one six one four seven.
+This provides a relative-position signal. It does not mean that every learned attention score is only a function of distance. An actual query includes projected content and position, and so does a key. When you multiply content plus position by content plus position, there are four terms: content with content, content with position, position with content, and position with position. Learned projections can mix them.
+Also, one periodic component cannot uniquely identify every possible distance. Multiple frequencies provide a richer signal. Fixed sinusoidal codes can be calculated at positions not seen in training, but performance on longer sequences remains an empirical question. This is the precise interpretation of the relative-position discussion in the lecture.
+
+Takeaway: sin(i)sin(j)+cos(i)cos(j)=cos(i-j)
+
+[01:23:16] Transformers / Mask future tokens before softmax
+Source: Transformer.pdf; PDF page 56.
+Handwritten source: l7-05-decoder-self-attention-mask-future-tokens.png.
+
+During decoder generation, future target tokens are unavailable. During training we process a shifted target sequence in parallel, so we must explicitly prevent each position from looking ahead. A causal mask allows the current and earlier input positions and assigns negative infinity to future scores before softmax.
+Why negative infinity? Its exponential is zero, so the forbidden position receives zero weight and allowed positions are normalized among themselves. In the handwritten example the scores are one, two and three, but only the first two keys are allowed. The masked scores become one, two and negative infinity. Softmax weights are approximately point two six eight nine four one, point seven three one zero five nine and zero.
+The value vectors are one, zero; zero, two; and nine, nine. The future vector contributes nothing, even though it is large. The output becomes point two six eight nine four one, one point four six two one one seven.
+Zeroing an attention weight after an ordinary unmasked softmax, without renormalizing, is not the same operation. Also distinguish causal masking from padding masking: padding is excluded because it is artificial filler, while future target positions are excluded because generation cannot know them yet.
+
+Takeaway: Mask scores first -> future attention weight is zero
+
+[01:24:51] Transformers / Cross-attention connects source and target
+Source: Transformer.pdf; PDF page 58.
+Handwritten source: l7-06-cross-attention-the-lecture-s-translation-numerical.png.
+
+Decoder self-attention combines information within the available target prefix. Cross-attention asks which parts of the source sentence are relevant to the current decoder state. The query comes from the decoder. Keys and values come from encoder outputs. That source distinction is the main conceptual test.
+Your translation example has source words birds, can, fly, high. The decoder row is point three, two. Multiply it by the shown query projection to get five, three point four one. The supplied encoder keys are one, zero; one point five, point five; two, one; and one, one.
+Dot the decoder query with each source key. The scores are five, nine point two zero five, thirteen point four one, and eight point four one. Divide by square root of two and normalize across the four source keys.
+Unlike target causal self-attention, there is no general rule that the decoder must ignore source words appearing later in the source sentence. The full source sentence is already available in this encoder-decoder translation task. Source padding may still be masked. This distinction prevents you from applying a triangular target mask to the wrong attention layer.
+
+Takeaway: Cross-attention: decoder Q / encoder K and V
+
+[01:26:20] Transformers / Finish the cross-attention output
+Source: Transformer.pdf; PDF page 58.
+Handwritten source: l7-06-cross-attention-the-lecture-s-translation-numerical.png.
+
+After scaling and softmax, the cross-attention weights are approximately point zero zero two four one four, point zero four seven two one six, point nine two three four five seven, and point zero two six nine one two. Nearly ninety-two percent of the attention weight is on the source key for fly in this numerical example.
+Now mix values, not keys. The four value vectors are three, one; one, point five; four, one point five; and zero, two. For the first output coordinate, take three times the first weight, plus one times the second, plus four times the third, plus zero times the fourth. That gives about three point seven four eight two eight seven.
+For the second coordinate use one, point five, one point five and two with the same weights. The result is about one point four six five zero three three. Together they form the contextual output vector shown in the handwriting.
+This vector still is not a probability over Urdu words. It will pass through further decoder processing and the final vocabulary projection. A useful exam answer states both the source of query, key and value and the full numerical sequence from dot products through weighted values.
+
+Takeaway: Cross-attention output = (3.748287, 1.465033)
+
+[01:27:48] Transformers / Teacher forcing and the vocabulary head
+Source: Transformer.pdf; PDF page 60.
+Handwritten source: l7-07-transformer-training-teacher-forcing-and-cross-entropy.png.
+
+The decoder produces a feature vector at each target position. A final learned linear layer maps that feature width to vocabulary size. These raw vocabulary scores are logits. Softmax turns them into probabilities that sum to one over the vocabulary.
+Training uses teacher forcing. Suppose the target tokens are y one, y two and y three. The decoder inputs are start-of-sequence, y one and y two, while the targets are y one, y two and y three. Each input position predicts the next target. The target sequence is shifted, so the current prediction does not simply receive its own answer as input.
+Causal masking is still necessary because future positions are present in the parallel training tensor. Shifting plus masking together make the information available at a training position resemble what generation can use. At inference, previous ground-truth target tokens are unavailable, so the decoder conditions on its own generated prefix.
+When evaluating cross-entropy, pick the probability assigned to the true target token, not automatically the largest probability in the row. A confidently wrong argmax should not receive a small training loss. This distinction matters in the lecture's sentence numerical.
+
+Takeaway: Input: SOS,y1,y2 / targets: y1,y2,y3
+
+[01:29:19] Transformers / Cross-entropy for the lecture sentence
+Source: Transformer.pdf; PDF page 66.
+Handwritten source: l7-07-transformer-training-teacher-forcing-and-cross-entropy.png.
+
+For a one-hot target, cross-entropy at one position simplifies to minus the natural log of the probability of the correct token. All other target entries are zero, so their terms vanish. We use the true token's vocabulary index even if another token has the highest predicted probability.
+In your lecture example, the correct-token probabilities are point four, point two, point two, point three and point three. Their losses are approximately point nine one six two nine one, one point six zero nine four three eight, one point six zero nine four three eight, one point two zero three nine seven three and one point two zero three nine seven three.
+Add them to obtain sentence loss six point five four three one one two. Divide by five if asked for mean token loss, giving one point three zero eight six two two. The lecture shows both sum and mean conventions, so label your answer. Ignore padded positions when taking an average if the task includes padding.
+The behavior is intuitive: a larger correct-token probability produces a smaller negative log loss. If that probability approaches zero, loss becomes very large. Natural logs measure the result in nats. The vocabulary softmax gives probabilities; a log-softmax gives their logarithms. Do not mix them in your substitution.
+
+Takeaway: Sentence CE sum=6.543112 / token mean=1.308622
+
+[01:30:58] Transformers / Generate one token, append, repeat
+Source: Transformer.pdf; PDF page 64.
+Handwritten source: l7-08-generation-greedy-decoding-vs-beam-search.png.
+
+Generation begins with a start token. Run the decoder to obtain a next-token distribution, choose a token, append it to the prefix, and repeat until an end token or length limit. In encoder-decoder translation, the source encoder representation can be reused across these steps.
+Greedy decoding chooses the highest-probability next token at each step. It is simple, but the locally best next choice can lead to a worse complete sequence. Beam search retains several candidate prefixes. After expanding them, it keeps the best few according to cumulative log probability. Adding log probabilities is equivalent to multiplying ordinary conditional probabilities and is numerically more stable for long sequences.
+The beam width controls how many prefixes survive. A wider beam explores more candidates at greater cost. It is still an approximation, because pruned prefixes are not recovered. When comparing different-length sequences, additional length conventions may matter.
+This distinction is about the rule used to select outputs from the model's distributions. The vocabulary head itself still provides probabilities. Teacher forcing is a training input strategy; greedy and beam search are inference selection strategies. Keeping those roles separate makes the complete generation pipeline much easier to explain.
+
+Takeaway: Model predicts a distribution / decoding selects a sequence
+
+[01:32:35] Transformers / Why greedy can lose to beam search
+Source: Transformer.pdf; PDF page 64.
+Handwritten source: l7-08-generation-greedy-decoding-vs-beam-search.png.
+
+Use the small generation tree in the handwritten notes. At the first step, A has probability point six and B has point four. Greedy chooses A. After A, X has probability point five one and Y has point four nine. Greedy therefore produces A X. Its joint probability is point six times point five one, or point three zero six.
+But inspect the branch greedy discarded. After B, X has probability point nine nine. The joint probability of B X is point four times point nine nine, or point three nine six. That is higher than point three zero six. A beam of width two keeps both A and B at the first step, then can discover B X when it expands the next token.
+The other complete branches have probabilities point two nine four for A Y and point zero zero four for B Y. For these equal-length sequences, choosing the highest product and choosing the highest sum of logs give the same ranking.
+Now connect back to the generative model. It learns conditional next-token distributions. Repeated conditioning builds a distribution over complete sequences. Attention supplies context, while the final softmax and decoding rule produce the next token. You have reached the full Transformer generation loop.
+
+Takeaway: Greedy AX=0.306 / beam finds BX=0.396
+
+[01:34:09] Final recall / A complete map of the course
+Source: Lecture1 Introduction.pdf; PDF page 39.
+Handwritten source: l1-01-introduction-what-a-generative-model-learns.png.
+
+Let us finish by retrieving the main ideas without memorizing disconnected slogans. Generative models learn a distribution so they can produce samples. A plain autoencoder learns reconstruction through a code, while a variational autoencoder adds a probabilistic encoder and prior regularization. A G A N trains a generator against a discriminator. Non-saturating generator loss avoids a specific sigmoid-gradient weakness, but it does not automatically solve mode collapse.
+Evaluation asks about realism and coverage. Inception Score compares each generated class prediction with their average. F I D compares real and generated feature moments. Generative precision and recall test support membership in opposite directions.
+Diffusion fixes a forward corruption process and learns noise prediction that guides iterative reverse generation. Alpha is one-step retention, alpha bar is cumulative retention. A Transformer represents tokens, uses attention to combine context, adds position information, and predicts next-token distributions.
+These are different solutions to the same broad problem: learn useful structure from data and generate plausible new observations. For tomorrow, practice explaining what each training target is, what information is available at inference, and how you would check the output. Those three questions organize almost the entire syllabus.
+
+Takeaway: Distribution -> training signal -> sampling -> evaluation
+
+[01:35:51] Final recall / Your final closed-book checklist
+Source: Revision synthesis; PDF page 1.
+Handwritten source: Custom teaching panel / original slide.
+
+Before you close this lesson, do six small problems from a blank page. Normalize a Bayes posterior. Compute a V A E sample and Gaussian K L. Write both G A N generator losses and derive their logit gradients. Reproduce the quiz Inception Score, then a diagonal F I D example. Calculate one forward diffusion sample and one reverse sampling step. Finally compute attention through weighted values, then a sentence cross-entropy.
+For every numerical, write the formula, define the given quantities, substitute, keep reasonable precision, and interpret the result. Check whether the question asks for a sum or mean. Check variance versus standard deviation. Check which set supplies a denominator. Check where query, key and value come from. These small checks protect many marks.
+The practice paper and solutions in your preparation pack are ready for that closed-book rehearsal. This video is a guided revision lesson based on your supplied lectures, handwritten notes and Quiz One, with tutor review. The actual midterm questions are unknown, so use the coverage to build understanding rather than assuming a particular question must appear. Start your timed practice while the ideas are fresh, then repair the steps you could not reproduce.
+
+Takeaway: Close the notes and solve: retrieval is the final step
+
+REVIEW AND CORRECTIONS
+Script discussed with and reviewed by a separate tutor agent. Numerical checkpoints checked against original material and direct calculation.
+Transformer robot example follows corrected values from the supplied matrices, rather than the erroneous displayed slide answer.
+Original handwritten source PNGs and lecture PDFs remain unchanged. Source page positions refer to PDF pages.

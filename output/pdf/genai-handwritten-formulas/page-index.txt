@@ -1,0 +1,22 @@
+HANDWRITTEN-STYLE FORMULAS AND SYMBOL GUIDE
+
+Page 1: Probability and Gaussian basics
+Page 2: Autoencoders, gradients and latent geometry
+Page 3: Distances, interpolation and VAE sampling
+Page 4: KL divergence and Gaussian regularization
+Page 5: VAE objectives and reparameterization
+Page 6: GAN objectives and discriminator gradients
+Page 7: GAN feedback, conditioning and StackGAN
+Page 8: Convolution sizes and parameter counts
+Page 9: Entropy and Inception Score
+Page 10: FID, precision, recall and PSNR
+Page 12: Diffusion: forward process and aggregate noise
+Page 13: Diffusion: schedules and true posterior
+Page 14: Diffusion: reverse sampling and training
+Page 15: Diffusion: the variational bound
+Page 16: Transformers: embeddings, attention and masks
+Page 17: Multi-head attention, FFN and LayerNorm
+Page 18: Position encoding and cross-entropy
+Page 19: Sequence generation and model sizes
+
+PDF bookmarks link to the same topic starts.

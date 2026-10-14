@@ -1,0 +1,7 @@
+Built-in ImageGen mode was used for the notebook-paper asset. The equations and definitions were then composed exactly in the PDF with Segoe Print handwriting and handwritten-style mathematical glyphs, retaining the checked source formulas. Original lecture files and existing handwritten notes were not changed.
+
+ImageGen prompt:
+Use case: scientific-educational. Generate ONE reusable blank portrait A4 notebook-paper background for handwritten Generative AI formula notes. A perfectly flat straight-on scan, full sheet filling the entire frame. Very light warm ivory paper, extremely faint evenly spaced grey horizontal ruling, one thin muted red vertical margin at 5% of sheet width. Clean smooth texture with only the subtlest paper grain. Bright even illumination. All of the sheet must remain empty and usable for readable blue handwriting that will be laid out separately in a PDF. No writing, no symbols, no letters, no numbers, no equations, no diagrams, no boxes, no highlighter marks, no objects, no hands, no binding, no shadows, no perspective, no folds, no logo. Keep paper almost white so equations and symbol descriptions remain clear in a printed study document. Portrait page aspect about 1 to 1.414.
+
+Document design:
+Readable blue handwritten-style formula text; dark pink symbol labels and subsection headings; pink title highlighting; thin green formula boxes; one concise description per term; formula families kept with their definitions; exact coverage of all 107 equation rows in the original checked formula sheet.

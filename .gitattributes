@@ -1,2 +1,4 @@
 # Preserve PDF bytes and prevent text diff/line-ending conversion.
 *.pdf binary
+output/video/genai-midterm-revision/genai-revision-audio.m4a filter=lfs diff=lfs merge=lfs -text
+output/video/genai-midterm-revision/generative-ai-complete-revision.mp4 filter=lfs diff=lfs merge=lfs -text

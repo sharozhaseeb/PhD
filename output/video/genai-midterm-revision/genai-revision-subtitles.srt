@@ -1,0 +1,6288 @@
+1
+00:00:00,104 --> 00:00:00,811
+Welcome
+
+2
+00:00:01,739 --> 00:00:05,421
+This revision starts from the ideas underneath
+the equations
+
+3
+00:00:06,359 --> 00:00:10,571
+A generative model learns how probability is
+distributed over possible
+
+4
+00:00:10,584 --> 00:00:14,769
+observations then uses that learned structure
+to produce samples
+
+5
+00:00:15,720 --> 00:00:20,462
+An observation might be an image a sentence or
+one row of measurements
+
+6
+00:00:21,399 --> 00:00:24,416
+The symbol x usually means one observation
+
+7
+00:00:25,353 --> 00:00:27,758
+Theta means the collection of learned weights
+
+8
+00:00:28,696 --> 00:00:33,967
+A discriminative classifier asks given this
+observation what label is likely
+
+9
+00:00:34,905 --> 00:00:40,014
+A generative model asks what observations are
+plausible and how can I draw one
+
+10
+00:00:40,951 --> 00:00:46,291
+A generative classifier can also classify by
+modeling each class and applying
+
+11
+00:00:46,304 --> 00:00:47,065
+Bayes' rule
+
+12
+00:00:48,016 --> 00:00:49,823
+We will connect five ideas
+
+13
+00:00:50,761 --> 00:00:53,261
+An autoencoder learns reconstruction
+
+14
+00:00:54,212 --> 00:00:58,601
+A variational autoencoder organizes its latent
+space for sampling
+
+15
+00:00:59,552 --> 00:01:02,364
+A G A N learns through a competing judge
+
+16
+00:01:03,302 --> 00:01:04,986
+Diffusion learns denoising
+
+17
+00:01:05,938 --> 00:01:09,959
+A Transformer learns context and next-token
+probabilities
+
+18
+00:01:10,897 --> 00:01:15,720
+Evaluation asks whether the resulting samples
+have quality and variety
+
+19
+00:01:16,658 --> 00:01:21,671
+For every model keep two questions separate
+what happens during training and what
+
+20
+00:01:21,685 --> 00:01:23,818
+happens when we generate a new sample
+
+21
+00:01:26,072 --> 00:01:30,746
+A probability distribution allocates
+probability across possibilities
+
+22
+00:01:31,688 --> 00:01:34,935
+For a discrete set the probabilities add to one
+
+23
+00:01:35,873 --> 00:01:37,870
+A sample is one random draw
+
+24
+00:01:38,821 --> 00:01:43,495
+Ten samples need not reproduce the exact
+probabilities but their long-run
+
+25
+00:01:43,509 --> 00:01:45,017
+frequencies approach them
+
+26
+00:01:45,954 --> 00:01:47,775
+The vertical bar means given
+
+27
+00:01:48,726 --> 00:01:53,278
+Probability of a label given an image is
+different from probability of an image
+
+28
+00:01:53,291 --> 00:01:54,174
+given a label
+
+29
+00:01:55,112 --> 00:01:58,971
+A prior is our distribution before observing
+the current evidence
+
+30
+00:01:59,908 --> 00:02:02,517
+A posterior incorporates that evidence
+
+31
+00:02:03,468 --> 00:02:05,126
+Mean describes location
+
+32
+00:02:06,077 --> 00:02:11,077
+Variance describes squared spread and standard
+deviation is its square root
+
+33
+00:02:12,014 --> 00:02:15,601
+Standard normal noise has mean zero and
+variance one
+
+34
+00:02:16,539 --> 00:02:20,520
+Its individual draws are random numbers not
+always zero
+
+35
+00:02:21,471 --> 00:02:24,664
+An expectation is a probability-weighted
+average
+
+36
+00:02:25,601 --> 00:02:29,134
+In training a minibatch often estimates that
+average
+
+37
+00:02:30,071 --> 00:02:34,745
+The natural logarithm written l n on these
+notes is the logarithm we use
+
+38
+00:02:34,759 --> 00:02:35,411
+throughout
+
+39
+00:02:36,348 --> 00:02:38,454
+Exponentiation reverses it
+
+40
+00:02:39,406 --> 00:02:45,139
+For probabilities below one the logarithm is
+negative so negative log probability
+
+41
+00:02:45,153 --> 00:02:46,620
+is a positive penalty
+
+42
+00:02:47,571 --> 00:02:51,647
+Keep these definitions nearby they reappear in
+every chapter
+
+43
+00:02:53,888 --> 00:02:58,168
+A neural network is a differentiable
+computation with adjustable weights
+
+44
+00:02:59,110 --> 00:03:04,749
+It receives inputs computes an output and
+receives a loss a number measuring how
+
+45
+00:03:04,762 --> 00:03:07,616
+undesirable that output is under our objective
+
+46
+00:03:08,567 --> 00:03:11,107
+A derivative measures local sensitivity
+
+47
+00:03:12,045 --> 00:03:15,482
+If one weight changes slightly how does the
+loss change
+
+48
+00:03:16,433 --> 00:03:20,061
+With many weights the collection of derivatives
+is the gradient
+
+49
+00:03:20,999 --> 00:03:25,414
+Gradient descent updates each weight by
+subtracting the learning rate times its
+
+50
+00:03:25,428 --> 00:03:26,162
+derivative
+
+51
+00:03:27,113 --> 00:03:31,107
+A negative derivative therefore increases the
+weight during this update
+
+52
+00:03:32,045 --> 00:03:34,450
+Backpropagation applies the chain rule
+
+53
+00:03:35,387 --> 00:03:40,863
+When a weight influences an intermediate code
+which influences the output multiply
+
+54
+00:03:40,876 --> 00:03:42,996
+the sensitivities along that path
+
+55
+00:03:43,947 --> 00:03:48,213
+When multiple paths reach the same quantity add
+their contributions
+
+56
+00:03:49,151 --> 00:03:51,447
+A vector is an ordered list of numbers
+
+57
+00:03:52,385 --> 00:03:56,257
+A dot product multiplies corresponding entries
+and adds them
+
+58
+00:03:57,208 --> 00:04:01,243
+Matrix multiplication performs collections of
+dot products
+
+59
+00:04:02,181 --> 00:04:04,952
+It is different from elementwise multiplication
+
+60
+00:04:05,890 --> 00:04:09,001
+You do not need to remember a whole calculus
+course
+
+61
+00:04:09,952 --> 00:04:15,822
+Remember local sensitivity multiply along paths
+add across paths and subtract
+
+62
+00:04:15,836 --> 00:04:16,583
+the gradient
+
+63
+00:04:17,520 --> 00:04:21,121
+We will use an actual autoencoder calculation
+shortly
+
+64
+00:04:23,384 --> 00:04:25,436
+Here is the lecture's spam example
+
+65
+00:04:26,391 --> 00:04:31,310
+S means spam H means ordinary mail and W means
+the word win
+
+66
+00:04:32,247 --> 00:04:34,544
+Forty percent of messages are spam
+
+67
+00:04:35,495 --> 00:04:37,492
+Sixty percent are ordinary
+
+68
+00:04:38,429 --> 00:04:43,090
+The word appears in sixty percent of spam and
+five percent of ordinary mail
+
+69
+00:04:44,027 --> 00:04:46,432
+First multiply likelihood by prior
+
+70
+00:04:47,370 --> 00:04:52,845
+The spam-and-win joint probability is zero
+point six times zero point four giving
+
+71
+00:04:52,859 --> 00:04:54,299
+zero point two four
+
+72
+00:04:55,250 --> 00:05:00,780
+The ordinary-and-win joint is zero point zero
+five times zero point six giving
+
+73
+00:05:00,794 --> 00:05:02,342
+zero point zero three
+
+74
+00:05:03,280 --> 00:05:06,201
+Now normalize across the two explanations
+
+75
+00:05:07,139 --> 00:05:10,726
+Total probability of seeing win is zero point
+two seven
+
+76
+00:05:11,663 --> 00:05:16,527
+The spam posterior is zero point two four
+divided by zero point two seven
+
+77
+00:05:16,840 --> 00:05:19,598
+approximately zero point eight eight eight nine
+
+78
+00:05:20,535 --> 00:05:25,087
+The ordinary posterior is approximately zero
+point one one one one
+
+79
+00:05:26,025 --> 00:05:27,112
+They sum to one
+
+80
+00:05:28,063 --> 00:05:30,644
+Why is zero point two four not the answer
+
+81
+00:05:31,582 --> 00:05:34,707
+It is a joint probability before normalization
+
+82
+00:05:35,644 --> 00:05:40,006
+Bayes turns joint scores into probabilities
+conditional on the evidence
+
+83
+00:05:40,957 --> 00:05:46,636
+Also probability of spam without win is not one
+minus probability of spam with win
+
+84
+00:05:47,573 --> 00:05:49,693
+Those are different conditioning events
+
+85
+00:05:51,944 --> 00:05:54,499
+A model needs both fidelity and coverage
+
+86
+00:05:55,441 --> 00:05:58,769
+Fidelity means its outputs resemble real
+examples
+
+87
+00:05:59,707 --> 00:06:04,435
+Coverage means it represents the different
+kinds of examples that occur in reality
+
+88
+00:06:05,386 --> 00:06:11,025
+In this table real data has probability zero in
+region A zero point four in
+
+89
+00:06:11,038 --> 00:06:13,756
+B and zero point six in C
+
+90
+00:06:14,707 --> 00:06:20,033
+The model puts zero point two in A nothing in B
+and zero point eight in C
+
+91
+00:06:20,359 --> 00:06:22,669
+Region A is invalid generation
+
+92
+00:06:23,606 --> 00:06:27,927
+Region B is a missing real possibility also
+called a missing mode
+
+93
+00:06:28,878 --> 00:06:33,538
+A hundred model draws have expected counts
+twenty zero and eighty
+
+94
+00:06:34,489 --> 00:06:39,408
+Drawing more samples cannot recover a region
+assigned exactly zero probability
+
+95
+00:06:40,345 --> 00:06:45,373
+Conversely a mode missing from a small sample
+grid does not prove its probability
+
+96
+00:06:45,386 --> 00:06:46,079
+is zero
+
+97
+00:06:47,017 --> 00:06:52,655
+Older generative families include Naive Bayes
+Gaussian mixtures and hidden Markov
+
+98
+00:06:52,669 --> 00:06:53,280
+models
+
+99
+00:06:54,218 --> 00:06:58,144
+Our neural families approach the same
+distribution problem through different
+
+100
+00:06:58,158 --> 00:06:59,245
+training tasks
+
+101
+00:07:00,182 --> 00:07:04,992
+Remember the distinction between a believable
+individual output and a good overall
+
+102
+00:07:05,006 --> 00:07:05,889
+distribution
+
+103
+00:07:06,840 --> 00:07:12,329
+We will return to it when diagnosing G A Ns and
+calculating evaluation scores
+
+104
+00:07:14,600 --> 00:07:18,785
+An autoencoder receives an observation and
+tries to reproduce it
+
+105
+00:07:19,727 --> 00:07:25,501
+Follow the diagram input x passes through an
+encoder producing a latent code z
+
+106
+00:07:26,453 --> 00:07:30,515
+A decoder maps that code to a reconstruction
+called x hat
+
+107
+00:07:31,453 --> 00:07:34,183
+Both networks learn from reconstruction error
+
+108
+00:07:35,121 --> 00:07:37,553
+The code is a compact representation
+
+109
+00:07:38,504 --> 00:07:41,833
+A bottleneck encourages it to preserve useful
+structure
+
+110
+00:07:42,784 --> 00:07:48,341
+Nonlinear networks can learn nonlinear
+representations unlike ordinary linear
+
+111
+00:07:48,355 --> 00:07:50,338
+principal component analysis
+
+112
+00:07:51,276 --> 00:07:54,224
+The same pattern supports several applications
+
+113
+00:07:55,162 --> 00:08:00,094
+A denoising autoencoder receives corrupted
+input but targets the clean image
+
+114
+00:08:01,031 --> 00:08:04,414
+Colorization can receive grayscale and target
+color
+
+115
+00:08:05,352 --> 00:08:08,124
+Retrieval compares latent representations
+
+116
+00:08:09,061 --> 00:08:14,020
+Anomaly detection can flag high reconstruction
+error although that heuristic can
+
+117
+00:08:14,034 --> 00:08:14,537
+fail
+
+118
+00:08:15,488 --> 00:08:19,048
+An important limitation appears when we ask for
+generation
+
+119
+00:08:19,999 --> 00:08:24,577
+Reconstruction training teaches the decoder at
+the codes reached by the encoder
+
+120
+00:08:25,515 --> 00:08:29,741
+It does not impose a known distribution over
+every possible latent point
+
+121
+00:08:30,678 --> 00:08:34,401
+Arbitrary random codes can land in poorly
+trained gaps
+
+122
+00:08:35,338 --> 00:08:40,800
+Before solving that problem with a V A E let us
+calculate one small autoencoder
+
+123
+00:08:40,814 --> 00:08:42,037
+and watch a weight learn
+
+124
+00:08:44,288 --> 00:08:49,546
+This is a practice example from your
+handwritten notes using two input values and
+
+125
+00:08:49,560 --> 00:08:50,661
+one latent number
+
+126
+00:08:51,616 --> 00:08:53,505
+The input is one zero
+
+127
+00:08:54,456 --> 00:08:59,999
+The encoder computes a times the first input
+plus b times the second input plus
+
+128
+00:09:00,013 --> 00:09:00,420
+c
+
+129
+00:09:01,372 --> 00:09:07,064
+The initial a is zero point five b is zero
+point two five and c is zero point
+
+130
+00:09:07,078 --> 00:09:07,486
+one
+
+131
+00:09:08,423 --> 00:09:13,790
+The code is therefore zero point five times one
+plus zero point two five times
+
+132
+00:09:13,804 --> 00:09:17,486
+zero plus zero point one zero point six
+
+133
+00:09:18,437 --> 00:09:23,640
+The first reconstruction is zero point eight
+times the code plus zero point one
+
+134
+00:09:23,939 --> 00:09:25,733
+giving zero point five eight
+
+135
+00:09:26,684 --> 00:09:32,418
+The second is negative zero point five times
+the code plus zero point six giving
+
+136
+00:09:32,431 --> 00:09:33,600
+zero point three
+
+137
+00:09:34,551 --> 00:09:36,521
+Subtract the original input
+
+138
+00:09:37,458 --> 00:09:41,562
+The errors are negative zero point four two and
+zero point three
+
+139
+00:09:42,513 --> 00:09:48,165
+Square and add zero point one seven six four
+plus zero point zero nine equals
+
+140
+00:09:48,179 --> 00:09:50,352
+zero point two six six four
+
+141
+00:09:51,304 --> 00:09:52,852
+That is sum squared error
+
+142
+00:09:53,790 --> 00:09:58,736
+Mean squared error divides by the two
+coordinates giving zero point one three
+
+143
+00:09:58,749 --> 00:09:59,551
+three two
+
+144
+00:10:00,502 --> 00:10:02,418
+State which reduction you use
+
+145
+00:10:04,664 --> 00:10:09,189
+For this sum squared error the derivative at
+each reconstructed coordinate is
+
+146
+00:10:09,202 --> 00:10:10,221
+twice its error
+
+147
+00:10:11,163 --> 00:10:15,538
+We get negative zero point eight four and
+positive zero point six
+
+148
+00:10:16,476 --> 00:10:20,348
+Both reconstructed coordinates depend on the
+same latent code
+
+149
+00:10:21,286 --> 00:10:26,163
+The first path contributes negative zero point
+eight four times zero point eight
+
+150
+00:10:27,101 --> 00:10:32,305
+The second contributes positive zero point six
+times negative zero point five
+
+151
+00:10:33,242 --> 00:10:34,995
+Add the two contributions
+
+152
+00:10:35,932 --> 00:10:39,723
+The latent derivative is negative zero point
+nine seven two
+
+153
+00:10:40,661 --> 00:10:44,601
+The encoder code depends on a through the first
+input which is one
+
+154
+00:10:45,538 --> 00:10:50,688
+So the derivative with respect to a is also
+negative zero point nine seven two
+
+155
+00:10:51,625 --> 00:10:56,449
+At learning rate zero point one subtract that
+derivative times the rate from the
+
+156
+00:10:56,462 --> 00:11:01,992
+original a Zero point five minus zero point one
+times negative zero point nine
+
+157
+00:11:02,006 --> 00:11:05,212
+seven two gives zero point five nine seven two
+
+158
+00:11:06,163 --> 00:11:08,853
+What made this calculation easy to get wrong
+
+159
+00:11:09,791 --> 00:11:11,639
+There are two decoder paths
+
+160
+00:11:12,576 --> 00:11:17,359
+We must add both and compute all derivatives
+using the original forward-pass
+
+161
+00:11:17,372 --> 00:11:19,492
+weights before applying the update
+
+162
+00:11:20,430 --> 00:11:24,723
+Changing from summed error to mean error would
+also change gradient scale
+
+163
+00:11:26,960 --> 00:11:31,784
+A variational autoencoder addresses latent
+sampling by changing what the encoder
+
+164
+00:11:31,797 --> 00:11:33,740
+outputs and how it is trained
+
+165
+00:11:34,682 --> 00:11:40,063
+Instead of one deterministic code the encoder
+outputs parameters of a probability
+
+166
+00:11:40,076 --> 00:11:41,856
+distribution for this input
+
+167
+00:11:42,794 --> 00:11:48,215
+In the common diagonal Gaussian case it outputs
+a mean vector mu and a log
+
+168
+00:11:48,228 --> 00:11:49,709
+variance vector ell
+
+169
+00:11:50,647 --> 00:11:55,891
+The approximate latent distribution is called q
+phi of z given x Phi names the
+
+170
+00:11:55,905 --> 00:11:56,965
+encoder weights
+
+171
+00:11:57,916 --> 00:12:02,712
+A prior commonly a standard normal distribution
+is called p of z
+
+172
+00:12:03,663 --> 00:12:07,889
+We sample a latent code from the encoder's
+distribution and the decoder
+
+173
+00:12:07,902 --> 00:12:09,492
+reconstructs the input
+
+174
+00:12:10,429 --> 00:12:12,861
+The decoder weights are often named theta
+
+175
+00:12:13,799 --> 00:12:18,826
+If the latent code has two coordinates the mean
+has two values and log variance
+
+176
+00:12:18,840 --> 00:12:20,049
+has two values
+
+177
+00:12:20,986 --> 00:12:26,109
+Sampling combines those parameters into a two-
+coordinate code the decoder does not
+
+178
+00:12:26,122 --> 00:12:27,617
+receive four coordinates
+
+179
+00:12:28,568 --> 00:12:33,976
+For reconstruction we start from a specific
+input and use its encoder distribution
+
+180
+00:12:34,927 --> 00:12:38,826
+For new generation sample z from the prior and
+decode it
+
+181
+00:12:39,777 --> 00:12:43,486
+The generation path needs no input image and no
+encoder
+
+182
+00:12:45,728 --> 00:12:48,038
+Use the handwritten values on screen
+
+183
+00:12:48,980 --> 00:12:51,100
+The mean is one negative one
+
+184
+00:12:52,051 --> 00:12:57,309
+Log variances are the natural logarithm of zero
+point two five and the natural
+
+185
+00:12:57,322 --> 00:12:58,518
+logarithm of four
+
+186
+00:12:59,469 --> 00:13:04,061
+The sampled standard normal noise is two
+negative zero point five
+
+187
+00:13:04,999 --> 00:13:09,917
+Exponentiating log variance gives variances
+zero point two five and four
+
+188
+00:13:10,855 --> 00:13:15,189
+Taking square roots gives standard deviations
+zero point five and two
+
+189
+00:13:16,140 --> 00:13:19,659
+Equivalently exponentiate half the log variance
+
+190
+00:13:20,610 --> 00:13:26,222
+The reparameterized sample is mean plus
+standard deviation times noise coordinate
+
+191
+00:13:26,235 --> 00:13:27,241
+by coordinate
+
+192
+00:13:28,178 --> 00:13:32,798
+First coordinate one plus zero point five times
+two equals two
+
+193
+00:13:33,749 --> 00:13:39,374
+Second negative one plus two times negative
+zero point five equals negative two
+
+194
+00:13:40,312 --> 00:13:43,436
+The sampled code is therefore two negative two
+
+195
+00:13:44,374 --> 00:13:49,455
+Variance standard deviation and log variance
+are three different quantities
+
+196
+00:13:50,393 --> 00:13:54,034
+The decoder receives the sampled code not the
+noise alone
+
+197
+00:13:54,972 --> 00:13:56,874
+Why did we draw noise separately
+
+198
+00:13:57,825 --> 00:14:02,472
+It lets us describe the random code as a
+differentiable transformation of learned
+
+199
+00:14:02,485 --> 00:14:03,409
+mean and scale
+
+200
+00:14:04,360 --> 00:14:09,523
+During backpropagation hold the particular
+noise draw fixed and differentiate that
+
+201
+00:14:09,537 --> 00:14:10,556
+transformation
+
+202
+00:14:12,800 --> 00:14:17,787
+The V A E objective needs a way to encourage
+encoder distributions to resemble the
+
+203
+00:14:17,800 --> 00:14:18,317
+prior
+
+204
+00:14:19,258 --> 00:14:23,239
+It uses K L divergence named after Kullback and
+Leibler
+
+205
+00:14:24,177 --> 00:14:27,329
+It is a directional measure of distribution
+mismatch
+
+206
+00:14:28,267 --> 00:14:33,769
+For discrete distributions P and Q take each
+probability from P multiply
+
+207
+00:14:33,783 --> 00:14:38,701
+it by the natural logarithm of P divided by Q
+then sum across outcomes
+
+208
+00:14:39,653 --> 00:14:42,207
+The first distribution supplies the weights
+
+209
+00:14:43,144 --> 00:14:46,908
+Reversing direction changes both the ratios and
+the weights
+
+210
+00:14:47,859 --> 00:14:50,685
+K L is therefore not generally symmetric
+
+211
+00:14:51,623 --> 00:14:56,840
+Individual weighted terms can be negative
+because a probability ratio can be below
+
+212
+00:14:56,854 --> 00:14:57,288
+one
+
+213
+00:14:58,226 --> 00:15:00,807
+The complete divergence cannot be negative
+
+214
+00:15:01,758 --> 00:15:05,087
+If the distributions match the divergence is
+zero
+
+215
+00:15:06,025 --> 00:15:11,704
+On this page P has probabilities zero point
+three six zero point four eight
+
+216
+00:15:11,949 --> 00:15:13,674
+and zero point one six
+
+217
+00:15:14,612 --> 00:15:17,356
+Q is uniform over three possibilities
+
+218
+00:15:18,294 --> 00:15:22,900
+The forward divergence is approximately zero
+point zero eight five three
+
+219
+00:15:23,851 --> 00:15:29,408
+Reversing direction gives approximately zero
+point zero nine seven four five five
+
+220
+00:15:30,345 --> 00:15:35,264
+For the V A E we use the encoder distribution
+as the first distribution and the
+
+221
+00:15:35,278 --> 00:15:36,609
+prior as the second
+
+222
+00:15:38,864 --> 00:15:43,661
+For one coordinate let q be a Gaussian with
+mean mu and variance v
+
+223
+00:15:44,616 --> 00:15:46,396
+Let p be standard normal
+
+224
+00:15:47,347 --> 00:15:52,904
+By definition K L is the expectation under q of
+log q minus log p
+
+225
+00:15:53,855 --> 00:15:56,518
+Subtract the two Gaussian log densities
+
+226
+00:15:57,456 --> 00:15:59,453
+Their common constant cancels
+
+227
+00:16:00,390 --> 00:16:05,526
+What remains is negative one half log v minus
+the squared deviation from mu
+
+228
+00:16:05,540 --> 00:16:09,385
+divided by two v plus z squared divided by two
+
+229
+00:16:10,336 --> 00:16:11,899
+Now average under q
+
+230
+00:16:12,850 --> 00:16:16,355
+The expected squared deviation from its own
+mean is v
+
+231
+00:16:17,306 --> 00:16:20,350
+Therefore the middle term becomes negative one
+half
+
+232
+00:16:21,287 --> 00:16:26,722
+The expected value of z squared is variance
+plus mean squared giving v plus mu
+
+233
+00:16:26,736 --> 00:16:27,320
+squared
+
+234
+00:16:28,271 --> 00:16:29,996
+Combine these three pieces
+
+235
+00:16:30,948 --> 00:16:35,608
+We obtain one half times v plus mu squared
+minus one minus log v
+
+236
+00:16:36,559 --> 00:16:40,567
+For a diagonal Gaussian add this expression
+over coordinates
+
+237
+00:16:41,518 --> 00:16:47,034
+If the network gives log variance ell replace v
+with exp ell and log v with ell
+
+238
+00:16:47,986 --> 00:16:52,795
+A quick correctness check put mean zero and
+variance one into the expression
+
+239
+00:16:53,733 --> 00:16:56,097
+Everything cancels giving zero
+
+240
+00:16:57,048 --> 00:16:59,874
+A negative final K L signals a mistake
+
+241
+00:17:02,120 --> 00:17:05,273
+Return to the same distribution used for our
+sample
+
+242
+00:17:06,214 --> 00:17:11,676
+Its mean is one negative one and variances are
+zero point two five and four
+
+243
+00:17:12,627 --> 00:17:18,348
+For coordinate one substitute into one half
+times variance plus mean squared minus
+
+244
+00:17:18,361 --> 00:17:20,100
+one minus log variance
+
+245
+00:17:21,038 --> 00:17:26,309
+That is one half times zero point two five plus
+one minus one minus the logarithm
+
+246
+00:17:26,323 --> 00:17:27,913
+of zero point two five
+
+247
+00:17:28,864 --> 00:17:32,926
+It gives approximately zero point eight one
+eight one four seven
+
+248
+00:17:33,877 --> 00:17:37,777
+For coordinate two use variance four and mean
+squared one
+
+249
+00:17:38,728 --> 00:17:42,736
+We get approximately one point three zero six
+eight five three
+
+250
+00:17:43,687 --> 00:17:47,206
+Add them total K L is two point one two five
+
+251
+00:17:48,157 --> 00:17:51,119
+Notice that the mean's sign disappears in its
+square
+
+252
+00:17:52,070 --> 00:17:56,989
+A positive and negative mean equally far from
+zero receive the same mean penalty
+
+253
+00:17:57,940 --> 00:18:02,138
+The V A E balances this regularization against
+reconstruction
+
+254
+00:18:03,076 --> 00:18:06,962
+Too little regularization can leave unsuitable
+latent regions
+
+255
+00:18:07,899 --> 00:18:12,831
+Excessive pressure toward the prior can lose
+information about individual inputs
+
+256
+00:18:13,769 --> 00:18:18,225
+It is a tradeoff rather than a claim that every
+possible code will decode
+
+257
+00:18:18,239 --> 00:18:19,000
+meaningfully
+
+258
+00:18:21,272 --> 00:18:26,897
+The probabilistic V A E maximizes an evidence
+lower bound or E L B O
+
+259
+00:18:27,264 --> 00:18:31,476
+expected reconstruction log likelihood minus K
+L to the prior
+
+260
+00:18:32,418 --> 00:18:37,567
+Equivalently minimize reconstruction negative
+log likelihood plus K L
+
+261
+00:18:38,519 --> 00:18:42,907
+A squared-error reconstruction corresponds to a
+Gaussian likelihood with a
+
+262
+00:18:42,921 --> 00:18:44,184
+specified scale
+
+263
+00:18:45,122 --> 00:18:50,597
+Our handwritten practice uses pixel mean
+squared error plus summed latent K L then
+
+264
+00:18:50,611 --> 00:18:52,133
+averages over images
+
+265
+00:18:53,070 --> 00:18:58,573
+For image A reconstruction error is zero point
+zero five one two five
+
+266
+00:18:59,510 --> 00:19:04,918
+Add K L two point one two five giving two point
+one seven six two five
+
+267
+00:19:05,869 --> 00:19:08,994
+Image B contributes zero point six two five
+
+268
+00:19:09,932 --> 00:19:13,695
+Their batch mean is one point four zero zero
+six two five
+
+269
+00:19:14,633 --> 00:19:18,260
+Changing only one reduction changes the
+relative balance
+
+270
+00:19:19,198 --> 00:19:25,149
+Reparameterization preserves a gradient path
+through sampling z equals mu plus exp
+
+271
+00:19:25,163 --> 00:19:26,956
+of half ell times epsilon
+
+272
+00:19:27,894 --> 00:19:33,125
+With noise held fixed its derivative with
+respect to mu is one and with respect to
+
+273
+00:19:33,138 --> 00:19:36,902
+ell is one half times standard deviation times
+epsilon
+
+274
+00:19:37,839 --> 00:19:41,861
+Reconstruction and K L both influence encoder
+parameters
+
+275
+00:19:42,798 --> 00:19:45,054
+Add both gradient contributions
+
+276
+00:19:45,991 --> 00:19:51,100
+Latent interpolation after training is a
+separate operation not the sampling trick
+
+277
+00:19:51,114 --> 00:19:52,364
+used for gradients
+
+278
+00:19:54,632 --> 00:19:59,877
+A G A N or generative adversarial network
+learns using two networks
+
+279
+00:20:00,819 --> 00:20:05,398
+The generator converts random latent noise into
+a synthetic observation
+
+280
+00:20:06,349 --> 00:20:11,158
+The discriminator receives real or synthetic
+observations and scores how real they
+
+281
+00:20:11,172 --> 00:20:11,702
+appear
+
+282
+00:20:12,639 --> 00:20:15,669
+The generator wants its outputs accepted as
+real
+
+283
+00:20:16,607 --> 00:20:21,281
+The discriminator wants real examples scored
+high and generated examples scored
+
+284
+00:20:21,294 --> 00:20:21,702
+low
+
+285
+00:20:22,653 --> 00:20:27,096
+The discriminator is a learned judge its
+confidence is not ground truth
+
+286
+00:20:28,047 --> 00:20:33,495
+The original value function averages log
+discriminator score on real examples plus
+
+287
+00:20:33,509 --> 00:20:36,987
+log one minus discriminator score on fake
+examples
+
+288
+00:20:37,925 --> 00:20:40,506
+The discriminator maximizes that value
+
+289
+00:20:41,457 --> 00:20:43,917
+The generator minimizes its fake term
+
+290
+00:20:44,854 --> 00:20:49,840
+For ordinary loss minimization software negate
+the discriminator's objective
+
+291
+00:20:50,792 --> 00:20:56,308
+The original generator term is called the
+minimax or saturating loss log one minus
+
+292
+00:20:56,321 --> 00:20:57,286
+the fake score
+
+293
+00:20:58,237 --> 00:21:03,699
+A commonly used alternative is the non-
+saturating loss negative log fake score
+
+294
+00:21:04,650 --> 00:21:09,093
+Both encourage higher fake scores but their
+gradient behavior differs
+
+295
+00:21:10,044 --> 00:21:15,302
+An expectation here averages over real
+observations or random latent draws
+
+296
+00:21:16,254 --> 00:21:18,917
+We approximate these averages with batches
+
+297
+00:21:19,854 --> 00:21:24,446
+Next we will calculate the losses and derive
+why the alternative gives better
+
+298
+00:21:24,460 --> 00:21:25,520
+early feedback
+
+299
+00:21:27,776 --> 00:21:32,111
+This handwritten batch contains real
+discriminator scores zero point eight and
+
+300
+00:21:32,124 --> 00:21:37,233
+zero point six and fake scores zero point two
+five and zero point one
+
+301
+00:21:38,175 --> 00:21:42,699
+The real discriminator penalty is the mean of
+negative log zero point eight and
+
+302
+00:21:42,713 --> 00:21:44,846
+negative log zero point six
+
+303
+00:21:45,783 --> 00:21:49,927
+It is approximately zero point three six six
+nine eight five
+
+304
+00:21:50,865 --> 00:21:56,395
+For fake inputs the correct discriminator
+target is zero so use negative log
+
+305
+00:21:56,408 --> 00:21:57,753
+one minus the score
+
+306
+00:21:58,705 --> 00:22:03,895
+The mean of negative log zero point seven five
+and negative log zero point nine is
+
+307
+00:22:03,908 --> 00:22:07,495
+approximately zero point one nine six five two
+one
+
+308
+00:22:08,433 --> 00:22:13,216
+Adding the two separate means gives
+discriminator loss zero point five six three
+
+309
+00:22:13,229 --> 00:22:14,533
+five zero six
+
+310
+00:22:15,471 --> 00:22:20,023
+This convention differs from averaging all four
+examples together which would
+
+311
+00:22:20,036 --> 00:22:21,001
+halve the answer
+
+312
+00:22:21,952 --> 00:22:26,925
+The saturating generator loss is the mean of
+log zero point seven five and log
+
+313
+00:22:26,938 --> 00:22:31,544
+zero point nine negative zero point one nine
+six five two one
+
+314
+00:22:32,482 --> 00:22:34,724
+Negative loss values are allowed here
+
+315
+00:22:35,661 --> 00:22:40,811
+The non-saturating generator loss is the mean
+of negative log zero point two five
+
+316
+00:22:40,824 --> 00:22:45,919
+and negative log zero point one approximately
+one point eight four four four four
+
+317
+00:22:45,933 --> 00:22:46,476
+zero
+
+318
+00:22:48,728 --> 00:22:51,215
+This is the central reasoning in Quiz One
+
+319
+00:22:52,157 --> 00:22:53,787
+Name the fake score q
+
+320
+00:22:54,738 --> 00:22:59,276
+Let it be sigmoid of a where a is the
+discriminator's logit before its final
+
+321
+00:22:59,290 --> 00:22:59,996
+sigmoid
+
+322
+00:23:00,934 --> 00:23:04,303
+The sigmoid derivative is q times one minus q
+
+323
+00:23:05,254 --> 00:23:11,015
+For the saturating loss log one minus q first
+differentiate with respect to q
+
+324
+00:23:11,966 --> 00:23:17,292
+We get negative one divided by one minus q
+Multiply by the sigmoid derivative
+
+325
+00:23:18,244 --> 00:23:21,898
+The one minus q terms cancel leaving negative q
+
+326
+00:23:22,850 --> 00:23:28,379
+For the non-saturating loss negative log q the
+derivative with respect to q is
+
+327
+00:23:28,393 --> 00:23:33,257
+negative one divided by q Multiply by q times
+one minus q
+
+328
+00:23:34,208 --> 00:23:39,249
+The q terms cancel leaving negative one plus q
+or q minus one
+
+329
+00:23:40,186 --> 00:23:43,040
+These are derivatives with respect to the logit
+a
+
+330
+00:23:43,991 --> 00:23:45,513
+That detail matters
+
+331
+00:23:46,450 --> 00:23:50,879
+If you look only at the loss derivative with
+respect to the probability you miss
+
+332
+00:23:50,893 --> 00:23:52,238
+the sigmoid's effect
+
+333
+00:23:53,189 --> 00:23:57,211
+Both derivatives are negative when the score is
+between zero and one
+
+334
+00:23:58,148 --> 00:24:03,067
+Gradient descent therefore pushes the logit
+upward along a useful parameter path
+
+335
+00:24:04,004 --> 00:24:06,763
+But their magnitudes are very different near
+zero
+
+336
+00:24:09,008 --> 00:24:14,620
+Suppose the discriminator confidently rejects
+the generated example giving q equal
+
+337
+00:24:14,633 --> 00:24:16,305
+to zero point zero one
+
+338
+00:24:17,246 --> 00:24:21,526
+The saturating logit derivative is negative
+zero point zero one
+
+339
+00:24:22,464 --> 00:24:26,540
+The non-saturating derivative is negative zero
+point nine nine
+
+340
+00:24:27,477 --> 00:24:30,317
+The latter has ninety-nine times the magnitude
+
+341
+00:24:31,255 --> 00:24:35,942
+The handwritten example adds a generator
+parameter whose effect on the logit has
+
+342
+00:24:35,956 --> 00:24:36,988
+derivative two
+
+343
+00:24:37,939 --> 00:24:40,697
+Multiply by this remaining chain-rule factor
+
+344
+00:24:41,649 --> 00:24:46,472
+The saturating parameter derivative becomes
+negative zero point zero two
+
+345
+00:24:47,423 --> 00:24:51,649
+The non-saturating derivative becomes negative
+one point nine eight
+
+346
+00:24:52,586 --> 00:24:58,089
+Starting that parameter at zero point five with
+learning rate zero point one the
+
+347
+00:24:58,102 --> 00:25:03,591
+non-saturating update is zero point five minus
+zero point one times negative one
+
+348
+00:25:03,605 --> 00:25:04,638
+point nine eight
+
+349
+00:25:05,575 --> 00:25:08,442
+The new value is zero point six nine eight
+
+350
+00:25:09,380 --> 00:25:13,836
+A stronger logit derivative avoids this
+particular early saturation
+
+351
+00:25:14,787 --> 00:25:18,904
+It does not guarantee every generator weight
+receives a strong gradient
+
+352
+00:25:19,842 --> 00:25:24,257
+In a full network the remaining chain includes
+the discriminator's input
+
+353
+00:25:24,271 --> 00:25:27,844
+derivative and the generator's derivatives or
+Jacobians
+
+354
+00:25:28,795 --> 00:25:32,450
+Nor does this loss change automatically solve
+mode collapse
+
+355
+00:25:33,388 --> 00:25:36,920
+Gradient strength and output diversity are
+different problems
+
+356
+00:25:39,176 --> 00:25:41,649
+G A N training alternates players
+
+357
+00:25:42,591 --> 00:25:47,496
+During the discriminator step generate fake
+observations detach them from the
+
+358
+00:25:47,510 --> 00:25:51,640
+generator's graph and update only discriminator
+parameters
+
+359
+00:25:52,591 --> 00:25:57,251
+During the generator step freeze discriminator
+weights but backpropagate through
+
+360
+00:25:57,265 --> 00:25:59,289
+the discriminator into the generator
+
+361
+00:26:00,227 --> 00:26:02,917
+The practice example makes this concrete
+
+362
+00:26:03,855 --> 00:26:05,132
+Real x is one
+
+363
+00:26:06,083 --> 00:26:07,455
+Latent z is one
+
+364
+00:26:08,406 --> 00:26:12,156
+Generator output is g times z initially zero
+
+365
+00:26:13,107 --> 00:26:18,447
+Discriminator is sigmoid of w x plus b with w
+one and b zero
+
+366
+00:26:19,384 --> 00:26:24,398
+The real score is about zero point seven three
+one zero five nine and the fake
+
+367
+00:26:24,412 --> 00:26:25,662
+score is one half
+
+368
+00:26:26,599 --> 00:26:31,368
+With the stated summed loss the discriminator
+gradients are negative zero point
+
+369
+00:26:31,382 --> 00:26:37,170
+two six eight nine four one for w and positive
+zero point two three one zero
+
+370
+00:26:37,183 --> 00:26:38,447
+five nine for b
+
+371
+00:26:39,398 --> 00:26:45,050
+At learning rate zero point one simultaneously
+update w to approximately one
+
+372
+00:26:45,064 --> 00:26:50,743
+point zero two six eight nine four and b to
+negative zero point zero two three
+
+373
+00:26:50,757 --> 00:26:52,075
+one zero six
+
+374
+00:26:53,026 --> 00:26:56,504
+Both gradients use the same old forward-pass
+parameters
+
+375
+00:26:57,455 --> 00:27:02,306
+The next phase will use these newly updated
+discriminator weights held fixed
+
+376
+00:27:04,544 --> 00:27:07,656
+Now update the generator using the new
+discriminator
+
+377
+00:27:08,598 --> 00:27:14,073
+Generator parameter g is still zero so its
+generated observation is zero
+
+378
+00:27:15,011 --> 00:27:20,527
+The discriminator logit equals the new bias
+approximately negative zero point zero
+
+379
+00:27:20,541 --> 00:27:22,511
+two three one zero six
+
+380
+00:27:23,448 --> 00:27:27,225
+Its score is about zero point four nine four
+two two four
+
+381
+00:27:28,176 --> 00:27:33,285
+For non-saturating generator loss the logit
+derivative is score minus one
+
+382
+00:27:33,598 --> 00:27:38,231
+approximately negative zero point five zero
+five seven seven six
+
+383
+00:27:39,168 --> 00:27:43,829
+The logit depends on the generated observation
+through the new weight one point
+
+384
+00:27:43,842 --> 00:27:45,880
+zero two six eight nine four
+
+385
+00:27:46,831 --> 00:27:51,070
+The generated observation depends on g through
+z which is one
+
+386
+00:27:52,008 --> 00:27:53,978
+Multiply all three factors
+
+387
+00:27:54,929 --> 00:28:00,092
+The gradient with respect to g is approximately
+negative zero point five one nine
+
+388
+00:28:00,106 --> 00:28:01,247
+three seven nine
+
+389
+00:28:02,185 --> 00:28:06,519
+Subtract learning rate zero point one times
+this derivative from zero
+
+390
+00:28:07,470 --> 00:28:12,320
+The new g is approximately zero point zero five
+one nine three eight
+
+391
+00:28:13,258 --> 00:28:17,429
+Would detaching the generated observation here
+still train the generator
+
+392
+00:28:18,367 --> 00:28:18,951
+No.
+
+393
+00:28:19,888 --> 00:28:22,375
+It would cut the very gradient path we need
+
+394
+00:28:23,312 --> 00:28:27,782
+Freezing discriminator weights means not
+updating them while still using their
+
+395
+00:28:27,796 --> 00:28:29,195
+input sensitivity
+
+396
+00:28:31,448 --> 00:28:37,168
+A deep convolutional G A N or D C G A N
+provides an image-oriented
+
+397
+00:28:37,182 --> 00:28:38,065
+architecture
+
+398
+00:28:39,007 --> 00:28:43,532
+The generator projects noise to a small feature
+map then upsamples through
+
+399
+00:28:43,545 --> 00:28:45,067
+convolutional stages
+
+400
+00:28:46,004 --> 00:28:50,216
+The discriminator reduces spatial structure
+toward a real-or-fake score
+
+401
+00:28:51,167 --> 00:28:56,290
+Spatial size and channel count are different
+dimensions and shared filters avoid a
+
+402
+00:28:56,303 --> 00:28:58,776
+separate weight for every pixel location
+
+403
+00:28:59,714 --> 00:29:01,955
+Recognize three training failures
+
+404
+00:29:02,893 --> 00:29:06,398
+Vanishing gradient means the generator gets
+weak feedback
+
+405
+00:29:07,336 --> 00:29:11,928
+Mode collapse means many noise inputs produce
+too few output types
+
+406
+00:29:12,866 --> 00:29:16,222
+Oscillation means the two changing players fail
+to settle
+
+407
+00:29:17,159 --> 00:29:19,143
+Match the remedy to the mechanism
+
+408
+00:29:20,080 --> 00:29:23,681
+Non-saturating loss strengthens early output
+feedback
+
+409
+00:29:24,618 --> 00:29:29,605
+Minibatch discrimination lets the discriminator
+see similarity across generated
+
+410
+00:29:29,618 --> 00:29:32,118
+examples exposing repetition
+
+411
+00:29:33,056 --> 00:29:37,227
+Adjusting learning rates and update balance can
+help coupled dynamics
+
+412
+00:29:38,165 --> 00:29:39,917
+None guarantees success
+
+413
+00:29:40,855 --> 00:29:46,249
+Inspect samples from fixed noise inputs over
+training gradients and diversity
+
+414
+00:29:46,534 --> 00:29:49,265
+a loss curve alone does not establish quality
+
+415
+00:29:50,203 --> 00:29:54,781
+Latent interpolation and vector arithmetic may
+reveal useful structure
+
+416
+00:29:55,719 --> 00:30:00,529
+An attribute direction can be formed by
+subtracting codes then added to another
+
+417
+00:30:00,542 --> 00:30:01,032
+code
+
+418
+00:30:01,969 --> 00:30:07,214
+Decode and check the result arithmetic alone
+does not guarantee a semantic edit
+
+419
+00:30:09,488 --> 00:30:13,945
+An unconditional generator asks what plausible
+observation to produce
+
+420
+00:30:14,900 --> 00:30:18,895
+A conditional generator also receives a request
+called y
+
+421
+00:30:19,846 --> 00:30:24,167
+It can be a class label a text representation
+or another image
+
+422
+00:30:25,104 --> 00:30:27,088
+Supply y to both networks
+
+423
+00:30:28,039 --> 00:30:30,607
+The generator receives noise and condition
+
+424
+00:30:31,558 --> 00:30:36,245
+The discriminator receives observation and
+condition and must judge whether the
+
+425
+00:30:36,259 --> 00:30:38,093
+pair is realistic and matching
+
+426
+00:30:39,044 --> 00:30:44,357
+Judging the label alone would not enforce
+realistic images judging the image alone
+
+427
+00:30:44,370 --> 00:30:46,123
+would not enforce the request
+
+428
+00:30:47,061 --> 00:30:51,137
+The note uses noise of length four and a three-
+class one-hot vector
+
+429
+00:30:52,088 --> 00:30:55,471
+Concatenating them gives generator input length
+seven
+
+430
+00:30:56,408 --> 00:31:01,707
+If the image representation contains twenty
+values concatenating its condition
+
+431
+00:31:01,721 --> 00:31:04,425
+gives discriminator input length twenty-three
+
+432
+00:31:05,362 --> 00:31:09,262
+One-hot means one active entry within one
+categorical field
+
+433
+00:31:10,199 --> 00:31:13,963
+Several concatenated fields can have several
+active entries
+
+434
+00:31:14,900 --> 00:31:20,131
+Concatenated widths add numbers of possible
+category combinations multiply
+
+435
+00:31:21,082 --> 00:31:26,544
+To test whether a generator uses its condition
+hold the noise fixed and change y
+
+436
+00:31:27,495 --> 00:31:30,539
+The requested attribute should change
+appropriately
+
+437
+00:31:31,490 --> 00:31:36,245
+Conditioning improves control but does not
+automatically repair adversarial
+
+438
+00:31:36,259 --> 00:31:37,495
+training instability
+
+439
+00:31:39,752 --> 00:31:43,910
+StackGAN breaks text-to-image generation into
+two stages
+
+440
+00:31:44,852 --> 00:31:48,534
+Encode the text then form a conditioning
+representation
+
+441
+00:31:49,485 --> 00:31:54,363
+Stage One combines that condition with noise to
+create a sixty-four by sixty-four
+
+442
+00:31:54,376 --> 00:31:55,300
+color sketch
+
+443
+00:31:56,238 --> 00:32:00,382
+Stage Two receives the sketch and text
+condition refining them to a
+
+444
+00:32:00,395 --> 00:32:04,132
+two-hundred-and-fifty-six by two-hundred-and-
+fifty-six image
+
+445
+00:32:05,069 --> 00:32:07,542
+Each stage has a conditioned discriminator
+
+446
+00:32:08,480 --> 00:32:12,460
+Growing each side by four multiplies pixel
+count by sixteen
+
+447
+00:32:13,398 --> 00:32:17,800
+For three color channels the displayed counts
+are twelve thousand two hundred
+
+448
+00:32:17,814 --> 00:32:22,651
+eighty-eight values and one hundred ninety-six
+thousand six hundred eight values
+
+449
+00:32:23,588 --> 00:32:28,045
+Conditioning augmentation samples a condition
+near the text embedding using a
+
+450
+00:32:28,058 --> 00:32:30,232
+learned mean and standard deviation
+
+451
+00:32:31,183 --> 00:32:34,757
+It applies K L regularization toward standard
+normal
+
+452
+00:32:35,694 --> 00:32:40,640
+This reuses the same sampling and variance
+conventions we learned with the V A E
+
+453
+00:32:41,591 --> 00:32:46,740
+Stage Two has no separate fresh latent z
+although resampling the conditioning
+
+454
+00:32:46,754 --> 00:32:49,594
+augmentation can still introduce randomness
+
+455
+00:32:50,531 --> 00:32:52,637
+Can you now distinguish the families
+
+456
+00:32:53,575 --> 00:32:56,088
+An autoencoder trains reconstruction
+
+457
+00:32:57,039 --> 00:33:01,795
+A V A E adds a probabilistic latent
+distribution and prior pressure
+
+458
+00:33:02,732 --> 00:33:05,980
+A G A N learns through an adversarial judge
+
+459
+00:33:06,917 --> 00:33:10,694
+Next we need measurements that separate realism
+from coverage
+
+460
+00:33:12,944 --> 00:33:15,227
+We have now built several generators
+
+461
+00:33:16,182 --> 00:33:18,220
+How do we decide whether one is good
+
+462
+00:33:19,158 --> 00:33:24,239
+Imagine a generator producing a beautiful cat
+photograph but producing that same
+
+463
+00:33:24,253 --> 00:33:25,856
+cat every single time
+
+464
+00:33:26,807 --> 00:33:29,158
+Each individual image is convincing
+
+465
+00:33:30,109 --> 00:33:34,131
+The collection is poor because it misses almost
+everything the real data can
+
+466
+00:33:34,144 --> 00:33:34,783
+contain
+
+467
+00:33:35,720 --> 00:33:39,620
+Now imagine a generator producing many
+different noisy blobs
+
+468
+00:33:40,557 --> 00:33:43,139
+There is variation but little realism
+
+469
+00:33:44,076 --> 00:33:48,873
+We need to ask two separate questions are the
+samples plausible and do they cover
+
+470
+00:33:48,886 --> 00:33:49,987
+the possibilities
+
+471
+00:33:50,938 --> 00:33:55,720
+Those questions will keep returning as fidelity
+and coverage or precision and
+
+472
+00:33:55,734 --> 00:33:56,359
+recall
+
+473
+00:33:57,310 --> 00:34:01,970
+Evaluation is particularly important for your
+exam because Quiz One already
+
+474
+00:34:01,984 --> 00:34:04,905
+contained a complete Inception Score
+calculation
+
+475
+00:34:05,843 --> 00:34:10,150
+We will work through that calculation but first
+understand what the score is
+
+476
+00:34:10,163 --> 00:34:11,142
+trying to measure
+
+477
+00:34:12,079 --> 00:34:16,278
+A number only becomes useful when you know
+which failure it can detect and which
+
+478
+00:34:16,291 --> 00:34:17,460
+failure it can hide
+
+479
+00:34:18,397 --> 00:34:21,807
+Keep the repeated cat in mind as our running
+test case
+
+480
+00:34:24,056 --> 00:34:27,344
+Inception Score borrows a fixed image
+classifier
+
+481
+00:34:28,286 --> 00:34:33,137
+For each generated image the classifier gives a
+probability vector over its
+
+482
+00:34:33,150 --> 00:34:33,898
+classes
+
+483
+00:34:34,835 --> 00:34:37,797
+For one image we want a confident prediction
+
+484
+00:34:38,748 --> 00:34:43,395
+For example ninety percent cat and very little
+probability elsewhere
+
+485
+00:34:44,346 --> 00:34:47,525
+That means low uncertainty for the individual
+image
+
+486
+00:34:48,463 --> 00:34:53,599
+Across the whole generated collection however
+we want different classes to appear
+
+487
+00:34:54,550 --> 00:34:58,544
+The average prediction should not concentrate
+entirely on cats
+
+488
+00:34:59,482 --> 00:35:01,398
+Entropy measures uncertainty
+
+489
+00:35:02,349 --> 00:35:07,308
+Its formula is minus the sum of each
+probability times its natural logarithm
+
+490
+00:35:08,259 --> 00:35:10,908
+A concentrated vector has low entropy
+
+491
+00:35:11,860 --> 00:35:14,278
+A uniform vector has high entropy
+
+492
+00:35:15,229 --> 00:35:19,971
+Inception Score rewards high entropy of the
+average prediction and low average
+
+493
+00:35:19,985 --> 00:35:22,172
+entropy of individual predictions
+
+494
+00:35:23,123 --> 00:35:28,055
+That sounds contradictory only until we
+separate the two levels certainty about
+
+495
+00:35:28,069 --> 00:35:30,705
+each image variety across images
+
+496
+00:35:31,642 --> 00:35:35,881
+The marginal distribution is simply the column
+average of the prediction table
+
+497
+00:35:36,819 --> 00:35:38,327
+Calculate that first
+
+498
+00:35:39,264 --> 00:35:44,373
+Then compare each image's vector to this common
+marginal using K L divergence
+
+499
+00:35:45,311 --> 00:35:50,243
+Finally average those divergences across images
+and exponentiate once
+
+500
+00:35:52,496 --> 00:35:55,730
+Look at the handwritten cat dog and bird
+example
+
+501
+00:35:56,685 --> 00:35:59,579
+There are four images and three class columns
+
+502
+00:36:00,517 --> 00:36:05,680
+Average the cat column point nine plus point
+eight plus point one plus point zero
+
+503
+00:36:05,694 --> 00:36:07,664
+five divided by four
+
+504
+00:36:08,615 --> 00:36:10,952
+That gives point four six two five
+
+505
+00:36:11,889 --> 00:36:16,971
+The dog average is point two six two five and
+the bird average is point two seven
+
+506
+00:36:16,984 --> 00:36:17,541
+five
+
+507
+00:36:18,479 --> 00:36:19,946
+Check that they sum to one
+
+508
+00:36:20,897 --> 00:36:22,406
+Now take the first row
+
+509
+00:36:23,343 --> 00:36:28,533
+Its K L divergence is point nine times the log
+of point nine divided by point four
+
+510
+00:36:28,547 --> 00:36:34,090
+six two five plus point zero five times the log
+of point zero five divided by
+
+511
+00:36:34,104 --> 00:36:39,471
+point two six two five plus another point zero
+five times the log of point zero
+
+512
+00:36:39,484 --> 00:36:42,161
+five divided by point two seven five
+
+513
+00:36:43,098 --> 00:36:46,726
+The result is about point four three one zero
+two five
+
+514
+00:36:47,664 --> 00:36:50,041
+You do not divide that row sum by three
+
+515
+00:36:50,993 --> 00:36:54,104
+The class probabilities already provide the
+weights
+
+516
+00:36:55,041 --> 00:36:57,528
+The four row divergences are shown below
+
+517
+00:36:58,479 --> 00:37:02,990
+Average the four row sums to get point five one
+five zero nine one
+
+518
+00:37:03,927 --> 00:37:08,656
+Exponentiating gives an Inception Score of
+about one point six seven four
+
+519
+00:37:09,607 --> 00:37:12,365
+The handwritten page records the whole sequence
+
+520
+00:37:14,624 --> 00:37:18,483
+Now let us solve the actual quiz rather than a
+similar example
+
+521
+00:37:19,438 --> 00:37:24,968
+The three rows are point eight point one five
+point zero five then point zero
+
+522
+00:37:24,982 --> 00:37:30,688
+two point nine five point zero three then point
+one point seven point
+
+523
+00:37:30,702 --> 00:37:31,137
+two
+
+524
+00:37:32,088 --> 00:37:35,213
+Average each class column across the three
+images
+
+525
+00:37:36,150 --> 00:37:41,449
+The marginal becomes approximately point three
+zero six six seven point six
+
+526
+00:37:41,667 --> 00:37:44,044
+and point zero nine three three three
+
+527
+00:37:44,982 --> 00:37:49,751
+For image one use its own probabilities as the
+weights in the log ratios
+
+528
+00:37:50,702 --> 00:37:55,811
+Point eight times log of point eight over point
+three zero six six seven plus
+
+529
+00:37:55,824 --> 00:38:01,436
+point one five times log of point one five over
+point six plus point zero five
+
+530
+00:38:01,449 --> 00:38:05,879
+times log of point zero five over point zero
+nine three three three
+
+531
+00:38:06,830 --> 00:38:10,077
+The row sum is point five two seven nine two
+eight
+
+532
+00:38:11,015 --> 00:38:13,093
+Repeat for images two and three
+
+533
+00:38:14,044 --> 00:38:19,167
+Their divergences are point three four seven
+nine zero six and point one four
+
+534
+00:38:19,180 --> 00:38:20,566
+eight two seven four
+
+535
+00:38:21,517 --> 00:38:26,178
+The mean across the three rows is point three
+four one three six nine five
+
+536
+00:38:27,115 --> 00:38:32,781
+Exponentiate once one point four zero six eight
+seven three or one point four
+
+537
+00:38:32,794 --> 00:38:34,180
+one to two decimals
+
+538
+00:38:35,118 --> 00:38:38,596
+Show every stage that is the reliable exam
+method
+
+539
+00:38:40,856 --> 00:38:43,166
+Here is the most useful sanity check
+
+540
+00:38:44,108 --> 00:38:48,524
+Suppose every generated image has exactly the
+same prediction vector
+
+541
+00:38:49,461 --> 00:38:52,192
+The marginal is then identical to every row
+
+542
+00:38:53,143 --> 00:38:56,295
+Every log ratio is log of one which is zero
+
+543
+00:38:57,233 --> 00:39:02,573
+Every K L divergence is zero and the Inception
+Score is the exponential of zero
+
+544
+00:39:02,817 --> 00:39:03,252
+one
+
+545
+00:39:04,190 --> 00:39:07,912
+This remains true even if the classifier is
+very confident
+
+546
+00:39:08,863 --> 00:39:13,809
+So a collection of only identical confident cat
+predictions does not score highly
+
+547
+00:39:13,823 --> 00:39:14,964
+under this formula
+
+548
+00:39:15,915 --> 00:39:18,157
+But the score has another blind spot
+
+549
+00:39:19,094 --> 00:39:24,475
+A generator can memorize one excellent cat one
+excellent dog and one excellent
+
+550
+00:39:24,488 --> 00:39:26,594
+bird and repeat them in balance
+
+551
+00:39:27,545 --> 00:39:30,997
+Predictions are confident and the marginal
+spans classes
+
+552
+00:39:31,948 --> 00:39:36,608
+The score can be high despite no variation
+within each class and no novelty
+
+553
+00:39:37,559 --> 00:39:41,431
+Inception Score also never looks at your real
+reference images
+
+554
+00:39:42,369 --> 00:39:47,328
+It measures the relationship between generated
+images and classifier labels
+
+555
+00:39:48,279 --> 00:39:53,836
+The entropy derivation says exactly this log
+Inception Score equals entropy of the
+
+556
+00:39:53,850 --> 00:39:56,431
+marginal minus mean conditional entropy
+
+557
+00:39:57,382 --> 00:40:01,785
+When explaining the score distinguish class
+diversity from complete image
+
+558
+00:40:01,798 --> 00:40:06,282
+diversity and never equate a high score with
+proof of generalization
+
+559
+00:40:08,552 --> 00:40:13,770
+Fréchet Inception Distance usually called F I D
+asks a different question
+
+560
+00:40:14,725 --> 00:40:19,127
+We pass both real and generated images through
+a fixed feature extractor
+
+561
+00:40:20,078 --> 00:40:23,217
+Think of each image becoming a point in a
+feature space
+
+562
+00:40:24,155 --> 00:40:27,646
+We summarize each point cloud by its mean and
+covariance
+
+563
+00:40:28,584 --> 00:40:30,948
+The mean tells us where the cloud is centered
+
+564
+00:40:31,886 --> 00:40:36,260
+The covariance tells us its spread and how
+feature coordinates vary together
+
+565
+00:40:37,212 --> 00:40:39,644
+The F I D formula has two parts
+
+566
+00:40:40,581 --> 00:40:43,896
+The first is squared distance between the two
+mean vectors
+
+567
+00:40:44,847 --> 00:40:47,959
+The second compares the two covariance matrices
+
+568
+00:40:48,896 --> 00:40:53,190
+Lower is preferred because we want the
+generated feature cloud to resemble the
+
+569
+00:40:53,203 --> 00:40:54,059
+real cloud
+
+570
+00:40:55,010 --> 00:40:59,508
+This is the opposite direction from Inception
+Score where higher is preferred
+
+571
+00:41:00,445 --> 00:41:03,584
+The lecture gives diagonal covariance matrices
+
+572
+00:41:04,521 --> 00:41:06,926
+That makes the matrix square root simple
+
+573
+00:41:07,864 --> 00:41:10,350
+The diagonal entries are variances
+
+574
+00:41:11,288 --> 00:41:13,937
+Their square roots are standard deviations
+
+575
+00:41:14,875 --> 00:41:16,600
+Do not confuse those two
+
+576
+00:41:17,551 --> 00:41:22,809
+Also covariance is a matrix while a trace is
+one number obtained by adding the
+
+577
+00:41:22,823 --> 00:41:24,779
+matrix's diagonal entries
+
+578
+00:41:25,717 --> 00:41:29,195
+We will now use these meanings to make the
+formula manageable
+
+579
+00:41:31,448 --> 00:41:35,891
+The real mean is one two and the generated mean
+is two three
+
+580
+00:41:36,833 --> 00:41:41,222
+Subtract corresponding coordinates to get minus
+one minus one
+
+581
+00:41:42,173 --> 00:41:45,243
+Square and add the mean contribution is two
+
+582
+00:41:46,181 --> 00:41:49,754
+The real covariance is diagonal with entries
+two and two
+
+583
+00:41:50,705 --> 00:41:54,714
+The generated covariance is diagonal with
+entries three and three
+
+584
+00:41:55,651 --> 00:41:59,958
+Multiplying these matrices gives diagonal
+entries six and six
+
+585
+00:42:00,909 --> 00:42:06,031
+The matrix square root therefore has square
+root of six on both diagonal positions
+
+586
+00:42:06,983 --> 00:42:11,860
+Add the two original covariance matrices then
+subtract twice that root
+
+587
+00:42:12,798 --> 00:42:17,567
+Each diagonal entry becomes five minus two
+times square root of six
+
+588
+00:42:18,504 --> 00:42:19,836
+Now take the trace
+
+589
+00:42:20,773 --> 00:42:25,896
+There are two diagonal entries so their sum is
+ten minus four times square root of
+
+590
+00:42:25,909 --> 00:42:30,148
+six approximately point two zero two zero four
+one
+
+591
+00:42:31,099 --> 00:42:33,097
+Add the mean contribution of two
+
+592
+00:42:34,034 --> 00:42:38,409
+The total F I D is about two point two zero two
+zero four one
+
+593
+00:42:39,347 --> 00:42:42,417
+Most of the discrepancy here is between the
+centers
+
+594
+00:42:43,368 --> 00:42:47,906
+For any diagonal example you can also sum
+squared differences between
+
+595
+00:42:47,920 --> 00:42:50,284
+corresponding standard deviations
+
+596
+00:42:51,235 --> 00:42:55,406
+Zero F I D means matching fitted moments in
+this feature space
+
+597
+00:42:56,358 --> 00:43:00,936
+It does not prove the true distributions are
+identical or that the generator never
+
+598
+00:43:00,950 --> 00:43:02,445
+copied training images
+
+599
+00:43:04,712 --> 00:43:09,413
+One distance cannot tell us whether a generator
+is unrealistic or merely too
+
+600
+00:43:09,427 --> 00:43:09,957
+narrow
+
+601
+00:43:10,899 --> 00:43:15,016
+Generative precision and recall separate these
+cases using neighborhoods in
+
+602
+00:43:15,029 --> 00:43:16,021
+feature space
+
+603
+00:43:16,959 --> 00:43:19,853
+Imagine drawing a ball around every real point
+
+604
+00:43:20,790 --> 00:43:24,418
+Its radius reaches the k-th nearest other real
+point
+
+605
+00:43:25,369 --> 00:43:29,391
+Do the same within the generated set using
+generated neighbors
+
+606
+00:43:30,328 --> 00:43:35,396
+Exclude each point itself otherwise the nearest
+distance would always be zero
+
+607
+00:43:36,347 --> 00:43:41,401
+Precision asks what fraction of generated
+points fall inside the union of real
+
+608
+00:43:41,415 --> 00:43:41,931
+balls
+
+609
+00:43:42,869 --> 00:43:45,287
+Its denominator is the number generated
+
+610
+00:43:46,225 --> 00:43:51,782
+Recall asks what fraction of real points fall
+inside the union of generated balls
+
+611
+00:43:52,719 --> 00:43:54,825
+Its denominator is the number real
+
+612
+00:43:55,763 --> 00:43:59,554
+The same membership operation is used in
+opposite directions
+
+613
+00:44:00,491 --> 00:44:04,839
+High precision with low recall means samples
+tend to be plausible but the
+
+614
+00:44:04,853 --> 00:44:07,570
+generator misses parts of the real distribution
+
+615
+00:44:08,507 --> 00:44:13,440
+Low precision with high recall means broad
+coverage with many implausible outputs
+
+616
+00:44:14,391 --> 00:44:19,690
+These are geometric distribution metrics not
+the confusion-matrix precision and
+
+617
+00:44:19,703 --> 00:44:21,252
+recall from a classifier
+
+618
+00:44:22,190 --> 00:44:24,676
+A query only needs one covering ball
+
+619
+00:44:25,627 --> 00:44:30,328
+Do not assume that checking just the nearest
+center always tests the entire union
+
+620
+00:44:30,342 --> 00:44:31,048
+correctly
+
+621
+00:44:33,320 --> 00:44:38,456
+The handwritten example uses real points zero
+two ten and twelve
+
+622
+00:44:39,398 --> 00:44:43,107
+Generated points are zero one two and three
+
+623
+00:44:44,045 --> 00:44:45,580
+Let k equal one
+
+624
+00:44:46,531 --> 00:44:50,390
+Each real point's nearest other real neighbor
+is two units away
+
+625
+00:44:51,341 --> 00:44:53,624
+All real radii are therefore two
+
+626
+00:44:54,575 --> 00:44:59,928
+Each generated point has another generated
+point one unit away so all generated
+
+627
+00:44:59,942 --> 00:45:01,110
+radii are one
+
+628
+00:45:02,048 --> 00:45:06,803
+The real balls cover an interval from minus two
+to four and another from eight to
+
+629
+00:45:06,817 --> 00:45:07,550
+fourteen
+
+630
+00:45:08,488 --> 00:45:11,327
+Every generated point lies in the first
+interval
+
+631
+00:45:12,278 --> 00:45:14,969
+Precision is four out of four or one
+
+632
+00:45:15,920 --> 00:45:19,398
+The generated balls together cover minus one
+through four
+
+633
+00:45:20,349 --> 00:45:23,243
+Only real points zero and two lie inside
+
+634
+00:45:24,194 --> 00:45:27,251
+Recall is two out of four or point five
+
+635
+00:45:28,189 --> 00:45:33,067
+This is a perfect example of locally convincing
+generation missing an entire real
+
+636
+00:45:33,080 --> 00:45:33,528
+mode
+
+637
+00:45:34,480 --> 00:45:38,882
+The two-dimensional lecture example follows the
+same method and gives precision
+
+638
+00:45:38,895 --> 00:45:41,069
+point eight and recall point six
+
+639
+00:45:42,007 --> 00:45:46,925
+Increasing k enlarges neighborhoods which may
+raise scores without improving the
+
+640
+00:45:46,939 --> 00:45:47,686
+generator
+
+641
+00:45:48,624 --> 00:45:53,230
+Always state the feature space neighborhood
+choice and sample protocol
+
+642
+00:45:54,167 --> 00:45:59,534
+Before we move on ask yourself which
+denominator belongs to precision and which
+
+643
+00:45:59,547 --> 00:46:00,675
+belongs to recall
+
+644
+00:46:02,912 --> 00:46:06,051
+Diffusion gives us a different way to train a
+generator
+
+645
+00:46:06,993 --> 00:46:12,142
+Instead of asking a network to create a complex
+image in one jump we gradually
+
+646
+00:46:12,156 --> 00:46:16,857
+corrupt real images with Gaussian noise and
+train a network to help reverse that
+
+647
+00:46:16,870 --> 00:46:17,563
+corruption
+
+648
+00:46:18,501 --> 00:46:20,457
+The forward process is fixed
+
+649
+00:46:21,395 --> 00:46:23,080
+We choose its noise schedule
+
+650
+00:46:24,017 --> 00:46:25,892
+The reverse process is learned
+
+651
+00:46:26,830 --> 00:46:28,813
+Call the clean image x zero
+
+652
+00:46:29,765 --> 00:46:35,349
+After one corruption step we have x one then x
+two and eventually x capital
+
+653
+00:46:35,362 --> 00:46:40,009
+T which is approximately pure Gaussian noise
+under a suitable schedule
+
+654
+00:46:40,947 --> 00:46:45,539
+During generation we start with random noise
+and repeatedly move toward a cleaner
+
+655
+00:46:45,553 --> 00:46:46,137
+image
+
+656
+00:46:47,074 --> 00:46:51,327
+That is why the architecture diagram has arrows
+in both directions
+
+657
+00:46:52,265 --> 00:46:55,457
+The critical distinction is training versus
+generation
+
+658
+00:46:56,395 --> 00:47:01,735
+In training a clean image is available so we
+can manufacture a noisy input and
+
+659
+00:47:01,748 --> 00:47:03,066
+know the noise target
+
+660
+00:47:04,017 --> 00:47:09,275
+During generation the clean image is exactly
+what we are trying to obtain so it is
+
+661
+00:47:09,289 --> 00:47:10,104
+unavailable
+
+662
+00:47:11,042 --> 00:47:15,444
+The learned network predicts noise from the
+current noisy image and timestep
+
+663
+00:47:16,381 --> 00:47:21,055
+Once that distinction is clear the equations
+become instructions rather than
+
+664
+00:47:21,069 --> 00:47:22,373
+mysterious symbols
+
+665
+00:47:24,632 --> 00:47:27,037
+Focus on a single pixel coordinate
+
+666
+00:47:27,979 --> 00:47:32,205
+Suppose the previous value and a fresh standard
+Gaussian noise draw are
+
+667
+00:47:32,218 --> 00:47:34,677
+independent and both have variance one
+
+668
+00:47:35,615 --> 00:47:41,050
+Make a new value by multiplying the old value
+by a coefficient a and adding noise
+
+669
+00:47:41,063 --> 00:47:43,033
+multiplied by a coefficient b
+
+670
+00:47:43,985 --> 00:47:48,305
+Because scaling a random variable multiplies
+its variance by the square of the
+
+671
+00:47:48,319 --> 00:47:52,218
+coefficient the new variance is a squared plus
+b squared
+
+672
+00:47:53,169 --> 00:47:56,498
+We want to control the variance rather than let
+it explode
+
+673
+00:47:57,436 --> 00:48:00,995
+Define beta as the variance contributed by
+fresh noise
+
+674
+00:48:01,933 --> 00:48:05,696
+Then b squared equals beta so b is square root
+of beta
+
+675
+00:48:06,648 --> 00:48:11,430
+To keep total variance one under our assumption
+a squared must equal one minus
+
+676
+00:48:11,444 --> 00:48:11,906
+beta
+
+677
+00:48:12,857 --> 00:48:15,642
+Therefore a is square root of one minus beta
+
+678
+00:48:16,580 --> 00:48:21,539
+That is the forward diffusion rule attenuated
+signal plus scaled fresh noise
+
+679
+00:48:22,476 --> 00:48:27,422
+The square roots are necessary because beta
+describes variance not amplitude
+
+680
+00:48:28,373 --> 00:48:30,968
+If beta is zero nothing changes
+
+681
+00:48:31,906 --> 00:48:35,465
+If beta is one the old signal disappears
+entirely
+
+682
+00:48:36,403 --> 00:48:41,267
+One caution variance one here refers to the
+marginal assumption over data
+
+683
+00:48:42,218 --> 00:48:47,123
+Conditional on one fixed image the noise
+variance has its own smaller value
+
+684
+00:48:48,061 --> 00:48:50,099
+Do not mix those two statements
+
+685
+00:48:52,352 --> 00:48:57,638
+Use beta equal to point one nine previous pixel
+point eight and a noise draw of
+
+686
+00:48:57,651 --> 00:48:58,059
+one
+
+687
+00:48:59,014 --> 00:49:03,539
+The signal coefficient is square root of point
+eight one which is point nine
+
+688
+00:49:04,476 --> 00:49:09,286
+The noise coefficient is square root of point
+one nine approximately point four
+
+689
+00:49:09,300 --> 00:49:10,631
+three five eight nine
+
+690
+00:49:11,569 --> 00:49:15,142
+Multiply point nine by point eight to get point
+seven two
+
+691
+00:49:16,093 --> 00:49:19,028
+Add point four three five eight nine times one
+
+692
+00:49:19,965 --> 00:49:23,675
+The new noisy value is one point one five five
+eight nine
+
+693
+00:49:24,612 --> 00:49:29,368
+You might worry that the original pixel was
+scaled between minus one and one but
+
+694
+00:49:29,381 --> 00:49:31,243
+the noisy result exceeds one
+
+695
+00:49:32,194 --> 00:49:33,253
+That is allowed
+
+696
+00:49:34,191 --> 00:49:38,715
+Gaussian corruption is not restricted to the
+clean image's original range
+
+697
+00:49:39,666 --> 00:49:43,729
+Do not silently clip it unless the problem
+specifically tells you to
+
+698
+00:49:44,680 --> 00:49:49,354
+The conditional distribution of this step has
+mean point seven two and variance
+
+699
+00:49:49,368 --> 00:49:50,373
+point one nine
+
+700
+00:49:51,310 --> 00:49:56,283
+That gives you both ways to describe the same
+operation a sampling equation for a
+
+701
+00:49:56,297 --> 00:50:01,365
+particular noise draw or a Gaussian
+distribution for all possible draws
+
+702
+00:50:02,302 --> 00:50:07,262
+Keep those two descriptions connected many
+diffusion questions switch between them
+
+703
+00:50:09,512 --> 00:50:12,053
+We introduce alpha to shorten the notation
+
+704
+00:50:12,995 --> 00:50:16,990
+Alpha at timestep t is one minus beta at
+timestep t
+
+705
+00:50:17,941 --> 00:50:20,631
+It is the signal variance share for that step
+
+706
+00:50:21,568 --> 00:50:25,536
+Alpha bar is the product of all alphas from the
+first step through the current
+
+707
+00:50:25,549 --> 00:50:26,079
+step
+
+708
+00:50:27,017 --> 00:50:29,992
+The bar means cumulative not an average
+
+709
+00:50:30,930 --> 00:50:31,976
+Why a product
+
+710
+00:50:32,913 --> 00:50:37,411
+At each step signal amplitude is multiplied by
+square root of alpha
+
+711
+00:50:38,348 --> 00:50:41,269
+After two steps those coefficients multiply
+
+712
+00:50:42,220 --> 00:50:45,889
+Their product is square root of alpha one times
+alpha two
+
+713
+00:50:46,840 --> 00:50:50,984
+After many steps the signal coefficient is
+square root of alpha bar
+
+714
+00:50:51,935 --> 00:50:57,071
+In the handwritten example beta one is point
+one nine and beta two is point three
+
+715
+00:50:57,085 --> 00:50:57,682
+six
+
+716
+00:50:58,620 --> 00:51:04,204
+So alpha one is point eight one alpha two is
+point six four and alpha bar two
+
+717
+00:51:04,218 --> 00:51:06,025
+is point five one eight four
+
+718
+00:51:06,976 --> 00:51:09,231
+Its square root is point seven two
+
+719
+00:51:10,169 --> 00:51:13,837
+That is how much the clean signal is scaled
+after both steps
+
+720
+00:51:14,775 --> 00:51:20,617
+Say the distinctions aloud beta is newly added
+noise variance alpha is one-step
+
+721
+00:51:20,631 --> 00:51:25,481
+retained signal share and alpha bar is
+cumulative retained signal share
+
+722
+00:51:26,432 --> 00:51:31,011
+Confusing alpha with alpha bar is one of the
+easiest ways to get an otherwise
+
+723
+00:51:31,025 --> 00:51:32,628
+sensible numerical wrong
+
+724
+00:51:34,904 --> 00:51:39,048
+Let us expand two steps so you can see where
+the closed form comes from
+
+725
+00:51:40,004 --> 00:51:45,520
+First write x two as square root of alpha two
+times x one plus square root of
+
+726
+00:51:45,534 --> 00:51:47,572
+beta two times the second noise
+
+727
+00:51:48,509 --> 00:51:52,368
+Then replace x one with its own signal-plus-
+noise expression
+
+728
+00:51:53,319 --> 00:51:58,265
+The clean signal coefficient becomes square
+root of alpha one times alpha two
+
+729
+00:51:59,216 --> 00:52:01,077
+There are now two noise terms
+
+730
+00:52:02,015 --> 00:52:06,064
+Their variances add because their fresh noise
+draws are independent
+
+731
+00:52:07,001 --> 00:52:10,520
+The first noise has variance alpha two times
+beta one
+
+732
+00:52:11,458 --> 00:52:13,645
+The second has variance beta two
+
+733
+00:52:14,596 --> 00:52:19,175
+Add them substitute beta equals one minus alpha
+and simplify
+
+734
+00:52:20,126 --> 00:52:23,645
+The result is one minus alpha one times alpha
+two
+
+735
+00:52:24,596 --> 00:52:29,909
+A sum of independent Gaussian terms is Gaussian
+so these terms can be represented
+
+736
+00:52:29,922 --> 00:52:34,909
+by one standard Gaussian draw multiplied by
+square root of that total variance
+
+737
+00:52:35,860 --> 00:52:40,901
+Repeating the argument gives the general rule :
+x at timestep t equals square root
+
+738
+00:52:40,914 --> 00:52:46,430
+of alpha bar times the clean image plus square
+root of one minus alpha bar times
+
+739
+00:52:46,444 --> 00:52:47,463
+aggregate noise
+
+740
+00:52:48,401 --> 00:52:53,903
+This lets training sample any noisy timestep
+directly without actually simulating
+
+741
+00:52:53,917 --> 00:52:55,276
+every earlier step
+
+742
+00:52:56,213 --> 00:53:01,159
+It is a forward noising shortcut not a claim
+that image generation takes one
+
+743
+00:53:01,172 --> 00:53:02,083
+reverse step
+
+744
+00:53:04,328 --> 00:53:08,500
+There is an important difference between
+getting the same distribution and getting
+
+745
+00:53:08,513 --> 00:53:10,130
+exactly the same sample
+
+746
+00:53:11,085 --> 00:53:16,085
+The handwritten sequential example starts from
+point eight with beta values point
+
+747
+00:53:16,099 --> 00:53:18,096
+one nine and point three six
+
+748
+00:53:19,047 --> 00:53:24,265
+Using first-step noise one and second-step
+noise minus point five gives x one
+
+749
+00:53:24,278 --> 00:53:29,740
+about one point one five five eight nine and x
+two about point six two four seven
+
+750
+00:53:29,754 --> 00:53:30,447
+one two
+
+751
+00:53:31,398 --> 00:53:36,439
+If you now use minus point five as the
+aggregate noise in the one-shot formula you
+
+752
+00:53:36,452 --> 00:53:40,691
+will get a different number about point two two
+nine zero one three
+
+753
+00:53:41,642 --> 00:53:44,971
+Nothing is wrong you changed the overall noise
+draw
+
+754
+00:53:45,922 --> 00:53:49,713
+The last incremental noise is not the aggregate
+of both steps
+
+755
+00:53:50,651 --> 00:53:55,243
+To reproduce the exact sequential sample
+combine the two scaled noise
+
+756
+00:53:55,257 --> 00:53:59,441
+contributions and divide by square root of the
+total noise variance
+
+757
+00:54:00,379 --> 00:54:05,569
+Here the equivalent aggregate draw is about
+point zero seven zero one nine three
+
+758
+00:54:06,520 --> 00:54:11,153
+Put that into the one-shot formula and you
+recover point six two four seven one
+
+759
+00:54:11,167 --> 00:54:11,615
+two
+
+760
+00:54:12,553 --> 00:54:17,865
+For the exam use the noise the question
+actually supplies and label whether it is
+
+761
+00:54:17,879 --> 00:54:20,026
+a step noise or aggregate noise
+
+762
+00:54:20,977 --> 00:54:25,800
+Matching the distribution does not mean
+arbitrary draws must match numerically
+
+763
+00:54:28,064 --> 00:54:31,393
+A noise schedule specifies beta at each
+timestep
+
+764
+00:54:32,349 --> 00:54:37,186
+A linear schedule makes beta increase evenly
+from a small starting value to an
+
+765
+00:54:37,199 --> 00:54:38,137
+ending value
+
+766
+00:54:39,088 --> 00:54:44,006
+The retained signal does not decrease linearly
+because alpha bar is a product of
+
+767
+00:54:44,020 --> 00:54:45,542
+one minus those betas
+
+768
+00:54:46,479 --> 00:54:51,887
+The small example on the left uses betas point
+one point two and point three
+
+769
+00:54:52,838 --> 00:54:56,194
+Alphas are point nine point eight and point
+seven
+
+770
+00:54:57,145 --> 00:55:02,444
+Cumulative alphas are point nine point seven
+two and point five zero four
+
+771
+00:55:03,395 --> 00:55:08,422
+The final signal amplitude is square root of
+point five zero four about point
+
+772
+00:55:08,436 --> 00:55:09,224
+seven one
+
+773
+00:55:10,161 --> 00:55:15,324
+A cosine schedule takes another approach choose
+a smooth cumulative signal curve
+
+774
+00:55:15,338 --> 00:55:20,514
+first then derive the betas from ratios between
+successive cumulative values
+
+775
+00:55:21,465 --> 00:55:26,968
+Normalize the cosine curve by its initial value
+so alpha bar at zero is exactly
+
+776
+00:55:26,982 --> 00:55:27,417
+one
+
+777
+00:55:28,354 --> 00:55:31,520
+A cap prevents a beta from becoming exactly one
+
+778
+00:55:32,457 --> 00:55:36,520
+You mainly need to know what is being scheduled
+and why the two curves differ
+
+779
+00:55:37,471 --> 00:55:42,362
+In the lecture comparison cosine retains useful
+signal longer than the chosen
+
+780
+00:55:42,376 --> 00:55:43,368
+linear schedule
+
+781
+00:55:44,305 --> 00:55:49,332
+Square root of alpha bar is a coefficient not
+literally a percentage of pixels
+
+782
+00:55:49,346 --> 00:55:50,800
+surviving unchanged
+
+783
+00:55:51,751 --> 00:55:55,474
+Use the stated schedule consistently throughout
+a calculation
+
+784
+00:55:57,728 --> 00:56:00,690
+Now use the actual two-by-two lecture image
+
+785
+00:56:01,632 --> 00:56:06,890
+Its clean values are point eight and minus
+point six on the top row point four and
+
+786
+00:56:06,904 --> 00:56:08,168
+one on the bottom row
+
+787
+00:56:09,105 --> 00:56:14,132
+The supplied aggregate noise is one and minus
+point five on top point five and
+
+788
+00:56:14,146 --> 00:56:15,369
+minus one below
+
+789
+00:56:16,320 --> 00:56:20,926
+The three betas are point one nine point three
+six and point five one
+
+790
+00:56:21,877 --> 00:56:27,298
+Subtract each beta from one to obtain alphas
+point eight one point six four and
+
+791
+00:56:27,312 --> 00:56:28,331
+point four nine
+
+792
+00:56:29,268 --> 00:56:31,021
+Multiply cumulatively
+
+793
+00:56:31,972 --> 00:56:36,564
+At step three alpha bar is point two five four
+zero one six
+
+794
+00:56:37,502 --> 00:56:40,138
+Its square root is point five zero four
+
+795
+00:56:41,089 --> 00:56:46,564
+The noise coefficient square root of one minus
+alpha bar is about point eight six
+
+796
+00:56:46,578 --> 00:56:48,086
+three seven zero four
+
+797
+00:56:49,037 --> 00:56:52,407
+The same two coefficients apply to every matrix
+entry
+
+798
+00:56:53,344 --> 00:56:56,021
+We are not doing matrix multiplication here
+
+799
+00:56:56,972 --> 00:57:01,931
+We scale the clean matrix and the noise matrix
+element by element then add them
+
+800
+00:57:02,869 --> 00:57:06,211
+First build the schedule table then apply the
+formula
+
+801
+00:57:07,162 --> 00:57:12,121
+That separation avoids repeatedly calculating
+coefficients and makes your written
+
+802
+00:57:12,135 --> 00:57:13,684
+answer easier to follow
+
+803
+00:57:15,944 --> 00:57:21,719
+For the top-left entry multiply point five zero
+four by point eight then add point
+
+804
+00:57:21,732 --> 00:57:24,558
+eight six three seven zero four times one
+
+805
+00:57:25,514 --> 00:57:29,155
+The answer is one point two six six nine zero
+four
+
+806
+00:57:30,106 --> 00:57:35,677
+For top-right multiply point five zero four by
+minus point six then add the
+
+807
+00:57:35,691 --> 00:57:38,544
+noise coefficient times minus point five
+
+808
+00:57:39,481 --> 00:57:43,191
+The answer is minus point seven three four two
+five two
+
+809
+00:57:44,128 --> 00:57:49,345
+Bottom-left is point five zero four times point
+four plus the noise coefficient
+
+810
+00:57:49,359 --> 00:57:50,595
+times point five
+
+811
+00:57:51,547 --> 00:57:54,563
+That gives point six three three four five two
+
+812
+00:57:55,500 --> 00:58:00,786
+Bottom-right is point five zero four times one
+plus the noise coefficient times
+
+813
+00:58:00,799 --> 00:58:01,655
+minus one
+
+814
+00:58:02,606 --> 00:58:06,288
+That gives minus point three five nine seven
+zero four
+
+815
+00:58:07,226 --> 00:58:11,044
+Check the displayed final matrix against these
+four operations
+
+816
+00:58:11,981 --> 00:58:16,601
+If your values differ slightly because you
+rounded the noise coefficient explain
+
+817
+00:58:16,614 --> 00:58:17,430
+your precision
+
+818
+00:58:18,381 --> 00:58:23,313
+Keep alpha bar at point two five four zero one
+six until the final rounding
+
+819
+00:58:24,264 --> 00:58:29,699
+And remember this question supplies one
+aggregate noise matrix so you do not need
+
+820
+00:58:29,712 --> 00:58:34,386
+the separate incremental noise matrices to
+compute x three by the closed form
+
+821
+00:58:36,632 --> 00:58:40,423
+We can now explain diffusion training without
+any missing pieces
+
+822
+00:58:41,365 --> 00:58:43,254
+Sample a clean training image
+
+823
+00:58:44,191 --> 00:58:46,066
+Sample a random timestep
+
+824
+00:58:47,004 --> 00:58:49,150
+Sample standard Gaussian noise
+
+825
+00:58:50,088 --> 00:58:54,354
+Use the closed-form equation to build the noisy
+image at that timestep
+
+826
+00:58:55,292 --> 00:58:59,069
+Feed the noisy image and the timestep into one
+neural network
+
+827
+00:59:00,006 --> 00:59:04,191
+Its target is the exact aggregate noise you
+used to corrupt the image
+
+828
+00:59:05,129 --> 00:59:09,327
+The timestep is essential because the network
+must know which noise level it is
+
+829
+00:59:09,340 --> 00:59:10,074
+looking at
+
+830
+00:59:11,012 --> 00:59:15,944
+A common architecture is a U-Net downsampling
+extracts broader structure
+
+831
+00:59:16,283 --> 00:59:21,283
+upsampling reconstructs spatial detail and skip
+connections preserve useful
+
+832
+00:59:21,297 --> 00:59:22,588
+spatial information
+
+833
+00:59:23,539 --> 00:59:25,835
+Time embeddings condition its blocks
+
+834
+00:59:26,773 --> 00:59:29,870
+The output has the same shape as the noise
+target
+
+835
+00:59:30,821 --> 00:59:35,400
+The simplified loss is squared prediction error
+between true noise and predicted
+
+836
+00:59:35,414 --> 00:59:35,985
+noise
+
+837
+00:59:36,936 --> 00:59:41,542
+We sample timesteps randomly to estimate the
+training objective across noise
+
+838
+00:59:41,555 --> 00:59:42,656
+levels efficiently
+
+839
+00:59:43,607 --> 00:59:48,566
+We are not asking the network to memorize the
+chronological order of a particular
+
+840
+00:59:48,580 --> 00:59:49,925
+corruption trajectory
+
+841
+00:59:50,862 --> 00:59:55,006
+We also do not run the entire reverse chain for
+every training image
+
+842
+00:59:55,944 --> 01:00:01,243
+At inference by contrast there is no clean
+training image and no known true noise
+
+843
+01:00:01,256 --> 01:00:01,895
+target
+
+844
+01:00:02,846 --> 01:00:07,167
+We repeatedly use the trained predictor to
+guide reverse transitions from an
+
+845
+01:00:07,180 --> 01:00:08,512
+initial noise sample
+
+846
+01:00:10,760 --> 01:00:15,339
+The handwritten loss example makes this look
+like an ordinary regression problem
+
+847
+01:00:16,281 --> 01:00:19,610
+The true noise vector is one minus point five
+
+848
+01:00:20,547 --> 01:00:23,781
+The network predicts point eight minus point
+two
+
+849
+01:00:24,718 --> 01:00:29,746
+Subtract true values from predictions minus
+point two and plus point three
+
+850
+01:00:30,697 --> 01:00:34,107
+Square them point zero four and point zero nine
+
+851
+01:00:35,045 --> 01:00:38,645
+Mean over the two coordinates gives point zero
+six five
+
+852
+01:00:39,583 --> 01:00:43,835
+For this mean squared error the derivative with
+respect to each predicted
+
+853
+01:00:43,849 --> 01:00:46,661
+coordinate is twice the error divided by two
+
+854
+01:00:47,599 --> 01:00:51,797
+So the prediction gradient is minus point two
+plus point three
+
+855
+01:00:52,748 --> 01:00:56,947
+The negative sign in the first coordinate means
+gradient descent should raise that
+
+856
+01:00:56,960 --> 01:00:58,686
+predicted value toward one
+
+857
+01:00:59,623 --> 01:01:03,958
+The positive sign in the second means it should
+lower that prediction toward minus
+
+858
+01:01:03,971 --> 01:01:04,854
+point five
+
+859
+01:01:05,792 --> 01:01:11,308
+To isolate a single weight suppose the first
+prediction is w times a noisy input
+
+860
+01:01:11,322 --> 01:01:15,017
+of point five with w equal to one point six
+
+861
+01:01:15,968 --> 01:01:21,349
+Chain rule multiplies the incoming gradient
+minus point two by point five
+
+862
+01:01:22,286 --> 01:01:24,583
+The weight gradient is minus point one
+
+863
+01:01:25,534 --> 01:01:29,800
+With learning rate point one the new weight
+becomes one point six one
+
+864
+01:01:30,751 --> 01:01:34,447
+The real U-Net repeats this chain-rule idea
+through many layers
+
+865
+01:01:36,704 --> 01:01:41,650
+You may also be asked why a probabilistic model
+ends up using squared noise error
+
+866
+01:01:42,592 --> 01:01:43,774
+Here is the bridge
+
+867
+01:01:44,711 --> 01:01:49,711
+Direct image likelihood is difficult so
+diffusion training uses a variational
+
+868
+01:01:49,725 --> 01:01:50,282
+bound
+
+869
+01:01:51,220 --> 01:01:55,853
+That bound contains a terminal distribution
+comparison reverse posterior
+
+870
+01:01:55,866 --> 01:02:00,133
+comparisons and a reconstruction term at the
+final clean-data step
+
+871
+01:02:01,070 --> 01:02:06,192
+For two Gaussians with the same covariance K L
+divergence reduces to squared
+
+872
+01:02:06,206 --> 01:02:11,328
+distance between their means divided by twice
+the variance in the isotropic case
+
+873
+01:02:12,266 --> 01:02:17,211
+In the handwritten scalar example the means are
+point five and point three and
+
+874
+01:02:17,225 --> 01:02:18,747
+variance is point two
+
+875
+01:02:19,698 --> 01:02:22,347
+Square their difference to get point zero four
+
+876
+01:02:23,298 --> 01:02:26,478
+Divide by point four to get a K L of point one
+
+877
+01:02:27,415 --> 01:02:30,730
+The reverse mean can be expressed using
+predicted noise
+
+878
+01:02:31,668 --> 01:02:36,559
+Substitute that parameterization into the
+Gaussian mean error and you obtain a
+
+879
+01:02:36,573 --> 01:02:40,078
+timestep-dependent weight times squared noise-
+prediction error
+
+880
+01:02:41,016 --> 01:02:45,527
+The commonly used simplified objective drops
+that weight and trains on unweighted
+
+881
+01:02:45,540 --> 01:02:46,315
+noise error
+
+882
+01:02:47,252 --> 01:02:52,456
+Be precise about the last step a weight can be
+independent of model parameters yet
+
+883
+01:02:52,470 --> 01:02:55,241
+still change how different timesteps contribute
+
+884
+01:02:56,179 --> 01:03:00,989
+Removing it intentionally changes the weighting
+it is not an algebraic statement
+
+885
+01:03:01,002 --> 01:03:04,249
+that the original and simplified objectives are
+identical
+
+886
+01:03:05,187 --> 01:03:09,657
+Understand the connection even if you do not
+reproduce the complete variational
+
+887
+01:03:09,671 --> 01:03:10,499
+derivation
+
+888
+01:03:12,752 --> 01:03:15,660
+How can predicted noise tell us where to go
+backward
+
+889
+01:03:16,602 --> 01:03:19,061
+Start with the one-shot forward equation
+
+890
+01:03:20,012 --> 01:03:24,537
+It says the current noisy image is scaled clean
+image plus scaled noise
+
+891
+01:03:25,474 --> 01:03:29,903
+If we knew the noise we could subtract its
+contribution and divide by the
+
+892
+01:03:29,917 --> 01:03:33,273
+clean-signal coefficient to recover the
+original image
+
+893
+01:03:34,210 --> 01:03:38,830
+We do not know the true noise at inference so
+substitute the network's predicted
+
+894
+01:03:38,844 --> 01:03:39,414
+noise
+
+895
+01:03:40,352 --> 01:03:44,414
+This gives an estimated clean image called x
+zero hat
+
+896
+01:03:45,365 --> 01:03:49,020
+It is an estimate not access to the real clean
+target
+
+897
+01:03:49,971 --> 01:03:54,550
+The true reverse posterior is especially
+convenient when both the current noisy
+
+898
+01:03:54,564 --> 01:03:59,292
+image and the clean image are known it is
+Gaussian with a mean that combines those
+
+899
+01:03:59,306 --> 01:04:00,297
+two images
+
+900
+01:04:01,235 --> 01:04:05,624
+The handwritten page calls the clean-image
+coefficient A and the current-image
+
+901
+01:04:05,637 --> 01:04:06,697
+coefficient B
+
+902
+01:04:07,648 --> 01:04:12,539
+At generation time replace the unavailable
+clean image with x zero hat
+
+903
+01:04:13,490 --> 01:04:18,219
+Now the reverse mean is entirely expressed in
+terms of the noisy image the
+
+904
+01:04:18,232 --> 01:04:21,792
+schedule and predicted noise all of which are
+available
+
+905
+01:04:22,730 --> 01:04:26,181
+This is the conceptual reason the reverse step
+is possible
+
+906
+01:04:27,118 --> 01:04:31,738
+Predicting noise is useful because it supplies
+a clean-image estimate implicitly
+
+907
+01:04:32,105 --> 01:04:35,379
+and that estimate guides the reverse Gaussian
+transition
+
+908
+01:04:37,640 --> 01:04:42,518
+Look at the two coefficients after substituting
+the clean estimate into A times x
+
+909
+01:04:42,532 --> 01:04:44,638
+zero plus B times x t
+
+910
+01:04:45,593 --> 01:04:49,411
+The current image appears twice so collect its
+coefficients
+
+911
+01:04:50,348 --> 01:04:55,620
+Predicted noise appears once with a minus sign
+so keep its coefficient separately
+
+912
+01:04:56,571 --> 01:05:02,223
+Use the identity alpha bar t equals alpha t
+times alpha bar at the previous step
+
+913
+01:05:03,161 --> 01:05:06,544
+Also use beta t equals one minus alpha t
+
+914
+01:05:07,495 --> 01:05:12,509
+With a common denominator the current-image
+numerator simplifies to one minus
+
+915
+01:05:12,522 --> 01:05:13,677
+alpha bar t
+
+916
+01:05:14,628 --> 01:05:19,601
+It cancels the same factor below leaving one
+over square root of alpha t
+
+917
+01:05:20,552 --> 01:05:25,294
+The predicted-noise coefficient simplifies to
+beta t divided by the product of
+
+918
+01:05:25,308 --> 01:05:30,838
+square root of alpha t and square root of one
+minus alpha bar t Factor out one
+
+919
+01:05:30,851 --> 01:05:36,626
+over square root of alpha t Inside the brackets
+you now have x t minus beta t
+
+920
+01:05:36,639 --> 01:05:41,734
+over square root of one minus alpha bar t
+multiplied by predicted noise
+
+921
+01:05:42,672 --> 01:05:45,824
+That is the standard noise-based reverse-mean
+formula
+
+922
+01:05:46,762 --> 01:05:51,952
+This derivation explains why true x zero
+disappears from the sampling equation
+
+923
+01:05:52,889 --> 01:05:58,664
+In an exam define A and B substitute x zero hat
+collect the two terms
+
+924
+01:05:58,854 --> 01:06:00,484
+and show these identities
+
+925
+01:06:01,422 --> 01:06:04,791
+Do not claim the clean image was given during
+generation
+
+926
+01:06:07,064 --> 01:06:11,358
+Now calculate an entire reverse step using the
+handwritten values
+
+927
+01:06:12,300 --> 01:06:17,965
+Beta is point three six alpha is point six four
+cumulative alpha is point
+
+928
+01:06:17,979 --> 01:06:22,667
+five one eight four and previous cumulative
+alpha is point eight one
+
+929
+01:06:23,618 --> 01:06:27,612
+The current sample is point five and predicted
+noise is point two
+
+930
+01:06:28,563 --> 01:06:30,792
+Square root of alpha is point eight
+
+931
+01:06:31,743 --> 01:06:36,783
+Square root of one minus cumulative alpha is
+square root of point four eight one
+
+932
+01:06:36,797 --> 01:06:37,395
+six
+
+933
+01:06:38,332 --> 01:06:42,979
+In the reverse-mean formula subtract point
+three six divided by that noise
+
+934
+01:06:42,993 --> 01:06:46,335
+coefficient times point two from point five
+
+935
+01:06:47,272 --> 01:06:48,984
+Then divide by point eight
+
+936
+01:06:49,922 --> 01:06:53,781
+The mean is approximately point four nine five
+three one two
+
+937
+01:06:54,718 --> 01:06:59,365
+That is the center of the next reverse
+distribution but we still need to sample
+
+938
+01:07:00,316 --> 01:07:03,088
+This example chooses posterior variance
+
+939
+01:07:04,025 --> 01:07:09,487
+Multiply point three six by one minus point
+eight one then divide by one minus
+
+940
+01:07:09,501 --> 01:07:11,226
+point five one eight four
+
+941
+01:07:12,177 --> 01:07:15,656
+Variance is about point one four two zero two
+seven
+
+942
+01:07:16,593 --> 01:07:22,028
+Its square root the standard deviation is point
+three seven six eight six four
+
+943
+01:07:22,979 --> 01:07:27,979
+With a fresh Gaussian draw of point three add
+standard deviation times that draw
+
+944
+01:07:27,993 --> 01:07:28,686
+to the mean
+
+945
+01:07:29,623 --> 01:07:34,080
+The next sample is approximately point six zero
+eight three seven one
+
+946
+01:07:35,017 --> 01:07:38,794
+Multiply noise by standard deviation not
+variance
+
+947
+01:07:39,745 --> 01:07:42,653
+At the final step omit the added-noise term
+
+948
+01:07:44,912 --> 01:07:47,046
+Put the reverse operation in a loop
+
+949
+01:07:47,987 --> 01:07:50,392
+Start from a standard Gaussian image
+
+950
+01:07:51,330 --> 01:07:56,805
+At each descending timestep predict noise
+compute the reverse mean and add the
+
+951
+01:07:56,819 --> 01:08:00,460
+specified sampling noise when the timestep is
+greater than one
+
+952
+01:08:01,398 --> 01:08:05,324
+Reuse the same trained network with a new
+timestep input
+
+953
+01:08:06,275 --> 01:08:11,357
+The final step outputs the mean without a fresh
+noise term in this basic D D P M
+
+954
+01:08:11,370 --> 01:08:12,118
+algorithm
+
+955
+01:08:13,069 --> 01:08:18,259
+Training samples random timesteps generation
+walks backward through a sequence
+
+956
+01:08:19,210 --> 01:08:24,074
+Forward one-shot noising makes training
+efficient it does not eliminate iterative
+
+957
+01:08:24,088 --> 01:08:25,161
+reverse sampling
+
+958
+01:08:26,112 --> 01:08:29,862
+The random reverse term models uncertainty in
+the transition
+
+959
+01:08:30,800 --> 01:08:34,142
+It does not by itself prove the model cannot
+memorize
+
+960
+01:08:35,080 --> 01:08:40,093
+Other diffusion samplers can be deterministic
+so do not turn a property of this
+
+961
+01:08:40,107 --> 01:08:42,919
+particular algorithm into a universal rule
+
+962
+01:08:43,857 --> 01:08:45,460
+Compare the families now
+
+963
+01:08:46,398 --> 01:08:49,197
+An autoencoder reconstructs through a code
+
+964
+01:08:50,134 --> 01:08:54,591
+A variational autoencoder regularizes a
+distribution over codes
+
+965
+01:08:55,528 --> 01:09:01,547
+A G A N learns using an adversarial judge and
+often samples in one generator pass
+
+966
+01:09:02,498 --> 01:09:07,417
+Basic diffusion samples with repeated denoiser
+calls so inference is usually
+
+967
+01:09:07,430 --> 01:09:07,987
+slower
+
+968
+01:09:08,925 --> 01:09:13,273
+Each family gives us a different training
+signal for learning to generate data
+
+969
+01:09:15,536 --> 01:09:17,751
+Our last topic is Transformers
+
+970
+01:09:18,693 --> 01:09:23,421
+The generative task is now often a sequence
+predict the next token given the
+
+971
+01:09:23,435 --> 01:09:26,478
+available context append it and repeat
+
+972
+01:09:27,416 --> 01:09:29,916
+A token may be a word or part of a word
+
+973
+01:09:30,853 --> 01:09:33,706
+Its integer I D is only a lookup index
+
+974
+01:09:34,644 --> 01:09:39,019
+Token number six thousand is not numerically
+more meaningful than token number
+
+975
+01:09:39,033 --> 01:09:39,590
+five
+
+976
+01:09:40,527 --> 01:09:44,155
+An embedding table maps each token I D to a
+learned vector
+
+977
+01:09:45,106 --> 01:09:49,372
+The same token initially gets the same lookup
+vector wherever it appears
+
+978
+01:09:50,323 --> 01:09:55,622
+Contextual processing then changes its
+representation based on surrounding tokens
+
+979
+01:09:56,573 --> 01:10:01,302
+Position information must also be provided
+because attention without position
+
+980
+01:10:01,315 --> 01:10:04,780
+information does not by itself encode the
+sequence order
+
+981
+01:10:05,717 --> 01:10:09,196
+The original Transformer has an encoder and a
+decoder
+
+982
+01:10:10,133 --> 01:10:12,674
+The encoder represents a source sentence
+
+983
+01:10:13,611 --> 01:10:18,584
+The decoder generates a target sentence
+attending to its available prefix and the
+
+984
+01:10:18,598 --> 01:10:19,739
+encoded source
+
+985
+01:10:20,677 --> 01:10:25,772
+Some other Transformer systems use only one
+side but we will follow your lecture's
+
+986
+01:10:25,785 --> 01:10:27,266
+encoder-decoder design
+
+987
+01:10:28,204 --> 01:10:32,701
+Attention makes information from different
+token positions directly available
+
+988
+01:10:33,652 --> 01:10:38,217
+It addresses the difficulty recurrent networks
+have with sequential processing and
+
+989
+01:10:38,231 --> 01:10:39,888
+long-range dependencies
+
+990
+01:10:40,826 --> 01:10:45,514
+We will first understand one attention
+calculation then place it inside the
+
+991
+01:10:45,527 --> 01:10:46,859
+complete architecture
+
+992
+01:10:49,112 --> 01:10:54,506
+For each token learned linear projections
+produce a query a key and a value
+
+993
+01:10:55,462 --> 01:10:57,772
+A helpful analogy is a search system
+
+994
+01:10:58,723 --> 01:11:01,916
+The query describes what the current token is
+looking for
+
+995
+01:11:02,867 --> 01:11:05,448
+Keys describe what each token can match
+
+996
+01:11:06,386 --> 01:11:10,299
+Values contain the information that will be
+mixed into the output
+
+997
+01:11:11,236 --> 01:11:14,986
+The analogy is only a guide all three are
+learned vectors
+
+998
+01:11:15,924 --> 01:11:18,043
+We use row vectors consistently
+
+999
+01:11:18,994 --> 01:11:24,755
+Multiply the embedding matrix X by W Q to
+obtain queries by W K
+
+1000
+01:11:24,769 --> 01:11:28,818
+to obtain keys and by W V to obtain values
+
+1001
+01:11:29,755 --> 01:11:32,337
+For one query dot it with every key
+
+1002
+01:11:33,288 --> 01:11:38,519
+A dot product multiplies corresponding
+coordinates and adds them producing one
+
+1003
+01:11:38,532 --> 01:11:40,054
+relevance score per key
+
+1004
+01:11:41,005 --> 01:11:44,117
+Divide the scores by square root of the key
+dimension
+
+1005
+01:11:45,054 --> 01:11:49,755
+This controls the scale that otherwise grows
+with dimension and can make softmax
+
+1006
+01:11:49,769 --> 01:11:50,992
+too concentrated
+
+1007
+01:11:51,929 --> 01:11:57,568
+Apply softmax across keys exponentiate and
+normalize to get weights summing to one
+
+1008
+01:11:58,519 --> 01:12:01,263
+Finally take a weighted sum of value vectors
+
+1009
+01:12:02,214 --> 01:12:05,000
+The attention output is a contextual vector
+
+1010
+01:12:05,937 --> 01:12:10,951
+It is not yet a vocabulary probability and not
+necessarily a selected word
+
+1011
+01:12:11,888 --> 01:12:17,473
+Keep the five operations in order project score
+scale normalize mix
+
+1012
+01:12:17,486 --> 01:12:18,234
+values
+
+1013
+01:12:20,504 --> 01:12:23,752
+Your lecture sentence is smart robot quickly
+
+1014
+01:12:24,693 --> 01:12:27,914
+We need the encoder self-attention output for
+robot
+
+1015
+01:12:28,851 --> 01:12:32,302
+Robot's embedding is one point five point five
+
+1016
+01:12:33,240 --> 01:12:36,813
+Multiply this row by the query matrix shown on
+screen
+
+1017
+01:12:37,751 --> 01:12:42,954
+The first query coordinate is one point five
+times zero plus point five times two
+
+1018
+01:12:42,968 --> 01:12:45,780
+point five which is one point two five
+
+1019
+01:12:46,718 --> 01:12:52,207
+The second is one point five times point seven
+plus point five times one point six
+
+1020
+01:12:52,520 --> 01:12:54,177
+which is one point eight five
+
+1021
+01:12:55,128 --> 01:12:59,924
+Compute the key and value projections for all
+three words not just robot
+
+1022
+01:13:00,862 --> 01:13:06,732
+Their key rows are one point six two point one
+five one point two one point three
+
+1023
+01:13:06,922 --> 01:13:09,598
+and point six four point five six
+
+1024
+01:13:10,536 --> 01:13:16,025
+The value rows are six point two five two point
+five three point seven five
+
+1025
+01:13:16,297 --> 01:13:19,843
+one point two five and one point six point four
+
+1026
+01:13:20,794 --> 01:13:23,389
+Now dot robot's query with each key
+
+1027
+01:13:24,340 --> 01:13:29,612
+The three raw scores are five point nine seven
+seven five three point nine zero
+
+1028
+01:13:29,626 --> 01:13:32,098
+five and one point eight three six
+
+1029
+01:13:33,049 --> 01:13:35,916
+Notice that one query produces three scores
+
+1030
+01:13:36,854 --> 01:13:41,460
+The scoring step compares robot with every
+possible source of information in the
+
+1031
+01:13:41,473 --> 01:13:42,180
+sentence
+
+1032
+01:13:44,432 --> 01:13:49,269
+There are two key coordinates so divide each
+raw score by square root of two
+
+1033
+01:13:50,211 --> 01:13:55,524
+The scaled scores are approximately four point
+two two six seven three one two
+
+1034
+01:13:55,537 --> 01:14:00,972
+point seven six one two five two and one point
+two nine eight two four eight
+
+1035
+01:14:01,923 --> 01:14:06,597
+For a stable softmax subtract the largest score
+from all three before
+
+1036
+01:14:06,611 --> 01:14:07,670
+exponentiating
+
+1037
+01:14:08,608 --> 01:14:11,611
+This does not change the normalized
+probabilities
+
+1038
+01:14:12,548 --> 01:14:17,263
+The resulting weights are approximately point
+seven seven eight five four six
+
+1039
+01:14:17,602 --> 01:14:22,969
+point one seven nine eight one nine and point
+zero four one six three five
+
+1040
+01:14:23,907 --> 01:14:24,994
+They sum to one
+
+1041
+01:14:25,945 --> 01:14:28,934
+Multiply each value row by its weight and add
+
+1042
+01:14:29,885 --> 01:14:34,749
+The first output coordinate is the weighted sum
+of six point two five three point
+
+1043
+01:14:34,763 --> 01:14:37,086
+seven five and one point six
+
+1044
+01:14:38,037 --> 01:14:43,404
+The second is the weighted sum of two point
+five one point two five and point four
+
+1045
+01:14:44,355 --> 01:14:49,885
+The output is approximately five point six zero
+six eight five zero two point
+
+1046
+01:14:49,899 --> 01:14:52,059
+one eight seven seven nine three
+
+1047
+01:14:53,010 --> 01:14:57,806
+Your original slide's displayed answer has an
+arithmetic error this corrected
+
+1048
+01:14:57,820 --> 01:15:01,434
+handwritten page uses the supplied matrices
+consistently
+
+1049
+01:15:02,385 --> 01:15:06,828
+If your method is correct but your result
+disagrees with that slide use the
+
+1050
+01:15:06,842 --> 01:15:08,309
+recomputed checkpoint
+
+1051
+01:15:09,260 --> 01:15:14,342
+Most weight here falls on smart but the output
+is a mixture of all three values
+
+1052
+01:15:14,627 --> 01:15:16,570
+not a hard choice of one token
+
+1053
+01:15:18,824 --> 01:15:23,607
+A single attention head creates one learned way
+to compare and combine tokens
+
+1054
+01:15:24,549 --> 01:15:28,937
+Multi-head attention runs several such
+calculations with different projection
+
+1055
+01:15:28,951 --> 01:15:29,793
+matrices
+
+1056
+01:15:30,744 --> 01:15:35,011
+Heads can learn different relationships or
+representation subspaces
+
+1057
+01:15:35,948 --> 01:15:40,622
+We should not insist that a particular head
+always means grammar or always means
+
+1058
+01:15:40,636 --> 01:15:42,823
+position those roles are learned
+
+1059
+01:15:43,761 --> 01:15:46,886
+The head outputs are concatenated not averaged
+
+1060
+01:15:47,823 --> 01:15:51,519
+Then a learned output projection mixes their
+combined features
+
+1061
+01:15:52,456 --> 01:15:57,565
+The handwritten shape example uses three tokens
+model width five hundred twelve
+
+1062
+01:15:57,878 --> 01:15:59,916
+and eight heads of width sixty-four
+
+1063
+01:16:00,853 --> 01:16:05,282
+Each head's query key and value matrix is three
+by sixty-four
+
+1064
+01:16:06,234 --> 01:16:11,247
+Its score matrix is three by three because
+every query compares with every key
+
+1065
+01:16:12,198 --> 01:16:14,454
+Its output is three by sixty-four
+
+1066
+01:16:15,405 --> 01:16:19,793
+Concatenate eight head outputs along the
+feature dimension and the shape becomes
+
+1067
+01:16:19,807 --> 01:16:21,532
+three by five hundred twelve
+
+1068
+01:16:22,470 --> 01:16:25,228
+The output projection preserves the model width
+
+1069
+01:16:26,166 --> 01:16:30,731
+These shape checks are a practical way to catch
+mistakes before calculating any
+
+1070
+01:16:30,744 --> 01:16:31,383
+numbers
+
+1071
+01:16:32,334 --> 01:16:35,744
+Ask yourself what changes if the number of
+tokens doubles
+
+1072
+01:16:36,682 --> 01:16:39,426
+The score matrix grows in both dimensions
+
+1073
+01:16:40,364 --> 01:16:44,834
+That is the origin of ordinary full self-
+attention's quadratic dependence on
+
+1074
+01:16:44,848 --> 01:16:47,144
+sequence length for its score matrix
+
+1075
+01:16:48,081 --> 01:16:53,136
+Multiple heads change the feature projections
+not the fundamental query-versus-key
+
+1076
+01:16:53,149 --> 01:16:53,652
+meaning
+
+1077
+01:16:55,904 --> 01:16:59,288
+Attention mixes information across token
+positions
+
+1078
+01:17:00,243 --> 01:17:05,039
+A feed-forward network then transforms the
+features within each token position
+
+1079
+01:17:05,447 --> 01:17:09,061
+using the same feed-forward weights across
+positions in a block
+
+1080
+01:17:09,998 --> 01:17:14,577
+In the lecture example feature width expands
+from five hundred twelve to two
+
+1081
+01:17:14,591 --> 01:17:19,917
+thousand forty-eight passes through a nonlinear
+activation such as ReLU then
+
+1082
+01:17:19,930 --> 01:17:21,792
+returns to five hundred twelve
+
+1083
+01:17:22,729 --> 01:17:27,729
+The nonlinearity matters two linear maps
+without it could be collapsed into one
+
+1084
+01:17:27,743 --> 01:17:28,599
+linear map
+
+1085
+01:17:29,550 --> 01:17:33,952
+Returning to the original width lets us add the
+result to the residual stream
+
+1086
+01:17:34,890 --> 01:17:39,346
+A residual connection adds the original input
+to a sublayer's output
+
+1087
+01:17:40,297 --> 01:17:41,778
+The shapes must match
+
+1088
+01:17:42,716 --> 01:17:47,716
+In the lecture's post-normalization convention
+we then apply layer normalization
+
+1089
+01:17:47,729 --> 01:17:48,979
+to the summed features
+
+1090
+01:17:49,930 --> 01:17:55,257
+layer normalization normalizes across one
+token's feature coordinates rather than
+
+1091
+01:17:55,270 --> 01:17:57,892
+treating all tokens as one giant vector
+
+1092
+01:17:58,830 --> 01:18:00,977
+Use the tiny handwritten example
+
+1093
+01:18:01,914 --> 01:18:06,629
+Original features are one three the sublayer
+output is one one
+
+1094
+01:18:07,566 --> 01:18:09,292
+Their sum is two four
+
+1095
+01:18:10,243 --> 01:18:11,398
+The mean is three
+
+1096
+01:18:12,349 --> 01:18:15,053
+Subtract the mean to get minus one one
+
+1097
+01:18:15,990 --> 01:18:21,574
+The feature variance is one so ignoring the
+tiny numerical stabilizer normalized
+
+1098
+01:18:21,588 --> 01:18:25,759
+features are minus one one when scale is one
+and shift is zero
+
+1099
+01:18:26,697 --> 01:18:31,357
+This is what Add and Norm contributes a direct
+residual path and controlled
+
+1100
+01:18:31,371 --> 01:18:32,254
+feature scale
+
+1101
+01:18:33,191 --> 01:18:37,811
+It is not another attention calculation and it
+does not average the attention
+
+1102
+01:18:37,824 --> 01:18:38,368
+heads
+
+1103
+01:18:40,640 --> 01:18:43,059
+Consider the same words in a different order
+
+1104
+01:18:44,014 --> 01:18:48,539
+Their meanings can change but the original
+embedding lookups are the same set of
+
+1105
+01:18:48,552 --> 01:18:49,232
+vectors
+
+1106
+01:18:50,183 --> 01:18:54,476
+We therefore add a position vector to each
+token embedding before the attention
+
+1107
+01:18:54,490 --> 01:18:55,088
+blocks
+
+1108
+01:18:56,025 --> 01:18:59,626
+Your lecture uses fixed sinusoidal position
+encodings
+
+1109
+01:19:00,563 --> 01:19:05,427
+For a pair of feature coordinates the even
+coordinate uses sine and the following
+
+1110
+01:19:05,441 --> 01:19:08,226
+odd coordinate uses cosine of the same angle
+
+1111
+01:19:09,164 --> 01:19:14,327
+The angle is position divided by ten thousand
+raised to the power two i over model
+
+1112
+01:19:14,340 --> 01:19:14,762
+width
+
+1113
+01:19:15,699 --> 01:19:18,987
+Here i labels the coordinate pair starting at
+zero
+
+1114
+01:19:19,938 --> 01:19:22,098
+Use radians not degrees
+
+1115
+01:19:23,036 --> 01:19:25,454
+Different pairs use different frequencies
+
+1116
+01:19:26,392 --> 01:19:31,338
+Some change rapidly between neighboring
+positions others change gradually over
+
+1117
+01:19:31,351 --> 01:19:32,520
+long distances
+
+1118
+01:19:33,471 --> 01:19:37,873
+The position vector has the same width as the
+token embedding so they can be added
+
+1119
+01:19:37,887 --> 01:19:39,571
+coordinate by coordinate
+
+1120
+01:19:40,509 --> 01:19:46,012
+At position zero every sine coordinate is zero
+and every cosine coordinate is
+
+1121
+01:19:46,025 --> 01:19:46,474
+one
+
+1122
+01:19:47,411 --> 01:19:49,449
+That is a useful immediate check
+
+1123
+01:19:50,387 --> 01:19:55,482
+The formula is parameter-free so these fixed
+encodings do not need to be learned
+
+1124
+01:19:56,433 --> 01:20:00,604
+But being able to compute a position vector for
+a longer sequence does not
+
+1125
+01:20:00,618 --> 01:20:03,933
+guarantee the trained model will perform well
+at that length
+
+1126
+01:20:06,176 --> 01:20:10,619
+The lecture exercise asks for position three
+with model dimension ten
+
+1127
+01:20:11,561 --> 01:20:13,776
+There are five sine-cosine pairs
+
+1128
+01:20:14,713 --> 01:20:17,431
+For pair zero the denominator is one
+
+1129
+01:20:18,368 --> 01:20:20,243
+The angle is three radians
+
+1130
+01:20:21,181 --> 01:20:26,561
+Sine gives about point one four one one two and
+cosine gives minus point nine
+
+1131
+01:20:26,575 --> 01:20:27,784
+eight nine nine nine
+
+1132
+01:20:28,721 --> 01:20:34,265
+For pair one the denominator is ten thousand to
+the power point two approximately
+
+1133
+01:20:34,279 --> 01:20:37,268
+six point three zero nine five seven three
+
+1134
+01:20:38,205 --> 01:20:43,151
+Divide three by it to get an angle of about
+point four seven five four six eight
+
+1135
+01:20:44,088 --> 01:20:49,265
+The sine and cosine are approximately point
+four five seven seven five five and
+
+1136
+01:20:49,279 --> 01:20:51,724
+point eight eight nine zero seven nine
+
+1137
+01:20:52,662 --> 01:20:58,029
+For pair two the denominator is about thirty-
+nine point eight one zero seven one
+
+1138
+01:20:58,042 --> 01:20:58,558
+seven
+
+1139
+01:20:59,496 --> 01:21:03,246
+The angle is about point zero seven five three
+five seven
+
+1140
+01:21:04,197 --> 01:21:09,170
+The pair becomes point zero seven five two
+eight five and point nine nine seven
+
+1141
+01:21:09,183 --> 01:21:10,284
+one six two
+
+1142
+01:21:11,235 --> 01:21:16,507
+Pairs three and four use still larger
+denominators so their sine values are small
+
+1143
+01:21:16,520 --> 01:21:18,599
+and their cosine values are near one
+
+1144
+01:21:19,537 --> 01:21:24,292
+Read the remaining two pairs from the table
+then interleave the five sine-cosine
+
+1145
+01:21:24,306 --> 01:21:26,575
+pairs into the ten-coordinate vector
+
+1146
+01:21:27,512 --> 01:21:29,577
+Do not collect all sines first
+
+1147
+01:21:30,515 --> 01:21:33,518
+Both coordinates in each pair share a
+denominator
+
+1148
+01:21:34,455 --> 01:21:39,265
+This problem is repetitive arithmetic so a
+small table is clearer than ten
+
+1149
+01:21:39,278 --> 01:21:41,086
+disconnected substitutions
+
+1150
+01:21:43,352 --> 01:21:46,233
+There is one more positional idea in your
+slides
+
+1151
+01:21:47,175 --> 01:21:51,930
+Take a single sine-cosine pair for position i
+and another for position j
+
+1152
+01:21:52,881 --> 01:21:58,601
+Their dot product is sine i times sine j plus
+cosine i times cosine j
+
+1153
+01:21:59,552 --> 01:22:03,873
+A trigonometric identity turns this into cosine
+of i minus j
+
+1154
+01:22:04,824 --> 01:22:07,772
+The offset between positions appears naturally
+
+1155
+01:22:08,724 --> 01:22:14,471
+For positions three and one this expression is
+cosine of two radians approximately
+
+1156
+01:22:14,484 --> 01:22:17,392
+minus point four one six one four seven
+
+1157
+01:22:18,330 --> 01:22:20,843
+This provides a relative-position signal
+
+1158
+01:22:21,781 --> 01:22:26,305
+It does not mean that every learned attention
+score is only a function of distance
+
+1159
+01:22:27,256 --> 01:22:32,406
+An actual query includes projected content and
+position and so does a key
+
+1160
+01:22:33,357 --> 01:22:38,221
+When you multiply content plus position by
+content plus position there are four
+
+1161
+01:22:38,234 --> 01:22:43,764
+terms content with content content with
+position position with content and
+
+1162
+01:22:43,778 --> 01:22:45,123
+position with position
+
+1163
+01:22:46,074 --> 01:22:48,003
+Learned projections can mix them
+
+1164
+01:22:48,954 --> 01:22:54,607
+Also one periodic component cannot uniquely
+identify every possible distance
+
+1165
+01:22:55,558 --> 01:22:58,343
+Multiple frequencies provide a richer signal
+
+1166
+01:22:59,281 --> 01:23:04,580
+Fixed sinusoidal codes can be calculated at
+positions not seen in training but
+
+1167
+01:23:04,593 --> 01:23:08,316
+performance on longer sequences remains an
+empirical question
+
+1168
+01:23:09,253 --> 01:23:13,316
+This is the precise interpretation of the
+relative-position discussion in the
+
+1169
+01:23:13,330 --> 01:23:13,900
+lecture
+
+1170
+01:23:16,184 --> 01:23:20,423
+During decoder generation future target tokens
+are unavailable
+
+1171
+01:23:21,365 --> 01:23:26,107
+During training we process a shifted target
+sequence in parallel so we must
+
+1172
+01:23:26,121 --> 01:23:29,137
+explicitly prevent each position from looking
+ahead
+
+1173
+01:23:30,075 --> 01:23:35,075
+A causal mask allows the current and earlier
+input positions and assigns negative
+
+1174
+01:23:35,088 --> 01:23:38,009
+infinity to future scores before softmax
+
+1175
+01:23:38,960 --> 01:23:40,441
+Why negative infinity
+
+1176
+01:23:41,379 --> 01:23:46,501
+Its exponential is zero so the forbidden
+position receives zero weight and allowed
+
+1177
+01:23:46,515 --> 01:23:49,110
+positions are normalized among themselves
+
+1178
+01:23:50,047 --> 01:23:55,319
+In the handwritten example the scores are one
+two and three but only the first two
+
+1179
+01:23:55,333 --> 01:23:56,433
+keys are allowed
+
+1180
+01:23:57,384 --> 01:24:01,134
+The masked scores become one two and negative
+infinity
+
+1181
+01:24:02,072 --> 01:24:07,479
+Softmax weights are approximately point two six
+eight nine four one point seven
+
+1182
+01:24:07,493 --> 01:24:10,047
+three one zero five nine and zero
+
+1183
+01:24:10,998 --> 01:24:16,053
+The value vectors are one zero zero two and
+nine nine
+
+1184
+01:24:16,990 --> 01:24:20,713
+The future vector contributes nothing even
+though it is large
+
+1185
+01:24:21,651 --> 01:24:27,167
+The output becomes point two six eight nine
+four one one point four six two one
+
+1186
+01:24:27,181 --> 01:24:28,023
+one seven
+
+1187
+01:24:28,974 --> 01:24:33,729
+Zeroing an attention weight after an ordinary
+unmasked softmax without
+
+1188
+01:24:33,743 --> 01:24:36,460
+renormalizing is not the same operation
+
+1189
+01:24:37,412 --> 01:24:42,520
+Also distinguish causal masking from padding
+masking padding is excluded because
+
+1190
+01:24:42,534 --> 01:24:47,004
+it is artificial filler while future target
+positions are excluded because
+
+1191
+01:24:47,018 --> 01:24:48,974
+generation cannot know them yet
+
+1192
+01:24:51,224 --> 01:24:56,197
+Decoder self-attention combines information
+within the available target prefix
+
+1193
+01:24:57,153 --> 01:25:01,188
+Cross-attention asks which parts of the source
+sentence are relevant to the
+
+1194
+01:25:01,202 --> 01:25:02,601
+current decoder state
+
+1195
+01:25:03,538 --> 01:25:05,413
+The query comes from the decoder
+
+1196
+01:25:06,351 --> 01:25:09,150
+Keys and values come from encoder outputs
+
+1197
+01:25:10,087 --> 01:25:13,280
+That source distinction is the main conceptual
+test
+
+1198
+01:25:14,231 --> 01:25:19,014
+Your translation example has source words birds
+can fly high
+
+1199
+01:25:19,952 --> 01:25:22,438
+The decoder row is point three two
+
+1200
+01:25:23,375 --> 01:25:28,267
+Multiply it by the shown query projection to
+get five three point four one
+
+1201
+01:25:29,204 --> 01:25:34,938
+The supplied encoder keys are one zero one
+point five point five two
+
+1202
+01:25:35,182 --> 01:25:36,840
+one and one one
+
+1203
+01:25:37,778 --> 01:25:40,332
+Dot the decoder query with each source key
+
+1204
+01:25:41,283 --> 01:25:46,881
+The scores are five nine point two zero five
+thirteen point four one and
+
+1205
+01:25:46,894 --> 01:25:48,144
+eight point four one
+
+1206
+01:25:49,082 --> 01:25:53,307
+Divide by square root of two and normalize
+across the four source keys
+
+1207
+01:25:54,245 --> 01:25:59,177
+Unlike target causal self-attention there is no
+general rule that the decoder must
+
+1208
+01:25:59,191 --> 01:26:02,343
+ignore source words appearing later in the
+source sentence
+
+1209
+01:26:03,294 --> 01:26:07,778
+The full source sentence is already available
+in this encoder-decoder translation
+
+1210
+01:26:07,791 --> 01:26:08,375
+task
+
+1211
+01:26:09,313 --> 01:26:11,460
+Source padding may still be masked
+
+1212
+01:26:12,397 --> 01:26:17,030
+This distinction prevents you from applying a
+triangular target mask to the wrong
+
+1213
+01:26:17,044 --> 01:26:17,981
+attention layer
+
+1214
+01:26:20,240 --> 01:26:25,499
+After scaling and softmax the cross-attention
+weights are approximately point zero
+
+1215
+01:26:25,512 --> 01:26:31,096
+zero two four one four point zero four seven
+two one six point nine
+
+1216
+01:26:31,110 --> 01:26:35,594
+two three four five seven and point zero two
+six nine one two
+
+1217
+01:26:36,535 --> 01:26:40,910
+Nearly ninety-two percent of the attention
+weight is on the source key for fly in
+
+1218
+01:26:40,924 --> 01:26:42,391
+this numerical example
+
+1219
+01:26:43,343 --> 01:26:45,666
+Now mix values not keys
+
+1220
+01:26:46,603 --> 01:26:52,188
+The four value vectors are three one one point
+five four one point
+
+1221
+01:26:52,201 --> 01:26:54,171
+five and zero two
+
+1222
+01:26:55,109 --> 01:27:00,435
+For the first output coordinate take three
+times the first weight plus one times
+
+1223
+01:27:00,448 --> 01:27:04,891
+the second plus four times the third plus zero
+times the fourth
+
+1224
+01:27:05,843 --> 01:27:09,389
+That gives about three point seven four eight
+two eight seven
+
+1225
+01:27:10,340 --> 01:27:15,720
+For the second coordinate use one point five
+one point five and two with the same
+
+1226
+01:27:15,734 --> 01:27:16,291
+weights
+
+1227
+01:27:17,228 --> 01:27:21,087
+The result is about one point four six five
+zero three three
+
+1228
+01:27:22,025 --> 01:27:26,128
+Together they form the contextual output vector
+shown in the handwriting
+
+1229
+01:27:27,079 --> 01:27:30,666
+This vector still is not a probability over
+Urdu words
+
+1230
+01:27:31,603 --> 01:27:35,652
+It will pass through further decoder processing
+and the final vocabulary
+
+1231
+01:27:35,666 --> 01:27:36,413
+projection
+
+1232
+01:27:37,351 --> 01:27:42,351
+A useful exam answer states both the source of
+query key and value and the full
+
+1233
+01:27:42,364 --> 01:27:45,870
+numerical sequence from dot products through
+weighted values
+
+1234
+01:27:48,128 --> 01:27:51,838
+The decoder produces a feature vector at each
+target position
+
+1235
+01:27:52,779 --> 01:27:57,453
+A final learned linear layer maps that feature
+width to vocabulary size
+
+1236
+01:27:58,391 --> 01:28:01,176
+These raw vocabulary scores are logits
+
+1237
+01:28:02,114 --> 01:28:06,869
+Softmax turns them into probabilities that sum
+to one over the vocabulary
+
+1238
+01:28:07,807 --> 01:28:09,709
+Training uses teacher forcing
+
+1239
+01:28:10,660 --> 01:28:14,913
+Suppose the target tokens are y one y two and y
+three
+
+1240
+01:28:15,864 --> 01:28:21,067
+The decoder inputs are start-of-sequence y one
+and y two while the targets are y
+
+1241
+01:28:21,081 --> 01:28:23,445
+one y two and y three
+
+1242
+01:28:24,383 --> 01:28:27,317
+Each input position predicts the next target
+
+1243
+01:28:28,269 --> 01:28:33,038
+The target sequence is shifted so the current
+prediction does not simply receive
+
+1244
+01:28:33,051 --> 01:28:34,736
+its own answer as input
+
+1245
+01:28:35,673 --> 01:28:40,144
+Causal masking is still necessary because
+future positions are present in the
+
+1246
+01:28:40,157 --> 01:28:41,706
+parallel training tensor
+
+1247
+01:28:42,644 --> 01:28:46,951
+Shifting plus masking together make the
+information available at a training
+
+1248
+01:28:46,964 --> 01:28:49,682
+position resemble what generation can use
+
+1249
+01:28:50,619 --> 01:28:55,864
+At inference previous ground-truth target
+tokens are unavailable so the decoder
+
+1250
+01:28:55,877 --> 01:28:58,500
+conditions on its own generated prefix
+
+1251
+01:28:59,451 --> 01:29:04,369
+When evaluating cross-entropy pick the
+probability assigned to the true target
+
+1252
+01:29:04,383 --> 01:29:08,187
+token not automatically the largest probability
+in the row
+
+1253
+01:29:09,138 --> 01:29:13,296
+A confidently wrong argmax should not receive a
+small training loss
+
+1254
+01:29:14,247 --> 01:29:17,684
+This distinction matters in the lecture's
+sentence numerical
+
+1255
+01:29:19,928 --> 01:29:25,472
+For a one-hot target cross-entropy at one
+position simplifies to minus the natural
+
+1256
+01:29:25,485 --> 01:29:28,040
+log of the probability of the correct token
+
+1257
+01:29:28,982 --> 01:29:32,786
+All other target entries are zero so their
+terms vanish
+
+1258
+01:29:33,723 --> 01:29:38,669
+We use the true token's vocabulary index even
+if another token has the highest
+
+1259
+01:29:38,683 --> 01:29:40,014
+predicted probability
+
+1260
+01:29:40,965 --> 01:29:46,196
+In your lecture example the correct-token
+probabilities are point four point two
+
+1261
+01:29:46,495 --> 01:29:49,321
+point two point three and point three
+
+1262
+01:29:50,272 --> 01:29:55,802
+Their losses are approximately point nine one
+six two nine one one point six zero
+
+1263
+01:29:55,816 --> 01:30:01,509
+nine four three eight one point six zero nine
+four three eight one point
+
+1264
+01:30:01,522 --> 01:30:06,957
+two zero three nine seven three and one point
+two zero three nine seven three
+
+1265
+01:30:07,908 --> 01:30:12,406
+Add them to obtain sentence loss six point five
+four three one one two
+
+1266
+01:30:13,343 --> 01:30:18,927
+Divide by five if asked for mean token loss
+giving one point three zero eight six
+
+1267
+01:30:18,941 --> 01:30:19,634
+two two
+
+1268
+01:30:20,571 --> 01:30:24,770
+The lecture shows both sum and mean conventions
+so label your answer
+
+1269
+01:30:25,707 --> 01:30:30,136
+Ignore padded positions when taking an average
+if the task includes padding
+
+1270
+01:30:31,088 --> 01:30:36,305
+The behavior is intuitive a larger correct-
+token probability produces a smaller
+
+1271
+01:30:36,319 --> 01:30:37,623
+negative log loss
+
+1272
+01:30:38,560 --> 01:30:42,718
+If that probability approaches zero loss
+becomes very large
+
+1273
+01:30:43,656 --> 01:30:46,223
+Natural logs measure the result in nats
+
+1274
+01:30:47,161 --> 01:30:52,935
+The vocabulary softmax gives probabilities a
+log-softmax gives their logarithms
+
+1275
+01:30:53,873 --> 01:30:56,101
+Do not mix them in your substitution
+
+1276
+01:30:58,352 --> 01:31:00,784
+Generation begins with a start token
+
+1277
+01:31:01,726 --> 01:31:06,808
+Run the decoder to obtain a next-token
+distribution choose a token append it to
+
+1278
+01:31:06,821 --> 01:31:10,707
+the prefix and repeat until an end token or
+length limit
+
+1279
+01:31:11,658 --> 01:31:16,767
+In encoder-decoder translation the source
+encoder representation can be reused
+
+1280
+01:31:16,781 --> 01:31:18,044
+across these steps
+
+1281
+01:31:18,982 --> 01:31:23,425
+Greedy decoding chooses the highest-probability
+next token at each step
+
+1282
+01:31:24,362 --> 01:31:28,628
+It is simple but the locally best next choice
+can lead to a worse complete
+
+1283
+01:31:28,642 --> 01:31:29,376
+sequence
+
+1284
+01:31:30,327 --> 01:31:33,438
+Beam search retains several candidate prefixes
+
+1285
+01:31:34,389 --> 01:31:39,620
+After expanding them it keeps the best few
+according to cumulative log probability
+
+1286
+01:31:40,558 --> 01:31:44,946
+Adding log probabilities is equivalent to
+multiplying ordinary conditional
+
+1287
+01:31:44,960 --> 01:31:49,104
+probabilities and is numerically more stable
+for long sequences
+
+1288
+01:31:50,041 --> 01:31:53,166
+The beam width controls how many prefixes
+survive
+
+1289
+01:31:54,104 --> 01:31:57,596
+A wider beam explores more candidates at
+greater cost
+
+1290
+01:31:58,533 --> 01:32:02,922
+It is still an approximation because pruned
+prefixes are not recovered
+
+1291
+01:32:03,859 --> 01:32:08,751
+When comparing different-length sequences
+additional length conventions may matter
+
+1292
+01:32:09,688 --> 01:32:13,751
+This distinction is about the rule used to
+select outputs from the model's
+
+1293
+01:32:13,764 --> 01:32:14,810
+distributions
+
+1294
+01:32:15,762 --> 01:32:19,416
+The vocabulary head itself still provides
+probabilities
+
+1295
+01:32:20,354 --> 01:32:25,368
+Teacher forcing is a training input strategy
+greedy and beam search are inference
+
+1296
+01:32:25,381 --> 01:32:26,740
+selection strategies
+
+1297
+01:32:27,691 --> 01:32:32,202
+Keeping those roles separate makes the complete
+generation pipeline much easier to
+
+1298
+01:32:32,215 --> 01:32:32,922
+explain
+
+1299
+01:32:35,168 --> 01:32:38,266
+Use the small generation tree in the
+handwritten notes
+
+1300
+01:32:39,208 --> 01:32:43,868
+At the first step A has probability point six
+and B has point four
+
+1301
+01:32:44,819 --> 01:32:46,151
+Greedy chooses A
+
+1302
+01:32:47,088 --> 01:32:52,007
+After A X has probability point five one and Y
+has point four nine
+
+1303
+01:32:52,944 --> 01:32:55,173
+Greedy therefore produces A X
+
+1304
+01:32:56,110 --> 01:33:01,898
+Its joint probability is point six times point
+five one or point three zero six
+
+1305
+01:33:02,836 --> 01:33:05,268
+But inspect the branch greedy discarded
+
+1306
+01:33:06,205 --> 01:33:09,534
+After B X has probability point nine nine
+
+1307
+01:33:10,472 --> 01:33:15,648
+The joint probability of B X is point four
+times point nine nine or point three
+
+1308
+01:33:15,662 --> 01:33:16,559
+nine six
+
+1309
+01:33:17,496 --> 01:33:20,064
+That is higher than point three zero six
+
+1310
+01:33:21,002 --> 01:33:26,151
+A beam of width two keeps both A and B at the
+first step then can discover B X
+
+1311
+01:33:26,165 --> 01:33:28,067
+when it expands the next token
+
+1312
+01:33:29,018 --> 01:33:33,977
+The other complete branches have probabilities
+point two nine four for A Y and
+
+1313
+01:33:33,991 --> 01:33:36,341
+point zero zero four for B Y
+
+1314
+01:33:37,292 --> 01:33:41,708
+For these equal-length sequences choosing the
+highest product and choosing the
+
+1315
+01:33:41,722 --> 01:33:44,262
+highest sum of logs give the same ranking
+
+1316
+01:33:45,213 --> 01:33:47,591
+Now connect back to the generative model
+
+1317
+01:33:48,529 --> 01:33:51,559
+It learns conditional next-token distributions
+
+1318
+01:33:52,496 --> 01:33:56,626
+Repeated conditioning builds a distribution
+over complete sequences
+
+1319
+01:33:57,578 --> 01:34:02,781
+Attention supplies context while the final
+softmax and decoding rule produce the
+
+1320
+01:34:02,795 --> 01:34:03,678
+next token
+
+1321
+01:34:04,616 --> 01:34:07,646
+You have reached the full Transformer
+generation loop
+
+1322
+01:34:09,896 --> 01:34:15,154
+Let us finish by retrieving the main ideas
+without memorizing disconnected slogans
+
+1323
+01:34:16,096 --> 01:34:19,982
+Generative models learn a distribution so they
+can produce samples
+
+1324
+01:34:20,920 --> 01:34:25,770
+A plain autoencoder learns reconstruction
+through a code while a variational
+
+1325
+01:34:25,784 --> 01:34:30,268
+autoencoder adds a probabilistic encoder and
+prior regularization
+
+1326
+01:34:31,205 --> 01:34:34,629
+A G A N trains a generator against a
+discriminator
+
+1327
+01:34:35,566 --> 01:34:41,069
+Non-saturating generator loss avoids a specific
+sigmoid-gradient weakness but it
+
+1328
+01:34:41,083 --> 01:34:43,691
+does not automatically solve mode collapse
+
+1329
+01:34:44,629 --> 01:34:47,727
+Evaluation asks about realism and coverage
+
+1330
+01:34:48,664 --> 01:34:53,175
+Inception Score compares each generated class
+prediction with their average
+
+1331
+01:34:54,113 --> 01:34:57,496
+F I D compares real and generated feature
+moments
+
+1332
+01:34:58,447 --> 01:35:03,202
+Generative precision and recall test support
+membership in opposite directions
+
+1333
+01:35:04,140 --> 01:35:08,759
+Diffusion fixes a forward corruption process
+and learns noise prediction that
+
+1334
+01:35:08,773 --> 01:35:10,988
+guides iterative reverse generation
+
+1335
+01:35:11,925 --> 01:35:16,327
+Alpha is one-step retention alpha bar is
+cumulative retention
+
+1336
+01:35:17,278 --> 01:35:22,985
+A Transformer represents tokens uses attention
+to combine context adds position
+
+1337
+01:35:22,999 --> 01:35:26,477
+information and predicts next-token
+distributions
+
+1338
+01:35:27,414 --> 01:35:31,925
+These are different solutions to the same broad
+problem learn useful structure
+
+1339
+01:35:31,939 --> 01:35:35,132
+from data and generate plausible new
+observations
+
+1340
+01:35:36,083 --> 01:35:41,354
+For tomorrow practice explaining what each
+training target is what information is
+
+1341
+01:35:41,368 --> 01:35:44,534
+available at inference and how you would check
+the output
+
+1342
+01:35:45,471 --> 01:35:49,221
+Those three questions organize almost the
+entire syllabus
+
+1343
+01:35:51,464 --> 01:35:56,043
+Before you close this lesson do six small
+problems from a blank page
+
+1344
+01:35:56,985 --> 01:35:58,914
+Normalize a Bayes posterior
+
+1345
+01:35:59,852 --> 01:36:05,871
+Compute a V A E sample and Gaussian K L Write
+both G A N generator losses
+
+1346
+01:36:05,884 --> 01:36:07,936
+and derive their logit gradients
+
+1347
+01:36:08,874 --> 01:36:13,670
+Reproduce the quiz Inception Score then a
+diagonal F I D example
+
+1348
+01:36:14,607 --> 01:36:19,145
+Calculate one forward diffusion sample and one
+reverse sampling step
+
+1349
+01:36:20,083 --> 01:36:24,757
+Finally compute attention through weighted
+values then a sentence cross-entropy
+
+1350
+01:36:25,708 --> 01:36:31,428
+For every numerical write the formula define
+the given quantities substitute keep
+
+1351
+01:36:31,442 --> 01:36:34,268
+reasonable precision and interpret the result
+
+1352
+01:36:35,205 --> 01:36:38,045
+Check whether the question asks for a sum or
+mean
+
+1353
+01:36:38,982 --> 01:36:41,618
+Check variance versus standard deviation
+
+1354
+01:36:42,556 --> 01:36:44,838
+Check which set supplies a denominator
+
+1355
+01:36:45,776 --> 01:36:48,561
+Check where query key and value come from
+
+1356
+01:36:49,512 --> 01:36:52,012
+These small checks protect many marks
+
+1357
+01:36:52,950 --> 01:36:56,985
+The practice paper and solutions in your
+preparation pack are ready for that
+
+1358
+01:36:56,999 --> 01:36:58,289
+closed-book rehearsal
+
+1359
+01:36:59,227 --> 01:37:04,200
+This video is a guided revision lesson based on
+your supplied lectures handwritten
+
+1360
+01:37:04,213 --> 01:37:06,903
+notes and Quiz One with tutor review
+
+1361
+01:37:07,855 --> 01:37:12,474
+The actual midterm questions are unknown so use
+the coverage to build
+
+1362
+01:37:12,488 --> 01:37:16,374
+understanding rather than assuming a particular
+question must appear
+
+1363
+01:37:17,325 --> 01:37:21,917
+Start your timed practice while the ideas are
+fresh then repair the steps you
+
+1364
+01:37:21,931 --> 01:37:23,099
+could not reproduce

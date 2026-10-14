@@ -1,0 +1,556 @@
+Probability and Gaussian basics
+1. Joint, marginal and Bayes
+x - One observation, such as an image or a word feature.
+y - A class label or conditioning category.
+p(x,y) - Joint probability of x and y occurring together.
+p(x|y) - Likelihood of observation x within class y.
+p(y) - Prior probability of class y before seeing x.
+p(x) - Evidence: total probability of observing x.
+p(y|x) - Posterior probability of class y after seeing x.
+k in the denominator - Index over all possible classes.
+
+2. Expectations and variance
+X - A random variable; x is one possible value of X.
+f(X) - The quantity whose probability-weighted average we want.
+E[...] - Expectation, or a probability-weighted average.
+E with a hat - A finite-sample estimate of the expectation.
+N - Number of observed or sampled values in the average.
+i - Sample index; x_i is the i-th observation.
+Var(X) - Expected squared spread around the mean of X.
+E[X^2] - Expected square, not the square of the expectation.
+v - Variance: squared spread.
+σ (sigma) - Standard deviation: square root of variance.
+a, b - Constant scaling coefficients applied to random variables.
+E in aX+bE - A second random variable, distinct from expectation E[...].
+
+3. Gaussian density
+N(z;μ,v) - Gaussian density evaluated at z, with mean μ and variance v.
+z - The value at which the density is evaluated.
+μ (mu) - Mean: the center of the Gaussian distribution.
+v > 0 - Variance: controls the Gaussian spread.
+π (pi) - The constant approximately 3.14159.
+e - Euler's number, approximately 2.71828.
+exp(a) = e^a - Exponential function, inverse of natural logarithm.
+
+Autoencoders, gradients and latent geometry
+1. Encoder, decoder and a linear layer
+x - Input observation or row vector of input features.
+z - Latent code produced by the encoder.
+f_phi - Encoder function with trainable parameters phi.
+phi (φ) - Collection of encoder weights and biases.
+g_theta - Decoder function with trainable parameters theta.
+theta (θ) - Collection of decoder/model weights and biases.
+x_hat - Reconstructed input produced by the decoder.
+u - Output feature vector of the affine layer.
+W - Trainable matrix that mixes input coordinates.
+b - Trainable bias vector added after multiplication.
+
+2. Reconstruction loss and anomaly threshold
+SSE - Sum of squared reconstruction errors.
+MSE - Mean squared error: SSE divided by data dimension D.
+D - Number of compared data coordinates; not the GAN discriminator.
+d - Coordinate index in the reconstruction vector.
+x_d, x_hat_d - True and reconstructed values of coordinate d.
+∂MSE/∂x_hat_d - Sensitivity of MSE to that reconstructed coordinate.
+τ (tau) - Error threshold above which the input is flagged.
+
+3. Gradient descent and chain rule
+L - Scalar loss to minimize.
+θ (theta) - Trainable parameter or parameter vector being updated.
+η (eta) - Learning rate: size of the descent step.
+grad_theta L - Vector of loss derivatives with respect to theta.
+w - One trainable parameter whose derivative is needed.
+u_j - Intermediate value on the j-th computational path.
+∂L/∂w - Local rate of loss change when w changes.
+sum over j - Add contributions from every path reaching w.
+
+Distances, interpolation and VAE sampling
+1. Retrieval distances
+a, b - Feature or latent vectors being compared.
+j - Coordinate index within a vector.
+d(a,b) - Euclidean distance: straight-line separation.
+||a|| - Euclidean vector length, square root of sum of squares.
+a^T b - Dot product: multiply matching entries and sum.
+T superscript - Transpose: interchange row and column orientation.
+cos(a,b) - Cosine similarity: normalized dot product.
+
+2. Latent interpolation and attribute editing
+z_A, z_B - Starting and ending latent codes.
+λ (lambda) - Interpolation fraction from 0 to 1.
+z(λ) - Intermediate latent code to decode.
+z_attribute - Code representing the attribute-bearing example.
+z_base - Reference code without that attribute.
+Δz (delta z) - Estimated latent direction for the attribute.
+z_other - Another code to which the direction is applied.
+z_edited - Resulting code after adding the attribute direction.
+
+3. VAE encoder distribution and sample
+q_phi(z|x) - Encoder's approximate latent distribution for input x.
+p(z) - Prior distribution used when generating new samples.
+μ - Encoder-predicted mean vector.
+σ^2 or v - Encoder-predicted variance vector.
+diag(σ^2) - Covariance matrix with those variances on its diagonal.
+I - Identity matrix: unit variance and zero cross-covariance here.
+ell (ℓ) - Log variance, ln(σ^2); not standard deviation.
+ln - Natural logarithm, with base e.
+σ - Standard deviation, exp(ell/2), used in sampling.
+ε (epsilon) - Standard Gaussian noise drawn independently of parameters.
+circle-dot (⊙) - Multiply matching vector coordinates elementwise.
+z - Sampled latent vector passed to the decoder.
+~ symbol - Means drawn from the distribution on its right.
+
+KL divergence and Gaussian regularization
+1. Discrete and expectation forms of KL
+D_KL(P||Q) - Directional mismatch from distribution P to Q.
+P_j - Probability of outcome j in the first distribution.
+Q_j - Probability of outcome j in the comparison distribution.
+j - Index over the discrete outcomes.
+P_j / Q_j - Probability ratio whose natural log is measured.
+sum over j - Add the probability-weighted contributions.
+q(z), p(z) - First and comparison probability densities for latent z.
+E_q - Average under the FIRST distribution q.
+|| inside KL - Separates the two distributions; not a vector norm.
+
+2. Diagonal Gaussian KL to N(0,I)
+K - Total KL penalty for one encoded observation.
+j - Latent-coordinate index, summed across the code.
+μ_j - Mean of latent coordinate j.
+v_j = σ_j^2 - Variance of latent coordinate j.
+ell_j - Natural log of v_j.
+exp(ell_j) - Recovers the variance v_j.
+μ_j^2 - Penalty for displacement of the latent mean from zero.
+v_j - 1 - ln(v_j) - Penalty for variance differing from one.
+
+3. KL gradients
+∂K/∂μ_j - KL derivative with respect to latent mean j.
+∂K/∂ell_j - KL derivative with respect to latent log variance j.
+μ_j - Mean value that also equals its KL derivative.
+exp(ell_j)-1 - Variance minus the prior variance of one.
+
+VAE objectives and reparameterization
+1. ELBO and weighted VAE objective
+ELBO - Evidence lower bound on the data log-likelihood.
+q_phi(z|x) - Encoder distribution used for the latent expectation.
+p_theta(x|z) - Decoder likelihood of the input given a latent code.
+ln p_theta(x|z) - Reconstruction log-likelihood to maximize.
+-ln p_theta(x|z) - Reconstruction negative log-likelihood to minimize.
+K - KL from the encoder distribution to the latent prior.
+L_VAE - Reconstruction penalty plus weighted KL penalty.
+β_KL - KL coefficient; one gives the usual negative ELBO.
+x, x_hat - True and reconstructed observation vectors.
+s^2 - Fixed observation variance of a Gaussian decoder.
+constant - Term independent of the reconstructed mean for fixed s^2.
+
+2. Explicit pixel/latent/batch reductions
+L_batch - Mean objective across the minibatch.
+B - Number of observations in the minibatch.
+i - Observation index within the minibatch.
+D - Number of data/pixel coordinates per observation.
+d - Coordinate index in that observation.
+x_id, x_hat_id - True and predicted coordinate d of observation i.
+K_i - KL summed over latent coordinates for observation i.
+β_KL - Weight of the KL term relative to reconstruction.
+
+3. Reparameterization derivatives
+z_j - Sampled value of latent coordinate j.
+μ_j - Mean of that latent coordinate.
+σ_j - Standard deviation of that latent coordinate.
+ε_j - Sampled standard-normal noise, held fixed during backprop.
+ell_j - Log variance used to compute σ_j.
+∂z_j/∂μ_j - Unit sensitivity to the latent mean.
+∂z_j/∂σ_j - Sensitivity to standard deviation equals ε_j.
+∂z_j/∂ell_j - Sensitivity to log variance equals half σ_j ε_j.
+
+GAN objectives and discriminator gradients
+1. The adversarial game
+G - Generator mapping a latent noise vector to a fake observation.
+D - Discriminator scoring how real an observation appears.
+x - A real observation sampled from the training distribution.
+p_data - Real-data distribution.
+z - Random generator input drawn from the latent prior.
+G(z) - Generated observation.
+D(x), D(G(z)) - Discriminator real-probability scores on real/fake data.
+V(D,G) - Value function maximized by D and minimized by G.
+L_D - Discriminator minimization loss: negative value function.
+L_G,sat - Saturating/minimax generator minimization loss.
+L_G,NS - Non-saturating generator minimization loss.
+E_x, E_z - Averages over real data and latent noise, respectively.
+
+2. Sigmoid, BCE and its logit derivative
+a - Discriminator logit before the sigmoid function.
+σ(a) - Sigmoid function; here sigma does not mean standard deviation.
+q - Predicted real-probability score, sigmoid(a).
+y - Binary target: 1 for real, 0 for fake in a D update.
+BCE(y,q) - Binary cross-entropy between target and prediction.
+dq/da - Sigmoid derivative, q times one minus q.
+∂BCE/∂a - Per-example logit derivative, prediction minus target.
+
+GAN feedback, conditioning and StackGAN
+1. Generator logit and parameter gradients
+a - Discriminator logit for the generated observation.
+q - Sigmoid(a), the fake observation's real score.
+∂L_G,sat/∂a - Per-example saturating logit gradient, -q.
+∂L_G,NS/∂a - Per-example non-saturating logit gradient, q-1.
+θ_G - Generator parameters being updated.
+grad_thetaG a - Remaining derivative through D and G to generator weights.
+E_z - Average over latent inputs used in the G objective.
+
+2. Ideal discriminator (balanced real/fake priors)
+D*(x) - Optimal discriminator score for fixed generator distribution.
+p_data(x) - Density of real data at x.
+p_G(x) - Density induced by the generator at x.
+
+3. Conditional GAN objective
+V_c - Conditional adversarial value function.
+y - Requested condition: label, text representation or image.
+D(x,y) - Discriminator score for an observation-condition pair.
+G(z,y) - Generator output using both noise and condition.
+E_(x,y) - Average over matching real observation-condition pairs.
+E_(z,y) - Average over generated noise-condition pairs.
+
+4. Conditioning augmentation
+c - Text or other condition representation.
+μ(c) - Mean predicted from that condition.
+σ(c) - Standard deviation predicted from that condition.
+ε - Standard-normal random conditioning noise.
+c_hat - Sampled, augmented conditioning vector.
+circle-dot (⊙) - Elementwise multiplication of scale and noise.
+
+Convolution sizes and parameter counts
+1. Convolution and transposed convolution
+H_in - Input spatial height.
+H_out - Output spatial height.
+k - Kernel size in the height direction.
+p - Padding on each side in this direction.
+s - Stride: displacement between neighboring kernel positions.
+floor brackets - Round the enclosed value down to an integer.
+H_out,transpose - Output height of the transposed convolution.
+
+2. Shared convolution weights
+k_h, k_w - Kernel height and width.
+C_in - Number of input channels.
+C_out - Number of output channels/filters.
+k_h k_w C_in C_out - Number of shared kernel weights.
+final C_out term - One optional bias per output channel.
+#conv params - Total trainable convolution parameters.
+
+3. Supporting shape arithmetic
+H, W, C - Image height, width and number of channels.
+H x W x C - Number of scalar pixel-channel values in an image.
+dim(z)+dim(y) - Width of a concatenated noise-condition input.
+sum K_j - Width when concatenating one-hot categorical fields.
+product K_j - Number of possible combinations of those fields.
+K_j - Number of categories in categorical field j.
+resolution ratio - At fixed channels, pixel count scales with height x width.
+
+Entropy and Inception Score
+1. Entropy and the marginal class distribution
+H(P) - Uncertainty of a probability vector P.
+P_c - Probability of class c in vector P.
+c - Class index.
+N - Number of generated images.
+i - Generated-image index.
+P_ic - Classifier probability of class c for generated image i.
+m_c - Marginal class probability: mean of column c.
+ln - Natural logarithm; entropy is measured in nats.
+
+2. KL rows, mean and exponentiation
+K_i - KL from image i's class vector to the marginal m.
+P_ic / m_c - Ratio of image-specific to average class probability.
+sum over c - Add probability-weighted contributions across classes.
+(1/N) sum_i K_i - Mean KL across generated images.
+IS - Inception Score: exponential of that mean KL.
+exp - Exponential function with base e.
+
+3. Entropy identity and score bounds
+H(m) - Entropy of the marginal predicted class distribution.
+H(P_i) - Entropy of the classifier vector for image i.
+I(X;Y) - Mutual information between generated image and classifier label.
+X - Randomly selected generated image in this identity.
+Y - Classifier label sampled from its prediction vector.
+C - Number of classifier classes; an upper bound on IS.
+P_i=m for all i - Every image has the same prediction distribution.
+
+FID, precision, recall and PSNR
+1. Feature mean and covariance
+f_i - Feature vector extracted from image i.
+N - Number of feature samples; covariance formula needs N>1.
+μ_hat - Sample mean of the feature vectors.
+Σ_hat (Sigma) - Sample covariance matrix of the feature vectors.
+N-1 denominator - Unbiased sample-covariance convention.
+T superscript - Transpose, forming an outer product of deviations.
+
+2. FID and its diagonal shortcut
+FID - Gaussian feature-moment distance; lower is preferred.
+μ_r, μ_g - Mean feature vectors for real and generated images.
+Σ_r, Σ_g - Covariance matrices for real and generated features.
+||μ_r-μ_g||^2 - Squared Euclidean separation between feature means.
+Tr(...) - Trace: sum of the matrix's diagonal entries.
+(Σ_r Σ_g)^(1/2) - Matrix square root of the covariance product.
+j - Feature-coordinate index in the diagonal shortcut.
+v_rj, v_gj - Real/generated feature variances in coordinate j.
+sqrt(v_rj), sqrt(v_gj) - Corresponding standard deviations.
+
+3. kNN balls and support membership
+S - Reference collection of feature vectors.
+u_i - Center of the i-th reference ball.
+k - Which nearest OTHER reference neighbor sets the radius.
+NN_k - k-th nearest neighbor in the supplied candidate collection.
+j != i - Exclude the sample itself by index.
+r_k(u_i;S) - Radius of the ball centered at reference point u_i.
+a - Query feature vector being tested against the balls.
+F(a;S) - Membership indicator: 1 if any reference ball covers a.
+exists symbol - At least one reference center must satisfy the test.
+||a-u||_2 - Euclidean distance from query a to center u.
+
+4. Two directions and an image metric
+R, G - Real and generated feature collections, respectively.
+|R|, |G| - Counts of real and generated samples.
+g, r - One generated query or one real query.
+Precision - Fraction of generated points inside real balls.
+Recall - Fraction of real points inside generated balls.
+PSNR - Peak signal-to-noise ratio, usually reported in dB.
+MAX - Stated maximum clean pixel value, such as 1 or 255.
+MSE - Mean squared error in the stated image value scale.
+log_10 - Base-ten logarithm, unlike ln used in the other losses.
+
+Diffusion: forward process and aggregate noise
+1. Schedule symbols and one-step noising
+t - Current diffusion timestep.
+β_t (beta) - Variance contributed by fresh noise at step t.
+α_t (alpha) - One-step signal variance share: 1-beta_t.
+alpha_bar_t - Product of all alphas from step 1 through t.
+product symbol (Π) - Multiply the indexed factors together.
+x_(t-1), x_t - Noisy observations before and after this forward step.
+ε_t - Fresh standard-normal step noise, independent of earlier draws.
+q(x_t|x_(t-1)) - Fixed forward transition distribution.
+I - Identity covariance matrix for standard Gaussian noise.
+
+2. Direct noising, variance and the aggregate draw
+x_0 - Original clean observation.
+ε without a step index - Aggregate standard-normal noise in the one-shot formula.
+sqrt(alpha_bar_t) - Cumulative clean-signal amplitude coefficient.
+sqrt(1-alpha_bar_t) - Aggregate-noise amplitude coefficient.
+q(x_t|x_0) - Distribution of timestep-t noise conditioned on clean x_0.
+Var(x_t) - Marginal variance across both data and corruption noise.
+Var(x_t|x_0) - Conditional covariance for a fixed clean observation.
+α_2 β_1+β_2 - Variance of the combined independent two-step noise.
+ε - Aggregate draw corresponding to the supplied noisy sample.
+s - Index of an incremental noise contribution.
+β_s, ε_s - Noise variance and fresh draw introduced at step s.
+j - Index of later steps that attenuate that contribution.
+product from s+1 to t - Remaining signal multipliers after noise was added.
+empty product - Equals 1, including the final step's noise contribution.
+
+Diffusion: schedules and true posterior
+1. Linear and normalized cosine schedules
+t - Step index, from 1 through T for the linear schedule.
+T - Total number of diffusion steps.
+β_start, β_end - First and last noise variances of the linear schedule.
+f(t) - Unnormalized cosine-squared cumulative signal curve.
+s in f(t) - Small cosine offset; the lecture uses 0.008.
+f(0) - Normalizer ensuring alpha_bar_0 equals 1.
+π/2 - Half-pi angle; use radians.
+β_t - Derived noise variance for the cosine schedule.
+min(...,0.999) - Cap that prevents a single beta from reaching 1.
+
+2. Posterior when the clean image is known
+q(x_(t-1)|x_t,x_0) - True reverse posterior conditioned on clean x_0.
+x_t, x_(t-1) - Current noisy observation and previous less-noisy state.
+x_0 - Clean observation, known in training but unavailable in generation.
+mu_tilde_t - Mean of the true Gaussian posterior.
+beta_tilde_t - Variance of the true Gaussian posterior.
+α_t, β_t - One-step signal and added-noise variance shares.
+alpha_bar_(t-1) - Cumulative signal share before the current step.
+alpha_bar_t - Cumulative signal share through the current step.
+I - Identity matrix giving isotropic posterior covariance.
+
+Diffusion: reverse sampling and training
+1. Clean estimate and reverse mean
+x_0_hat - Estimated clean observation implied by predicted noise.
+x_t - Current noisy sample available to the network.
+ε_theta(x_t,t) - Neural network's prediction of aggregate noise.
+θ (theta) - Denoiser parameters learned during training.
+μ_theta(x_t,t) - Predicted mean of the next reverse transition.
+α_t, β_t - Signal/noise schedule values at the current step.
+alpha_bar_t - Cumulative signal variance share.
+
+2. A complete stochastic reverse transition
+x_T - Initial Gaussian sample from which generation starts.
+T - Final/maximum timestep; sampling runs down to 1.
+x_(t-1) - Sample produced by the current reverse transition.
+σ_t - Standard deviation of the chosen reverse sampling noise.
+z - Fresh standard-normal reverse-sampling draw.
+μ_theta - Center of the reverse sampling distribution.
+z=0 at t=1 - Omit added noise in the final DDPM step.
+
+3. Noise-prediction training objective
+t~Uniform{1,...,T} - Sample a training timestep uniformly.
+x_0 - Clean training example used to manufacture x_t.
+ε - True aggregate noise used in that manufacture.
+ε_theta or ε_hat - Predicted noise from input pair (x_t,t).
+L_simple - Expected squared noise-prediction error.
+L_MSE - Coordinate-mean version of squared noise error.
+D - Number of noise coordinates being averaged.
+j - Noise-coordinate index.
+∂L_MSE/∂ε_hat_j - Output gradient passed into the denoiser.
+
+Diffusion: the variational bound
+1. Bound and its three kinds of terms
+L_VLB - Variational upper bound on expected negative data log-likelihood.
+E_q - Average under the fixed forward corruption process.
+L_T - Endpoint KL comparing the terminal forward noise to the prior.
+sum from t=2 to T - Add the intermediate reverse-posterior KL terms.
+L_(t-1) - KL between true and learned reverse transitions at that step.
+L_0 - Final-step reconstruction negative log-likelihood.
+q(x_T|x_0) - Terminal forward distribution for a clean example.
+p(x_T) - Chosen terminal prior, usually N(0,I).
+q(x_(t-1)|x_t,x_0) - True reverse posterior used as the training reference.
+p_theta(x_(t-1)|x_t) - Learned reverse transition distribution.
+p_theta(x_0|x_1) - Learned final reconstruction likelihood.
+
+2. Gaussian KL becomes squared mean error
+m_q, m_p - Mean vectors of the two Gaussian distributions.
+s^2 - Common isotropic variance of BOTH Gaussian distributions.
+I - Identity matrix giving the covariance s^2 I.
+||m_q-m_p||^2 - Squared Euclidean separation of the mean vectors.
+2s^2 - Variance-dependent scaling of the mean mismatch.
+
+3. Weighted noise error and the simplification
+C_t - Term independent of denoiser parameters for fixed variances.
+w_t - Schedule-dependent weight on timestep-t noise error.
+ε, ε_theta - True aggregate and predicted aggregate noise.
+β_t - Forward added-noise variance.
+σ_t^2 - Fixed reverse-model variance, not standard deviation.
+α_t - One-step retained signal variance share.
+alpha_bar_t - Cumulative retained signal variance share.
+
+Transformers: embeddings, attention and masks
+1. Token lookup and Q/K/V projections
+X_0 - Embedding-plus-position matrix entering the Transformer.
+E[token IDs] - Learned embedding vectors selected by vocabulary indices.
+d_model - Token feature/embedding width.
+PE - Positional encoding added to the embeddings.
+X - Input token-representation matrix at the attention layer.
+W_Q, W_K, W_V - Learned query, key and value projection matrices.
+Q, K, V - Query, key and value matrices after projection.
+
+2. Scores, stable softmax and value mixing
+S - Matrix of scaled query-key attention scores plus mask.
+QK^T - Dot products of every query with every key.
+d_k - Width of query and key vectors.
+M - Additive attention-mask matrix.
+A - Row-normalized attention-weight matrix.
+O - Matrix of contextual outputs, A times V.
+i, j - Query-row and key-position indices.
+m_i - Maximum score in row i, subtracted for stability.
+k inside the softmax sum - Index over all candidate key positions.
+o_i - Output vector for query i.
+v_j - Value vector associated with key position j.
+
+3. Causal masking and dimensions
+M_ij - Mask entry for query position i and key position j.
+j <= i - Current and earlier decoder input positions are allowed.
+j > i - Future decoder input positions are forbidden.
+-infinity - Score whose exponential becomes zero.
+m, n - Counts of query positions and key/value positions.
+d_k, d_v - Query/key width and value-vector width.
+S: m x n - One score for each query-key pair.
+O: m x d_v - One contextual value-width vector per query.
+
+Multi-head attention, FFN and LayerNorm
+1. Several heads, then concatenate
+r - Attention-head index.
+h - Total number of attention heads.
+W_Q^r, W_K^r, W_V^r - Independent projections learned for head r.
+head_r - Contextual output matrix produced by head r.
+Concat - Join head outputs along their feature dimension.
+W_O - Learned projection of concatenated head features.
+MHA(X) - Multi-head attention output for input token matrix X.
+
+2. Position-wise feed-forward network
+x - Feature row of one token.
+W_1, b_1 - First affine transformation weights and bias.
+ReLU(a) - Nonlinearity that keeps positive a and replaces negatives by zero.
+W_2, b_2 - Second affine transformation weights and bias.
+FFN(x) - Transformed feature vector for this token.
+
+3. Residual addition and feature normalization
+x - Original token features on the residual path.
+Sublayer(x) - Attention or FFN result to add to the residual.
+u - Summed feature vector x+Sublayer(x).
+y - Final normalized output of this post-norm block.
+d - Number of feature coordinates in one token vector.
+j - Feature-coordinate index.
+μ_u - Mean across this token's feature coordinates.
+v_u - Mean squared deviation across those coordinates.
+γ_j (gamma) - Learned gain for normalized feature j.
+b_j - Learned shift for normalized feature j.
+epsilon_num - Small stabilizing constant under the square root.
+LN or LayerNorm - Per-token feature normalization with learned gain/shift.
+
+Position encoding and cross-entropy
+1. Sinusoidal positional encoding
+p - Token's zero-based position in the sequence.
+r - Zero-based index of a sine/cosine coordinate pair.
+2r, 2r+1 - Even sine coordinate and following odd cosine coordinate.
+d_model - Width of the positional and embedding vectors.
+10000 - Fixed base controlling the frequency range.
+10000^(2r/d_model) - Shared denominator for BOTH coordinates in pair r.
+sin, cos - Trigonometric functions evaluated in radians.
+PE(p,j) - Encoding value at position p and coordinate j.
+
+2. Relative-position signal and projected content
+a, b - Angles of two unprojected sinusoidal pairs.
+cos(a-b) - Dot-product signal depending on the angular offset.
+c_i, d_j - Projected content at query position i and key position j.
+p_i, r_j - Projected position components of query i and key j.
+T superscript - Transpose needed for the dot-product notation.
+four expansion terms - Content/content, content/position and both position terms.
+
+3. Vocabulary probabilities and loss
+h_t - Decoder feature vector at target timestep t.
+W_vocab, b - Vocabulary projection weights and bias.
+a_t, a_tv - Vocabulary logits; a_tv is the logit of token v.
+p_tv - Predicted probability of vocabulary token v at step t.
+v, u - Vocabulary indices; u is the normalization-sum index.
+y_tv - One-hot target: 1 for the true token, 0 otherwise.
+CE_t - Cross-entropy at target position t.
+p_(t,true) - Probability assigned to the TRUE next token.
+N - Number of non-padding target positions being scored.
+L_sum, L_mean - Sum of token losses and their mean.
+∂CE_t/∂a_tv - Per-token logit derivative, p_tv-y_tv.
+
+Sequence generation and model sizes
+1. Autoregressive probability and decoding
+x - Available source/context, such as an encoded input sentence.
+y_(1:N) - Complete target sequence of N tokens.
+y_<t - Target prefix before position t.
+p(y_t|y_<t,x) - Model probability of the next target token given context.
+product over t - Multiply the conditional probabilities of all chosen tokens.
+score(y_(1:N)) - Sum of token log probabilities; ranks sequence candidates.
+v - Candidate next token in the vocabulary.
+argmax_v - Return the candidate v with the largest probability.
+y_t,greedy - Token chosen by greedy next-token selection.
+beam width B - Number of candidate prefixes retained in beam search.
+
+2. Embedding and vocabulary-head counts
+|V| - Vocabulary size: number of distinct token entries.
+d_model - Width of each token representation.
+|V| d_model - Number of entries in the learned embedding table.
+d_model |V| - Number of vocabulary projection weights.
+final |V| term - One optional bias per vocabulary output token.
+#params - Count of distinct trainable scalar parameters.
+
+3. Common operators and overloaded symbols
+ln / exp - Natural logarithm and its inverse exponential.
+sum symbol (Σ) - Add all indexed terms.
+product symbol (Π) - Multiply all indexed factors.
+∂ - Partial derivative: sensitivity to one argument.
+grad - Vector of partial derivatives over a parameter vector.
+T superscript - Matrix/vector transpose, not a diffusion timestep.
+I - Identity matrix; I(X;Y) instead denotes mutual information.
+D - Discriminator in GANs, data dimension in MSE formulas.
+σ - Standard deviation in Gaussians, sigmoid when written σ(a).
+β - Diffusion noise variance; β_KL is a separate VAE loss weight.
+epsilon - Random noise; epsilon_num is instead a fixed numerical stabilizer.

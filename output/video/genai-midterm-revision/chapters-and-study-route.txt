@@ -1,0 +1,25 @@
+GENERATIVE AI: COMPLETE MIDTERM REVISION
+
+Duration: 01:37:25.248
+Voice: en-US-AriaNeural, synthetic English narration.
+Based on seven supplied lecture PDFs, existing handwritten examples, and Quiz 1.
+Use chapter navigation or these timestamps to revisit topics.
+
+CHAPTERS
+00:00:00  Foundations
+00:07:14  Autoencoders and VAEs
+00:19:54  GANs and conditional generation
+00:33:12  Evaluation
+00:46:02  Diffusion
+01:09:15  Transformers
+01:34:09  Final recall
+
+STUDY AFTER WATCHING
+1. Normalize a Bayes posterior.
+2. Compute VAE sampling, Gaussian KL, and a clearly labelled loss reduction.
+3. Derive GAN generator logit gradients; trace an alternating update.
+4. Reproduce Quiz 1 IS; compute diagonal FID and generative precision/recall.
+5. Calculate forward diffusion and one full reverse sample.
+6. Work Q/K/V attention, masking, positional encoding and cross-entropy.
+
+The actual midterm blueprint is unknown. This lesson covers the supplied lecture scope.
