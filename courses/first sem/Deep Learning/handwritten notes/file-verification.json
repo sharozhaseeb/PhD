@@ -1,0 +1,293 @@
+{
+  "status": "all36 selected PNGs verified as intact portrait PNGs",
+  "pages": [
+    {
+      "id": "DL1-01",
+      "filename": "dl1-01-what-learning-means-tasks-data-and-generalization.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2111892,
+      "sha256": "d21a7aaf98274476b5cb2cbb1f79a82b758e35a245c67e7a6f4796afe22c952f"
+    },
+    {
+      "id": "DL1-02",
+      "filename": "dl1-02-linear-regression-loss-derivatives-and-one-update.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2072311,
+      "sha256": "637a660bcd6031144d996057a5a59403668b85738b3af56bef328fa62fdc91fd"
+    },
+    {
+      "id": "DL1-03",
+      "filename": "dl1-03-multiple-features-two-simultaneous-batch-updates.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2068751,
+      "sha256": "7eb5e3f36292569d9d080e73d67733c59b054c00f9e058d43bc1c9a1c789c15c"
+    },
+    {
+      "id": "DL2-01",
+      "filename": "dl2-01-logistic-regression-probability-boundary-and-bce.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2068063,
+      "sha256": "0e6008a4cfd124400e4de243d2f02fa8029294c6d8b3ef46a35208690d8bed0b"
+    },
+    {
+      "id": "DL2-02",
+      "filename": "dl2-02-logistic-gradients-chain-rule-and-batch-averaging-v2.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 1841878,
+      "sha256": "bbbdaec74632ab109de4753b7b734f543697023032f82691dd561eca6651e384"
+    },
+    {
+      "id": "DL2-03",
+      "filename": "dl2-03-neurons-and-depth-shapes-parameters-and-nonlinearities.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2190441,
+      "sha256": "370846c1b844de3cd22f47406ef13c78a3c0d11aa0eb065a51a54abec40bf7a0"
+    },
+    {
+      "id": "DL2-04",
+      "filename": "dl2-04-threshold-gates-and-two-xor-constructions.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2072827,
+      "sha256": "8186342a1bac088ec8442b301b30204444ef67baaf1198d97ac7042b3b97e1ba"
+    },
+    {
+      "id": "DL2-05",
+      "filename": "dl2-05-boolean-networks-minterms-negative-literals-and-k-maps.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2075791,
+      "sha256": "678ec0113b75746427567216651f863527591cf94ba4be1ee2b521ed9e7535a6"
+    },
+    {
+      "id": "DL2-06",
+      "filename": "dl2-06-parity-and-depth-compare-specified-constructions.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 2220047,
+      "sha256": "510b7ce0627d4e98259bd77c5630bae2d51ea4a07e7cc310ed25fd7531a1c624"
+    },
+    {
+      "id": "DL2-07",
+      "filename": "dl2-07-classification-regions-half-spaces-intersections-and-unions.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2104063,
+      "sha256": "d4cb9445e62e1b9c4a0c40429ad24a89963f682a41d0c7ab5cec2cff293db280"
+    },
+    {
+      "id": "DL2-08",
+      "filename": "dl2-08-function-approximation-pulses-sums-and-the-theorem.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2104208,
+      "sha256": "8e0911011da28f327c6cd804decd4a3639bb79ebeb3e7eb9819eccbeb9b27b43"
+    },
+    {
+      "id": "DL3-01",
+      "filename": "dl3-01-perceptron-ordered-updates.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2061813,
+      "sha256": "a003feb0afa6df36de6731e9c9e79fb67789fd473ef0dc167ded0635a77c51fd"
+    },
+    {
+      "id": "DL3-02",
+      "filename": "dl3-02-activations-outputs-and-slopes.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2130799,
+      "sha256": "6f7f010bbfd9a66301c10ffb79e5003fa045e8584beea5fe507dd36c1b74b44a"
+    },
+    {
+      "id": "DL3-03",
+      "filename": "dl3-03-expected-and-empirical-risk-v2.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 1961162,
+      "sha256": "4c249a924d854a0add3aadd43c3b6a92a491d11cf6c5df507a4ca719dd8beae5"
+    },
+    {
+      "id": "DL3-04",
+      "filename": "dl3-04-gradients-hessian-and-path-sums.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2192530,
+      "sha256": "4f0aef9be4c59f265102cb96553ee5ce4a2fbfd39f09d73ebc5b42fbf3fa8b01"
+    },
+    {
+      "id": "DL3-05",
+      "filename": "dl3-05-complete-forward-pass.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2067092,
+      "sha256": "c89bec272359b76da12549806568314a7f8507bc2fc255e8f01b94886c20764b"
+    },
+    {
+      "id": "DL3-06",
+      "filename": "dl3-06-output-backprop-chain-rule.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2014654,
+      "sha256": "864bdc74af34799bb2339afa477c77a13661c4fa1b64b669a4522a17f06d503e"
+    },
+    {
+      "id": "DL3-07",
+      "filename": "dl3-07-hidden-backprop-simultaneous-update.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2135959,
+      "sha256": "6aa770d2a7ff2c12bc67750c39d622804a362a4cc4473335af33f4746f870f89"
+    },
+    {
+      "id": "DL3-08",
+      "filename": "dl3-08-batch-averaging-and-training-loop.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2130149,
+      "sha256": "d40dc4c7070c25a588c07cc22036e7c72099b08c3d3bb29697efaf65da3c1afe"
+    },
+    {
+      "id": "DL4-01",
+      "filename": "dl4-01-loss-and-saturation-why-the-surrogate-matters.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2192740,
+      "sha256": "25f601c63498c705e14642242b91c7a40ad0dc0e4a7ebbcbd46aa0b6fa472881"
+    },
+    {
+      "id": "DL4-02",
+      "filename": "dl4-02-scalar-convergence-step-size-oscillation-and-rate.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2304876,
+      "sha256": "7ec9cc20daa0da7e9dad4e5ef059226279a5cc9179f76492b692a73a81175b29"
+    },
+    {
+      "id": "DL4-03",
+      "filename": "dl4-03-hessian-geometry-ill-conditioning-and-newton-steps.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2096869,
+      "sha256": "a7ad23bba7c17a6d327ff0dc056dae2493c0b6e7f784d4e613cfd162441656cd"
+    },
+    {
+      "id": "DL4-04",
+      "filename": "dl4-04-curvature-approximations-and-learning-rate-schedules.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2186734,
+      "sha256": "a2e3d26b539d3d50c481a86a167843b4b830491af9e6fec0f9bf0abfc0b1800c"
+    },
+    {
+      "id": "DL4-05",
+      "filename": "dl4-05-rprop-sign-based-steps-with-rollback.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2176104,
+      "sha256": "0b4adde108702a46493927dcc8a057f943ce35a3467d1918e2307bc8686fb2b7"
+    },
+    {
+      "id": "DL4-06",
+      "filename": "dl4-06-momentum-accumulate-consistent-descent-directions.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2000010,
+      "sha256": "ba38793bb55040850887edde31b36de3a2029f62354eeb89a6be4737073645ac"
+    },
+    {
+      "id": "DL4-07",
+      "filename": "dl4-07-nesterov-momentum-compute-the-gradient-after-lookahead.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2106703,
+      "sha256": "28e5a2ca76633d8de163c65850dae5f0822e5457b34d44ae623c77ed007dcbd0"
+    },
+    {
+      "id": "DL5-01",
+      "filename": "dl5-01-batch-sgd-and-mini-batches-order-and-update-counts.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2157019,
+      "sha256": "c822a0613483c4d4ba0445a1ba3d35495c255b75e2c48e8404000e8067357d82"
+    },
+    {
+      "id": "DL5-02",
+      "filename": "dl5-02-sgd-convergence-step-size-conditions-and-fair-comparisons.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2114972,
+      "sha256": "152d60bbd16ea341a01769543e3f84c80df443ba5a14e769a7ac331cd59eb752"
+    },
+    {
+      "id": "DL5-03",
+      "filename": "dl5-03-mini-batch-estimates-unbiasedness-variance-and-monitoring.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2114403,
+      "sha256": "cc2d656a9df4e6db784d3d13d3e07688b1e9499754430cadfc0d05fbe591776e"
+    },
+    {
+      "id": "DL5-04",
+      "filename": "dl5-04-mini-batch-momentum-and-nesterov-preserve-the-state.png",
+      "width": 1060,
+      "height": 1484,
+      "bytes": 2158659,
+      "sha256": "1677a874987c676594be34d99ed68e42eca3e226063422af10ebcbd3f3464328"
+    },
+    {
+      "id": "DL5-05",
+      "filename": "dl5-05-rmsprop-squared-gradients-set-a-coordinate-scale.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2070119,
+      "sha256": "8fa0418cf0509f30c28e864b5110ac6d251768fd051e83acd8698332d8e29f8d"
+    },
+    {
+      "id": "DL5-06",
+      "filename": "dl5-06-adam-moments-bias-correction-and-two-updates-v2.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 1980882,
+      "sha256": "1e9755cb4b01b6dff12172c3e316abe69941fffc8924351ba75e94aea73c2f94"
+    },
+    {
+      "id": "DL5-07",
+      "filename": "dl5-07-generalization-and-l2-objective-gradient-and-decay.png",
+      "width": 1054,
+      "height": 1492,
+      "bytes": 2071462,
+      "sha256": "46bac9c43328f5872977daccbc7a831b3e07b4fd7e496b8158c4539f1f9835ef"
+    },
+    {
+      "id": "DL5-08",
+      "filename": "dl5-08-dropout-masked-learning-and-both-scaling-conventions.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2085136,
+      "sha256": "e99465c8f2903cf2277ddf522d0466be014a7a2332a3b3daa4876d4269a09a95"
+    },
+    {
+      "id": "DL5-09",
+      "filename": "dl5-09-gradient-clipping-coordinate-limits-versus-norm-limits.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2076061,
+      "sha256": "fcd2d642aeff47518c3df6281a082a23541feb1b3df91cae6079838a0d83b1e6"
+    },
+    {
+      "id": "DL5-10",
+      "filename": "dl5-10-practical-training-normalization-initialization-and-model-selection.png",
+      "width": 1055,
+      "height": 1491,
+      "bytes": 2130956,
+      "sha256": "46881aa9ec73f2ab1fcae590a97b5eca053b6a8e886a3745d0767747f7c1301c"
+    }
+  ]
+}
