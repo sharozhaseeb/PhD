@@ -1,0 +1,60 @@
+Y 2e0ae8ad 2026-11-16 files=1 lines=120 Speed up chain_decomposition and bridges 2.5x to 4x by dropping the in
+N 9d866a5f 2026-10-22 files=5 lines=1446 ENH: add Infomap community detection (map equation) (#8727)
+Y abf2feda 2026-10-17 files=2 lines=53 ENH: Speed up node_connectivity and minimum_node_cut with a pre-filter
+Y 9f6079c0 2026-09-25 files=1 lines=2 BUG: Fix row-max normalization in vectorized effective_size (#8906)
+Y 4a72b69a 2026-09-25 files=1 lines=5 Optimize _triangles_and_degree_iter by caching neighbor sets (#8743)
+N bbc0dfcd 2026-09-24 files=0 lines=0 CI: Use uv to install pkgs into venv. (#8928)
+N c868da24 2026-09-24 files=0 lines=0 CI: Bump circleci to gen2 resource class. (#8914)
+Y 675034ad 2026-09-09 files=1 lines=53 [BUG][PERF] Fix ISMAGS directed matching and monomorphism overhead (#8
+Y 68206456 2026-09-03 files=1 lines=8 ENH: Speed up connectivity checks in random_reference and lattice_refe
+Y 32e06d5b 2026-08-21 files=2 lines=200 ENH: adding magnetic_laplacian_matrix (#8562)
+N ef981553 2026-08-18 files=1 lines=243 Add ISMAGS monomorphism support (#8838)
+Y 7f7afab1 2026-08-13 files=1 lines=19 ENH: Simplifying _build_paths_from_predecessors - 10% faster (#8844)
+Y bf130bfe 2026-07-22 files=1 lines=44 ENH: add n_samples parameter to rich_club_coefficient for multi-sample
+Y f77c3b68 2026-07-17 files=2 lines=38 Speed up the residual flow reset in `edmonds_karp` and simplify the `m
+N 306bbbcd 2026-07-08 files=2 lines=869 Optimize Leiden data handling (#8715)
+N 708ebfa8 2026-05-12 files=2 lines=675 Implement Leiden Community Detection Algorithm (#8509)
+Y c56ada46 2026-05-07 files=1 lines=108 Optimize VF2 GMState frontier update by removing full core scan (#8649
+N 24861327 2026-04-30 files=2 lines=248 ENH: Add Barber's bipartite modularity quality function (#8618)
+Y c1c468d5 2026-04-15 files=1 lines=36 Optimize _build_paths_from_predecessors stack logic for 30-40% speedup
+Y 9150d1ea 2026-04-10 files=1 lines=101 Fix all_node_cuts: correct Even-Tarjan reduction for Kanevsky's algori
+Y 802c0a2d 2026-03-12 files=2 lines=7 perf: replace built-in sum() with np.sum() in pagerank and katz (#8561
+Y fa30c164 2026-02-26 files=1 lines=157 Implement Constant-Potts Model (for use with Leiden community detectio
+Y 519e819f 2026-01-31 files=1 lines=37 MAINT: Reuse `could_be_isomorphic` in `fast_/faster_` variants (#8497)
+Y e55ffa30 2025-12-19 files=1 lines=9 Kruskal MST early break for efficiency (#8296)
+Y 0d3fe6ac 2025-12-14 files=1 lines=145 Adding the Tree Optimization in Floyd Warshall (#8361)
+N 438ffbec 2025-10-28 files=0 lines=0 Add autoflake and pyupgrade as manual pre-commit hooks (#7870)
+Y 222c6522 2025-10-27 files=1 lines=27 optimize _single_shortest_path function (#6337)
+Y 1660ac37 2025-10-17 files=2 lines=74 ENH: Add is_perfect_graph using SPGT (follow-up to #8111) (#8318)
+Y 4714bb5c 2025-09-16 files=1 lines=4 Optimizing is_connected (#8266)
+Y 0bad061e 2025-09-15 files=1 lines=57 Optimizing Dijkstra's path construction for all targets case (#8218)
+Y 973aac17 2025-09-07 files=1 lines=27 MAINT/TST: increase non-`slow` coverage in `k_components` (#8239)
+Y 090cc091 2025-08-28 files=1 lines=31 Bidirectional dijkstra optimization: from 1.1x to 25x faster (#8206)
+Y 2573bd3b 2025-08-04 files=1 lines=14 enh: short-circuit in `is_regular` for directed graphs (#8138)
+N 4834e7d1 2025-08-03 files=0 lines=0 3d facebook plot example (#6893)
+Y f618240c 2025-08-02 files=1 lines=96 Faster `intersection_array` computation for checking distance-regulari
+Y 6604f353 2025-07-30 files=1 lines=162 refactor: simplify `k_factor` (#8139)
+Y eea6802b 2025-07-25 files=1 lines=67 Add `all_triangles` generator yielding all unique triangles in a graph
+Y 544c3248 2025-07-24 files=1 lines=36 Optimizing Dijkstra's paths to target (~50x faster for graphs with mul
+Y adfde01e 2025-07-21 files=1 lines=9 Optimise harmonic centrality (#8158)
+Y f750ce5b 2025-07-17 files=1 lines=14 optimise `is_reachable()` (#8112)
+Y 8aefda8c 2025-07-09 files=1 lines=59 Performance improvement and tests for `edges_equal` (#8077)
+Y 3d0bb212 2025-04-30 files=2 lines=4 Speed up `connected_components` and `weakly_connected_components` (#79
+Y a986762f 2025-04-14 files=2 lines=77 Improve Performance of Tree Isomorphism and Center Calculation  (#7946
+Y 9d96e778 2025-04-15 files=1 lines=122 Add  energy-based method to spring_layout (#7889)
+Y 7c0a9987 2025-04-13 files=2 lines=84 Faster `square_clustering` (#7810)
+Y 4556ed43 2025-03-31 files=1 lines=88 Consolidate could_be_isomorphic (#7852)
+Y 7ccc5597 2025-03-18 files=1 lines=83 Faster Implementation of Structural Holes (#7249)
+Y 2b206520 2025-02-15 files=2 lines=23 Faster `could_be_isomorphic` and `number_of_cliques` (#7855)
+N f32051a4 2025-02-10 files=1 lines=308 Densest Subgraph Problem: FISTA based algorithm + Large scale tests.  
+Y 69d70469 2025-02-05 files=1 lines=48 Deprecate graph_could_be_isomorphic (#7826)
+Y 0a643aaf 2025-01-15 files=1 lines=4 Faster computation of energy in Laplacian centrality (#7793)
+Y 3b8f470c 2024-12-19 files=1 lines=9 single_source_all_shortest_paths: don't loop over all nodes (#7762)
+Y ce8c3787 2024-11-11 files=1 lines=62 perf: optimise `random_k_out_graph` (#7702)
+Y 2516c15a 2024-08-06 files=2 lines=19 Fix weakly_connected_components() performance on graph view (#7586)
+Y 1071e14b 2024-05-21 files=1 lines=30 Always cache graph attrs for better cache behavior (#7455)
+Y e3507d68 2024-04-15 files=2 lines=25 FilterAdjacency: __len__ is recalculated unnecessarily #7377 (#7378)
+Y 754173b4 2024-04-04 files=1 lines=9 Fix exception for `del config[key]` (#7391)
+N 91337d52 2024-03-06 files=0 lines=0 Remove animation from spectral clustering example to improve performan
+Y 72d1f680 2024-02-02 files=2 lines=70 ENH: Speed up common/non_neighbors by using _adj dict operations (#724
+Y 215470ae 2024-01-31 files=2 lines=19 Fix rich_club_coefficient() for small graphs (#7212)

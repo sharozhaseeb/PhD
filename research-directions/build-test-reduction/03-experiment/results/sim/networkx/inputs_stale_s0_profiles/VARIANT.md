@@ -1,0 +1,1 @@
+S0 benchmark profiles reused at every state, i.e. P8 ('never older than the last checkpoint') is violated. Shows the potential of profile selection if checkpoint re-profiling were free. Not the A4 rule as specified.

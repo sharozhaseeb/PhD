@@ -1,0 +1,6 @@
+# reformat_check clone=/home/sharoz/bt-lab/exp/repos/networkx rev=6c1a31d161 base=181f295117 last=2e0ae8ad; 411 non-merge commits in range (first-parent, oldest first)
+8ec80c76 2025-08-28 no STY: Variable rename proposal in bidirectional_dijkstra (#8210)
+     0.01  +23 -23 / 2543  networkx/algorithms/shortest_paths/weighted.py
+4792afb8 2026-03-14 no ENH: Add format parameter to adjacency_matrix (#8545)
+     0.05  +9 -3 / 174  networkx/linalg/graphmatrix.py
+reformat_commits: none

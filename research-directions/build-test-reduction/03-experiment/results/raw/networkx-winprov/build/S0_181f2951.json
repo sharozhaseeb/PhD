@@ -1,0 +1,8 @@
+﻿{
+    "label":  "S0_181f2951",
+    "cmd":  "pip install -e --no-deps --no-build-isolation",
+    "wall_s":  3.106,
+    "cpu_before":  9.9986431292888049,
+    "platform":  "Windows, provisional",
+    "state_sha":  "181f295117f7f7488644c87f04699290f8e49188"
+}

@@ -1,0 +1,52 @@
+# reformat_check clone=/home/sharoz/bt-lab/exp/repos/bottleneck rev=b0815406af base=22657acaad last=933b6537; 190 non-merge commits in range (first-parent, oldest first)
+3016eda4 2019-09-14 no BLD: run style checks on py37, not py27
+5851c10a 2019-10-05 REFORMAT STY: format code base with black and add CI tests to check conformance going forward
+     0.71  +39 -14 / 55  bottleneck/__init__.py
+     0.25  +22 -10 / 89  bottleneck/_pytesttester.py
+     0.20  +38 -37 / 188  bottleneck/src/bn_template.py
+     0.16  +15 -3 / 92  bottleneck/slow/reduce.py
+     0.07  +18 -3 / 262  bottleneck/slow/move.py
+     0.06  +10 -10 / 165  bottleneck/slow/nonreduce_axis.py
+3a01dcad 2019-10-05 no STY: add black check to Github Actions workflow and add corresponding badge
+3c92be0f 2019-10-12 no STY: wrap if clauses in parens in C
+     0.01  +2 -2 / 368  bottleneck/src/nonreduce_template.c
+     0.00  +2 -2 / 1055  bottleneck/src/nonreduce_axis_template.c
+     0.00  +2 -2 / 1550  bottleneck/src/move_template.c
+     0.00  +2 -2 / 2020  bottleneck/src/reduce_template.c
+1139fa67 2019-10-13 no STY: use proper doc-string quotation
+b49ba083 2019-10-13 no STY: use tuples instead of lists for default kwargs
+08bfc99d 2019-10-13 no DOC: follow cpplint style and add copyright notices to C files
+     0.01  +2 -0 / 191  bottleneck/src/bottleneck.h
+     0.01  +2 -0 / 370  bottleneck/src/nonreduce_template.c
+     0.01  +2 -0 / 381  bottleneck/src/iterators.h
+     0.00  +2 -0 / 1057  bottleneck/src/nonreduce_axis_template.c
+     0.00  +2 -0 / 1552  bottleneck/src/move_template.c
+     0.00  +2 -0 / 2022  bottleneck/src/reduce_template.c
+77340a3a 2019-10-13 no STY: follow cpplint style and move opening brace to same line as function definition
+     0.06  +10 -20 / 329  bottleneck/src/move_median/move_median_debug.c
+     0.05  +18 -36 / 748  bottleneck/src/move_median/move_median.c
+     0.04  +39 -78 / 2022  bottleneck/src/reduce_template.c
+     0.03  +5 -10 / 370  bottleneck/src/nonreduce_template.c
+     0.02  +11 -22 / 1057  bottleneck/src/nonreduce_axis_template.c
+     0.02  +14 -28 / 1552  bottleneck/src/move_template.c
+6d0cc13e 2019-10-13 no STY: follow cpplint header guard style
+     0.02  +3 -3 / 191  bottleneck/src/bottleneck.h
+     0.01  +5 -0 / 386  bottleneck/src/iterators.h
+91c78f74 2019-10-13 no STY: whitespace cleanup in move_median.c
+     0.05  +4 -33 / 730  bottleneck/src/move_median/move_median.c
+d231a865 2019-11-02 no BLD: fix typo in black task for Github Actions
+cad862cc 2020-01-26 no FIX: ensure #line statements have posix-style paths on windows, fix Py3.8 builds on Windows
+     0.01  +3 -1 / 213  bottleneck/src/bn_template.py
+8d980f44 2020-03-28 no STY: run isort as part of CI and run on remaining files
+     0.02  +0 -1 / 55  bottleneck/__init__.py
+     0.01  +3 -3 / 213  bottleneck/src/bn_template.py
+     0.01  +1 -2 / 201  bottleneck/src/bn_config.py
+f982d7ee 2020-09-11 no CLN: reformat with isort and black
+     0.46  +24 -25 / 54  bottleneck/__init__.py
+     0.02  +5 -2 / 203  bottleneck/src/bn_config.py
+4f9bbb4e 2020-09-13 no STY: add trivial type annotations to tests
+1c0488ea 2020-11-23 no CLN: fix format for unsigned longs from %d -> %zu
+     0.05  +14 -14 / 311  bottleneck/src/move_median/move_median_debug.c
+reformat_commits: 5851c10a
+last_reformat: 5851c10a87a6c2041842938c587ed865b6991ca2
+first commit after it in chain: 3a01dcad365cb7c5d2682092341fd04074eafb74

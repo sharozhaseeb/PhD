@@ -1,0 +1,365 @@
+{
+ "survey": "W2-PRACTICE (RQ1) practice survey",
+ "retrieved": "2026-11-21",
+ "clone_root": "C:\\Users\\pc\\study\\bt-lab\\survey (shallow, read-only, untrusted; never executed; not committed)",
+ "repositories": [
+  {
+   "system": "SWE-bench harness (HEAD)",
+   "url": "https://github.com/SWE-bench/SWE-bench",
+   "commit": "02e7a74ffd0b707aab73d203fe87bdc7c76afc8e",
+   "commit_date": "2026-09-02",
+   "local": "SWE-bench_SWE-bench"
+  },
+  {
+   "system": "SWE-bench harness (release v4.1.0, classic layered images)",
+   "url": "https://github.com/SWE-bench/SWE-bench/tree/v4.1.0",
+   "commit": "726c5461e2ef52d83cf1ea2107870a8bb3328d57",
+   "commit_date": "2025-09-11",
+   "local": "SWE-bench_v4.1.0"
+  },
+  {
+   "system": "SWE-Perf",
+   "url": "https://github.com/SWE-Perf/SWE-Perf",
+   "commit": "9e8fed285ed640b51baaf66b13773706dc95aa45",
+   "commit_date": "2025-10-29",
+   "local": "SWE-Perf_SWE-Perf"
+  },
+  {
+   "system": "GSO",
+   "url": "https://github.com/gso-bench/gso",
+   "commit": "32d78b331d59ed689b1238789dc20d36576951c0",
+   "commit_date": "2026-09-28",
+   "local": "gso-bench_gso"
+  },
+  {
+   "system": "SWE-fficiency",
+   "url": "https://github.com/swefficiency/swefficiency",
+   "commit": "12d32a2d6800824a7d84bdb6797b5708e7b7957f",
+   "commit_date": "2026-02-17",
+   "local": "swefficiency_swefficiency"
+  },
+  {
+   "system": "FormulaCode (evaluation)",
+   "url": "https://github.com/formula-code/fc-eval",
+   "commit": "c08f665e7bf3b4de225b72dc02ce9b15b7aaba2b",
+   "commit_date": "2026-05-12",
+   "local": "formula-code_fc-eval"
+  },
+  {
+   "system": "FormulaCode (dataset construction)",
+   "url": "https://github.com/formula-code/datasmith",
+   "commit": "b4874d3b908c9eeab83ae66126df9a18348bb133",
+   "commit_date": "2026-11-04",
+   "local": "formula-code_datasmith"
+  },
+  {
+   "system": "PIE (pie-perf)",
+   "url": "https://github.com/LearningOpt/pie",
+   "commit": "eb3d72bc4f3c9095d0f62506340bc8ca0ef27b09",
+   "commit_date": "2024-07-18",
+   "local": "LearningOpt_pie"
+  },
+  {
+   "system": "ECCO",
+   "url": "https://github.com/CodeEff/ECCO",
+   "commit": "e86544618118a481d17a932e2a39df25d85d34cb",
+   "commit_date": "2024-10-03",
+   "local": "CodeEff_ECCO"
+  },
+  {
+   "system": "EffiBench",
+   "url": "https://github.com/huangd1999/EffiBench",
+   "commit": "d29e43bccdfa6a9ba9e76c10d79e4b57aaa4a154",
+   "commit_date": "2024-11-30",
+   "local": "huangd1999_EffiBench"
+  },
+  {
+   "system": "EffiBench-X",
+   "url": "https://github.com/EffiBench/EffiBench-X",
+   "commit": "21b6668a49a342c843e679cc5ed16081064a5768",
+   "commit_date": "2025-10-24",
+   "local": "EffiBench_EffiBench-X"
+  },
+  {
+   "system": "Mercury",
+   "url": "https://github.com/Elfsong/Mercury",
+   "commit": "e88551021137c0a1591e198877471d09e5d4fb01",
+   "commit_date": "2026-03-06",
+   "local": "Elfsong_Mercury"
+  },
+  {
+   "system": "EvalPerf (in EvalPlus)",
+   "url": "https://github.com/evalplus/evalplus",
+   "commit": "26d6d00bb1fd0fa37f39c99d5290da67891d1c5e",
+   "commit_date": "2025-10-02",
+   "local": "evalplus_evalplus"
+  },
+  {
+   "system": "COFFE",
+   "url": "https://github.com/JohnnyPeng18/Coffe",
+   "commit": "7979acb4f2b11cba6c81f3149f64f14a7931955f",
+   "commit_date": "2025-05-26",
+   "local": "JohnnyPeng18_Coffe"
+  },
+  {
+   "system": "KernelBench",
+   "url": "https://github.com/ScalingIntelligence/KernelBench",
+   "commit": "423217d9fda91e0c2d67e4a43bf62f96f6d104f1",
+   "commit_date": "2026-03-05",
+   "local": "ScalingIntelligence_KernelBench"
+  },
+  {
+   "system": "Codeflash",
+   "url": "https://github.com/codeflash-ai/codeflash",
+   "commit": "a3a38efc9ec3d0a52a23056fd0a069863398a7ce",
+   "commit_date": "2026-05-30",
+   "local": "codeflash-ai_codeflash"
+  },
+  {
+   "system": "SysLLMatic",
+   "url": "https://github.com/sysllmatic/sysllmatic",
+   "commit": "fd59fa4deed3595a543892279f5dc656d75d1125",
+   "commit_date": "2026-03-26",
+   "local": "sysllmatic_sysllmatic"
+  },
+  {
+   "system": "OpenEvolve",
+   "url": "https://github.com/algorithmicsuperintelligence/openevolve",
+   "commit": "4167db4325727138215c55470fdd5cd302f74b66",
+   "commit_date": "2026-11-20",
+   "local": "algorithmicsuperintelligence_openevolve"
+  },
+  {
+   "system": "asv",
+   "url": "https://github.com/airspeed-velocity/asv",
+   "commit": "1f9db13755820bf3d7b7fbfc0f76f7fe0af4aa68",
+   "commit_date": "2026-11-02",
+   "local": "airspeed-velocity_asv"
+  },
+  {
+   "system": "numpy (benchmarks/, .github/ sparse)",
+   "url": "https://github.com/numpy/numpy",
+   "commit": "e092b9144edcdf1c52f46b4b2a0ad0869109c500",
+   "commit_date": "2026-11-20",
+   "local": "numpy_numpy"
+  },
+  {
+   "system": "pandas (asv_bench/, .github/ sparse)",
+   "url": "https://github.com/pandas-dev/pandas",
+   "commit": "ca8d2daa1bf8f30f4d1ce26dfad6792f590e298d",
+   "commit_date": "2026-11-20",
+   "local": "pandas-dev_pandas"
+  },
+  {
+   "system": "scipy (benchmarks/, .github/ sparse)",
+   "url": "https://github.com/scipy/scipy",
+   "commit": "73d740ca203cd4ce087a1a818fb2db576646eacc",
+   "commit_date": "2026-11-20",
+   "local": "scipy_scipy"
+  },
+  {
+   "system": "pyperformance",
+   "url": "https://github.com/python/pyperformance",
+   "commit": "1c8098680463a139c3d3167551e7c6a147a9f335",
+   "commit_date": "2026-11-20",
+   "local": "python_pyperformance"
+  },
+  {
+   "system": "pytest-codspeed",
+   "url": "https://github.com/CodSpeedHQ/pytest-codspeed",
+   "commit": "15d46b4f01dc52edab2345e8d9d2820b704d7bdf",
+   "commit_date": "2026-11-06",
+   "local": "CodSpeedHQ_pytest-codspeed"
+  },
+  {
+   "system": "Perf-benchmark reliability audit (data only)",
+   "url": "https://github.com/chenzhi-cz/performance-optimization-benchmark-reliability",
+   "commit": "44a1cb86a9f765b0375b4cfb479641f3c19f0774",
+   "local": "not cloned (read via raw.githubusercontent.com)"
+  },
+  {
+   "system": "SWE-Opt",
+   "url": "https://github.com/SWE-Opt/SWE-Opt",
+   "commit": "48fa73e84b369d84c32290ab8d1c7ba0a800308a",
+   "local": "not cloned (read via raw.githubusercontent.com)"
+  }
+ ],
+ "no_public_code": [
+  {
+   "system": "PerfAgent",
+   "searched": "arXiv abstract/HTML links, web search, GitHub repository search (2026-11-21)",
+   "result": "none found"
+  },
+  {
+   "system": "SemOpt",
+   "searched": "paper artifact link, GitHub search",
+   "result": "figshare private-link package named in paper (not opened); no GitHub repo"
+  },
+  {
+   "system": "Google ECO",
+   "result": "internal Google system; paper only"
+  },
+  {
+   "system": "AlphaEvolve",
+   "result": "DeepMind system; paper only (OpenEvolve is a third-party reimplementation)"
+  },
+  {
+   "system": "Meta Predictive Test Selection, Google TAP",
+   "result": "internal; papers only"
+  },
+  {
+   "system": "PERFOPT-Bench",
+   "searched": "anonymous.4open.science mirror linked from abstract",
+   "result": "repository_expired on 2026-11-21"
+  },
+  {
+   "system": "CodeEvolve",
+   "searched": "abstract page, paper links",
+   "result": "none found"
+  }
+ ],
+ "papers": [
+  {
+   "system": "SWE-bench",
+   "id": "arXiv:2310.06770",
+   "url": "https://arxiv.org/abs/2310.06770"
+  },
+  {
+   "system": "SWE-Perf",
+   "id": "arXiv:2507.12415",
+   "url": "https://arxiv.org/abs/2507.12415"
+  },
+  {
+   "system": "GSO",
+   "id": "arXiv:2505.23671",
+   "url": "https://arxiv.org/abs/2505.23671"
+  },
+  {
+   "system": "SWE-fficiency",
+   "id": "arXiv:2511.06090",
+   "url": "https://arxiv.org/abs/2511.06090"
+  },
+  {
+   "system": "FormulaCode",
+   "id": "arXiv:2603.16011",
+   "url": "https://arxiv.org/abs/2603.16011"
+  },
+  {
+   "system": "PIE",
+   "id": "arXiv:2302.07867 v5 (ICLR 2024)",
+   "url": "https://arxiv.org/abs/2302.07867",
+   "local": "research-directions/llm-optimization-validation/papers/2024-PIE-Learning-Performance-Improving-Code-Edits-arXiv-v5.pdf"
+  },
+  {
+   "system": "ECCO",
+   "id": "arXiv:2407.14044",
+   "url": "https://arxiv.org/abs/2407.14044"
+  },
+  {
+   "system": "EffiBench",
+   "id": "arXiv:2402.02037",
+   "url": "https://arxiv.org/abs/2402.02037"
+  },
+  {
+   "system": "EffiBench-X",
+   "id": "arXiv:2505.13004",
+   "url": "https://arxiv.org/abs/2505.13004"
+  },
+  {
+   "system": "Mercury",
+   "id": "arXiv:2402.07844 (NeurIPS 2024 D&B)",
+   "url": "https://arxiv.org/abs/2402.07844"
+  },
+  {
+   "system": "EvalPerf / DPE",
+   "id": "arXiv:2408.06450 (COLM 2024)",
+   "url": "https://arxiv.org/abs/2408.06450"
+  },
+  {
+   "system": "COFFE",
+   "id": "arXiv:2502.02827",
+   "url": "https://arxiv.org/abs/2502.02827"
+  },
+  {
+   "system": "KernelBench",
+   "id": "arXiv:2502.10517",
+   "url": "https://arxiv.org/abs/2502.10517"
+  },
+  {
+   "system": "PerfAgent",
+   "id": "arXiv:2607.19653 v1",
+   "url": "https://arxiv.org/abs/2607.19653"
+  },
+  {
+   "system": "SemOpt",
+   "id": "arXiv:2510.16384; TOSEM 2026 author version",
+   "url": "https://arxiv.org/abs/2510.16384",
+   "local": "research-directions/llm-optimization-validation/papers/2026-SemOpt-TOSEM-author-version.pdf"
+  },
+  {
+   "system": "SysLLMatic",
+   "id": "arXiv:2506.01249",
+   "url": "https://arxiv.org/abs/2506.01249"
+  },
+  {
+   "system": "Google ECO",
+   "id": "arXiv:2503.15669 (v1 Mar 2025 section numbers used; v2 Sep 2026 renumbered)",
+   "url": "https://arxiv.org/abs/2503.15669v1"
+  },
+  {
+   "system": "AlphaEvolve",
+   "id": "arXiv:2506.13131",
+   "url": "https://arxiv.org/abs/2506.13131"
+  },
+  {
+   "system": "Meta Predictive Test Selection",
+   "id": "arXiv:1810.05286 (ICSE-SEIP 2019)",
+   "url": "https://arxiv.org/abs/1810.05286"
+  },
+  {
+   "system": "Google TAP (Memon et al.)",
+   "id": "ICSE-SEIP 2017",
+   "url": "https://research.google/pubs/pub45861/"
+  },
+  {
+   "system": "Perf-benchmark reliability audit",
+   "id": "arXiv:2607.01211v2",
+   "url": "https://arxiv.org/abs/2607.01211"
+  },
+  {
+   "system": "PERFOPT-Bench",
+   "id": "arXiv:2607.07744v1",
+   "url": "https://arxiv.org/abs/2607.07744"
+  },
+  {
+   "system": "SWE-Opt",
+   "id": "arXiv:2606.25530v2",
+   "url": "https://arxiv.org/abs/2606.25530"
+  },
+  {
+   "system": "CodeEvolve",
+   "id": "arXiv:2605.04677v1",
+   "url": "https://arxiv.org/abs/2605.04677"
+  },
+  {
+   "system": "TDAD (W1 methods, not surveyed)",
+   "id": "arXiv:2603.17973",
+   "url": "https://arxiv.org/abs/2603.17973"
+  }
+ ],
+ "docs": [
+  {
+   "system": "pyperf",
+   "url": "https://pyperf.readthedocs.io/en/latest/runner.html",
+   "source_commit": "aa51cd4 (pyperf/_runner.py, per critic-log-D)"
+  },
+  {
+   "system": "CodSpeed",
+   "url": "https://codspeed.io/docs"
+  },
+  {
+   "system": "Bazel",
+   "url": "https://bazel.build/remote/caching ; https://bazel.build/query/language"
+  }
+ ]
+}

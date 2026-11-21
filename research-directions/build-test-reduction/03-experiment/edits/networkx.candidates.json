@@ -1,0 +1,258 @@
+[
+ {
+  "sha": "f618240c0e0712f5425f30036a9051888506858b",
+  "date": "2025-08-02T05:51:16+02:00",
+  "subject": "Faster `intersection_array` computation for checking distance-regularity (#7181)",
+  "files": [
+   "networkx/algorithms/distance_regular.py"
+  ],
+  "src_lines": 96,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "090cc0910aecc26efe488714a1e2391e1bb53513",
+  "date": "2025-08-28T11:54:38-07:00",
+  "subject": "Bidirectional dijkstra optimization: from 1.1x to 25x faster (#8206)",
+  "files": [
+   "networkx/algorithms/shortest_paths/weighted.py"
+  ],
+  "src_lines": 31,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "0bad061e0e4416bd87ba6db877a885889998e3ed",
+  "date": "2025-09-15T16:12:02-05:00",
+  "subject": "Optimizing Dijkstra's path construction for all targets case (#8218)",
+  "files": [
+   "networkx/algorithms/shortest_paths/weighted.py"
+  ],
+  "src_lines": 57,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "4714bb5cf98f5a131f92d9b90903259d45289c5d",
+  "date": "2025-09-16T12:43:54-07:00",
+  "subject": "Optimizing is_connected (#8266)",
+  "files": [
+   "networkx/algorithms/components/connected.py"
+  ],
+  "src_lines": 4,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "222c6522b9036ac39897be815413edd4411ab616",
+  "date": "2025-10-27T19:36:34+01:00",
+  "subject": "optimize _single_shortest_path function (#6337)",
+  "files": [
+   "networkx/algorithms/shortest_paths/unweighted.py"
+  ],
+  "src_lines": 27,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "0d3fe6ac99f8719103b2bebca296bf8021af3f41",
+  "date": "2025-12-14T22:01:02+05:30",
+  "subject": "Adding the Tree Optimization in Floyd Warshall (#8361)",
+  "files": [
+   "networkx/algorithms/shortest_paths/dense.py"
+  ],
+  "src_lines": 145,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "e55ffa30d56d623e64da4ee77d9ea52d2c2ee2ae",
+  "date": "2025-12-19T00:02:17+02:00",
+  "subject": "Kruskal MST early break for efficiency (#8296)",
+  "files": [
+   "networkx/algorithms/tree/mst.py"
+  ],
+  "src_lines": 9,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "519e819f64f5a46275afc95f5b24d89d6aec61d1",
+  "date": "2026-01-31T02:03:02-08:00",
+  "subject": "MAINT: Reuse `could_be_isomorphic` in `fast_/faster_` variants (#8497)",
+  "files": [
+   "networkx/algorithms/isomorphism/isomorph.py"
+  ],
+  "src_lines": 37,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "802c0a2d8ea282d8c7c1407a2a22717d7575355e",
+  "date": "2026-03-12T19:41:26+08:00",
+  "subject": "perf: replace built-in sum() with np.sum() in pagerank and katz (#8561)",
+  "files": [
+   "networkx/algorithms/centrality/katz.py",
+   "networkx/algorithms/link_analysis/pagerank_alg.py"
+  ],
+  "src_lines": 7,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "c1c468d521d6e5baccc0cc2b2a2b015a5d8ff02b",
+  "date": "2026-04-15T09:00:18+05:30",
+  "subject": "Optimize _build_paths_from_predecessors stack logic for 30-40% speedup (#8460)",
+  "files": [
+   "networkx/algorithms/shortest_paths/generic.py"
+  ],
+  "src_lines": 36,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "c56ada4623c3ea4ede4ad4d2947de77c1bf08269",
+  "date": "2026-05-07T10:57:07+08:00",
+  "subject": "Optimize VF2 GMState frontier update by removing full core scan (#8649)",
+  "files": [
+   "networkx/algorithms/isomorphism/isomorphvf2.py"
+  ],
+  "src_lines": 108,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "306bbbcd9bac4b44c5b732eb3ff6ac1bb118c73e",
+  "date": "2026-07-08T00:48:11-04:00",
+  "subject": "Optimize Leiden data handling (#8715)",
+  "files": [
+   "networkx/algorithms/community/leiden.py",
+   "networkx/algorithms/community/quality.py"
+  ],
+  "src_lines": 869,
+  "ai_authored": false,
+  "qualifies": false,
+  "reason": "869 source lines > 200"
+ },
+ {
+  "sha": "f77c3b6852fb2ec3ed6575d0f42cd028c9a9dcb0",
+  "date": "2026-07-17T20:53:11+02:00",
+  "subject": "Speed up the residual flow reset in `edmonds_karp` and simplify the `minimum_cut` partition (#8756)",
+  "files": [
+   "networkx/algorithms/flow/edmondskarp.py",
+   "networkx/algorithms/flow/maxflow.py"
+  ],
+  "src_lines": 38,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "bf130bfec4c4a708c11d7b7d9557788c489913fd",
+  "date": "2026-07-22T07:30:40-04:00",
+  "subject": "ENH: add n_samples parameter to rich_club_coefficient for multi-sample averaging (#8721)",
+  "files": [
+   "networkx/algorithms/richclub.py"
+  ],
+  "src_lines": 44,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "7f7afab19894391ad679c8633ea504ad4e9b619a",
+  "date": "2026-08-13T08:51:26-07:00",
+  "subject": "ENH: Simplifying _build_paths_from_predecessors - 10% faster (#8844)",
+  "files": [
+   "networkx/algorithms/shortest_paths/generic.py"
+  ],
+  "src_lines": 19,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "68206456ba00ec15c9e557330f58e2d8052b21b6",
+  "date": "2026-09-03T04:05:55+09:00",
+  "subject": "ENH: Speed up connectivity checks in random_reference and lattice_reference (#8893)",
+  "files": [
+   "networkx/algorithms/smallworld.py"
+  ],
+  "src_lines": 8,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "675034adb14a790336121e4e0f9d8097b880ec41",
+  "date": "2026-09-09T00:02:00+02:00",
+  "subject": "[BUG][PERF] Fix ISMAGS directed matching and monomorphism overhead (#8900)",
+  "files": [
+   "networkx/algorithms/isomorphism/ismags.py"
+  ],
+  "src_lines": 53,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "4a72b69adcf22da900710cd39cf6212b9420db12",
+  "date": "2026-09-25T07:20:55+05:30",
+  "subject": "Optimize _triangles_and_degree_iter by caching neighbor sets (#8743)",
+  "files": [
+   "networkx/algorithms/cluster.py"
+  ],
+  "src_lines": 5,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "9f6079c0120416599ea5d4018bbaba229ea2e456",
+  "date": "2026-09-25T22:27:49+02:00",
+  "subject": "BUG: Fix row-max normalization in vectorized effective_size (#8906)",
+  "files": [
+   "networkx/algorithms/structuralholes.py"
+  ],
+  "src_lines": 2,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "abf2feda2252ee4e0d5a66964addf179225dfe76",
+  "date": "2026-10-17T00:01:28+02:00",
+  "subject": "ENH: Speed up node_connectivity and minimum_node_cut with a pre-filter (#8862)",
+  "files": [
+   "networkx/algorithms/connectivity/connectivity.py",
+   "networkx/algorithms/connectivity/cuts.py"
+  ],
+  "src_lines": 53,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ },
+ {
+  "sha": "2e0ae8ad957821e4ad545b50bc246aa89b7f5c0e",
+  "date": "2026-11-16T16:30:36+00:00",
+  "subject": "Speed up chain_decomposition and bridges 2.5x to 4x by dropping the intermediate DiGraph (#9002)",
+  "files": [
+   "networkx/algorithms/chains.py"
+  ],
+  "src_lines": 120,
+  "ai_authored": false,
+  "qualifies": true,
+  "reason": ""
+ }
+]

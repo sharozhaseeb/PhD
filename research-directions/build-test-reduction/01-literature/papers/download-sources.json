@@ -1,0 +1,1005 @@
+[
+  {
+    "filename": "1997-Rothermel-Safe-Efficient-RTS-TOSEM.pdf",
+    "title": "A Safe, Efficient Regression Test Selection Technique (Rothermel & Harrold, ACM TOSEM 6(2), 1997) -- NOT the 1996 TSE 'Analyzing RTS techniques' paper; contains summary of the 4-category framework in Sec. 4.1",
+    "source_url": "https://www.cs.purdue.edu/homes/xyzhang/spring07/Papers/p173-rothermel.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "publisher/ACM TOSEM version as hosted on course page (unverified provenance)",
+    "pages": "173-210 (per file; ~38 pp.)",
+    "bytes": 730736,
+    "sha256": "8fee2a3d3acb5594027fd9a94d1935f8f7780644281d366c8e4b825df7c03d5d",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "1999-Zeller-Yesterday-My-Program-Worked.pdf",
+    "title": "Yesterday, my program worked. Today, it does not. Why?",
+    "source_url": "https://www.st.cs.uni-saarland.de/publications/files/zeller-esec-1999.pdf",
+    "publication_url": "https://doi.org/10.1145/318773.318946",
+    "version": "author preprint (Saarland University archive, LNCS-style layout; author affiliation Passau)",
+    "pages": "15 (ESEC/FSE 1999 pp. 253-267 in LNCS 1687)",
+    "bytes": 174408,
+    "sha256": "52716646d68a9671ab59984422aa76b3aa4eeea6b53580c7ad27df191d2018a7",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ]
+  },
+  {
+    "filename": "2002-Zeller-Hildebrandt-Simplifying-Isolating-Failure-Inducing-Input.pdf",
+    "title": "Simplifying and Isolating Failure-Inducing Input",
+    "source_url": "https://www.st.cs.uni-saarland.de/papers/tse2002/tse2002.pdf",
+    "publication_url": "https://doi.org/10.1109/32.988498",
+    "version": "Saarland University copy (assumed author/published version; layout not checked against IEEE pagination)",
+    "pages": "17 (TSE 28(2):183-200)",
+    "bytes": 247738,
+    "sha256": "7ed0c812e1b3212f3956f5a624ac9103a00468ab665cae00784520d866e1c8aa",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ]
+  },
+  {
+    "filename": "2006-Andrews-Mutation-Coverage-Criteria-TSE.pdf",
+    "title": "Using Mutation Analysis for Assessing and Comparing Testing Coverage Criteria (TSE 32(8)); extension of the ICSE 2005 paper, which could not be downloaded",
+    "source_url": "https://www.depts.ttu.edu/cs/research/avesta/documents/papers/TSE2006/TSE06.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "author version (publication DOI unverified)",
+    "pages": "608-624",
+    "bytes": 3387709,
+    "sha256": "71cd5de863193ea397a753343fe531d077b526a190f1c5cc1628b6de084a1991",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2007-Georges-Statistically-Rigorous-Java-OOPSLA.pdf",
+    "title": "Statistically Rigorous Java Performance Evaluation",
+    "source_url": "https://dri.es/files/oopsla07-georges.pdf",
+    "publication_url": "https://doi.org/10.1145/1297027.1297033",
+    "version": "publisher-format author copy",
+    "pages": 20,
+    "bytes": 1578759,
+    "sha256": "3b8c18d3fc1e30502772a7303300d3961f13a3fadd25aa5fa3986456ec528726",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2009-Mytkowicz-Producing-Wrong-Data-ASPLOS.pdf",
+    "title": "Producing Wrong Data Without Doing Anything Obviously Wrong!",
+    "source_url": "https://huang.isis.vanderbilt.edu/cs8395/readings/producing-wrong-data.pdf",
+    "publication_url": "https://doi.org/10.1145/1508244.1508275",
+    "version": "course-hosted copy of published paper",
+    "pages": 12,
+    "bytes": 376909,
+    "sha256": "67505bfc1f5a9a442d3ba7f5a5a22e05e55569237def1964a7eab2e7533ee2d6",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ],
+    "host_note": "University course-reading mirror (not an author or publisher copy); replace with an author copy when found."
+  },
+  {
+    "filename": "2012-Jin-Real-World-Performance-Bugs-PLDI.pdf",
+    "title": "Understanding and Detecting Real-World Performance Bugs",
+    "source_url": "https://ece.uwaterloo.ca/~wshang/soen691/current/papers/pldi118-jin.pdf",
+    "publication_url": "https://doi.org/10.1145/2254064.2254075",
+    "version": "course-hosted copy",
+    "pages": "77-88",
+    "bytes": 755349,
+    "sha256": "668b88f44d470bff72522fd1c3f7ccfaea578283aedb263c5a702264299e49b9",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2013-Curtsinger-STABILIZER-ASPLOS.pdf",
+    "title": "STABILIZER: Statistically Sound Performance Evaluation",
+    "source_url": "https://people.cs.umass.edu/~emery/pubs/stabilizer-asplos13.pdf",
+    "publication_url": "https://doi.org/10.1145/2451116.2451141",
+    "version": "author page camera-ready",
+    "pages": 10,
+    "bytes": 386417,
+    "sha256": "819c930cc8f51a65a24cdc46452a29ec2c872391724974d21589a8729dac9c49",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2013-Kalibera-Quantifying-Performance-Changes-TR-arXiv.pdf",
+    "title": "Quantifying Performance Changes with Effect Size Confidence Intervals (Univ. of Kent TR 4-12)",
+    "source_url": "https://arxiv.org/pdf/2007.10899",
+    "publication_url": "https://arxiv.org/abs/2007.10899",
+    "version": "arXiv v1 of TR",
+    "pages": "55",
+    "bytes": 853536,
+    "sha256": "5f3e5519a1bccb21f6da49a88902443ff4d7326eda056537e283146c96eca329",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2013-Kalibera-Rigorous-Benchmarking-ISMM.pdf",
+    "title": "Rigorous Benchmarking in Reasonable Time",
+    "source_url": "https://kar.kent.ac.uk/id/document/3127886",
+    "publication_url": "https://doi.org/10.1145/2464157.2464160",
+    "version": "Author's Accepted Manuscript (Kent KAR)",
+    "pages": 12,
+    "bytes": 484071,
+    "sha256": "b50fb85079cbaea9524eb202393a60807dd3fc270d91eb80de5dba0faf02dbab",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2014-Elbaum-RTS-CI-Google-FSE.pdf",
+    "title": "Techniques for Improving Regression Testing in Continuous Integration Development Environments",
+    "source_url": "https://cs.uwaterloo.ca/~m2nagapp/courses/CS846/1171/papers/elbaum_fse14.pdf",
+    "publication_url": "FSE 2014 (doi 10.1145/2635868.2635910)",
+    "version": "university course-page copy; not the publisher version",
+    "pages": 11,
+    "bytes": 494253,
+    "sha256": "d73d916ec1575e6a24daea7c7b32026f9dac0acb4e295fd1d563a31aa7154338",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2014-FlakyTests-Luo-FSE.pdf",
+    "title": "An Empirical Analysis of Flaky Tests",
+    "source_url": "https://huang.isis.vanderbilt.edu/cs8395/paper/flakytest.pdf",
+    "publication_url": "FSE 2014 (doi 10.1145/2635868.2635920)",
+    "version": "course-site copy; identity checked on title page only",
+    "pages": 11,
+    "bytes": 250151,
+    "sha256": "36abbab3e917ad38300e8956a0311004423e4dcfede766b1bf6081b02fe1823b",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ],
+    "host_note": "University course-reading mirror (not an author or publisher copy); replace with an author copy when found."
+  },
+  {
+    "filename": "2014-Just-Mutants-Valid-Substitute-FSE.pdf",
+    "title": "Are Mutants a Valid Substitute for Real Faults in Software Testing?",
+    "source_url": "https://homes.cs.washington.edu/~mernst/pubs/mutation-effectiveness-fse2014.pdf",
+    "publication_url": "https://doi.org/10.1145/2635868.2635929",
+    "version": "author version",
+    "pages": "654-665",
+    "bytes": 297046,
+    "sha256": "18c7f787b06ed6089ddec5771d931aef1c2f663285073d1cd8117120131e2951",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2014-ManualRTS-Gligoric.pdf",
+    "title": "An Empirical Evaluation and Comparison of Manual and Automated Test Selection",
+    "source_url": "https://users.ece.utexas.edu/~gligoric/papers/GligoricETAL14ManualRTS.pdf",
+    "publication_url": "venue not printed in extracted text",
+    "version": "author-hosted PDF",
+    "pages": 11,
+    "bytes": 557936,
+    "sha256": "112f4ab1eb91de11246a50098dde0c97b385ad195af1fac493fc9dee04646674",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2014-Shi-Balancing-Tradeoffs-Test-Suite-Reduction-FSE.pdf",
+    "title": "Balancing Trade-Offs in Test-Suite Reduction",
+    "source_url": "https://mir.cs.illinois.edu/gyori/pubs/fse14reduction.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "author version (publication DOI unverified)",
+    "pages": "~11",
+    "bytes": 412863,
+    "sha256": "f151c29bacc23705f4a43f575334498a63d1a60b8cb07a7f003445586c607698",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2015-Ekstazi-ISSTA.pdf",
+    "title": "Practical Regression Test Selection with Dynamic File Dependencies",
+    "source_url": "https://users.ece.utexas.edu/~gligoric/papers/GligoricETAL15Ekstazi.pdf",
+    "publication_url": "ISSTA 2015",
+    "version": "author-hosted PDF",
+    "pages": 12,
+    "bytes": 303723,
+    "sha256": "4a976c19688d4426e5b3994a53bd7a269f87f208ac1fbb4da4692f6f85e07370",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2015-Pluto-Erdweg-OOPSLA.pdf",
+    "title": "A Sound and Optimal Incremental Build System with Dynamic Dependencies",
+    "source_url": "https://www.pl.informatik.uni-mainz.de/files/2019/04/pluto-incremental-build.pdf",
+    "publication_url": "https://doi.org/10.1145/2814270.2814316",
+    "version": "institution copy (Mainz)",
+    "pages": 18,
+    "bytes": 666610,
+    "sha256": "362857ec8f3264bb8f03a7276c4f133c390c7a918595f797712d83929c613038",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2016-CloudBuild-Esfahani-ICSE-SEIP.pdf",
+    "title": "CloudBuild: Microsoft's Distributed and Caching Build Service",
+    "source_url": "https://microsoft.com/en-us/research/wp-content/uploads/2016/06/q_signed-2.pdf",
+    "publication_url": "https://doi.org/10.1145/2889160.2889222",
+    "version": "publisher/author copy (MSR)",
+    "pages": 10,
+    "bytes": 1632785,
+    "sha256": "e7ba7f5277e19ebbd37cd1fdd9a593896100dd4680828a563a250f0b6f0b12e5",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2016-StaticRTS-Legunsen-FSE.pdf",
+    "title": "An Extensive Study of Static Regression Test Selection in Modern Software Evolution",
+    "source_url": "https://mir.cs.illinois.edu/~marinov/publications/LegunsenETAL16StaticRTS.pdf",
+    "publication_url": "FSE 2016, Seattle",
+    "version": "author-hosted PDF",
+    "pages": 12,
+    "bytes": 515873,
+    "sha256": "c2ef1a9a6c9042d22fa83eb5c015772059e32145da51f4d2293ec05b21084638",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2017-Barrett-VM-Warmup-OOPSLA.pdf",
+    "title": "Virtual Machine Warmup Blows Hot and Cold",
+    "source_url": "https://export.arxiv.org/pdf/1602.00602",
+    "publication_url": "https://arxiv.org/abs/1602.00602",
+    "version": "arXiv v6",
+    "pages": 40,
+    "bytes": 12412372,
+    "sha256": "e26ae78a4f31f4f499020a08b2edeab615b5447b6eacadab4893c3aca72f5336",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2017-Bezemer-Unspecified-Dependencies-Make-EMSE.pdf",
+    "title": "An empirical study of unspecified dependencies in make-based build systems",
+    "source_url": "https://rebels.cs.uwaterloo.ca/papers/emse2017_bezemer.pdf",
+    "publication_url": "https://doi.org/10.1007/s10664-017-9510-8",
+    "version": "author copy (UWaterloo)",
+    "pages": 32,
+    "bytes": 2268040,
+    "sha256": "4d282d36ade8b2c390ba4ea429426df4efef3be9b338a5a8747469912c6561c5",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2017-Chen-Exploratory-Perf-Regression-Changes-ICSME.pdf",
+    "title": "An Exploratory Study of Performance Regression Introducing Code Changes",
+    "source_url": "https://ece.uwaterloo.ca/~wshang/pubs/icsme2017_jinfuchen.pdf",
+    "publication_url": null,
+    "version": "author copy",
+    "pages": 12,
+    "bytes": 436560,
+    "sha256": "1116f1d72221916091cfe37a28e99e64d74e48b9eee993e9cfc4473da22a6c4a",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2017-Leitner-Performance-Testing-State-of-Practice-ICPE.pdf",
+    "title": "An Exploratory Study of the State of Practice of Performance Testing in Java-Based Open Source Projects",
+    "source_url": "https://research.spec.org/icpe_proceedings/2017/proceedings/p373.pdf",
+    "publication_url": "https://doi.org/10.1145/3030207.3030213",
+    "version": "SPEC-hosted proceedings",
+    "pages": 12,
+    "bytes": 1173431,
+    "sha256": "14399f41790dab7b0e29e3bbe9bc7cd43bc5956507e9bded043dc3348bc259d5",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2017-Memon-Taming-Google-Scale-Continuous-Testing.pdf",
+    "title": "Taming Google-Scale Continuous Testing",
+    "source_url": "https://huang.isis.vanderbilt.edu/cs8395-f23/paper/google-testing-icse-seip-17.pdf",
+    "publication_url": "https://doi.org/10.1109/ICSE-SEIP.2017.16",
+    "version": "IEEE published version as hosted on a Vanderbilt course page (page footer carries an 'Authorized licensed use limited to: Vanderbilt University Libraries' stamp; not a research.google/author copy - consider replacing with an author copy)",
+    "pages": "10 (ICSE-SEIP 2017 pp. 233-242)",
+    "bytes": 914218,
+    "sha256": "cc0788f2b811f730ccaebe9c5ca5be0c19589088e7ebd7ea7d680225bd9141ae",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ],
+    "host_note": "University course-reading mirror (not an author or publisher copy); replace with an author copy when found."
+  },
+  {
+    "filename": "2017-Mostafa-PerfRanker-ISSTA.pdf",
+    "title": "PerfRanker: Prioritization of Performance Regression Tests for Collection-Intensive Software",
+    "source_url": "https://taoxiease.github.io/publications/issta17-perfranker.pdf",
+    "publication_url": "https://doi.org/10.1145/3092703.3092725",
+    "version": "author copy",
+    "pages": 12,
+    "bytes": 1751143,
+    "sha256": "f419ec7b3dd81c21af9d06bf6c4ad6e2edef0c8f2eb380e0028ba7d58709cd78",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2017-Stefan-Unit-Testing-Performance-Java-ICPE.pdf",
+    "title": "Unit Testing Performance in Java Projects: Are We There Yet?",
+    "source_url": "https://research.spec.org/icpe_proceedings/2017/proceedings/p401.pdf",
+    "publication_url": "https://doi.org/10.1145/3030207.3030226",
+    "version": "SPEC-hosted proceedings",
+    "pages": 12,
+    "bytes": 1067585,
+    "sha256": "e5e6f48bf869bd6b49e5da963ffe51a8a9e3f9a5b745982961bf7e6e4e57a5a0",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2018-Build-Systems-a-la-Carte.pdf",
+    "title": "Build Systems a la Carte (ICFP 2018)",
+    "source_url": "https://www.microsoft.com/en-us/research/uploads/prod/2018/03/build-systems-a-la-carte.pdf",
+    "publication_url": "https://doi.org/10.1145/3236774",
+    "version": "author copy (MSR); server returned 403 without a referer header, 200 with the MSR publication page as referer",
+    "pages": 29,
+    "bytes": 1061871,
+    "sha256": "b55a60f772d630d6bd14665dfb4dfbf50376f11cf7460d1378be15ba41833246",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2018-Petrovic-State-Mutation-Testing-Google-ICSESEIP.pdf",
+    "title": "State of Mutation Testing at Google",
+    "source_url": "https://web.eecs.umich.edu/~weimerw/2022-481W/readings/mutation-google.pdf",
+    "publication_url": "https://doi.org/10.1145/3183519.3183521",
+    "version": "course-hosted copy (author version)",
+    "pages": "163-171",
+    "bytes": 419943,
+    "sha256": "c128ccd374906ade3e4e885dbfb685bc7268ee92ccf4c8d71f678b17e3cdbcca",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2018-Shi-Test-Suite-Reduction-Real-Evolution-ISSTA.pdf",
+    "title": "Evaluating Test-Suite Reduction in Real Software Evolution",
+    "source_url": "https://mir.cs.illinois.edu/gyori/pubs/issta18.pdf",
+    "publication_url": "https://doi.org/10.1145/3213846.3213875",
+    "version": "author version",
+    "pages": "84-94",
+    "bytes": 1124407,
+    "sha256": "155ce727a74101cbc3629caeb964fd775789e6af35ec9a988b847d221f4773ec",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2018-WangYu-RTS-in-CI-ISSRE.pdf",
+    "title": "A Study of Regression Test Selection in Continuous Integration Environments",
+    "source_url": "https://par.nsf.gov/servlets/purl/10089488",
+    "publication_url": "ISSRE 2018",
+    "version": "NSF PAR manuscript copy",
+    "pages": 9,
+    "bytes": 430344,
+    "sha256": "da61d249bf5468525089574674f83939343ad1367d375a54483cafc29dc1780f",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2019-Laaber-Microbenchmarking-Cloud-EMSE.pdf",
+    "title": "Software microbenchmarking in the cloud. How bad is it really?",
+    "source_url": "https://research.chalmers.se/publication/511491/file/511491_Fulltext.pdf",
+    "publication_url": "https://doi.org/10.1007/s10664-019-09681-1",
+    "version": "Chalmers open access full text",
+    "pages": 47,
+    "bytes": 1686580,
+    "sha256": "b89719fc8da6f5db3b678c8120b8200ff3127a55d03da5943c57f4df7d0d13e8",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2019-Lam-iDFlakies-ICST.pdf",
+    "title": "iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests",
+    "source_url": "https://par.nsf.gov/servlets/purl/10101224",
+    "publication_url": "ICST 2019",
+    "version": "NSF PAR copy",
+    "pages": 11,
+    "bytes": 230368,
+    "sha256": "1241c0f142b3934a4742842266e8d2c00f64f220b43beb942605a04e63dc8fd2",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2019-Licker-Detecting-Incorrect-Build-Rules.pdf",
+    "title": "Detecting Incorrect Build Rules",
+    "source_url": "https://www.cl.cam.ac.uk/~acr31/pubs/licker-buildrules.pdf",
+    "publication_url": "https://doi.org/10.1109/ICSE.2019.00125",
+    "version": "author copy (Cambridge)",
+    "pages": 11,
+    "bytes": 286638,
+    "sha256": "ceff92a9c94e4332184632562f85eb83f8f98d62333398a6b6a2cc8294e72a4f",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2019-Najafi-Bisecting-Commits-Commit-Risk.pdf",
+    "title": "Bisecting Commits and Modeling Commit Risk during Testing",
+    "source_url": "https://ece.uwaterloo.ca/~wshang/pubs/Armin_FSE_2019.pdf",
+    "publication_url": "https://doi.org/10.1145/3338906.3338944",
+    "version": "ACM camera-ready, author-hosted (co-author W. Shang)",
+    "pages": "11 (ESEC/FSE 2019 pp. 279-289)",
+    "bytes": 1005550,
+    "sha256": "f6e7c3342c3cf976a590ec37a93725ff72aad5901c93044ff73fecb4ffe3ac26",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ]
+  },
+  {
+    "filename": "2019-Papadakis-Mutation-Testing-Advances-AdvComp.pdf",
+    "title": "Mutation Testing Advances: An Analysis and Survey (Advances in Computers vol. 112)",
+    "source_url": "https://mutationtesting.uni.lu/survey.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "authors' preprint",
+    "pages": "~",
+    "bytes": 1129278,
+    "sha256": "63b7bfca877cd4661cb24e93fbfe1757a2740b39fb65ee3a79eb17e36215f023",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2019-Shi-RTS-in-CI-ISSRE.pdf",
+    "title": "Understanding and Improving Regression Test Selection in Continuous Integration",
+    "source_url": "https://par.nsf.gov/servlets/purl/10175678",
+    "publication_url": "IEEE 2019 (venue not in extracted text)",
+    "version": "NSF PAR manuscript copy",
+    "pages": 11,
+    "bytes": 132781,
+    "sha256": "a1f03b1b948488f30d447f7455f7065201b6075c199babede9da83c74a0f1f89",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2019-Zhu-RTSCheck-ICSE.pdf",
+    "title": "A Framework for Checking Regression Test Selection Tools",
+    "source_url": "https://cs.cornell.edu/~legunsen/pubs/ZhuETAL19RTSCheck.pdf",
+    "publication_url": "https://doi.org/10.1109/ICSE.2019.00056",
+    "version": "author version",
+    "pages": "430-441",
+    "bytes": 704943,
+    "sha256": "1b98f1cf31f53579f61d06a2adc88140b5c059b8e5b6c741cbac2a835f8f5df4",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2020-Build-Scripts-Perfect-Dependencies.pdf",
+    "title": "Build Scripts with Perfect Dependencies",
+    "source_url": "https://arxiv.org/pdf/2007.12737",
+    "publication_url": "https://arxiv.org/abs/2007.12737",
+    "version": "arXiv preprint version",
+    "pages": 25,
+    "bytes": 761061,
+    "sha256": "614b5aa77a2ecdad20ad5ebff925bc279c43ed5b391af44ddcbe825bd30204fc",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2020-Build-Systems-a-la-Carte-JFP.pdf",
+    "title": "Build Systems a la Carte: Theory and Practice (JFP 2020)",
+    "source_url": "https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/097CE52C750E69BD16B78C318754C7A4/S0956796820000088a.pdf/build-systems-a-la-carte-theory-and-practice.pdf",
+    "publication_url": "https://doi.org/10.1017/S0956796820000088",
+    "version": "publisher open-access PDF (Cambridge)",
+    "pages": 55,
+    "bytes": 3112784,
+    "sha256": "53cef0338879951ba9626a39c0b38ec49379b7ecc16f6982f1ef09ce2f7c09bd",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2020-Bulej-Duet-Benchmarking-ICPE.pdf",
+    "title": "Duet Benchmarking: Improving Measurement Accuracy in the Cloud",
+    "source_url": "https://arxiv.org/pdf/2001.05811",
+    "publication_url": "https://doi.org/10.1145/3358960.3379132",
+    "version": "arXiv author version (v2)",
+    "pages": 22,
+    "bytes": 705700,
+    "sha256": "0d444a081b0ca28410d285cceff5e9763c3fafaa261e10f82c822fc65ea39abe",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2020-Daly-ChangePoint-MongoDB-ICPE.pdf",
+    "title": "Change Point Detection in Software Performance Testing (ICPE: The Use of Change Point Detection to Identify Software Performance Regressions in a Continuous Integration System)",
+    "source_url": "https://arxiv.org/pdf/2003.00584",
+    "publication_url": "https://doi.org/10.1145/3358960.3375791",
+    "version": "arXiv v1",
+    "pages": 9,
+    "bytes": 1150354,
+    "sha256": "bd996e0049a8c731ef4612028790912fccd17a5fa9d1457a2744637e05819e73",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2020-Ding-ReadilyAvailableTests-ICSE.pdf",
+    "title": "Towards the Use of the Readily Available Tests from the Release Pipeline as Performance Tests. Are We There Yet?",
+    "source_url": "https://ece.uwaterloo.ca/~wshang/pubs/Zishuo_icse_2020.pdf",
+    "publication_url": "https://doi.org/10.1145/3377811.3380351",
+    "version": "author copy",
+    "pages": 12,
+    "bytes": 234081,
+    "sha256": "0fdb0af1d502df1a8cc5a077b00e66d59164180a3793ca78f03797c4a1285f50",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2020-Gallaba-Kotinos-TSE.pdf",
+    "title": "Accelerating Continuous Integration by Caching Environments and Inferring Dependencies",
+    "source_url": "https://rebels.cs.uwaterloo.ca/papers/tse2020_gallaba.pdf",
+    "publication_url": "https://swag.uwaterloo.ca/publications/accelerating-continuous-integration-by-caching-environments-and-inferring-dependencies.html",
+    "version": "author copy (UWaterloo)",
+    "pages": 13,
+    "bytes": 1662656,
+    "sha256": "6a1ccf0731c4f31ecbebdc895a4f6a6bc31a4df8b516d777d292f4ec732b2fd8",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2020-Mattis-RTPTorrent-MSR.pdf",
+    "title": "RTPTorrent: An Open-source Dataset for Evaluating Regression Test Prioritization",
+    "source_url": "https://www.hpi.uni-potsdam.de/swa/publications/media/MattisReinDuerschHirschfeld_2020_RTPTorrentAnOpenSourceDatasetForEvaluatingRegressionTestPrioritization_AcmDL.pdf",
+    "publication_url": "https://doi.org/10.1145/3379597.3387458",
+    "version": "publisher-version PDF on author institute page",
+    "pages": "~5",
+    "bytes": 1094878,
+    "sha256": "27fb31a375c77ed9bf7a8d29b1a0f852da73e73ffe4ca3b7e80bc1838262e87a",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2020-Sotiropoulos-BuildFS.pdf",
+    "title": "A Model for Detecting Faults in Build Specifications",
+    "source_url": "https://www.spinellis.gr/pubs/conf/2020-OOPSLA-build-bugs/html/SCMS20.pdf",
+    "publication_url": "https://doi.org/10.1145/3428212",
+    "version": "author copy (Spinellis)",
+    "pages": 30,
+    "bytes": 477245,
+    "sha256": "7ff01ac073c94082276c92301d91b8c9cb9616d1cb27530faba3a83b27465ca8",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2021-Gruber-FlakyTests-Python-ICST.pdf",
+    "title": "An Empirical Study of Flaky Tests in Python",
+    "source_url": "https://arxiv.org/pdf/2101.09077",
+    "publication_url": "ICST 2021 (arXiv:2101.09077)",
+    "version": "arXiv v1",
+    "pages": 11,
+    "bytes": 437091,
+    "sha256": "f76eb1ce2ab02e31ce6eec340c41e83c1f7ec6fec05e3aab802211269d523228",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2021-Jin-Servant-What-Helped-What-Did-Not-CI.pdf",
+    "title": "What helped, and what did not? An Evaluation of the Strategies to Improve Continuous Integration",
+    "source_url": "https://arxiv.org/pdf/2102.06666",
+    "publication_url": "https://doi.org/10.1109/ICSE43902.2021.00031",
+    "version": "arXiv 2102.06666v1 (12 Feb 2021 header)",
+    "pages": "13 (ICSE 2021 pp. 213-225)",
+    "bytes": 680132,
+    "sha256": "9498f5a0711e69622d8f4840e61663b011884da451c1e945610ed4c905a46e34",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ]
+  },
+  {
+    "filename": "2021-Laaber-TCP-Microbenchmarks-EMSE.pdf",
+    "title": "Applying test case prioritization to software microbenchmarks",
+    "source_url": "https://research.chalmers.se/publication/536894/file/536894_Fulltext.pdf",
+    "publication_url": "https://doi.org/10.1007/s10664-021-10037-x",
+    "version": "Chalmers open access version of record",
+    "pages": 49,
+    "bytes": 2830806,
+    "sha256": "adff3ac7d9913ae9e9a0989d6c088fb796d5799ce9b81bc178db73e41329cf47",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2021-Parry-SurveyFlakyTests-TOSEM.pdf",
+    "title": "A Survey of Flaky Tests",
+    "source_url": "https://o-parry.github.io/papers/2021a.pdf",
+    "publication_url": "ACM TOSEM 31(1), Article 17",
+    "version": "author-hosted PDF",
+    "pages": 74,
+    "bytes": 1807374,
+    "sha256": "deab832cf2d89d641193568952b47df5487dfbb833b1e62ca1d7c8cf4bed661f",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2021-Salis-PyCG.pdf",
+    "title": "PyCG: Practical Call Graph Generation in Python",
+    "source_url": "https://arxiv.org/pdf/2103.00587",
+    "publication_url": "https://2021.icse-conferences.org/details/icse-2021-papers/39/PyCG-Practical-Call-Graph-Generation-in-Python",
+    "version": "arXiv 2103.00587 (version not recorded)",
+    "pages": "12",
+    "bytes": 506935,
+    "sha256": "81980ba591e9171601f075827e152a2254be9bebf34f18c3896c984d975e9af6",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ]
+  },
+  {
+    "filename": "2022-Forward-Build-Systems-Formally.pdf",
+    "title": "Forward Build Systems, Formally",
+    "source_url": "https://arxiv.org/pdf/2202.05328",
+    "publication_url": "https://arxiv.org/abs/2202.05328",
+    "version": "arXiv v1",
+    "pages": 13,
+    "bytes": 256164,
+    "sha256": "ffc908ebb5f6040757c31b446ad4bb56a62c8141e5321be242b45a9a274e5dfd",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2022-Grambow-Microbenchmark-Suites-AppPerf-TCC.pdf",
+    "title": "Using Microbenchmark Suites to Detect Application Performance Changes",
+    "source_url": "https://export.arxiv.org/pdf/2212.09515",
+    "publication_url": "https://arxiv.org/abs/2212.09515",
+    "version": "arXiv v1 (19 Dec 2022)",
+    "pages": 18,
+    "bytes": 6722478,
+    "sha256": "40862689b40d56f3925c9e84712338a38d4b2380ae046800b4bd043e40520610",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2022-Laaber-Search-Based-MB-Prioritization.pdf",
+    "title": "Evaluating Search-Based Software Microbenchmark Prioritization",
+    "source_url": "https://arxiv.org/pdf/2211.13525",
+    "publication_url": "https://arxiv.org/abs/2211.13525",
+    "version": "arXiv v4 (18 Apr 2024)",
+    "pages": 17,
+    "bytes": 596248,
+    "sha256": "b43d5b37d823c1c41464ea999cc9bace7e28a7bcc02888380888f4d7b3fe00fb",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2022-Song-RegMiner-ISSTA.pdf",
+    "title": "RegMiner: Towards Constructing a Large Regression Dataset from Code Evolution History",
+    "source_url": "https://export.arxiv.org/pdf/2109.12389v2",
+    "publication_url": "https://doi.org/10.1145/3533767.3534224",
+    "version": "arXiv v2",
+    "pages": "~",
+    "bytes": 1910970,
+    "sha256": "4a4dd44317d02509fe4e41a560642a86e39a19e0bb9720f10831776ec281fa54",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2022-Zhang-AnalysisVsLearning-RTS-AST.pdf",
+    "title": "Comparing and Combining Analysis-Based and Learning-Based Regression Test Selection",
+    "source_url": "https://par.nsf.gov/servlets/purl/10366111",
+    "publication_url": "AST 2022",
+    "version": "NSF PAR copy",
+    "pages": 12,
+    "bytes": 1369799,
+    "sha256": "28b68ffff69e1a3ae6a843ecc1678c6950b152051aa0afdac4bd7f72c3153010",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2022-Zhao-Real-Life-Performance-Issues-TSE.pdf",
+    "title": "A Large-Scale Empirical Study of Real-Life Performance Issues in Open Source Projects",
+    "source_url": "https://par.nsf.gov/servlets/purl/10332839",
+    "publication_url": "https://doi.org/10.1109/TSE.2022.3167628",
+    "version": "NSF PAR accepted manuscript",
+    "pages": "~",
+    "bytes": 1915449,
+    "sha256": "9b3ac9085b5ae596a3c7085045d4292dae43e6ef59225fcbf6b431602486a0e3",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2023-Bavand-Parallel-Batch-Testing.pdf",
+    "title": "Accelerating Continuous Integration with Parallel Batch Testing",
+    "source_url": "https://arxiv.org/pdf/2308.13129",
+    "publication_url": "https://2023.esec-fse.org/details/fse-2023-research-papers/14/Accelerating-Continuous-Integration-with-Parallel-Batch-Testing",
+    "version": "arXiv 2308.13129 (version not recorded)",
+    "pages": "13",
+    "bytes": 2448503,
+    "sha256": "f8acb46e0603af694b81b7a5b12570ee76af00fad9d4cf06436ff2b01c200f9b",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ]
+  },
+  {
+    "filename": "2023-Fleming-Hunter-ChangePoint.pdf",
+    "title": "Hunter: Using Change Point Detection to Hunt for Performance Regressions",
+    "source_url": "https://arxiv.org/pdf/2301.03034",
+    "publication_url": "https://arxiv.org/abs/2301.03034",
+    "version": "arXiv v1 (8 Jan 2023)",
+    "pages": 8,
+    "bytes": 1097423,
+    "sha256": "d798b99ca79e01f0dab4738fd62617a213eb54768631889ab98442fed46e04a4",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2023-Henderson-Flake-Aware-Culprit-Finding.pdf",
+    "title": "Flake Aware Culprit Finding",
+    "source_url": "https://hackthology.com/pdfs/icst-2023.pdf",
+    "publication_url": "https://conf.researchr.org/details/icst-2023/icst-2023-industry/46/Flake-Aware-Culprit-Finding",
+    "version": "author preprint (first author's site); footer reads 'DOI TBA'; ICST 2023 industry track",
+    "pages": "12",
+    "bytes": 548634,
+    "sha256": "08330c1f8fd89b56ccfdae86734daf71f0c10dec40a6749b0abcdb0abccd1aac",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T5"
+    ]
+  },
+  {
+    "filename": "2023-Japke-Early-Microbenchmark-Catches-Bug.pdf",
+    "title": "The Early Microbenchmark Catches the Bug - Studying Performance Issues Using Micro- and Application Benchmarks",
+    "source_url": "https://arxiv.org/pdf/2311.04108",
+    "publication_url": "https://arxiv.org/abs/2311.04108",
+    "version": "arXiv",
+    "pages": 10,
+    "bytes": 737082,
+    "sha256": "e27fedd4d2e1f0ceb5944d2f6ec8d5138e86a175c4c6c45cc26739e831776f9b",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2023-Liu-PreciseRTS-SemanticsModifying-ISSTA.pdf",
+    "title": "More Precise Regression Test Selection via Reasoning about Semantics-Modifying Changes",
+    "source_url": "https://par.nsf.gov/servlets/purl/10421200",
+    "publication_url": "ISSTA 2023",
+    "version": "NSF PAR copy",
+    "pages": 13,
+    "bytes": 4523657,
+    "sha256": "36fec6c8888713ac7a1287c933c944d48b597407399360b436092836fdb47a83",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2023-Reichelt-Peass-Injected-Regressions-Jetty-arXiv.pdf",
+    "title": "Automated Identification of Performance Changes at Code Level",
+    "source_url": "https://arxiv.org/pdf/2303.14256",
+    "publication_url": "https://arxiv.org/abs/2303.14256",
+    "version": "arXiv v1",
+    "pages": "~",
+    "bytes": 430094,
+    "sha256": "77f4c7a2fbb1479ba07283af4ee7ddedc907adc40616b7ffbdf64bb6a950d3ef",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2023-Traini-SteadyState-Java-EMSE.pdf",
+    "title": "Towards effective assessment of steady state performance in Java software: Are we there yet?",
+    "source_url": "https://export.arxiv.org/pdf/2209.15369",
+    "publication_url": "https://doi.org/10.1007/s10664-022-10247-x",
+    "version": "arXiv v2 author version (28 Nov 2022)",
+    "pages": 66,
+    "bytes": 2958873,
+    "sha256": "04a8f4845aa893e7456c456fc9c16539e82da9b967275a0592d0148bd8952daa",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2024-Detecting-Build-Dependency-Errors-Incremental-Builds-v1.pdf",
+    "title": "Detecting Build Dependency Errors in Incremental Builds",
+    "source_url": "https://arxiv.org/pdf/2404.13295v1",
+    "publication_url": "https://arxiv.org/abs/2404.13295",
+    "version": "arXiv v1 (an earlier v2 download was corrupt/truncated and was deleted)",
+    "pages": 12,
+    "bytes": 1546125,
+    "sha256": "3d69f3a5a2f6e6e443c5b76831417f77f6930c85f21f02b820de82cc2c8636bd",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2024-Widyasari-BugsInPy-arXiv.pdf",
+    "title": "BugsInPy: A Database of Existing Bugs in Python Programs to Enable Controlled Testing and Debugging Studies",
+    "source_url": "https://arxiv.org/pdf/2401.15481",
+    "publication_url": "https://doi.org/10.1145/3368089.3417943",
+    "version": "arXiv v1 (posted 2024; paper is ESEC/FSE 2020 demo)",
+    "pages": "5",
+    "bytes": 496852,
+    "sha256": "341a88dceb6a16000b976023c1d15ac3a0c1283d7d727a0bbe9deb9abd0dd2e3",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T4"
+    ]
+  },
+  {
+    "filename": "2025-Laaber-uOpTime.pdf",
+    "title": "muOpTime: Statically Reducing the Execution Time of Microbenchmark Suites Using Stability Metrics",
+    "source_url": "https://arxiv.org/pdf/2501.12878",
+    "publication_url": "https://doi.org/10.1145/3715322",
+    "version": "arXiv v2 (21 Oct 2025)",
+    "pages": 26,
+    "bytes": 991117,
+    "sha256": "f8a5db0330491c049cdad2064a6769bd00549a8118a4a061ccc2f10e62dd81f7",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T3"
+    ]
+  },
+  {
+    "filename": "2026-NamesAreAllYouNeed-PythonRTS-arXiv.pdf",
+    "title": "Names Are All You Need: Effective and Safe Regression Test Selection for Python",
+    "source_url": "https://arxiv.org/pdf/2605.25356",
+    "publication_url": "https://arxiv.org/abs/2605.25356",
+    "version": "arXiv v1 preprint (25 May 2026)",
+    "pages": 22,
+    "bytes": 1570627,
+    "sha256": "2fa4c64263b7eb35cd4efd2e79a0918acaa3ba4009fb7d561a4f36300c25ce05",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T2"
+    ]
+  },
+  {
+    "filename": "2026-Promise-Reality-CI-Caching.pdf",
+    "title": "The Promise and Reality of Continuous Integration Caching: An Empirical Study of Travis CI Builds",
+    "source_url": "https://arxiv.org/pdf/2601.19146",
+    "publication_url": "https://arxiv.org/abs/2601.19146",
+    "version": "arXiv v2",
+    "pages": 12,
+    "bytes": 1113973,
+    "sha256": "501a4435687fe6b62aab7052aa7974fd3a7c9228fdd5107094b5198b94e13007",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "T1"
+    ]
+  },
+  {
+    "filename": "2026-PerfAgent-arXiv.pdf",
+    "title": "PerfAgent: Profiler-Guided Iterative Refinement for Repository-Level Code Optimization",
+    "source_url": "https://arxiv.org/pdf/2607.19653v1",
+    "version": "v1",
+    "bytes": 352758,
+    "sha256": "bd6db33769237f2d223480bf2b1dd6f3c21f9b143490acbd19180a9b317d47b6",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "R1"
+    ]
+  },
+  {
+    "filename": "2025-Fallahzadeh-Selection-vs-Batching-EMSE.pdf",
+    "title": "Contrasting Test Selection, Prioritization, and Batch Testing at Scale (accepted manuscript)",
+    "source_url": "https://mcis.cs.queensu.ca/publications/2025/emse_scale.pdf",
+    "version": "Author accepted manuscript (not Version of Record); DOI 10.1007/s10664-024-10589-8",
+    "bytes": 3563913,
+    "sha256": "82772109f6cce111a1d747412f71f0ef640fc52b14adc9ea1384c7a1bc1bb91c",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "R2"
+    ]
+  },
+  {
+    "filename": "2026-Sayedsalehi-Risk-Aware-Batch-Testing-arXiv.pdf",
+    "title": "Risk-Aware Batch Testing for Performance Regression Detection",
+    "source_url": "https://arxiv.org/pdf/2604.00222",
+    "version": "arXiv v1 (31 Mar 2026)",
+    "bytes": 248847,
+    "sha256": "5f14c3f3a97da197f174d2d907c19bf8dcc379d7262b0b8ef14bd78f6aa30048",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "R2"
+    ]
+  },
+  {
+    "filename": "2025-Agentic-Issue-Resolution-Survey-arXiv.pdf",
+    "title": "Agentic Software Issue Resolution with Large Language Models: A Survey",
+    "source_url": "https://arxiv.org/pdf/2512.22256",
+    "version": "arXiv v2 (6 Aug 2026)",
+    "bytes": 2715250,
+    "sha256": "038835f8add11b539fdfc674c2751437899c90e9f3fc82b19aea04847b71fa5a",
+    "downloaded_on": "2026-11-21",
+    "topics": [
+      "R2"
+    ]
+  }
+]

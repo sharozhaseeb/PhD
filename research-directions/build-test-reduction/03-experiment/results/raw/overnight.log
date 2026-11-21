@@ -1,0 +1,342 @@
+2026-11-21T19:26:33+05:00 gate: loadavg=2.13 wincpu=100 ok=0/3
+2026-11-21T19:27:33+05:00 gate: loadavg=0.99 wincpu=100 ok=0/3
+2026-11-21T19:28:33+05:00 gate: loadavg=0.48 wincpu=100 ok=0/3
+2026-11-21T19:28:48+05:00 driver restarted (Windows CPU probe fixed; earlier gate lines read 100 = probe failure)
+2026-11-21T19:29:20+05:00 driver relaunched after CRLF fix (previous relaunch failed: syntax error from CRLF line endings)
+2026-11-21T19:29:27+05:00 gate: loadavg=0.35 wincpu=12 ok=1/3
+2026-11-21T19:30:34+05:00 gate: loadavg=0.52 wincpu=22 ok=0/3
+2026-11-21T19:31:40+05:00 gate: loadavg=0.55 wincpu=23 ok=0/3
+2026-11-21T19:32:47+05:00 gate: loadavg=0.36 wincpu=13 ok=1/3
+2026-11-21T19:33:53+05:00 gate: loadavg=0.36 wincpu=30 ok=0/3
+2026-11-21T19:35:00+05:00 gate: loadavg=0.24 wincpu=12 ok=1/3
+2026-11-21T19:36:06+05:00 gate: loadavg=0.29 wincpu=12 ok=2/3
+2026-11-21T19:37:13+05:00 gate: loadavg=0.46 wincpu=14 ok=3/3
+2026-11-21T19:38:13+05:00 === 1. idle re-timing (networkx S0..S18 build + serial tests; label .idle)
+loadavg=0.25
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.25
+loadavg=0.25
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.25
+loadavg=0.25
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.25
+loadavg=0.25
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.31
+loadavg=0.31
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.31
+loadavg=0.31
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.31
+loadavg=0.31
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.31
+loadavg=0.31
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.31
+loadavg=0.31
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.36
+loadavg=0.36
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.36
+loadavg=0.36
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.36
+loadavg=0.36
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.36
+loadavg=0.36
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.41
+loadavg=0.41
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.41
+loadavg=0.41
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.41
+loadavg=0.41
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.41
+loadavg=0.41
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.41
+loadavg=0.41
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.46
+loadavg=0.46
+  /home/sharoz/bt-lab/exp/venvs/nx/lib/python3.12/site-packages/setuptools/command/editable_wheel.py:354: BuildBackendWarning: Editable installation.
+  !!
+  
+          ********************************************************************************
+          Please be careful with folders in your working directory with the same
+          name as your package as they may take precedence during imports.
+          ********************************************************************************
+  
+  !!
+    with strategy, WheelFile(wheel_path, "w") as wheel_obj:
+loadavg=0.46
+loadavg=0.46
+oracle-tests: exit 0, 6771 tests, 77.2s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S0_181f2951.idle.json
+loadavg=1.63
+LOAD GATE: 1.63 > 1.5 — label noisy
+loadavg=1.63
+LOAD GATE: 1.63 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 74.4s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S1_345a46c0.idle.json
+loadavg=2.22
+LOAD GATE: 2.22 > 1.5 — label noisy
+loadavg=2.22
+LOAD GATE: 2.22 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 73.6s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S2_867fda8d.idle.json
+loadavg=2.49
+LOAD GATE: 2.49 > 1.5 — label noisy
+loadavg=2.49
+LOAD GATE: 2.49 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 74.0s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S3_d3d79cc8.idle.json
+loadavg=1.54
+LOAD GATE: 1.54 > 1.5 — label noisy
+loadavg=1.54
+LOAD GATE: 1.54 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 74.0s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S4_e773a6af.idle.json
+loadavg=1.86
+LOAD GATE: 1.86 > 1.5 — label noisy
+loadavg=1.86
+LOAD GATE: 1.86 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 73.9s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S5_33152ccb.idle.json
+loadavg=2.08
+LOAD GATE: 2.08 > 1.5 — label noisy
+loadavg=2.08
+LOAD GATE: 2.08 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 79.5s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S6_2aa848c0.idle.json
+loadavg=2.54
+LOAD GATE: 2.54 > 1.5 — label noisy
+loadavg=2.54
+LOAD GATE: 2.54 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 83.8s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S7_ad6fed45.idle.json
+loadavg=2.17
+LOAD GATE: 2.17 > 1.5 — label noisy
+loadavg=2.17
+LOAD GATE: 2.17 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 82.7s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S8_447e59df.idle.json
+loadavg=2.39
+LOAD GATE: 2.39 > 1.5 — label noisy
+loadavg=2.39
+LOAD GATE: 2.39 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 83.1s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S9_eaa48be2.idle.json
+loadavg=2.64
+LOAD GATE: 2.64 > 1.5 — label noisy
+loadavg=2.64
+LOAD GATE: 2.64 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 82.2s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S10_52b7255a.idle.json
+loadavg=2.57
+LOAD GATE: 2.57 > 1.5 — label noisy
+loadavg=2.57
+LOAD GATE: 2.57 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 81.9s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S11_b85a9986.idle.json
+loadavg=2.61
+LOAD GATE: 2.61 > 1.5 — label noisy
+loadavg=2.61
+LOAD GATE: 2.61 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 82.6s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S12_650ed52f.idle.json
+loadavg=2.59
+LOAD GATE: 2.59 > 1.5 — label noisy
+loadavg=2.59
+LOAD GATE: 2.59 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 79.1s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S13_2bfab216.idle.json
+loadavg=2.95
+LOAD GATE: 2.95 > 1.5 — label noisy
+loadavg=2.95
+LOAD GATE: 2.95 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 82.8s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S14_8a875737.idle.json
+loadavg=2.30
+LOAD GATE: 2.30 > 1.5 — label noisy
+loadavg=2.30
+LOAD GATE: 2.30 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 74.3s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S15_20d0487d.idle.json
+loadavg=2.29
+LOAD GATE: 2.29 > 1.5 — label noisy
+loadavg=2.29
+LOAD GATE: 2.29 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 71.5s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S16_17976a4f.idle.json
+loadavg=2.06
+LOAD GATE: 2.06 > 1.5 — label noisy
+loadavg=2.06
+LOAD GATE: 2.06 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 71.0s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S17_a9910480.idle.json
+loadavg=1.94
+LOAD GATE: 1.94 > 1.5 — label noisy
+loadavg=1.94
+LOAD GATE: 1.94 > 1.5 — label noisy
+oracle-tests: exit 0, 6771 tests, 70.7s -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/oracle-tests/S18_5eb50b60.idle.json
+loadavg=1.75
+LOAD GATE: 1.75 > 1.5 — label noisy
+2026-11-21T20:03:15+05:00 === 1b. bottleneck build re-timing (idle)
+{"repeat":1,"base":"f51ed862","clean_s":5.407,"null_s":0.176,"one_template_s":2.169,"bottleneck_h_s":2.775,"loadavg":"1.59 1.87 1.96"}
+{"repeat":2,"base":"f51ed862","clean_s":4.852,"null_s":0.176,"one_template_s":2.198,"bottleneck_h_s":2.882,"loadavg":"1.46 1.82 1.94"}
+{"repeat":3,"base":"f51ed862","clean_s":4.719,"null_s":0.179,"one_template_s":2.198,"bottleneck_h_s":2.813,"loadavg":"2.35 2.01 2.00"}
+2026-11-21T20:04:00+05:00 === 2. slowdown oracle
+interleave: 40 entries -> /tmp/tmpl91qp0po/i.json

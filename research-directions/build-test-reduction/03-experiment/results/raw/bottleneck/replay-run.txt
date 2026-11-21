@@ -1,0 +1,38 @@
+# bottleneck mining at b0815406af6317f9fd163fb91526d0b8f199e2c6, window 2019-10-06..2021-01-01 (exclusive), max_lines=200
+# 16 subject matches, 16 qualifying
+# sha8 date qualifies src_lines subject [files] reason
+c6956068 2019-12-07 Y    4 PERF: abort median buffer construction if we see a nan ['bottleneck/src/reduce_template.c'] 
+c5720c8d 2019-12-08 Y   16 PERF: speed up median for integers ['bottleneck/src/iterators.h', 'bottleneck/src/reduce_template.c'] 
+a638b282 2019-12-27 Y    9 CLN/PERF: Introduce REDUCE_CONTIGUOUS and REDUCE_SPECIALIZE macros for vectorizing contiguous data ['bottleneck/src/iterators.h'] 
+0819d3aa 2019-12-31 Y   21 PERF: improve performance of nansum for integers ['bottleneck/src/reduce_template.c'] 
+3b7618c0 2019-12-31 Y   96 PERF: significantly improve performance for nanmin/max for axis=None ['bottleneck/src/reduce_template.c'] 
+962e2273 2020-01-01 Y   14 PERF: add some typing to nanmin/max for floats with specified axis ['bottleneck/src/reduce_template.c'] 
+8106e742 2020-01-05 Y   17 PERF: do nanargmin/max in-order for integer dtypes ['bottleneck/src/reduce_template.c'] 
+445d3768 2020-01-05 Y    4 PERF: speed up nanmin/max with non-null axis for int32 ['bottleneck/src/reduce_template.c'] 
+98b59df2 2020-01-19 Y  168 PERF: optimize for contiguous 2D nanmin/nanmax, speedups of up to 12x ['bottleneck/src/iterators.h', 'bottleneck/src/reduce_template.c'] 
+a72e0d23 2020-01-20 Y   51 PERF: improve anynan reduction performance by up to 4x on float32 ['bottleneck/src/reduce_template.c'] 
+cfc7bac1 2020-01-24 Y   49 PERF: improve allnan reduction performance by up to 4x on float32 ['bottleneck/src/reduce_template.c'] 
+cd32416d 2020-02-15 Y  148 PERF: introduce SSE2 implementations of allnan/anynan, ~30% speedup ['bottleneck/src/bn_config.py', 'bottleneck/src/reduce_template.c'] 
+e0d30c10 2020-02-22 Y   39 PERF: speed up nansum for integer inputs with axis != None by up to ~6x ['bottleneck/src/reduce_template.c'] 
+8b587c5c 2020-02-22 Y  136 PERF: extend SSE2 operations to anynan/allnan in contiguous axis case ['bottleneck/src/reduce_template.c'] 
+f1d14dc2 2020-02-22 Y   86 PERF: optimize anynan/allnan with transpose axis ['bottleneck/src/reduce_template.c'] 
+933b6537 2020-11-24 Y    4 PERF: int nansum contiguous case ['bottleneck/src/reduce_template.c'] 
+base = f51ed862e619dcff7b7b3691e58d5fc6ead4076b
+hydrate: 0 missing objects to fetch
+c6956068 applied df4d97a6 
+c5720c8d applied dfa701f5 
+a638b282 applied 6076c6dd 
+0819d3aa applied fd1839d6 
+3b7618c0 applied 14659616 
+962e2273 applied 96b3e30d 
+8106e742 applied 305d1e1a 
+445d3768 applied daf08e9b 
+98b59df2 applied 04110757 
+a72e0d23 applied e902c469 
+cfc7bac1 applied 17099e4a 
+cd32416d dropped  dropped: conflict
+e0d30c10 applied 636375b9 
+8b587c5c dropped  dropped: conflict
+f1d14dc2 dropped  dropped: conflict
+933b6537 applied 45e976fb 
+applied 13 dropped 3

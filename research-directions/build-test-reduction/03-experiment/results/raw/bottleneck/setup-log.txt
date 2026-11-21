@@ -1,0 +1,22 @@
+# bottleneck base S_0 = 22657acaad5f27d9f692dd64362439ada8032c1b (workdir ~/bt-lab/exp/work/bottleneck-replay, detached)
+## Attempt 1: CPython 3.12.16 + numpy 1.26.4 + setuptools 84.2.1 (venv bn312) -> FAIL before compiling
+$ MAX_JOBS=1 nice -n 19 python setup.py build_ext --inplace
+  File "setup.py", line 146, in <module>  version=versioneer.get_version()
+  File "versioneer.py", line 342, in get_config_from_root
+    parser = configparser.SafeConfigParser()
+AttributeError: module 'configparser' has no attribute 'SafeConfigParser'   (removed in 3.12; vendored 2019 versioneer; no patch applied)
+
+## Attempt 2 (M4): uv CPython 3.8.20 + numpy 1.19.5 + pytest 7.4.4 + setuptools 59.8.0 (venv bn38) -> OK; compiler cc = gcc 13
+$ git clean -fdxq; MAX_JOBS=1 nice -n 19 python setup.py build_ext --inplace  (clean build)
+running build_ext
+running config
+
+real	0m9.898s
+user	0m7.216s
+sys	0m2.810s
+$ nice -n 19 python -m pytest bottleneck/tests -p no:cacheprovider -q
+........................................................................ [ 42%]
+........................................................................ [ 85%]
+........................                                                 [100%]
+168 passed in 34.39s
+bottleneck.__version__ = 1.3.0.dev0+62.g22657ac

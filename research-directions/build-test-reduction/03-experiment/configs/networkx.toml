@@ -1,0 +1,44 @@
+# W3 target config: networkx (pilot, pure Python). Frozen with the edit list; see readiness.md §1.3.
+[repo]
+url = "https://github.com/networkx/networkx.git"
+clone = "~/bt-lab/exp/repos/networkx"
+head_at_mining = "6c1a31d1613ad04cf2b2e3d63090b94979521981"
+
+[mine]
+regex = '(\bperf\b|speed ?up|faster|optimi[sz](e|ation|ing|ed)\b|performance|vectori[sz]|efficien)'
+src_globs = ["networkx/*.py"]
+exclude_globs = ["networkx/**/tests/**", "networkx/conftest.py"]
+max_lines = 200
+before = "2026-11-21"
+limit = 20            # most recent 20 qualifying commits
+first_parent = true
+# If fewer than 15 survive replay, extend by the next 5 older qualifying commits (repeat). Rule fixed 2026-11-21.
+
+[replay]
+base = "181f295117f7f7488644c87f04699290f8e49188"   # = f618240c^ (oldest of the latest 20, subject rule); see readiness §1.3 correction
+src_pathspec = ["networkx", ":(exclude)networkx/**/tests/**"]
+
+[tests]
+cmd = ["python", "-m", "pytest", "networkx", "-p", "no:cacheprovider", "-q"]
+xdist_n = 6           # same -n in every arm for wall time (M1); serial run for per-test durations
+
+[bench]
+dir = "benchmarks/benchmarks"
+style = "asv"
+
+[native]
+sources = {}
+headers = []
+build_config = ["pyproject.toml", "setup.py", "setup.cfg"]
+
+[simulate]
+# Draft arm set (readiness §3; k in {3,5} for the draft per M3). Parameters fixed a priori (rules.md).
+arms = [
+  "FULL", "INC", "TESTMON", "CHANGED_MODULE", "STATIC_BENCH",
+  "PERIODIC:inner=TESTMON,k=3", "PERIODIC:inner=TESTMON,k=5",
+  "PERIODIC:inner=CHANGED_MODULE,k=3", "PERIODIC:inner=CHANGED_MODULE,k=5",
+  "PERIODIC:inner=STATIC_BENCH,k=3", "PERIODIC:inner=STATIC_BENCH,k=5",
+  "OURS",
+  "OURS:f6order=False",
+  "OURS:accumulate=False", "OURS:profile=False", "OURS:k=5",
+]

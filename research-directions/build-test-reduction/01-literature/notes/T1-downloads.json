@@ -1,0 +1,134 @@
+[
+  {
+    "filename": "2015-Pluto-Erdweg-OOPSLA.pdf",
+    "title": "A Sound and Optimal Incremental Build System with Dynamic Dependencies",
+    "source_url": "https://www.pl.informatik.uni-mainz.de/files/2019/04/pluto-incremental-build.pdf",
+    "publication_url": "https://doi.org/10.1145/2814270.2814316",
+    "version": "institution copy (Mainz)",
+    "pages": 18,
+    "bytes": 666610,
+    "sha256": "362857ec8f3264bb8f03a7276c4f133c390c7a918595f797712d83929c613038",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2016-CloudBuild-Esfahani-ICSE-SEIP.pdf",
+    "title": "CloudBuild: Microsoft's Distributed and Caching Build Service",
+    "source_url": "https://microsoft.com/en-us/research/wp-content/uploads/2016/06/q_signed-2.pdf",
+    "publication_url": "https://doi.org/10.1145/2889160.2889222",
+    "version": "publisher/author copy (MSR)",
+    "pages": 10,
+    "bytes": 1632785,
+    "sha256": "e7ba7f5277e19ebbd37cd1fdd9a593896100dd4680828a563a250f0b6f0b12e5",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2017-Bezemer-Unspecified-Dependencies-Make-EMSE.pdf",
+    "title": "An empirical study of unspecified dependencies in make-based build systems",
+    "source_url": "https://rebels.cs.uwaterloo.ca/papers/emse2017_bezemer.pdf",
+    "publication_url": "https://doi.org/10.1007/s10664-017-9510-8",
+    "version": "author copy (UWaterloo)",
+    "pages": 32,
+    "bytes": 2268040,
+    "sha256": "4d282d36ade8b2c390ba4ea429426df4efef3be9b338a5a8747469912c6561c5",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2018-Build-Systems-a-la-Carte.pdf",
+    "title": "Build Systems a la Carte (ICFP 2018)",
+    "source_url": "https://www.microsoft.com/en-us/research/uploads/prod/2018/03/build-systems-a-la-carte.pdf",
+    "publication_url": "https://doi.org/10.1145/3236774",
+    "version": "author copy (MSR); server returned 403 without a referer header, 200 with the MSR publication page as referer",
+    "pages": 29,
+    "bytes": 1061871,
+    "sha256": "b55a60f772d630d6bd14665dfb4dfbf50376f11cf7460d1378be15ba41833246",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2019-Licker-Detecting-Incorrect-Build-Rules.pdf",
+    "title": "Detecting Incorrect Build Rules",
+    "source_url": "https://www.cl.cam.ac.uk/~acr31/pubs/licker-buildrules.pdf",
+    "publication_url": "https://doi.org/10.1109/ICSE.2019.00125",
+    "version": "author copy (Cambridge)",
+    "pages": 11,
+    "bytes": 286638,
+    "sha256": "ceff92a9c94e4332184632562f85eb83f8f98d62333398a6b6a2cc8294e72a4f",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2020-Build-Scripts-Perfect-Dependencies.pdf",
+    "title": "Build Scripts with Perfect Dependencies",
+    "source_url": "https://arxiv.org/pdf/2007.12737",
+    "publication_url": "https://arxiv.org/abs/2007.12737",
+    "version": "arXiv preprint version",
+    "pages": 25,
+    "bytes": 761061,
+    "sha256": "614b5aa77a2ecdad20ad5ebff925bc279c43ed5b391af44ddcbe825bd30204fc",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2020-Build-Systems-a-la-Carte-JFP.pdf",
+    "title": "Build Systems a la Carte: Theory and Practice (JFP 2020)",
+    "source_url": "https://resolve.cambridge.org/core/services/aop-cambridge-core/content/view/097CE52C750E69BD16B78C318754C7A4/S0956796820000088a.pdf/build-systems-a-la-carte-theory-and-practice.pdf",
+    "publication_url": "https://doi.org/10.1017/S0956796820000088",
+    "version": "publisher open-access PDF (Cambridge)",
+    "pages": 55,
+    "bytes": 3112784,
+    "sha256": "53cef0338879951ba9626a39c0b38ec49379b7ecc16f6982f1ef09ce2f7c09bd",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2020-Gallaba-Kotinos-TSE.pdf",
+    "title": "Accelerating Continuous Integration by Caching Environments and Inferring Dependencies",
+    "source_url": "https://rebels.cs.uwaterloo.ca/papers/tse2020_gallaba.pdf",
+    "publication_url": "https://swag.uwaterloo.ca/publications/accelerating-continuous-integration-by-caching-environments-and-inferring-dependencies.html",
+    "version": "author copy (UWaterloo)",
+    "pages": 13,
+    "bytes": 1662656,
+    "sha256": "6a1ccf0731c4f31ecbebdc895a4f6a6bc31a4df8b516d777d292f4ec732b2fd8",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2020-Sotiropoulos-BuildFS.pdf",
+    "title": "A Model for Detecting Faults in Build Specifications",
+    "source_url": "https://www.spinellis.gr/pubs/conf/2020-OOPSLA-build-bugs/html/SCMS20.pdf",
+    "publication_url": "https://doi.org/10.1145/3428212",
+    "version": "author copy (Spinellis)",
+    "pages": 30,
+    "bytes": 477245,
+    "sha256": "7ff01ac073c94082276c92301d91b8c9cb9616d1cb27530faba3a83b27465ca8",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2022-Forward-Build-Systems-Formally.pdf",
+    "title": "Forward Build Systems, Formally",
+    "source_url": "https://arxiv.org/pdf/2202.05328",
+    "publication_url": "https://arxiv.org/abs/2202.05328",
+    "version": "arXiv v1",
+    "pages": 13,
+    "bytes": 256164,
+    "sha256": "ffc908ebb5f6040757c31b446ad4bb56a62c8141e5321be242b45a9a274e5dfd",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2024-Detecting-Build-Dependency-Errors-Incremental-Builds-v1.pdf",
+    "title": "Detecting Build Dependency Errors in Incremental Builds",
+    "source_url": "https://arxiv.org/pdf/2404.13295v1",
+    "publication_url": "https://arxiv.org/abs/2404.13295",
+    "version": "arXiv v1 (an earlier v2 download was corrupt/truncated and was deleted)",
+    "pages": 12,
+    "bytes": 1546125,
+    "sha256": "3d69f3a5a2f6e6e443c5b76831417f77f6930c85f21f02b820de82cc2c8636bd",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2026-Promise-Reality-CI-Caching.pdf",
+    "title": "The Promise and Reality of Continuous Integration Caching: An Empirical Study of Travis CI Builds",
+    "source_url": "https://arxiv.org/pdf/2601.19146",
+    "publication_url": "https://arxiv.org/abs/2601.19146",
+    "version": "arXiv v2",
+    "pages": 12,
+    "bytes": 1113973,
+    "sha256": "501a4435687fe6b62aab7052aa7974fd3a7c9228fdd5107094b5198b94e13007",
+    "downloaded_on": "2026-11-21"
+  }
+]

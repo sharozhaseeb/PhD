@@ -1,0 +1,167 @@
+[
+  {
+    "filename": "1997-Rothermel-Safe-Efficient-RTS-TOSEM.pdf",
+    "title": "A Safe, Efficient Regression Test Selection Technique (Rothermel & Harrold, ACM TOSEM 6(2), 1997) -- NOT the 1996 TSE 'Analyzing RTS techniques' paper; contains summary of the 4-category framework in Sec. 4.1",
+    "source_url": "https://www.cs.purdue.edu/homes/xyzhang/spring07/Papers/p173-rothermel.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "publisher/ACM TOSEM version as hosted on course page (unverified provenance)",
+    "pages": "173-210 (per file; ~38 pp.)",
+    "bytes": 730736,
+    "sha256": "8fee2a3d3acb5594027fd9a94d1935f8f7780644281d366c8e4b825df7c03d5d",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2019-Zhu-RTSCheck-ICSE.pdf",
+    "title": "A Framework for Checking Regression Test Selection Tools",
+    "source_url": "https://cs.cornell.edu/~legunsen/pubs/ZhuETAL19RTSCheck.pdf",
+    "publication_url": "https://doi.org/10.1109/ICSE.2019.00056",
+    "version": "author version",
+    "pages": "430-441",
+    "bytes": 704943,
+    "sha256": "1b98f1cf31f53579f61d06a2adc88140b5c059b8e5b6c741cbac2a835f8f5df4",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2018-Shi-Test-Suite-Reduction-Real-Evolution-ISSTA.pdf",
+    "title": "Evaluating Test-Suite Reduction in Real Software Evolution",
+    "source_url": "https://mir.cs.illinois.edu/gyori/pubs/issta18.pdf",
+    "publication_url": "https://doi.org/10.1145/3213846.3213875",
+    "version": "author version",
+    "pages": "84-94",
+    "bytes": 1124407,
+    "sha256": "155ce727a74101cbc3629caeb964fd775789e6af35ec9a988b847d221f4773ec",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2014-Just-Mutants-Valid-Substitute-FSE.pdf",
+    "title": "Are Mutants a Valid Substitute for Real Faults in Software Testing?",
+    "source_url": "https://homes.cs.washington.edu/~mernst/pubs/mutation-effectiveness-fse2014.pdf",
+    "publication_url": "https://doi.org/10.1145/2635868.2635929",
+    "version": "author version",
+    "pages": "654-665",
+    "bytes": 297046,
+    "sha256": "18c7f787b06ed6089ddec5771d931aef1c2f663285073d1cd8117120131e2951",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2014-Shi-Balancing-Tradeoffs-Test-Suite-Reduction-FSE.pdf",
+    "title": "Balancing Trade-Offs in Test-Suite Reduction",
+    "source_url": "https://mir.cs.illinois.edu/gyori/pubs/fse14reduction.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "author version (publication DOI unverified)",
+    "pages": "~11",
+    "bytes": 412863,
+    "sha256": "f151c29bacc23705f4a43f575334498a63d1a60b8cb07a7f003445586c607698",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2006-Andrews-Mutation-Coverage-Criteria-TSE.pdf",
+    "title": "Using Mutation Analysis for Assessing and Comparing Testing Coverage Criteria (TSE 32(8)); extension of the ICSE 2005 paper, which could not be downloaded",
+    "source_url": "https://www.depts.ttu.edu/cs/research/avesta/documents/papers/TSE2006/TSE06.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "author version (publication DOI unverified)",
+    "pages": "608-624",
+    "bytes": 3387709,
+    "sha256": "71cd5de863193ea397a753343fe531d077b526a190f1c5cc1628b6de084a1991",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2020-Mattis-RTPTorrent-MSR.pdf",
+    "title": "RTPTorrent: An Open-source Dataset for Evaluating Regression Test Prioritization",
+    "source_url": "https://www.hpi.uni-potsdam.de/swa/publications/media/MattisReinDuerschHirschfeld_2020_RTPTorrentAnOpenSourceDatasetForEvaluatingRegressionTestPrioritization_AcmDL.pdf",
+    "publication_url": "https://doi.org/10.1145/3379597.3387458",
+    "version": "publisher-version PDF on author institute page",
+    "pages": "~5",
+    "bytes": 1094878,
+    "sha256": "27fb31a375c77ed9bf7a8d29b1a0f852da73e73ffe4ca3b7e80bc1838262e87a",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2019-Papadakis-Mutation-Testing-Advances-AdvComp.pdf",
+    "title": "Mutation Testing Advances: An Analysis and Survey (Advances in Computers vol. 112)",
+    "source_url": "https://mutationtesting.uni.lu/survey.pdf",
+    "publication_url": "unknown (DOI not verified in a source I read)",
+    "version": "authors' preprint",
+    "pages": "~",
+    "bytes": 1129278,
+    "sha256": "63b7bfca877cd4661cb24e93fbfe1757a2740b39fb65ee3a79eb17e36215f023",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2018-Petrovic-State-Mutation-Testing-Google-ICSESEIP.pdf",
+    "title": "State of Mutation Testing at Google",
+    "source_url": "https://web.eecs.umich.edu/~weimerw/2022-481W/readings/mutation-google.pdf",
+    "publication_url": "https://doi.org/10.1145/3183519.3183521",
+    "version": "course-hosted copy (author version)",
+    "pages": "163-171",
+    "bytes": 419943,
+    "sha256": "c128ccd374906ade3e4e885dbfb685bc7268ee92ccf4c8d71f678b17e3cdbcca",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2012-Jin-Real-World-Performance-Bugs-PLDI.pdf",
+    "title": "Understanding and Detecting Real-World Performance Bugs",
+    "source_url": "https://ece.uwaterloo.ca/~wshang/soen691/current/papers/pldi118-jin.pdf",
+    "publication_url": "https://doi.org/10.1145/2254064.2254075",
+    "version": "course-hosted copy",
+    "pages": "77-88",
+    "bytes": 755349,
+    "sha256": "668b88f44d470bff72522fd1c3f7ccfaea578283aedb263c5a702264299e49b9",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2024-Widyasari-BugsInPy-arXiv.pdf",
+    "title": "BugsInPy: A Database of Existing Bugs in Python Programs to Enable Controlled Testing and Debugging Studies",
+    "source_url": "https://arxiv.org/pdf/2401.15481",
+    "publication_url": "https://doi.org/10.1145/3368089.3417943",
+    "version": "arXiv v1 (posted 2024; paper is ESEC/FSE 2020 demo)",
+    "pages": "5",
+    "bytes": 496852,
+    "sha256": "341a88dceb6a16000b976023c1d15ac3a0c1283d7d727a0bbe9deb9abd0dd2e3",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2023-Reichelt-Peass-Injected-Regressions-Jetty-arXiv.pdf",
+    "title": "Automated Identification of Performance Changes at Code Level",
+    "source_url": "https://arxiv.org/pdf/2303.14256",
+    "publication_url": "https://arxiv.org/abs/2303.14256",
+    "version": "arXiv v1",
+    "pages": "~",
+    "bytes": 430094,
+    "sha256": "77f4c7a2fbb1479ba07283af4ee7ddedc907adc40616b7ffbdf64bb6a950d3ef",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2022-Song-RegMiner-ISSTA.pdf",
+    "title": "RegMiner: Towards Constructing a Large Regression Dataset from Code Evolution History",
+    "source_url": "https://export.arxiv.org/pdf/2109.12389v2",
+    "publication_url": "https://doi.org/10.1145/3533767.3534224",
+    "version": "arXiv v2",
+    "pages": "~",
+    "bytes": 1910970,
+    "sha256": "4a4dd44317d02509fe4e41a560642a86e39a19e0bb9720f10831776ec281fa54",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2013-Kalibera-Quantifying-Performance-Changes-TR-arXiv.pdf",
+    "title": "Quantifying Performance Changes with Effect Size Confidence Intervals (Univ. of Kent TR 4-12)",
+    "source_url": "https://arxiv.org/pdf/2007.10899",
+    "publication_url": "https://arxiv.org/abs/2007.10899",
+    "version": "arXiv v1 of TR",
+    "pages": "55",
+    "bytes": 853536,
+    "sha256": "5f3e5519a1bccb21f6da49a88902443ff4d7326eda056537e283146c96eca329",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2022-Zhao-Real-Life-Performance-Issues-TSE.pdf",
+    "title": "A Large-Scale Empirical Study of Real-Life Performance Issues in Open Source Projects",
+    "source_url": "https://par.nsf.gov/servlets/purl/10332839",
+    "publication_url": "https://doi.org/10.1109/TSE.2022.3167628",
+    "version": "NSF PAR accepted manuscript",
+    "pages": "~",
+    "bytes": 1915449,
+    "sha256": "9b3ac9085b5ae596a3c7085045d4292dae43e6ef59225fcbf6b431602486a0e3",
+    "downloaded_on": "2026-11-21"
+  }
+]

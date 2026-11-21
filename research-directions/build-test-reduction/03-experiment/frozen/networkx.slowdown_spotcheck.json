@@ -1,0 +1,19 @@
+{
+ "seed": 20261121,
+ "population": "all 171 asv time_ cases at S0 (sorted ids)",
+ "n": 10,
+ "sample": [
+  "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+  "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')",
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')",
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')",
+  "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')",
+  "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')",
+  "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+  "benchmark_neighbors.NonNeighbors.time_star_rim(1000)",
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')"
+ ],
+ "frozen_at": "2026-11-21T19:30+05:00 (before any slowdown measurement)",
+ "use": "per slowdown, the members NOT in its reach (S0 profile \u222a static reach) form the out-of-reach spot check"
+}

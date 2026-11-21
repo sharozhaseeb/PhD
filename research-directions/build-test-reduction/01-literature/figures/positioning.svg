@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 640" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13">
+  <title>Positioning of closest works: decision unit by object reduced</title>
+  <desc>Rows: per-revision decision versus across-edit decision. Columns: build, functional tests, benchmarks. Closest works are placed in cells by number from closest-works.md; the Study 1 policy spans the across-edit row for all three objects, for Python with native extensions.</desc>
+  <style>
+    .hdr{font-weight:600;font-size:15px;fill:#1f2933}
+    .row{font-weight:600;font-size:14px;fill:#1f2933}
+    .cell{fill:#f5f7fa;stroke:#9aa5b1;stroke-width:1}
+    .work{fill:#323f4b}
+    .note{fill:#52606d;font-size:12px}
+    .ours{fill:#fff4e5;stroke:#d97706;stroke-width:2.5}
+    .ourst{fill:#92400e;font-weight:600}
+  </style>
+  <!-- column headers -->
+  <text class="hdr" x="330" y="40" text-anchor="middle">Build</text>
+  <text class="hdr" x="580" y="40" text-anchor="middle">Functional tests</text>
+  <text class="hdr" x="840" y="40" text-anchor="middle">Benchmarks</text>
+  <!-- row headers -->
+  <text class="row" x="20" y="150">Per-revision</text>
+  <text class="note" x="20" y="170">decision uses only</text>
+  <text class="note" x="20" y="186">this change vs</text>
+  <text class="note" x="20" y="202">last recorded state</text>
+  <text class="row" x="20" y="390">Across edits</text>
+  <text class="note" x="20" y="410">decision uses state</text>
+  <text class="note" x="20" y="426">accumulated over a</text>
+  <text class="note" x="20" y="442">window of changes</text>
+  <!-- cells -->
+  <rect class="cell" x="205" y="60" width="250" height="220"/>
+  <rect class="cell" x="455" y="60" width="250" height="220"/>
+  <rect class="cell" x="705" y="60" width="270" height="220"/>
+  <rect class="cell" x="205" y="280" width="250" height="300"/>
+  <rect class="cell" x="455" y="280" width="250" height="300"/>
+  <rect class="cell" x="705" y="280" width="270" height="300"/>
+  <!-- per-revision / build -->
+  <text class="work" x="218" y="88">Make / Shake / Bazel (theory)</text>
+  <text class="work" x="218" y="110">CloudBuild, ccache, sccache</text>
+  <text class="work" x="218" y="132">#14 Kotinos (bypass on</text>
+  <text class="work" x="232" y="150">structure change)</text>
+  <text class="work" x="218" y="172">setuptools build_ext, cythonize</text>
+  <text class="work" x="218" y="194">meson-python rebuild-on-import</text>
+  <text class="note" x="218" y="226">W2: SWE-Perf, GSO, SWE-fficiency</text>
+  <text class="note" x="218" y="242">rebuild fully per candidate</text>
+  <!-- per-revision / tests -->
+  <text class="work" x="468" y="88">#3 Ekstazi  #4 STARTS</text>
+  <text class="work" x="468" y="110">#2 pytest-testmon</text>
+  <text class="work" x="468" y="132">#5 NameRTS (Python)</text>
+  <text class="work" x="468" y="154">#19 RTSLinux (JVM↔native)</text>
+  <text class="work" x="468" y="176">#1 PerfAgent (testmon per</text>
+  <text class="work" x="482" y="194">optimization iteration)</text>
+  <text class="work" x="468" y="216">#6 Elbaum windows (per test)</text>
+  <!-- per-revision / benchmarks -->
+  <text class="work" x="718" y="88">#10 Perphecy, PerfRanker,</text>
+  <text class="work" x="732" y="106">Laaber TCP (mostly ordering)</text>
+  <text class="work" x="718" y="128">#12 µOpTime (repetitions</text>
+  <text class="work" x="732" y="146">from an old full run)</text>
+  <text class="note" x="718" y="178">Java / Go / C++ only;</text>
+  <text class="note" x="718" y="194">no Python study found</text>
+  <!-- across / build -->
+  <text class="note" x="218" y="310">Clean full build as workaround</text>
+  <text class="note" x="218" y="326">(Bezemer et al. 2017)</text>
+  <text class="note" x="218" y="348">No scheduled clean-vs-incremental</text>
+  <text class="note" x="218" y="364">check found</text>
+  <!-- across / tests -->
+  <text class="work" x="468" y="310">#8 Batching + bisection</text>
+  <text class="work" x="482" y="328">(Najafi, Beheshtian, Fallahzadeh)</text>
+  <text class="work" x="468" y="350">#7 Google TAP milestones</text>
+  <text class="work" x="468" y="372">#9 Meta full runs on master</text>
+  <text class="work" x="468" y="394">#18 Ekelund &amp; Engström</text>
+  <text class="work" x="482" y="412">(periodic / rule full runs)</text>
+  <!-- across / benchmarks -->
+  <text class="work" x="718" y="310">#17 Sayedsalehi (risk-aware</text>
+  <text class="work" x="732" y="328">perf-test batching, learned)</text>
+  <text class="work" x="718" y="350">#11 Grambow (daily app backstop)</text>
+  <text class="work" x="718" y="372">#13 MongoDB (drift, after the fact)</text>
+  <text class="work" x="718" y="394">#15 SysLLMatic (final re-measure)</text>
+  <!-- ours band -->
+  <rect class="ours" x="215" y="452" width="750" height="116" rx="8"/>
+  <text class="ourst" x="590" y="478" text-anchor="middle">Study 1 (measured, then policy): per-edit reduced build + tests + benchmarks,</text>
+  <text class="ourst" x="590" y="498" text-anchor="middle">full check when accumulated change crosses a threshold (candidate rule C5; cap of k edits)</text>
+  <text class="work" x="590" y="522" text-anchor="middle">Measures (claims): native-extension boundary (C5) · stale dependency/profile data (C7)</text>
+  <text class="work" x="590" y="542" text-anchor="middle">dropped-benchmark miss rate (C11) · incremental-rebuild correctness (C8)</text>
+  <text class="note" x="590" y="560" text-anchor="middle">Python code with C/Cython extensions; performance-motivated edit sequences</text>
+  <text class="note" x="205" y="604">Numbers refer to rows of closest-works.md. Placement is our judgement from the cited sources.</text>
+  <text class="note" x="205" y="622">Outside the grid: delta debugging and flake-aware culprit finding (out of Study 1 scope).</text>
+</svg>

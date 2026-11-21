@@ -1,0 +1,52 @@
+# SWE-Perf
+
+Status: critic-checked 2026-11-21 (9 fixes) · Last checked: 2026-11-21
+Artifact: https://github.com/SWE-Perf/SWE-Perf @ 9e8fed285ed640b51baaf66b13773706dc95aa45 (local clone: `C:\Users\pc\study\bt-lab\survey\SWE-Perf_SWE-Perf`) · Paper: https://arxiv.org/abs/2507.12415 (He et al. 2025; CRITIC re-read the PDF text of v2)
+Evidence labels: **[src]** read in source (file path + line or paper section quoted/paraphrased), **[inf]** inferred by us from sources, **[unk]** not found (say where you looked).
+
+## 1. What it is (2-3 lines)
+140 instances from real performance-improving PRs; the paper reports 9 repos in the final dataset (Table 1, Fig. 3) while `README.md` says PRs were crawled from 12 repos [src]. A model gets repo + target functions and must produce a patch that lowers runtime of designated existing unit tests without breaking them. [src] `README.md` ("140 instances"); paper §3. Evaluation code is a fork of the SWE-bench harness (`evaluation/test_spec.py`, `docker_build.py`).
+
+## 2. Build / environment
+- Three-layer Docker design inherited from SWE-bench: base (ubuntu 22.04 + Miniconda) -> env (conda env `testbed`, hash of env script) -> instance (repo at base commit + install). [src] `evaluation/dockerfiles.py` (FROM/COPY/RUN lines ~3-51); `evaluation/test_spec.py:90-106` (`base_image_key`, hashed `env_image_key`).
+- At evaluation, instance images are PULLED from a remote Docker Hub namespace rather than built. [src] `evaluation/run_evaluation.py:312-319`, `run_evaluation.py:110` (`from_remote=True`).
+- Repo is RE-INSTALLED inside every eval run: the eval script includes `specs["install"]` (e.g. `pip install -v --no-use-pep517 --no-build-isolation -e .`) before the tests, and it runs twice per prediction (base, then patched). [src] `evaluation/test_spec.py:352-353`; `evaluation/constants.py:80,93,127` (install strings); `evaluation/run_evaluation.py:131,201`.
+- Reduced/incremental build: none found. [unk] (looked in `evaluation/test_spec.py`, `docker_build.py`, `run_evaluation.py`).
+- Container resources (RESOLVED as a code-vs-paper discrepancy): eval container = `nano_cpus` default 2e9 (2 CPUs) x5 when `is_large=True` = 10 CPUs, `mem_limit` 16g; no `cpuset` pinning. [src] `evaluation/docker_build.py:541-544,554-557`; `evaluation/run_evaluation.py:110` (`is_large=True`); `evaluation/README.md:34-37` (each worker "requires 5 CPU nodes"). Paper: Phase 2 containers limited to "a single CPU core and 16 GB", 5 cores in Phase 4 and evaluation [src] paper Sec. 3.2 Phase 1/2, Phase 4. Code does not match: Phase 4 harness `data_collection/harness/check_validation_single_runs.py:109` also passes `is_large=True` (10 CPUs), and the Phase 2 default (`is_large=False`) is 2 CPUs, not 1. [src] `data_collection/harness/docker_build.py:524-527`. CPU quota is a CFS time quota, not pinning, so 5-vs-10 and the absence of cpuset are both noise-relevant. [inf]
+
+## 3. Correctness tests per candidate
+- Tests run = the instance's `efficiency_test` list (a handful of pytest node ids per instance), NOT F2P/P2P and NOT the full suite. [src] `evaluation/test_spec.py:302-321` (`joined_tests = "' '".join(instance['efficiency_test'])`).
+- The test patch is NOT applied (command commented out); only a `git checkout <base> <test files>` reset is run. [src] `evaluation/test_spec.py:331-333,354-357`.
+- Correctness criterion: for every efficiency test, all repeats must have outcome "passed" both at base and patched; otherwise the instance counts as a failed run. [src] `evaluation/check_evaluation.py:49,54,61-68`. Paper: "must pass every test" (summary of §4). No separate regression suite is run [inf; nothing else is executed in `make_eval_script_list`].
+- Patch apply: `git apply --allow-empty -v`, fallback `patch --batch --fuzz=5 -p1`. [src] `run_evaluation.py:160-175`.
+- Test selection (done at dataset curation, fixed per instance): Phase 2 runs the entire unit-test suite on base and PR-head; Phase 3 keeps tests whose runtime dropped (mean ratio < -0.3, mean of 3 full-suite runs; paper threshold 0.3 agrees), passing both sides; then coverage analysis keeps tests that exercise the patched code and execute no unit test modified in the PR (paper Phase 3 step 2). [src] `data_collection/harness/check_validation_all_runs.py:111-161` (`efficiency_bar` default -0.3, tests must PASS in all 3 runs); `data_collection/README.md` Phase 3 steps 1-2; `test_spec.py:407-463` (coverage script per efficiency test); paper §3.2 (PDF text; threshold 0.3, mean of 3 replicates).
+- So yes, perf tests = existing unit tests whose runtime improved under the human patch AND that cover the changed code. [src/inf]
+
+## 4. Performance measurement per candidate
+- Workload: the `efficiency_test` pytest node ids (existing repo tests, no new benchmarks written). Timer = pytest-json-report `call.duration` per test. [src] `run_evaluation.py:245,252`; `test_spec.py:305`.
+- Protocol per eval.sh run: 3 warm-up executions of the test set, then `REPEAT_TIME = 20` timed executions, each writing `report{i}.json`. Run once on base code and once after applying the patch, same container. [src] `test_spec.py:33` (`REPEAT_TIME = 20 # TODO`), `test_spec.py:301-320`, `run_evaluation.py:122-157,199-221`.
+- Outliers: IQR filter with k=1 (keep within [Q1-1*IQR, Q3+1*IQR]). [src] `evaluation/utils.py:345-361`.
+- Statistic: `find_max_significant_improvement`: increments x by step 0.001 up to 1.0 while one-sided Mann-Whitney U (`alternative='greater'`, base*(1-x) vs patched) has p < 0.1; returns last significant x. Reported "performance" = mean over instances of mean over tests of this x. [src] `evaluation/utils.py:365-398`, `evaluation/check_evaluation.py:59-77,99`. THRESHOLDS (RESOLVED): the Mann-Whitney significance level is 0.1 everywhere: code `p_threshold=0.1` default and no caller overrides it (`check_evaluation.py:72,74`; `data_collection/harness/utils.py:362`; `check_validation_single_runs2.py:114`) and paper alpha = 0.1 (Alg. 1, App. B.1). `0.001` is the SEARCH STEP of x in code, not a p-value (paper Alg. 1 default step = 0.01, so code step differs from paper). `0.05` is a minimum-gain filter applied only at CURATION (below), not at evaluation. At evaluation the Mann-Whitney result only feeds the Performance score (x = 0 if not significant); it does not gate Correctness, and no separate 0.05 filter is applied. [src] paper Sec. 3.2 Phase 4 + App. B.1 (PDF text).
+- Dataset curation stability phase: same 20x protocol on the gold patch; keep tests whose significant improvement ratio >= 0.05 (gate = `ratio >= -efficiency_bar` at line 138, where `ratio` is the output of `find_max_significant_improvement` with p<0.1) and all outcomes passed. [src] `data_collection/harness/check_validation_single_runs2.py:100-147` (`efficiency_bar = -0.05` at :121). A direct `mannwhitneyu(...)` call at :136 computes `p` but `p` is never used (dead code). [src] Earlier-phase (Phase 3) gate uses a plain mean ratio < -0.3, no test (`check_validation_all_runs.py:160`). [src] Earlier phase used 3 full-suite runs. [src] `data_collection/harness/get_runtimes_pytest.sh` (3 run_ids), `check_validation_all_runs.py:58`.
+- Noise controls: fixed CPU/memory quota per container, base and patched measured back-to-back in the same container, warm-up runs, IQR filtering. No CPU pinning, instruction counting or randomised interleaving found. [src] `docker_build.py:541-557`; [unk] pinning (grepped `cpuset`, none).
+- Hardware: two Linux machines, 256 logical cores each (128 physical, 2 sockets), 2.0 TiB RAM. [src] paper App. B (PDF text).
+
+## 5. Cost per candidate (if reported)
+- Not reported in the paper (summary of full text) [unk]. [inf] Per prediction: 2 x (install + 3 warm-ups + 20 repeats of the efficiency tests); eval timeout default 1800 s. [src] `run_evaluation.py:507`.
+
+## 6. Iteration / cumulative re-validation
+Single patch per instance; base re-measured at evaluation time (not reused from dataset), so each prediction pays for a fresh baseline run. No sequence-of-edits or final re-check. [src] `run_evaluation.py:122-157` (base run before patch), paper §4 (PDF text, Sec. 4: original codebase runtime re-evaluated during testing to remove environmental variability). Realistic setting uses agents (OpenHands/Agentless) that iterate during generation, outside the evaluator. [src] `README.md`.
+
+## 7. Limitations the authors state
+- Limited set of open-source repos; Python-heavy; human patch may not be the optimum. [src] paper §A, §B.3 (summary).
+- Own code notes `REPEAT_TIME = 20 # TODO`. [src] `test_spec.py:33`.
+
+## 8. Relevance to Study 1 (reduced build + reduced test/benchmark per edit, deterministic)
+- [src] A reduced-test regime already exists: only a curated handful of coverage-filtered tests run per candidate (`efficiency_test`), selected once per instance at curation, not per edit.
+- [src] Build is not reduced: reinstall per eval run (`pip install -e .`) twice per prediction (`test_spec.py:352-353`); a build-skip/incremental arm is untested here, so this is the gap Study 1 can fill.
+- [src] Timing relies on 20 repeats + 3 warm-ups + IQR + one-sided Mann-Whitney (p<0.1), so any reduced-benchmark arm must be compared against this noisy baseline; [inf] a deterministic proxy (e.g. instruction counts) would need agreement checks with this decision rule.
+- [inf] Correctness check only re-runs the performance tests (no P2P regression suite), so SWE-Perf's "correctness" is weaker than SWE-bench's; a reduced test set per edit can be calibrated against the full suite that Phase 2 already ran at curation.
+
+## Sources
+- Files read (all @ 9e8fed2): `README.md`; `data_collection/README.md`; `evaluation/README.md`; `evaluation/run_evaluation.py` 1-330 (+grep 330-527); `evaluation/test_spec.py` 20-145, 284-463, 516-603; `evaluation/check_evaluation.py` 1-139; `evaluation/utils.py` 297-398; `evaluation/docker_build.py` 536-562; `evaluation/dockerfiles.py` (grep); `evaluation/constants.py` (grep install/test_all_cmd); `evaluation/run_evaluation.sh`; `data_collection/harness/check_validation_all_runs.py` 44-183; `data_collection/harness/check_validation_single_runs2.py` 1-150; `data_collection/harness/check_validation_single_runs3.py` (grep); `data_collection/harness/get_runtimes_pytest.py` (grep) and `.sh` scripts.
+- Paper: https://arxiv.org/html/2507.12415 §3.2 (phases 1-5), §4 (metrics), §A, §B.3, App. B (via fetch-tool summary; verify numbers against PDF before citing).

@@ -1,0 +1,122 @@
+[
+ {
+  "step": 1,
+  "state_sha": "345a46c08544fa3f50f439fefe5d7afb3b7915a1",
+  "id": "networkx/algorithms/distance_regular.py::global_parameters:double_call@72",
+  "relpath": "networkx/algorithms/distance_regular.py",
+  "qualname": "global_parameters",
+  "kind": "double_call",
+  "line": 72,
+  "before": "global_parameters",
+  "after": "_bth_orig_global_parameters",
+  "patch": "diff --git a/networkx/algorithms/distance_regular.py b/networkx/algorithms/distance_regular.py\n--- a/networkx/algorithms/distance_regular.py\n+++ b/networkx/algorithms/distance_regular.py\n@@ -69,7 +69,7 @@\n         return False\n \n \n-def global_parameters(b, c):\n+def _bth_orig_global_parameters(b, c):\n     \"\"\"Returns global parameters for a given intersection array.\n \n     Given a distance-regular graph G with diameter d and integers b_i,\n@@ -111,6 +111,11 @@\n     intersection_array\n     \"\"\"\n     return ((y, b[0] - x - y, x) for x, y in zip(b + [0], [0] + c))\n+\n+\n+def global_parameters(*a, **k):\n+    _bth_orig_global_parameters(*a, **k)\n+    return _bth_orig_global_parameters(*a, **k)\n \n \n @not_implemented_for(\"directed\")\n"
+ },
+ {
+  "step": 2,
+  "state_sha": "867fda8df9a3d7bf381ce3c7955ada4bace9f079",
+  "id": "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra:double_call@2311",
+  "relpath": "networkx/algorithms/shortest_paths/weighted.py",
+  "qualname": "bidirectional_dijkstra",
+  "kind": "double_call",
+  "line": 2311,
+  "before": "bidirectional_dijkstra",
+  "after": "_bth_orig_bidirectional_dijkstra",
+  "patch": "diff --git a/networkx/algorithms/shortest_paths/weighted.py b/networkx/algorithms/shortest_paths/weighted.py\n--- a/networkx/algorithms/shortest_paths/weighted.py\n+++ b/networkx/algorithms/shortest_paths/weighted.py\n@@ -2307,8 +2307,7 @@\n     raise nx.NetworkXUnbounded(msg)\n \n \n-@nx._dispatchable(edge_attrs=\"weight\")\n-def bidirectional_dijkstra(G, source, target, weight=\"weight\"):\n+def _bth_orig_bidirectional_dijkstra(G, source, target, weight=\"weight\"):\n     r\"\"\"Dijkstra's algorithm for shortest paths using bidirectional search.\n \n     Parameters\n@@ -2461,6 +2460,12 @@\n \n \n @nx._dispatchable(edge_attrs=\"weight\")\n+def bidirectional_dijkstra(*a, **k):\n+    _bth_orig_bidirectional_dijkstra(*a, **k)\n+    return _bth_orig_bidirectional_dijkstra(*a, **k)\n+\n+\n+@nx._dispatchable(edge_attrs=\"weight\")\n def johnson(G, weight=\"weight\"):\n     r\"\"\"Uses Johnson's Algorithm to compute shortest paths.\n \n"
+ },
+ {
+  "step": 3,
+  "state_sha": "d3d79cc8f0b6f708cc9f35277a8b170b61064959",
+  "id": "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource:double_call@784",
+  "relpath": "networkx/algorithms/shortest_paths/weighted.py",
+  "qualname": "_dijkstra_multisource",
+  "kind": "double_call",
+  "line": 784,
+  "before": "_dijkstra_multisource",
+  "after": "_bth_orig__dijkstra_multisource",
+  "patch": "diff --git a/networkx/algorithms/shortest_paths/weighted.py b/networkx/algorithms/shortest_paths/weighted.py\n--- a/networkx/algorithms/shortest_paths/weighted.py\n+++ b/networkx/algorithms/shortest_paths/weighted.py\n@@ -781,7 +781,7 @@\n     )\n \n \n-def _dijkstra_multisource(\n+def _bth_orig__dijkstra_multisource(\n     G, sources, weight, pred=None, paths=None, cutoff=None, target=None\n ):\n     \"\"\"Uses Dijkstra's algorithm to find shortest weighted paths\n@@ -905,6 +905,11 @@\n     # The optional predecessor and path dictionaries can be accessed\n     # by the caller via the pred and paths objects passed as arguments.\n     return dist\n+\n+\n+def _dijkstra_multisource(*a, **k):\n+    _bth_orig__dijkstra_multisource(*a, **k)\n+    return _bth_orig__dijkstra_multisource(*a, **k)\n \n \n @nx._dispatchable(edge_attrs=\"weight\")\n"
+ },
+ {
+  "step": 4,
+  "state_sha": "e773a6af2363440e319f68be10bfed9d89e098c9",
+  "id": "networkx/algorithms/components/connected.py::is_connected:double_call@115",
+  "relpath": "networkx/algorithms/components/connected.py",
+  "qualname": "is_connected",
+  "kind": "double_call",
+  "line": 115,
+  "before": "is_connected",
+  "after": "_bth_orig_is_connected",
+  "patch": "diff --git a/networkx/algorithms/components/connected.py b/networkx/algorithms/components/connected.py\n--- a/networkx/algorithms/components/connected.py\n+++ b/networkx/algorithms/components/connected.py\n@@ -110,9 +110,7 @@\n     return sum(1 for _ in connected_components(G))\n \n \n-@not_implemented_for(\"directed\")\n-@nx._dispatchable\n-def is_connected(G):\n+def _bth_orig_is_connected(G):\n     \"\"\"Returns True if the graph is connected, False otherwise.\n \n     Parameters\n@@ -155,6 +153,13 @@\n             \"Connectivity is undefined for the null graph.\"\n         )\n     return len(_plain_bfs(G, n, arbitrary_element(G))) == n\n+\n+\n+@not_implemented_for(\"directed\")\n+@nx._dispatchable\n+def is_connected(*a, **k):\n+    _bth_orig_is_connected(*a, **k)\n+    return _bth_orig_is_connected(*a, **k)\n \n \n @not_implemented_for(\"directed\")\n"
+ },
+ {
+  "step": 5,
+  "state_sha": "33152ccb8c82c4f2eda66a2f19915674ae96aa0b",
+  "id": "networkx/algorithms/shortest_paths/unweighted.py::_single_shortest_path:double_call@353",
+  "relpath": "networkx/algorithms/shortest_paths/unweighted.py",
+  "qualname": "_single_shortest_path",
+  "kind": "double_call",
+  "line": 353,
+  "before": "_single_shortest_path",
+  "after": "_bth_orig__single_shortest_path",
+  "patch": "diff --git a/networkx/algorithms/shortest_paths/unweighted.py b/networkx/algorithms/shortest_paths/unweighted.py\n--- a/networkx/algorithms/shortest_paths/unweighted.py\n+++ b/networkx/algorithms/shortest_paths/unweighted.py\n@@ -350,7 +350,7 @@\n     return dict(_single_shortest_path(G._adj, nextlevel, paths, cutoff, operator.add))\n \n \n-def _single_shortest_path(adj, firstlevel, paths, cutoff, join):\n+def _bth_orig__single_shortest_path(adj, firstlevel, paths, cutoff, join):\n     \"\"\"Returns shortest paths\n \n     Shortest Path helper function\n@@ -384,6 +384,11 @@\n                 return paths\n         level += 1\n     return paths\n+\n+\n+def _single_shortest_path(*a, **k):\n+    _bth_orig__single_shortest_path(*a, **k)\n+    return _bth_orig__single_shortest_path(*a, **k)\n \n \n @nx._dispatchable\n"
+ },
+ {
+  "step": 6,
+  "state_sha": "2aa848c0455253e09d6f7c3a44419c1b964f7895",
+  "id": "networkx/algorithms/shortest_paths/dense.py::floyd_warshall_tree:double_call@91",
+  "relpath": "networkx/algorithms/shortest_paths/dense.py",
+  "qualname": "floyd_warshall_tree",
+  "kind": "double_call",
+  "line": 91,
+  "before": "floyd_warshall_tree",
+  "after": "_bth_orig_floyd_warshall_tree",
+  "patch": "diff --git a/networkx/algorithms/shortest_paths/dense.py b/networkx/algorithms/shortest_paths/dense.py\n--- a/networkx/algorithms/shortest_paths/dense.py\n+++ b/networkx/algorithms/shortest_paths/dense.py\n@@ -87,8 +87,7 @@\n     return A\n \n \n-@nx._dispatchable(edge_attrs=\"weight\")\n-def floyd_warshall_tree(G, weight=\"weight\"):\n+def _bth_orig_floyd_warshall_tree(G, weight=\"weight\"):\n     r\"\"\"Find all-pairs shortest path lengths using a Tree-based\n     modification of Floyd's algorithm.\n \n@@ -229,6 +228,12 @@\n                     v = skip_dict.get(v, None)\n \n     return dict(pred), dict(dist)\n+\n+\n+@nx._dispatchable(edge_attrs=\"weight\")\n+def floyd_warshall_tree(*a, **k):\n+    _bth_orig_floyd_warshall_tree(*a, **k)\n+    return _bth_orig_floyd_warshall_tree(*a, **k)\n \n \n @nx._dispatchable(edge_attrs=\"weight\")\n"
+ },
+ {
+  "step": 8,
+  "state_sha": "447e59dfa786764b4f574b8dac15fd1b247dfc0f",
+  "id": "networkx/algorithms/isomorphism/isomorph.py::could_be_isomorphic:double_call@20",
+  "relpath": "networkx/algorithms/isomorphism/isomorph.py",
+  "qualname": "could_be_isomorphic",
+  "kind": "double_call",
+  "line": 20,
+  "before": "could_be_isomorphic",
+  "after": "_bth_orig_could_be_isomorphic",
+  "patch": "diff --git a/networkx/algorithms/isomorphism/isomorph.py b/networkx/algorithms/isomorphism/isomorph.py\n--- a/networkx/algorithms/isomorphism/isomorph.py\n+++ b/networkx/algorithms/isomorphism/isomorph.py\n@@ -16,8 +16,7 @@\n ]\n \n \n-@nx._dispatchable(graphs={\"G1\": 0, \"G2\": 1})\n-def could_be_isomorphic(G1, G2, *, properties=\"dtc\"):\n+def _bth_orig_could_be_isomorphic(G1, G2, *, properties=\"dtc\"):\n     \"\"\"Returns False if graphs are definitely not isomorphic.\n     True does NOT guarantee isomorphism.\n \n@@ -103,6 +102,12 @@\n     return True\n \n \n+@nx._dispatchable(graphs={\"G1\": 0, \"G2\": 1})\n+def could_be_isomorphic(*a, **k):\n+    _bth_orig_could_be_isomorphic(*a, **k)\n+    return _bth_orig_could_be_isomorphic(*a, **k)\n+\n+\n def graph_could_be_isomorphic(G1, G2):\n     \"\"\"\n     .. deprecated:: 3.5\n"
+ },
+ {
+  "step": 9,
+  "state_sha": "eaa48be236267a4a802754a3724c7238042f1b56",
+  "id": "networkx/algorithms/centrality/katz.py::katz_centrality_numpy:double_call@199",
+  "relpath": "networkx/algorithms/centrality/katz.py",
+  "qualname": "katz_centrality_numpy",
+  "kind": "double_call",
+  "line": 199,
+  "before": "katz_centrality_numpy",
+  "after": "_bth_orig_katz_centrality_numpy",
+  "patch": "diff --git a/networkx/algorithms/centrality/katz.py b/networkx/algorithms/centrality/katz.py\n--- a/networkx/algorithms/centrality/katz.py\n+++ b/networkx/algorithms/centrality/katz.py\n@@ -194,9 +194,7 @@\n     raise nx.PowerIterationFailedConvergence(max_iter)\n \n \n-@not_implemented_for(\"multigraph\")\n-@nx._dispatchable(edge_attrs=\"weight\")\n-def katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=True, weight=None):\n+def _bth_orig_katz_centrality_numpy(G, alpha=0.1, beta=1.0, normalized=True, weight=None):\n     r\"\"\"Compute the Katz centrality for the graph G.\n \n     Katz centrality computes the centrality for a node based on the centrality\n@@ -329,3 +327,10 @@\n     # Normalize: rely on truediv to cast to float, then tolist to make Python numbers\n     norm = np.sign(np.sum(centrality)) * np.linalg.norm(centrality) if normalized else 1\n     return dict(zip(nodelist, (centrality / norm).tolist()))\n+\n+\n+@not_implemented_for(\"multigraph\")\n+@nx._dispatchable(edge_attrs=\"weight\")\n+def katz_centrality_numpy(*a, **k):\n+    _bth_orig_katz_centrality_numpy(*a, **k)\n+    return _bth_orig_katz_centrality_numpy(*a, **k)\n"
+ },
+ {
+  "step": 10,
+  "state_sha": "52b7255afe5d291d019230f32f9662c01926377f",
+  "id": "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors:list_membership@702:30",
+  "relpath": "networkx/algorithms/shortest_paths/generic.py",
+  "qualname": "_build_paths_from_predecessors",
+  "kind": "list_membership",
+  "line": 702,
+  "before": "seen",
+  "after": "list(seen)",
+  "patch": "diff --git a/networkx/algorithms/shortest_paths/generic.py b/networkx/algorithms/shortest_paths/generic.py\n--- a/networkx/algorithms/shortest_paths/generic.py\n+++ b/networkx/algorithms/shortest_paths/generic.py\n@@ -699,7 +699,7 @@\n             yield path[::-1]\n \n         for predecessor in preds:\n-            if predecessor in seen:\n+            if predecessor in list(seen):\n                 continue\n             seen.add(predecessor)\n             path.append(predecessor)\n"
+ },
+ {
+  "step": 11,
+  "state_sha": "b85a99864d2dad36e20a2dcc1a56f162e3dbb122",
+  "id": "networkx/algorithms/isomorphism/isomorphvf2.py::DiGMState.__init__:double_call@1137",
+  "relpath": "networkx/algorithms/isomorphism/isomorphvf2.py",
+  "qualname": "DiGMState.__init__",
+  "kind": "double_call",
+  "line": 1137,
+  "before": "__init__",
+  "after": "_bth_orig___init__",
+  "patch": "diff --git a/networkx/algorithms/isomorphism/isomorphvf2.py b/networkx/algorithms/isomorphism/isomorphvf2.py\n--- a/networkx/algorithms/isomorphism/isomorphvf2.py\n+++ b/networkx/algorithms/isomorphism/isomorphvf2.py\n@@ -1134,7 +1134,7 @@\n \n     \"\"\"\n \n-    def __init__(self, GM, G1_node=None, G2_node=None):\n+    def _bth_orig___init__(self, GM, G1_node=None, G2_node=None):\n         \"\"\"Initializes DiGMState object.\n \n         Pass in the DiGraphMatcher to which this DiGMState belongs and the\n@@ -1205,6 +1205,10 @@\n                 if successor not in GM.core_2 and successor not in GM.out_2:\n                     GM.out_2[successor] = self.depth\n \n+    def __init__(*a, **k):\n+        DiGMState._bth_orig___init__(*a, **k)\n+        return DiGMState._bth_orig___init__(*a, **k)\n+\n     def restore(self):\n         \"\"\"Deletes the DiGMState object and restores the class variables.\"\"\"\n \n"
+ }
+]

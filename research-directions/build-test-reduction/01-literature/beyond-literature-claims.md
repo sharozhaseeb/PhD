@@ -1,0 +1,42 @@
+# Beyond-the-literature claims
+
+**Status:** v3.2, 2026-11-21. Database results applied: C7 moved to partial; Bavand & Rigby added to C1; Elsner and Kauhanen (SANER 2021) added to C5. Restructured after the advisor-persona review (`pm/advisor/review-w1-v2.md`) and PM rulings:
+- C4, C9 and C10 are struck, and so is the "two-sided oracle" point.
+- C1 is narrowed.
+- The claims are ordered by what Study 1 *measures*.
+
+**Framing.** Study 1 measures where existing deterministic build and test reduction becomes unsafe when edits are performance-motivated and accumulate. There are four suspected mechanisms, and they are the main claims (C5, C7, C11, C8). The RQ3 policy follows from them. Its trigger is a conceded variant of risk-mass batching (C1).
+
+**Result categories**
+- **found:** prior work exists, so the claim is withdrawn.
+- **partial:** related work covers part of the claim.
+- **not found:** targeted searches found nothing. Stated as "not found in our recorded searches", never as "nobody has done this".
+
+**Search scope.** General web search (WebSearch, standard or extended mode), arXiv, publisher and author pages, Semantic Scholar and OpenAlex for forward citations. **ACM DL and IEEE Xplore** were searched on 2026-11-21: 123 records screened, see `database-search-2026-11-21.md`. No Scopus or Web of Science, so the review is still **not systematic**. Queries are in `gap-and-search-log.md`.
+
+## Main claims: measured mechanisms
+
+| ID | Claim | Search(es), all 2026-11-21 | Result | How to state it | Evidence W3 must produce |
+|---|---|---|---|---|---|
+| **C5** | Coverage-based Python RTS cannot see edits to **C/Cython extensions**, and no study measures the misses this causes on Python code. | G4 (extended); T2 #2, #18; critic C5 query; PerfAgent full read; ACM DL A2 and IEEE I3 (`database-search-2026-11-21.md`) | **not found** for Python. Partial elsewhere: PerfAgent names it as a limitation without measuring it (§VI); RTSLinux and BinaryRTS show the JVM-to-native analogue. Elsner et al. (ICSE-SEIP 2022, `elsner2022buildaware`) select multi-language Java and C/C++ through the build system [A]. Kauhanen et al. (SANER 2021, `KauhanenPytestRTS`) measure pure-Python pytest-rts misses with mutants: 0–2% at file level, 16–24% at line level [A]. That is a method precedent for W3, but it covers no C/Cython edits. NameRTS excludes commits that change only non-Python files (§4.1). | "PerfAgent names this hole; we found no measurement of it." | Misses of testmon/F6 on edits that touch `.pyx/.c/.h`, against a shadow full run, compared with the F2 fallback. Native-code coverage via `sys.monitoring` or a Cython trace build. |
+| **C7** | No study measures **missed faults as the coverage/dependency-refresh interval grows** over a chain of dependent edits. | G5b (extended); critic C7 query; R3 forward citations of NameRTS; ACM DL A4 and IEEE I4 (`database-search-2026-11-21.md`) | **partial.** Chittimalli & Harrold (TSE 35(4) 2009, `chittimalli2009recomputing`; ICSM 2007 version) show that selecting on *outdated* coverage is inaccurate, and propose recomputing it (RECOVER) [A]. That covers one version step (P(i)→P(i+1)), not a growing interval. Ekstazi states the one-observed-run limit (§5) and refreshes only tests that ran (§3.3). Gligoric et al. (CAV 2014) select over several old revisions but do not study stale data. PerfAgent does not say how often it refreshes [U]. | "Chittimalli & Harrold (2009) show outdated coverage makes RTS inaccurate for one version step. We found no measurement of missed faults as a function of the refresh interval over chains of dependent edits." **The core mechanism behind "accumulation".** | Refresh the dependency/profile map every edit vs every k edits vs never, and count misses. Needs *latent* faults that become visible only after a later edit (W3 review change 3). Otherwise the ablation is null by construction. |
+| **C11** | No per-edit **miss rate for dropping benchmarks** by profile or coverage has been reported for Python with native code. *Absorbs struck C4.* | G2 (extended); T3 #3–5, #27, #36; critic C4 query | **partial.** Performance-test work mostly *orders* benchmarks (Laaber 2021, PerfRanker). Precedents for dropping report misses: Grambow (Go: missed a trend, 17 false alarms) and Ding (74–77% of covering tests show no known speed-up). No Python study. | "Ordering is studied; per-edit miss rates for dropped benchmarks are not reported for Python." | Injected slowdowns near the threshold (1.2–1.5×) in covered and uncovered functions. Misses split three ways, as in Peass: not selected / below noise / not covered. |
+| **C8** | No empirical study of **incremental-rebuild correctness** for Python extension modules: stale `.so` files, flag-only and directive-only changes. | G6 (standard); T1 #10, #12 | **not found.** C/C++ and Make studies exist (Licker, BuildFS, EChecker). Mechanism read in code: setuptools and Cython rebuild by mtime and ignore flags and directives [F]. | "not found; mechanism read in the build tools' source." | Compare a clean build with an incremental one on replayed edits, including flag-only and `.pxd` edits (rule B4). |
+
+## Supporting claims
+
+| ID | Claim | Search(es) | Result | How to state it | Evidence W3 must produce |
+|---|---|---|---|---|---|
+| **C1** (narrowed) | We found no evaluation of a **deterministic, model-free** accumulated-change trigger for full validation, placed on top of a per-edit reduced check, against fixed-k batching at matched cost, on sequences of dependent optimization edits. | G1 (extended); critic C1 queries ×2; full reads of Fallahzadeh 2025 and Sayedsalehi 2026 (`notes/R2`); ACM DL A1 and IEEE I6 (`database-search-2026-11-21.md`) | **partial.** **Conceded: the trigger is a variant of risk-mass batching.** Sayedsalehi 2026 "-la" flushes a batch when a cumulative risk sum passes a threshold, with time caps; its risk is learned. Bavand & Rigby (ICSME 2021, `bavand2021mining`) size batches dynamically from historical test failures [A]. Fallahzadeh 2025 studies variable, queue-driven batching against selection, but as alternatives (a combination is future work). Neither compares a threshold trigger with fixed-k at matched cost. | "A deterministic variant of risk-mass batching (Sayedsalehi 2026), evaluated as a second tier on edit chains." **Not a new mechanism.** | Compare fixed-k (FSB), cap-only and additive-budget triggers at matched total cost: misses and detection delay in edits. |
+| **C6** | Cumulative drift from many sub-threshold accepted edits has been named but **not evaluated against per-edit benchmark selection**. | G3 (extended); critic C6 query | **partial.** MongoDB (Daly 2020) names drift and detects it after the fact; Grambow sees trends only over longer sequences; Sayedsalehi models misses as delayed detection. | "named, not evaluated against per-edit selection." Do not promote. | Comparison with the original baseline at each checkpoint (P5) against parent-only comparison, on injected 1–2% slowdowns spread over several edits. |
+| **C3** | No surveyed optimization system reduces the **build** per candidate. | W2 survey (SWE-Perf, GSO, SWE-fficiency rebuild fully) | **found by survey (W2)**, not a literature gap | Motivation: "In the N systems W2 surveyed, …". Pair with RQ1 cost numbers. | RQ1 time breakdown (build / tests / benchmarks). |
+| **C2** | Per-edit test selection has already been used in an LLM optimization loop. | G5; PerfAgent full read; R3 forward citations | **found:** PerfAgent (testmon per iteration). None of its 7 citers selects tests or benchmarks [A]. | Prior work. Do **not** claim. | — |
+
+## Struck (kept here so the reasons stay visible)
+
+| Former ID | Claim | Why struck |
+|---|---|---|
+| C4 | No Python benchmark-selection study | It is a language-transfer gap, so weak novelty. Folded into C11 as a *measured miss rate*. |
+| C9 | Detection-delay metric | A metric definition is a method choice. In the method, state that it extends Jin & Servant's delayed-observation dimension. |
+| C10 | Combined culprit finding over noisy, dependent edits | Outside Study 1's research questions; BISCEPTER unread. Deferred. |
+| (answer point) | Two-sided performance oracle | Not new. SemOpt's acceptance gate (better than 5% on at least one test, no worse than 2% on the others; TOSEM p.32, per the advisor review) and PerfAgent's "fastest passing patch" already do this. |

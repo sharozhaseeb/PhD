@@ -1,0 +1,47 @@
+{
+ "note": "Known concurrent W3 activity on this machine (PKT = UTC+5). Sources: mtimes of results/raw/bottleneck/* and ~/bt-lab/exp/{venvs,work}/bn*; bottleneck implementer instructions (no builds/tests before 18:50 from 18:15). Other sessions (W1/W2/PM) are not logged here. All states will additionally be re-timed on an idle machine after the batch (PM request 18:12); both values reported.",
+ "intervals": [
+  {
+   "start": "2026-11-21T17:42:00+05:00",
+   "end": "2026-11-21T18:05:30+05:00",
+   "what": "bottleneck venv creation, package downloads, replay (git)",
+   "level": "light"
+  },
+  {
+   "start": "2026-11-21T18:05:30+05:00",
+   "end": "2026-11-21T18:07:50+05:00",
+   "what": "bottleneck clean build, test suite, incremental build probes (nice -n 19)",
+   "level": "heavy"
+  },
+  {
+   "start": "2026-11-21T18:15:00+05:00",
+   "end": "2026-11-21T18:50:00+05:00",
+   "what": "bottleneck reformat check + re-replay (git only, per instruction)",
+   "level": "light"
+  },
+  {
+   "start": "2026-11-21T17:55:00+05:00",
+   "end": "2026-11-21T18:30:00+05:00",
+   "what": "W3 own Windows-side scripting: harness unit tests (~35 s runs), build_inputs, gen_faults, changes (git)",
+   "level": "light"
+  },
+  {
+   "start": "2026-11-21T18:52:00+05:00",
+   "end": "2026-11-21T21:00:00+05:00",
+   "what": "W3 RQ2 chain (depmaps -n5, testmon chain, kill sets) pinned to CPUs 6-11 while the S0 bench runs on CPUs 2-5; end time provisional",
+   "level": "heavy"
+  },
+  {
+   "start": "2026-11-21T19:38:13+05:00",
+   "end": "2026-11-21T19:46:30+05:00",
+   "what": "W3 S0 benchmark profiling (last single-process parts) overlapped the start of overnight idle re-timing; affected .idle states are re-timed after the queue",
+   "level": "light"
+  },
+  {
+   "start": "2026-11-21T19:48:00+05:00",
+   "end": "2026-11-21T19:52:00+05:00",
+   "what": "W3 assemble_inputs + simulate (single core) with S0 profiles",
+   "level": "light"
+  }
+ ]
+}

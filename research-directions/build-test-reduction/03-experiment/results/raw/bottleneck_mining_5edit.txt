@@ -1,0 +1,23 @@
+# bottleneck mining at b0815406af6317f9fd163fb91526d0b8f199e2c6, window 2019-09-01..2021-01-01 (exclusive), max_lines=200
+# 20 subject matches, 20 qualifying
+# sha8 date qualifies src_lines subject [files] reason
+c9168481 2019-09-07 Y    8 PERF: Add BN_OPT_3 to allow enabling -O3 at the function level ['bottleneck/src/bottleneck.h'] 
+541975dc 2019-09-07 Y    4 PERF: Enable BN_OPT_3 for anynan/allnan for a 2x speedup ['bottleneck/src/reduce_template.c'] 
+dbe1fb7d 2019-09-21 Y   26 PERF: speed up replace() up to 4x via more explicit typing on input array ['bottleneck/src/nonreduce_template.c'] 
+2b9c661e 2019-09-27 Y   11 PERF: eliminate unnecessary ravel for median with order="F", speedup of up to 2x ['bottleneck/src/reduce_template.c'] 
+c6956068 2019-12-07 Y    4 PERF: abort median buffer construction if we see a nan ['bottleneck/src/reduce_template.c'] 
+c5720c8d 2019-12-08 Y   16 PERF: speed up median for integers ['bottleneck/src/iterators.h', 'bottleneck/src/reduce_template.c'] 
+a638b282 2019-12-27 Y    9 CLN/PERF: Introduce REDUCE_CONTIGUOUS and REDUCE_SPECIALIZE macros for vectorizing contiguous data ['bottleneck/src/iterators.h'] 
+0819d3aa 2019-12-31 Y   21 PERF: improve performance of nansum for integers ['bottleneck/src/reduce_template.c'] 
+3b7618c0 2019-12-31 Y   96 PERF: significantly improve performance for nanmin/max for axis=None ['bottleneck/src/reduce_template.c'] 
+962e2273 2020-01-01 Y   14 PERF: add some typing to nanmin/max for floats with specified axis ['bottleneck/src/reduce_template.c'] 
+8106e742 2020-01-05 Y   17 PERF: do nanargmin/max in-order for integer dtypes ['bottleneck/src/reduce_template.c'] 
+445d3768 2020-01-05 Y    4 PERF: speed up nanmin/max with non-null axis for int32 ['bottleneck/src/reduce_template.c'] 
+98b59df2 2020-01-19 Y  168 PERF: optimize for contiguous 2D nanmin/nanmax, speedups of up to 12x ['bottleneck/src/iterators.h', 'bottleneck/src/reduce_template.c'] 
+a72e0d23 2020-01-20 Y   51 PERF: improve anynan reduction performance by up to 4x on float32 ['bottleneck/src/reduce_template.c'] 
+cfc7bac1 2020-01-24 Y   49 PERF: improve allnan reduction performance by up to 4x on float32 ['bottleneck/src/reduce_template.c'] 
+cd32416d 2020-02-15 Y  148 PERF: introduce SSE2 implementations of allnan/anynan, ~30% speedup ['bottleneck/src/bn_config.py', 'bottleneck/src/reduce_template.c'] 
+e0d30c10 2020-02-22 Y   39 PERF: speed up nansum for integer inputs with axis != None by up to ~6x ['bottleneck/src/reduce_template.c'] 
+8b587c5c 2020-02-22 Y  136 PERF: extend SSE2 operations to anynan/allnan in contiguous axis case ['bottleneck/src/reduce_template.c'] 
+f1d14dc2 2020-02-22 Y   86 PERF: optimize anynan/allnan with transpose axis ['bottleneck/src/reduce_template.c'] 
+933b6537 2020-11-24 Y    4 PERF: int nansum contiguous case ['bottleneck/src/reduce_template.c'] 

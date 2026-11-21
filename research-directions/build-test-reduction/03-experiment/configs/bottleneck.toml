@@ -1,0 +1,33 @@
+# W3 target config: bottleneck (C extension; 4 extensions generated from *_template.c). Frozen with the edit list; see readiness.md 1.2/1.3.
+[repo]
+url = "https://github.com/pydata/bottleneck.git"
+clone = "~/bt-lab/exp/repos/bottleneck"
+head_at_mining = "b0815406af6317f9fd163fb91526d0b8f199e2c6"   # origin/master of the clone, 2026-11-21
+
+[mine]
+regex = '(\bperf\b|speed ?up|faster|optimi[sz](e|ation|ing|ed)\b|performance|vectori[sz]|efficien)'
+src_globs = ["bottleneck/**/*.py", "bottleneck/src/*.c", "bottleneck/src/*.h", "bottleneck/src/**/*.c", "bottleneck/src/**/*.h"]
+exclude_globs = ["bottleneck/tests/**", "bottleneck/benchmark/**", "asv_bench/**", "doc/**"]
+max_lines = 200
+after = "2019-10-06"   # window rule (reformat_check.py): starts after the last whole-file reformat commit 5851c10a87a6c2041842938c587ed865b6991ca2 (black, 2019-10-05). Superseded first window: 2019-09-01 (5 of 20 applied, see edits/bottleneck-5edit.states.json)
+before = "2021-01-01"   # exclusive; window 2019-09-01..2020-12-31, no limit
+first_parent = true
+
+[replay]
+base = "f51ed862e619dcff7b7b3691e58d5fc6ead4076b"   # = parent of oldest qualifying commit c6956068; python 3.8.20 + numpy 1.19.5 venv bn38 (M4)
+src_pathspec = ["bottleneck", ":(exclude)bottleneck/tests", ":(exclude)bottleneck/benchmark"]
+
+[tests]
+cmd = ["python", "-m", "pytest", "bottleneck/tests", "-p", "no:cacheprovider", "-q"]
+xdist_n = 6
+
+[bench]
+dir = "asv_bench/benchmarks"
+style = "asv"
+
+[native]
+# template/C file -> extension module (setup.py at base c916848^: reduce.c, move.c + move_median.c, nonreduce.c, nonreduce_axis.c;
+# the *.c are generated from the *_template.c by bn_template.make_c_files at every build_ext)
+sources = { "bottleneck/src/reduce_template.c" = "bottleneck.reduce", "bottleneck/src/nonreduce_template.c" = "bottleneck.nonreduce", "bottleneck/src/nonreduce_axis_template.c" = "bottleneck.nonreduce_axis", "bottleneck/src/move_template.c" = "bottleneck.move", "bottleneck/src/move_median/move_median.c" = "bottleneck.move" }
+headers = ["*.h", "bn_template.py", "bn_config.py"]
+build_config = ["setup.py", "pyproject.toml", "setup.cfg"]

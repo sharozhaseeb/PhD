@@ -1,0 +1,23 @@
+subject-matching: 110 qualifying: 101
+oldest of latest 20: f618240c 2025-08-02 Faster `intersection_array` computation for checking distanc
+base: 181f295117f7f7488644c87f04699290f8e49188
+f618240c 2025-08-02 96 Faster `intersection_array` computation for checking distance-regulari
+090cc091 2025-08-28 31 Bidirectional dijkstra optimization: from 1.1x to 25x faster (#8206)
+0bad061e 2025-09-15 57 Optimizing Dijkstra's path construction for all targets case (#8218)
+4714bb5c 2025-09-16 4 Optimizing is_connected (#8266)
+222c6522 2025-10-27 27 optimize _single_shortest_path function (#6337)
+0d3fe6ac 2025-12-14 145 Adding the Tree Optimization in Floyd Warshall (#8361)
+e55ffa30 2025-12-19 9 Kruskal MST early break for efficiency (#8296)
+519e819f 2026-01-31 37 MAINT: Reuse `could_be_isomorphic` in `fast_/faster_` variants (#8497)
+802c0a2d 2026-03-12 7 perf: replace built-in sum() with np.sum() in pagerank and katz (#8561
+c1c468d5 2026-04-15 36 Optimize _build_paths_from_predecessors stack logic for 30-40% speedup
+c56ada46 2026-05-07 108 Optimize VF2 GMState frontier update by removing full core scan (#8649
+f77c3b68 2026-07-17 38 Speed up the residual flow reset in `edmonds_karp` and simplify the `m
+bf130bfe 2026-07-22 44 ENH: add n_samples parameter to rich_club_coefficient for multi-sample
+7f7afab1 2026-08-13 19 ENH: Simplifying _build_paths_from_predecessors - 10% faster (#8844)
+68206456 2026-09-03 8 ENH: Speed up connectivity checks in random_reference and lattice_refe
+675034ad 2026-09-09 53 [BUG][PERF] Fix ISMAGS directed matching and monomorphism overhead (#8
+4a72b69a 2026-09-25 5 Optimize _triangles_and_degree_iter by caching neighbor sets (#8743)
+9f6079c0 2026-09-25 2 BUG: Fix row-max normalization in vectorized effective_size (#8906)
+abf2feda 2026-10-17 53 ENH: Speed up node_connectivity and minimum_node_cut with a pre-filter
+2e0ae8ad 2026-11-16 120 Speed up chain_decomposition and bridges 2.5x to 4x by dropping the in

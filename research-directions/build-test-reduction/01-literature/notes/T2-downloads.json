@@ -1,0 +1,156 @@
+[
+  {
+    "filename": "2026-NamesAreAllYouNeed-PythonRTS-arXiv.pdf",
+    "title": "Names Are All You Need: Effective and Safe Regression Test Selection for Python",
+    "source_url": "https://arxiv.org/pdf/2605.25356",
+    "publication_url": "https://arxiv.org/abs/2605.25356",
+    "version": "arXiv v1 preprint (25 May 2026)",
+    "pages": 22,
+    "bytes": 1570627,
+    "sha256": "2fa4c64263b7eb35cd4efd2e79a0918acaa3ba4009fb7d561a4f36300c25ce05",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2016-StaticRTS-Legunsen-FSE.pdf",
+    "title": "An Extensive Study of Static Regression Test Selection in Modern Software Evolution",
+    "source_url": "https://mir.cs.illinois.edu/~marinov/publications/LegunsenETAL16StaticRTS.pdf",
+    "publication_url": "FSE 2016, Seattle",
+    "version": "author-hosted PDF",
+    "pages": 12,
+    "bytes": 515873,
+    "sha256": "c2ef1a9a6c9042d22fa83eb5c015772059e32145da51f4d2293ec05b21084638",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2015-Ekstazi-ISSTA.pdf",
+    "title": "Practical Regression Test Selection with Dynamic File Dependencies",
+    "source_url": "https://users.ece.utexas.edu/~gligoric/papers/GligoricETAL15Ekstazi.pdf",
+    "publication_url": "ISSTA 2015",
+    "version": "author-hosted PDF",
+    "pages": 12,
+    "bytes": 303723,
+    "sha256": "4a976c19688d4426e5b3994a53bd7a269f87f208ac1fbb4da4692f6f85e07370",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2014-ManualRTS-Gligoric.pdf",
+    "title": "An Empirical Evaluation and Comparison of Manual and Automated Test Selection",
+    "source_url": "https://users.ece.utexas.edu/~gligoric/papers/GligoricETAL14ManualRTS.pdf",
+    "publication_url": "venue not printed in extracted text",
+    "version": "author-hosted PDF",
+    "pages": 11,
+    "bytes": 557936,
+    "sha256": "112f4ab1eb91de11246a50098dde0c97b385ad195af1fac493fc9dee04646674",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2019-RTSCheck-ICSE.pdf",
+    "title": "A Framework for Checking Regression Test Selection Tools",
+    "source_url": "https://cs.cornell.edu/~legunsen/pubs/ZhuETAL19RTSCheck.pdf",
+    "publication_url": "ICSE 2019",
+    "version": "author-hosted PDF (duplicate of 2019-Zhu-RTSCheck-ICSE.pdf placed by another researcher)",
+    "pages": 12,
+    "bytes": 704943,
+    "sha256": "1b98f1cf31f53579f61d06a2adc88140b5c059b8e5b6c741cbac2a835f8f5df4",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2014-FlakyTests-Luo-FSE.pdf",
+    "title": "An Empirical Analysis of Flaky Tests",
+    "source_url": "https://huang.isis.vanderbilt.edu/cs8395/paper/flakytest.pdf",
+    "publication_url": "FSE 2014 (doi 10.1145/2635868.2635920)",
+    "version": "course-site copy; identity checked on title page only",
+    "pages": 11,
+    "bytes": 250151,
+    "sha256": "36abbab3e917ad38300e8956a0311004423e4dcfede766b1bf6081b02fe1823b",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2018-WangYu-RTS-in-CI-ISSRE.pdf",
+    "title": "A Study of Regression Test Selection in Continuous Integration Environments",
+    "source_url": "https://par.nsf.gov/servlets/purl/10089488",
+    "publication_url": "ISSRE 2018",
+    "version": "NSF PAR manuscript copy",
+    "pages": 9,
+    "bytes": 430344,
+    "sha256": "da61d249bf5468525089574674f83939343ad1367d375a54483cafc29dc1780f",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2019-Shi-RTS-in-CI-ISSRE.pdf",
+    "title": "Understanding and Improving Regression Test Selection in Continuous Integration",
+    "source_url": "https://par.nsf.gov/servlets/purl/10175678",
+    "publication_url": "IEEE 2019 (venue not in extracted text)",
+    "version": "NSF PAR manuscript copy",
+    "pages": 11,
+    "bytes": 132781,
+    "sha256": "a1f03b1b948488f30d447f7455f7065201b6075c199babede9da83c74a0f1f89",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2023-Liu-PreciseRTS-SemanticsModifying-ISSTA.pdf",
+    "title": "More Precise Regression Test Selection via Reasoning about Semantics-Modifying Changes",
+    "source_url": "https://par.nsf.gov/servlets/purl/10421200",
+    "publication_url": "ISSTA 2023",
+    "version": "NSF PAR copy",
+    "pages": 13,
+    "bytes": 4523657,
+    "sha256": "36fec6c8888713ac7a1287c933c944d48b597407399360b436092836fdb47a83",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2022-Zhang-AnalysisVsLearning-RTS-AST.pdf",
+    "title": "Comparing and Combining Analysis-Based and Learning-Based Regression Test Selection",
+    "source_url": "https://par.nsf.gov/servlets/purl/10366111",
+    "publication_url": "AST 2022",
+    "version": "NSF PAR copy",
+    "pages": 12,
+    "bytes": 1369799,
+    "sha256": "28b68ffff69e1a3ae6a843ecc1678c6950b152051aa0afdac4bd7f72c3153010",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2021-Parry-SurveyFlakyTests-TOSEM.pdf",
+    "title": "A Survey of Flaky Tests",
+    "source_url": "https://o-parry.github.io/papers/2021a.pdf",
+    "publication_url": "ACM TOSEM 31(1), Article 17",
+    "version": "author-hosted PDF",
+    "pages": 74,
+    "bytes": 1807374,
+    "sha256": "deab832cf2d89d641193568952b47df5487dfbb833b1e62ca1d7c8cf4bed661f",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2014-Elbaum-RTS-CI-Google-FSE.pdf",
+    "title": "Techniques for Improving Regression Testing in Continuous Integration Development Environments",
+    "source_url": "https://cs.uwaterloo.ca/~m2nagapp/courses/CS846/1171/papers/elbaum_fse14.pdf",
+    "publication_url": "FSE 2014 (doi 10.1145/2635868.2635910)",
+    "version": "university course-page copy; not the publisher version",
+    "pages": 11,
+    "bytes": 494253,
+    "sha256": "d73d916ec1575e6a24daea7c7b32026f9dac0acb4e295fd1d563a31aa7154338",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2021-Gruber-FlakyTests-Python-ICST.pdf",
+    "title": "An Empirical Study of Flaky Tests in Python",
+    "source_url": "https://arxiv.org/pdf/2101.09077",
+    "publication_url": "ICST 2021 (arXiv:2101.09077)",
+    "version": "arXiv v1",
+    "pages": 11,
+    "bytes": 437091,
+    "sha256": "f76eb1ce2ab02e31ce6eec340c41e83c1f7ec6fec05e3aab802211269d523228",
+    "downloaded_on": "2026-11-21"
+  },
+  {
+    "filename": "2019-Lam-iDFlakies-ICST.pdf",
+    "title": "iDFlakies: A Framework for Detecting and Partially Classifying Flaky Tests",
+    "source_url": "https://par.nsf.gov/servlets/purl/10101224",
+    "publication_url": "ICST 2019",
+    "version": "NSF PAR copy",
+    "pages": 11,
+    "bytes": 230368,
+    "sha256": "1241c0f142b3934a4742842266e8d2c00f64f220b43beb942605a04e63dc8fd2",
+    "downloaded_on": "2026-11-21"
+  }
+]

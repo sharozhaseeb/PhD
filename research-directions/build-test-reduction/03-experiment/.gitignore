@@ -1,0 +1,3 @@
+results/raw/networkx/depmap/
+results/sim/*/inputs*/depmaps.json
+*.bak
