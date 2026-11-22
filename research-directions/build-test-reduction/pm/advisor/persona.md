@@ -119,6 +119,9 @@ Update after each deliverable review and after the meeting (status: pending / hi
 | P20 | "If the full benchmark verdict itself isn't repeatable (2607.01211), how can you count misses?" | Medium | pending |
 | P21 | "Estimated seconds aren't real time. What is the measured wall time, including pytest startup and testmon overhead?" | High | pending |
 | P22 | "Your trigger fires on every module-level edit, so isn't A4 just periodic full checks?" | Medium | pending |
+| P23 | "Is B1 (most edits executed by no benchmark) networkx-specific? How many projects?" | High | pending |
+| P24 | "88–94% of benchmark cost is import-time setup. If you cache it, do benchmarks still dominate?" | Medium | pending |
+| P25 | "So what is Study 1's contribution now?" (build minor, test selection solved, policy adds nothing) | High | pending |
 
 ### Deliverable review log
 
@@ -126,6 +129,7 @@ Update after each deliverable review and after the meeting (status: pending / hi
 |---|---|---|---|
 | 2026-11-21 | Charter | — | `review-charter.md` |
 | 2026-11-21 | W3 readiness v1 | P04 answered; P01 and P05 planned; P03 partial (bottleneck only, small build) | `review-w3-readiness.md` |
+| 2026-11-22 | Near-final results | Answered: P01 (R1), P04 (S4 not measurable), P05 (T2), P13, P15 (null), P16, P21 (T1), P22 (N3). Open: P03 (no heavy-build measurement), P20 (A/A running). New lead finding: B1 | `review-final-results.md` |
 | 2026-11-21 | W3 draft results | P01 partly answered (tests and build, no benchmarks yet). Biggest risk: estimated test-seconds leave out startup and testmon overhead, so real wall savings are about 4×, not 15× | reply only |
 | 2026-11-21 | W5 video shot list v1 | Order OK. Too heavy on literature, thin on results. On-disk C7 status is stale. Missing: an RQ1 per-edit cost chart (P01) | reply only |
 | 2026-11-21 | W2 practice survey | P08 answered (28 systems), but cost per candidate is [unk] (P01 still open); needs a 2-minute table for optimizers only | `review-w2.md` |

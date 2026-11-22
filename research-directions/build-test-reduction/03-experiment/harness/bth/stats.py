@@ -91,11 +91,57 @@ def _mwu_p(ref: Sequence[float], new: Sequence[float]) -> float:
     return 1.0 if math.isnan(p) else p
 
 
+MWU_METHODS = ("scipy_auto", "exact", "asv")
+
+
+def mwu_p(ref: Sequence[float], new: Sequence[float], method: str = "scipy_auto") -> float:
+    """Two-sided Mann-Whitney U p-value.
+
+    scipy_auto: the harness's original test (scipy method='auto': exact only if both n < 8 and no ties, else the
+                normal approximation with tie and continuity corrections). Kept for continuity.
+    exact:      scipy method='exact' at every size (PM 15:46, after W1's asv source check). Exact null distribution,
+                which ignores ties (timing samples essentially never tie; ties are counted by `n_ties`).
+    asv:        asv/_stats.py mann_whitney_u(method='auto') as read on GitHub main 2026-11-22: exact if
+                max(m, n) <= 20, else normal z = (U - mn/2)/sqrt(mn(N+1)/12) with NO tie or continuity
+                correction, two-sided. asv's conservative tie-break is not ported (ties flagged instead).
+    """
+    if method == "scipy_auto":
+        return _mwu_p(ref, new)
+    m, n = len(ref), len(new)
+    if m == 0 or n == 0:
+        return 1.0
+    if method == "exact" or (method == "asv" and max(m, n) <= 20):
+        if _st is None:  # pragma: no cover
+            raise RuntimeError("scipy needed for the exact test")
+        p = float(_st.mannwhitneyu(ref, new, alternative="two-sided", method="exact").pvalue)
+        return 1.0 if math.isnan(p) else min(1.0, p)
+    if method == "asv":
+        a = np.asarray(ref, float); b = np.asarray(new, float)
+        u = float((a[:, None] > b[None, :]).sum() + 0.5 * (a[:, None] == b[None, :]).sum())
+        z = (u - m * n / 2) / math.sqrt(m * n * (m + n + 1) / 12)
+        return min(1.0, math.erfc(abs(z) / math.sqrt(2)))
+    raise ValueError(method)
+
+
+def n_ties(ref: Sequence[float], new: Sequence[float]) -> int:
+    a = np.asarray(ref, float); b = np.asarray(new, float)
+    return int((a[:, None] == b[None, :]).sum())
+
+
+def min_attainable_p(m: int, n: int, method: str = "exact") -> float:
+    """Smallest two-sided p at U = 0: exact 2/C(m+n, m); asv-normal for max(m, n) > 20 under method='asv'."""
+    if method == "asv" and max(m, n) > 20:
+        return math.erfc((m * n / 2) / math.sqrt(m * n * (m + n + 1) / 12) / math.sqrt(2))
+    if method == "scipy_auto":
+        return _mwu_p([float(x) for x in range(m)], [float(x + m) for x in range(n)])
+    return min(1.0, 2.0 / math.comb(m + n, m))
+
+
 def asv_rule(ref: Sequence[float], new: Sequence[float], factor: float = 1.1,
-             alpha: float = 0.002) -> Verdict:
-    """asv `compare` default: ratio beyond `factor` AND two-sided MWU p < alpha."""
+             alpha: float = 0.002, method: str = "scipy_auto") -> Verdict:
+    """asv `compare` default: ratio beyond `factor` AND two-sided MWU p < alpha (p from `mwu_p(method)`)."""
     r = _ratio(ref, new)
-    p = _mwu_p(ref, new)
+    p = mwu_p(ref, new, method)
     status = "same"
     if p < alpha:
         if r > factor:

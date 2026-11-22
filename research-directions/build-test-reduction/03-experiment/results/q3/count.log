@@ -1,0 +1,65 @@
+/home/sharoz/bt-lab/exp/repos/pvlib-python/pvlib/tmy.py:462: SyntaxWarning: invalid escape sequence '\d'
+  increment=int(re.findall('\d+',marker)[0])
+{
+ "summary": [
+  {
+   "project": "networkx (static reach, S0; replayed diffs)",
+   "k_unreached": 7,
+   "n": 18,
+   "wilson95": [
+    0.20304991926931162,
+    0.6138133141934384
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "geopandas",
+   "k_unreached": 18,
+   "n": 20,
+   "wilson95": [
+    0.6989617935882066,
+    0.9721341060158468
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "pvlib-python",
+   "k_unreached": 14,
+   "n": 14,
+   "wilson95": [
+    0.7846829880728186,
+    1.0
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "bottleneck (states 1-8)",
+   "k_unreached": 4,
+   "n": 8,
+   "wilson95": [
+    0.21521252682444186,
+    0.7847874731755582
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "bottleneck (states 1-13)",
+   "k_unreached": 4,
+   "n": 13,
+   "wilson95": [
+    0.12680497161618087,
+    0.5763111218666236
+   ],
+   "edits_with_no_function_changed": 0
+  }
+ ],
+ "ref": {
+  "k_unreached": 12,
+  "n": 18,
+  "wilson95": [
+   0.4374906934425036,
+   0.8372144563633714
+  ],
+  "source": "results.md finding B1 (S0 profile reach, measured)"
+ }
+}

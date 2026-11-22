@@ -26,7 +26,13 @@ No rule uses AI, learned models or randomness. Seeded randomness appears only in
 |---|---|---|
 | A0 FULL | Clean rebuild every step: delete build dirs, `.so` and `__pycache__`, then rebuild. This is the per-edit procedure of SWE-Perf, GSO and SWE-fficiency (W2). | B3-style, C3 |
 | others | Pure-Python edit → no compile step. Native edit → incremental `build_ext --inplace`. Build-config edit → clean build. | B1, B2, B3 |
+| **all arms** (PM-approved 2026-11-22 05:50) | **A failed build is a reject, whatever the tests say.** A non-zero build exit code rejects the edit, and tests and benchmarks are never run on artefacts left in the tree. Motivated by a measured false pass on a replayed, non-compiling state (a replay artefact): on `98b59df2` the incremental tree kept the old binaries after a failed compile and passed 191/191 tests (`results/build-hazard-iterators-h.md` §4). | **W3-new "B0"** |
 | A4 | Additionally, at every full check: a clean-vs-incremental differential (stripped `.so` SHA-256 + FULL test outcomes) and a null-rebuild guard. Any mismatch → clean builds for the rest of the session. | B4, B6 |
+
+**B4 as specified is invalid (measured 2026-11-22, `results/build-hazard-iterators-h.md` §1).**
+- **Why:** the absolute build-directory path is embedded in every `.so`, and `--strip-debug` keeps it. A clean build in a separate tree therefore never hash-matches the incremental build: parent and clean differ even for extensions the edit cannot change. The rule always fires, so A4 falls back to clean builds at its first full check, and that cost is charged to A4.
+- **Fix candidates:** build both trees at the same path (clean build in place after copying the incremental artefacts aside), or compile with `-ffile-prefix-map=<tree>=.`. Then re-validate on the hazard commits.
+- **Status:** **not implemented. Post-meeting item.** Validating the fix needs native builds and benchmark runs, which would add load while the overnight FULL benchmark pass runs.
 
 ## 3. Functional test selection
 
@@ -66,6 +72,8 @@ No rule uses AI, learned models or randomness. Seeded randomness appears only in
 | A4 | Full check when score_t ≥ T (T = 10), and always at the last step. score_t = \|A_t\| + 5·(distinct header edits since the last green full check) + 5·(F2 fallbacks since then). | C5 (model-free risk-mass trigger), C3 |
 | all | Each full check writes a window record: misses and delay of the reduced checks in the window. | C6 |
 | after draft | C5 cap-only and additive-budget baselines; T ∈ {5, 20}; k ∈ {2, 8}. | C5 |
+| **BATCH:cap=k** (cap-only, implemented 2026-11-22) | **No per-edit check:** nothing is built or run between full checks. A full check happens when k edits have accumulated since the last one, and at the last step (FSB / TWB-like cap). | C5 baseline (`bth.select.Batch`) |
+| **BATCH:budget=T[,cap=k]** (additive budget) | **No per-edit check.** A full check happens when A4's additive score reaches T (the same score code as A4), optionally also at cap k, and at the last step. This is risk-mass "-la" batching with the learned r_i replaced by our measured score. | C5 baseline; plan `results/sim/networkx/c5_plan.md` |
 
 ## 7. Ablations of A4 (RQ3)
 

@@ -148,17 +148,78 @@ def profile(case, state_dir, python, root=None, native_prefixes=()) -> frozenset
     return frozenset(out["funcs"])
 
 
-def run_interleaved(cases, states, repeats, **measure_kw) -> list:
-    """states: [(label, state_dir, python)]. For each repeat, each case, each state (rotated)."""
+def _last_jsonl(path, max_age_s):
+    """Last JSON line of a telemetry file if it is at most max_age_s old (by its 'epoch' field), else None."""
+    try:
+        with open(path, "rb") as f:
+            f.seek(0, 2)
+            f.seek(max(0, f.tell() - 8192))
+            lines = [ln for ln in f.read().decode("utf-8", "replace").splitlines() if ln.strip().startswith("{")]
+        rec = json.loads(lines[-1])
+        return rec if time.time() - float(rec.get("epoch", 0)) <= max_age_s else None
+    except (OSError, ValueError, IndexError):
+        return None
+
+
+def make_gate(max_load=1.5, max_wincpu=20.0, win_telemetry=None, max_wait_s=600.0, poll_s=20.0, log=None,
+              _load=None, _sleep=time.sleep, _now=time.time):
+    """Per-run gate that POSTPONES (night plan 2026-11-22): before a run, wait until WSL loadavg(1m) <= max_load
+    and the latest Windows CPU % from the telemetry file (if fresh, <= 60 s) <= max_wincpu; poll every poll_s,
+    give up after max_wait_s and run anyway with ok=False (the run is then labelled noisy). Reads only."""
+    _load = _load or _loadavg
+
+    def gate():
+        t0 = _now()
+        while True:
+            l = _load()
+            w = _last_jsonl(win_telemetry, 60) if win_telemetry else None
+            wc = w.get("cpu") if w else None
+            ok = (l is None or l <= max_load) and (wc is None or wc <= max_wincpu)
+            waited = _now() - t0
+            if ok or waited >= max_wait_s:
+                return {"ok": ok, "load1": l, "wincpu": wc, "waited_s": round(waited, 1)}
+            if log:
+                with open(log, "a", encoding="utf-8") as f:
+                    f.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S%z')} gate: run postponed load1={l} wincpu={wc} "
+                            f"waited={waited:.0f}s\n")
+            _sleep(poll_s)
+    return gate
+
+
+def run_interleaved(cases, states, repeats, checkpoint=None, pre_run=None, **measure_kw) -> list:
+    """states: [(label, state_dir, python)]. For each repeat, each case, each state (rotated).
+
+    checkpoint: optional JSONL path. Every finished run is appended (and flushed) at once, and runs
+    already in the file, keyed by (case id, label, repeat), are reused instead of re-measured, so a
+    kill or restart loses at most the run in progress (W3 lesson 2026-11-22: the A/A run lost 85 min)."""
+    done = {}
+    if checkpoint is not None and Path(checkpoint).exists():
+        for line in Path(checkpoint).read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                rec = json.loads(line)
+                done[(rec["id"], rec["label"], rec["repeat"])] = rec
     out = []
     n = len(states)
     for r in range(repeats):
         order = states[r % n:] + states[:r % n] if n else []
         for case in cases:
             for label, sd, py in order:
+                key = (case.id, label, r)
+                if key in done:
+                    out.append(done[key])
+                    continue
+                pg = pre_run() if pre_run is not None else None
+                t_start = time.strftime("%Y-%m-%dT%H:%M:%S%z")
                 res = measure(case, sd, py, **measure_kw)
-                res.update({"label": label, "repeat": r, "state_dir": str(sd)})
+                res.update({"label": label, "repeat": r, "state_dir": str(sd),
+                            "t_start": t_start, "t_end": time.strftime("%Y-%m-%dT%H:%M:%S%z")})
+                if pg is not None:
+                    res["pre_gate"] = pg
                 out.append(res)
+                if checkpoint is not None:
+                    with open(checkpoint, "a", encoding="utf-8") as f:
+                        f.write(json.dumps(res) + "\n")
+                        f.flush()
     return out
 
 
@@ -358,6 +419,13 @@ def main(argv=None) -> int:
     ap.add_argument("--root", default=None, help="profile: source root for FuncIDs (default state)")
     ap.add_argument("--native-prefix", action="append", default=[])
     ap.add_argument("--include-non-time", action="store_true")
+    ap.add_argument("--checkpoint", default=None, help="interleave: JSONL checkpoint, appended per run; resumes from it")
+    ap.add_argument("--run-gate", action="store_true", help="interleave: per-run postponing gate (make_gate)")
+    ap.add_argument("--gate-max-load", type=float, default=1.5)
+    ap.add_argument("--gate-max-wincpu", type=float, default=20.0)
+    ap.add_argument("--gate-max-wait", type=float, default=600.0)
+    ap.add_argument("--gate-win-telemetry", default=None, help="JSONL with {'epoch','cpu'} lines (Windows CPU %%)")
+    ap.add_argument("--gate-log", default=None, help="append postponement lines here (keeps stall watchers fed)")
     a = ap.parse_args(argv)
 
     states = _parse_states(a.state, a.python)
@@ -377,7 +445,9 @@ def main(argv=None) -> int:
     elif a.op == "profile":
         res = {c.id: sorted(profile(c, first, a.python, a.root, a.native_prefix)) for c in cases}
     else:
-        res = run_interleaved(cases, states, a.repeats, **mkw)
+        gate = (make_gate(a.gate_max_load, a.gate_max_wincpu, a.gate_win_telemetry, a.gate_max_wait, log=a.gate_log)
+                if a.run_gate else None)
+        res = run_interleaved(cases, states, a.repeats, checkpoint=a.checkpoint, pre_run=gate, **mkw)
     out = Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(res, indent=1), encoding="utf-8")

@@ -1,0 +1,2 @@
+cols: raw strip file
+  *.so

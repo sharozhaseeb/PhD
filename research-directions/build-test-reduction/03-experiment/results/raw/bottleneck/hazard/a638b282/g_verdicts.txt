@@ -1,0 +1,5 @@
+cases: 64 errors/skipped entries: 0
+INC vs CLEAN (ref=CLEAN): {'same': 63, 'faster': 1}
+STALE vs CLEAN: {'same': 64}
+reduce.Time2DReductions.time_nanmin('int64', (1000, 1000), 'F', 0) INC/CLEAN 0.878 p=0.001236 faster | STALE/CLEAN 0.892 p=0.1023 same
+max |log ratio| INC/CLEAN: ratio range 0.878..1.060

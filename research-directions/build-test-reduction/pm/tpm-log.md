@@ -4,6 +4,35 @@ Owner of this file: TPM subagent. Read-only elsewhere. Newest entry first.
 
 ---
 
+## 2026-11-22 (~15:30): Review 3, paper plan (goal changed to a first-draft paper)
+
+Full plan: [tpm-paper-plan.md](tpm-paper-plan.md). Nothing was run.
+
+**Verdict on the paper goal: GO, as an empirical study, not a "new policy wins" paper.** The evidence supports R1 (benchmarks dominate cost), B1 (unbenchmarked optimization edits), T1/N1 (unchanged RTS is enough functionally) and honest A4 negatives. The weakest link is B1 on one project (9/15, CI 36–80 %), so the B1 replication (a) is the critical path.
+
+**Go/no-go per experiment:**
+- (a) B1 replication with measured profiles: **GO, conditional.** Conditions: (e) done and rule v2 frozen first; pre-registration frozen; a grouped profile runner (≈ 3–10 min per state), validated against the networkx S0 profiles. Asv-style per-process profiling would cost ≈ 15–50 h, which is not feasible. Minimum 3 and maximum 4 projects, with an attrition rule. Runs after the meeting.
+- (b) σ A/A for the 12 flagged cases: **GO tonight**, first. Each case in its verdict's protocol, 5 repeats, ABBA. ≈ 1–1.7 h, cap 2 h, idle-exclusive.
+- (c) R1 on a second project: **GO-limited.** A bottleneck FULL pass ×2 tonight (cap 40 min). One new pure-Python project after the meeting (2–6 h).
+- (d) Drift: **GO-limited.** 3 FULL passes plus a canary and read-only telemetry tonight (cap 2.5 h). **NO-GO** on open-ended diagnosis of the cause.
+- (e) Mining v2 by manual labels: **GO.** 4–6 owner hours; a second rater on 20 % (κ); precision reported on held-out labels. Must come before (a).
+
+**Schedule:**
+- Tonight before ≈ 21:45: preparation only. Plans frozen before measuring, telemetry and a per-run postponing gate, the W5 render finished, a backup and a commit, sessions paused.
+- Overnight: (b) → (d) → (c-bottleneck), hard stop 06:30. The meeting pack stays frozen.
+- **Full first draft: 2026-12-15** (slack to 12-20).
+- **Submission: the first verified research-track deadline on or after ~1 Feb 2027, realistically March–May 2027.** No CFP was checked; these dates must be verified.
+
+**New musts:**
+- **P1: back up the data** (R-2). The commit is not pushed, 407 MB of depmaps exist only on disk, and all raw data sit on one WSL disk. Needs an owner decision tonight.
+- **P2: numbers in the paper are generated macros from hashed raw files** (R-8; numbers have drifted three times already).
+- **P3: WIP ≤ 3.** W3 phase 2 (fresh chat), W6-PAPER (new), W1 until its novelty search is recorded. W4 and W5 close.
+- **P4: no "first" or "novel" claim before W1's recorded search.** Likely prior work on benchmark coverage and selection is listed for W1 to verify.
+
+The must-not-claim list (16 items) is in the plan, §4.
+
+---
+
 ## 2026-11-21 (late): Note 3. Bottleneck window amendment and stale-build finding (FYI from PM; no NO-GO)
 
 **Window amendment** (base f51ed86, 13 edits; the old window applied only 5 of 20 edits; the 5-edit run is kept as a sensitivity check). **Acceptable**, for three reasons:

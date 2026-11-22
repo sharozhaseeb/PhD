@@ -1,0 +1,23 @@
+running build_ext
+running config
+building 'bottleneck.reduce' extension
+cc -pthread -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -fPIC -I/home/sharoz/bt-lab/exp/venvs/bn38/lib/python3.8/site-packages/numpy/core/include -I/home/sharoz/bt-lab/exp/venvs/bn38/include -I/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/include/python3.8 -Ibottleneck/src -c bottleneck/src/reduce.c -o build/temp.linux-x86_64-3.8/bottleneck/src/reduce.o -O2
+cc -pthread -shared -Wl,--exclude-libs,ALL build/temp.linux-x86_64-3.8/bottleneck/src/reduce.o -L/home/sharoz/.local/share/uv/python/cpython-3.8.20-linux-x86_64-gnu/lib -o build/lib.linux-x86_64-3.8/bottleneck/reduce.cpython-38-x86_64-linux-gnu.so
+building 'bottleneck.move' extension
+cc -pthread -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -fPIC -I/home/sharoz/bt-lab/exp/venvs/bn38/lib/python3.8/site-packages/numpy/core/include -I/home/sharoz/bt-lab/exp/venvs/bn38/include -I/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/include/python3.8 -Ibottleneck/src -c bottleneck/src/move.c -o build/temp.linux-x86_64-3.8/bottleneck/src/move.o -O2
+cc -pthread -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -fPIC -I/home/sharoz/bt-lab/exp/venvs/bn38/lib/python3.8/site-packages/numpy/core/include -I/home/sharoz/bt-lab/exp/venvs/bn38/include -I/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/include/python3.8 -Ibottleneck/src -c bottleneck/src/move_median/move_median.c -o build/temp.linux-x86_64-3.8/bottleneck/src/move_median/move_median.o -O2
+cc -pthread -shared -Wl,--exclude-libs,ALL build/temp.linux-x86_64-3.8/bottleneck/src/move.o build/temp.linux-x86_64-3.8/bottleneck/src/move_median/move_median.o -L/home/sharoz/.local/share/uv/python/cpython-3.8.20-linux-x86_64-gnu/lib -o build/lib.linux-x86_64-3.8/bottleneck/move.cpython-38-x86_64-linux-gnu.so
+building 'bottleneck.nonreduce' extension
+cc -pthread -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -fPIC -I/home/sharoz/bt-lab/exp/venvs/bn38/lib/python3.8/site-packages/numpy/core/include -I/home/sharoz/bt-lab/exp/venvs/bn38/include -I/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/include/python3.8 -Ibottleneck/src -c bottleneck/src/nonreduce.c -o build/temp.linux-x86_64-3.8/bottleneck/src/nonreduce.o -O2
+cc -pthread -shared -Wl,--exclude-libs,ALL build/temp.linux-x86_64-3.8/bottleneck/src/nonreduce.o -L/home/sharoz/.local/share/uv/python/cpython-3.8.20-linux-x86_64-gnu/lib -o build/lib.linux-x86_64-3.8/bottleneck/nonreduce.cpython-38-x86_64-linux-gnu.so
+building 'bottleneck.nonreduce_axis' extension
+cc -pthread -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -fPIC -I/home/sharoz/bt-lab/exp/venvs/bn38/lib/python3.8/site-packages/numpy/core/include -I/home/sharoz/bt-lab/exp/venvs/bn38/include -I/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/include/python3.8 -Ibottleneck/src -c bottleneck/src/nonreduce_axis.c -o build/temp.linux-x86_64-3.8/bottleneck/src/nonreduce_axis.o -O2
+cc -pthread -shared -Wl,--exclude-libs,ALL build/temp.linux-x86_64-3.8/bottleneck/src/nonreduce_axis.o -L/home/sharoz/.local/share/uv/python/cpython-3.8.20-linux-x86_64-gnu/lib -o build/lib.linux-x86_64-3.8/bottleneck/nonreduce_axis.cpython-38-x86_64-linux-gnu.so
+copying build/lib.linux-x86_64-3.8/bottleneck/reduce.cpython-38-x86_64-linux-gnu.so -> bottleneck
+copying build/lib.linux-x86_64-3.8/bottleneck/move.cpython-38-x86_64-linux-gnu.so -> bottleneck
+copying build/lib.linux-x86_64-3.8/bottleneck/nonreduce.cpython-38-x86_64-linux-gnu.so -> bottleneck
+copying build/lib.linux-x86_64-3.8/bottleneck/nonreduce_axis.cpython-38-x86_64-linux-gnu.so -> bottleneck
+
+real	0m6.006s
+user	0m5.258s
+sys	0m1.002s

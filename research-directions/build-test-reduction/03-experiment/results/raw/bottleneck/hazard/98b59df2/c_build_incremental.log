@@ -1,0 +1,38 @@
+running build_ext
+running config
+building 'bottleneck.reduce' extension
+cc -pthread -Wno-unused-result -Wsign-compare -Wunreachable-code -DNDEBUG -g -fwrapv -O3 -Wall -fPIC -fPIC -I/home/sharoz/bt-lab/exp/venvs/bn38/lib/python3.8/site-packages/numpy/core/include -I/home/sharoz/bt-lab/exp/venvs/bn38/include -I/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/include/python3.8 -Ibottleneck/src -c bottleneck/src/reduce.c -o build/temp.linux-x86_64-3.8/bottleneck/src/reduce.o -O2
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c: In function ‘nanmin_one_float64’:
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:567:36: error: ‘DTYPE1’ undeclared (first use in this function)
+  567 |         const npy_intp LOOP_SIZE = DTYPE1;
+      |                                    ^~~~~~
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:567:36: note: each undeclared identifier is reported only once for each function it appears in
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:568:21: warning: unused variable ‘extremes’ [-Wunused-variable]
+  568 |         npy_DTYPE0 extremes[DTYPE1];
+      |                     ^~~~~~~~
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c: In function ‘nanmin_one_float32’:
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:567:36: error: ‘DTYPE1’ undeclared (first use in this function)
+  567 |         const npy_intp LOOP_SIZE = DTYPE1;
+      |                                    ^~~~~~
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:568:21: warning: unused variable ‘extremes’ [-Wunused-variable]
+  568 |         npy_DTYPE0 extremes[DTYPE1];
+      |                     ^~~~~~~~
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c: In function ‘nanmax_one_float64’:
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:567:36: error: ‘DTYPE1’ undeclared (first use in this function)
+  567 |         const npy_intp LOOP_SIZE = DTYPE1;
+      |                                    ^~~~~~
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:568:21: warning: unused variable ‘extremes’ [-Wunused-variable]
+  568 |         npy_DTYPE0 extremes[DTYPE1];
+      |                     ^~~~~~~~
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c: In function ‘nanmax_one_float32’:
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:567:36: error: ‘DTYPE1’ undeclared (first use in this function)
+  567 |         const npy_intp LOOP_SIZE = DTYPE1;
+      |                                    ^~~~~~
+/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/inc/bottleneck/src/reduce_template.c:568:21: warning: unused variable ‘extremes’ [-Wunused-variable]
+  568 |         npy_DTYPE0 extremes[DTYPE1];
+      |                     ^~~~~~~~
+error: command 'cc' failed with exit status 1
+
+real	0m0.307s
+user	0m0.381s
+sys	0m0.647s

@@ -1,0 +1,140 @@
+{
+ "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.01)')": {
+  "sigma_rep": 0.5461750767512054,
+  "sigma_boot": 0.16100148853544385,
+  "thr_rep": 2.638525230253616,
+  "thr_boot": 1.4830044656063315
+ },
+ "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": {
+  "sigma_rep": 0.09265696472059781,
+  "sigma_boot": 0.07242434694287277,
+  "thr_rep": 1.2779708941617933,
+  "thr_boot": 1.2172730408286183
+ },
+ "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Erdos Renyi (100, 0.9)')": {
+  "sigma_rep": 0.01607618253752473,
+  "sigma_boot": 0.013892849209156375,
+  "thr_rep": 1.0482285476125741,
+  "thr_boot": 1.041678547627469
+ },
+ "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')": {
+  "sigma_rep": 0.05929143873665093,
+  "sigma_boot": 0.047351997265379614,
+  "thr_rep": 1.1778743162099528,
+  "thr_boot": 1.1420559917961388
+ },
+ "benchmark_classes.GraphBenchmark.time_remove_nodes_from('Graph')": {
+  "sigma_rep": 0.06240965151440323,
+  "sigma_boot": 0.05521190456382444,
+  "thr_rep": 1.1872289545432098,
+  "thr_boot": 1.1656357136914732
+ },
+ "benchmark_classes.GraphBenchmark.time_subgraph_large('Graph')": {
+  "sigma_rep": 0.027079644374447504,
+  "sigma_boot": 0.016284030024275996,
+  "thr_rep": 1.0812389331233425,
+  "thr_boot": 1.048852090072828
+ },
+ "benchmark_classes.GraphBenchmark.time_to_directed('Graph')": {
+  "sigma_rep": 0.02305288221797558,
+  "sigma_boot": 0.026658760350815387,
+  "thr_rep": 1.0691586466539267,
+  "thr_boot": 1.0799762810524463
+ },
+ "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')": {
+  "sigma_rep": 0.01334329652972683,
+  "sigma_boot": 0.01876900375057303,
+  "thr_rep": 1.0400298895891804,
+  "thr_boot": 1.056307011251719
+ },
+ "benchmark_classes.GraphBenchmark.time_to_undirected('MultiDiGraph')": {
+  "sigma_rep": 0.009550152676337683,
+  "sigma_boot": 0.018116559942155015,
+  "thr_rep": 1.028650458029013,
+  "thr_boot": 1.054349679826465
+ },
+ "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('wheel_graph(1000)')": {
+  "sigma_rep": 0.021628560962675496,
+  "sigma_boot": 0.013433526430368657,
+  "thr_rep": 1.0648856828880264,
+  "thr_boot": 1.040300579291106
+ },
+ "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('directed_wheel(10)')": {
+  "sigma_rep": 0.022022859132839592,
+  "sigma_boot": 0.01711034409506325,
+  "thr_rep": 1.0660685773985188,
+  "thr_boot": 1.0513310322851896
+ },
+ "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('wheel_graph(10)')": {
+  "sigma_rep": 0.025900669199604532,
+  "sigma_boot": 0.026578020395203995,
+  "thr_rep": 1.0777020075988135,
+  "thr_boot": 1.0797340611856119
+ },
+ "benchmark_neighbors.CommonNeighbors.time_complete(100)": {
+  "sigma_rep": 0.23578273179516385,
+  "sigma_boot": 0.06433147041703978,
+  "thr_rep": 1.7073481953854914,
+  "thr_boot": 1.1929944112511193
+ },
+ "benchmark_neighbors.CommonNeighbors.time_star_center_rim(100)": {
+  "sigma_rep": 0.3217765166072576,
+  "sigma_boot": 0.1371832373849009,
+  "thr_rep": 1.9653295498217727,
+  "thr_boot": 1.4115497121547027
+ },
+ "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(100)": {
+  "sigma_rep": 0.035838805140472246,
+  "sigma_boot": 0.021379933593842625,
+  "thr_rep": 1.1075164154214168,
+  "thr_boot": 1.064139800781528
+ },
+ "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(1000)": {
+  "sigma_rep": 0.021050917911314207,
+  "sigma_boot": 0.028921851877891338,
+  "thr_rep": 1.0631527537339427,
+  "thr_boot": 1.086765555633674
+ },
+ "benchmark_neighbors.NonNeighbors.time_star_center(10)": {
+  "sigma_rep": 0.009427816002637405,
+  "sigma_boot": 0.025233720381580914,
+  "thr_rep": 1.0282834480079122,
+  "thr_boot": 1.0757011611447427
+ },
+ "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 1)": {
+  "sigma_rep": 0.006555660312380994,
+  "sigma_boot": 0.044201255561755345,
+  "thr_rep": 1.019666980937143,
+  "thr_boot": 1.132603766685266
+ },
+ "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 2)": {
+  "sigma_rep": 0.013911976957357453,
+  "sigma_boot": 0.028730848811070762,
+  "thr_rep": 1.0417359308720724,
+  "thr_boot": 1.0861925464332123
+ },
+ "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(20)', 3)": {
+  "sigma_rep": 0.08979262239219646,
+  "sigma_boot": 0.06306643381962072,
+  "thr_rep": 1.2693778671765894,
+  "thr_boot": 1.1891993014588622
+ },
+ "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 1)": {
+  "sigma_rep": 0.015764925867850964,
+  "sigma_boot": 0.03133661998958422,
+  "thr_rep": 1.0472947776035528,
+  "thr_boot": 1.0940098599687527
+ },
+ "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 2)": {
+  "sigma_rep": 0.014170702942319358,
+  "sigma_boot": 0.04018720966792702,
+  "thr_rep": 1.042512108826958,
+  "thr_boot": 1.120561629003781
+ },
+ "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct_multi_instance(<class 'networkx.classes.graph.Graph'>)": {
+  "sigma_rep": 0.03175734642556938,
+  "sigma_boot": 0.028079069962302285,
+  "thr_rep": 1.0952720392767081,
+  "thr_boot": 1.0842372098869069
+ }
+}

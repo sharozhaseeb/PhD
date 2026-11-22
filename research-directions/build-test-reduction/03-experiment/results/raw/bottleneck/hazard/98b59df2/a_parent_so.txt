@@ -1,0 +1,5 @@
+cols: sha256(raw) sha256(strip --strip-debug) file
+4807defb778c311e bed0234c55439d93 move.so
+5e658df38479b1c5 eea7887c7489d7ad nonreduce.so
+69d54f37b3a300a0 91d9382729069086 nonreduce_axis.so
+a03cedb82ffb7e2b 5c249f6fd0dd7617 reduce.so

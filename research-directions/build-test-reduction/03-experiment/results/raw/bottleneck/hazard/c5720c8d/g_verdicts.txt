@@ -1,0 +1,4 @@
+cases: 64 errors/skipped entries: 0
+INC vs CLEAN (ref=CLEAN): {'same': 64}
+STALE vs CLEAN: {'same': 64}
+max |log ratio| INC/CLEAN: ratio range 0.946..1.087

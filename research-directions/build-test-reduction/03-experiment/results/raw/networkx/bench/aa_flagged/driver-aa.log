@@ -1,0 +1,49 @@
+2026-11-22T15:37:16+05:00 block aa-s02 start: 9 cases at state d3d79cc8, 2 x 3, 5 repeats
+2026-11-22T15:37:16+05:00 block aa-s02 start: 9 cases at state d3d79cc8, 2 x 3, 5 repeats
+2026-11-22T15:38:08+0500 gate: run postponed load1=0.25 wincpu=30.6 waited=0s
+2026-11-22T15:38:43+0500 gate: run postponed load1=0.36 wincpu=27 waited=0s
+2026-11-22T15:39:14+0500 gate: run postponed load1=0.37 wincpu=34.1 waited=0s
+2026-11-22T15:39:34+0500 gate: run postponed load1=0.34 wincpu=21.6 waited=20s
+2026-11-22T15:39:54+0500 gate: run postponed load1=0.32 wincpu=22.9 waited=40s
+2026-11-22T15:40:14+0500 gate: run postponed load1=0.23 wincpu=27.8 waited=60s
+2026-11-22T15:40:43+0500 gate: run postponed load1=0.29 wincpu=30.7 waited=0s
+2026-11-22T15:41:04+0500 gate: run postponed load1=0.33 wincpu=28.4 waited=20s
+interleave: 90 entries -> /tmp/tmp752mcsrh/i.json
+2026-11-22T15:41:43+05:00 block aa-s02 done in 267s; label measured-window
+2026-11-22T15:41:43+05:00 block aa-s02 done in 267s; label measured-window
+2026-11-22T15:41:43+05:00 block aa-s08 start: 1 cases at state 52b7255a, 2 x 3, 5 repeats
+2026-11-22T15:41:43+05:00 block aa-s08 start: 1 cases at state 52b7255a, 2 x 3, 5 repeats
+2026-11-22T15:42:35+0500 gate: run postponed load1=0.51 wincpu=24.2 waited=0s
+2026-11-22T15:43:05+0500 gate: run postponed load1=0.8 wincpu=28.4 waited=0s
+interleave: 10 entries -> /tmp/tmp6ney72xc/i.json
+2026-11-22T15:43:31+05:00 block aa-s08 done in 108s; label measured-window
+2026-11-22T15:43:31+05:00 block aa-s08 done in 108s; label measured-window
+2026-11-22T15:43:31+05:00 block aa-s01 start: 1 cases at state 867fda8d, 2 x 3, 5 repeats
+2026-11-22T15:43:31+05:00 block aa-s01 start: 1 cases at state 867fda8d, 2 x 3, 5 repeats
+2026-11-22T15:44:11+0500 gate: run postponed load1=0.44 wincpu=29.9 waited=0s
+2026-11-22T15:44:31+0500 gate: run postponed load1=0.31 wincpu=26.2 waited=20s
+2026-11-22T15:44:51+0500 gate: run postponed load1=0.22 wincpu=25.3 waited=40s
+2026-11-22T15:45:11+0500 gate: run postponed load1=0.31 wincpu=25.9 waited=60s
+2026-11-22T15:45:31+0500 gate: run postponed load1=0.3 wincpu=32.2 waited=80s
+2026-11-22T15:45:51+0500 gate: run postponed load1=0.5 wincpu=36 waited=100s
+2026-11-22T15:46:12+0500 gate: run postponed load1=0.72 wincpu=36.3 waited=120s
+2026-11-22T15:46:32+0500 gate: run postponed load1=0.87 wincpu=39.8 waited=141s
+2026-11-22T15:46:52+0500 gate: run postponed load1=0.99 wincpu=43.8 waited=161s
+2026-11-22T15:47:12+0500 gate: run postponed load1=1.24 wincpu=31 waited=181s
+2026-11-22T15:47:32+0500 gate: run postponed load1=1.17 wincpu=36.4 waited=201s
+2026-11-22T15:47:52+0500 gate: run postponed load1=0.84 wincpu=22.2 waited=221s
+2026-11-22T15:49:08+0500 gate: run postponed load1=0.35 wincpu=21.4 waited=0s
+2026-11-22T15:49:28+0500 gate: run postponed load1=0.25 wincpu=29.5 waited=20s
+2026-11-22T15:49:48+0500 gate: run postponed load1=0.26 wincpu=24.9 waited=40s
+2026-11-22T15:51:07+0500 gate: run postponed load1=0.32 wincpu=20.2 waited=0s
+2026-11-22T15:51:27+0500 gate: run postponed load1=0.31 wincpu=29.2 waited=20s
+2026-11-22T15:51:47+0500 gate: run postponed load1=0.42 wincpu=26.6 waited=40s
+2026-11-22T15:52:07+0500 gate: run postponed load1=0.3 wincpu=21.6 waited=60s
+2026-11-22T15:53:46+0500 gate: run postponed load1=0.18 wincpu=24.9 waited=0s
+2026-11-22T15:55:29+0500 gate: run postponed load1=0.07 wincpu=21 waited=0s
+2026-11-22T15:55:49+0500 gate: run postponed load1=0.26 wincpu=23.9 waited=20s
+2026-11-22T15:56:10+0500 gate: run postponed load1=0.18 wincpu=25.3 waited=40s
+2026-11-22T15:58:12+0500 gate: run postponed load1=0.17 wincpu=21.6 waited=0s
+2026-11-22T16:00:57+0500 gate: run postponed load1=0.26 wincpu=20.7 waited=0s
+2026-11-22T16:02:32+0500 gate: run postponed load1=0.33 wincpu=94.5 waited=0s
+2026-11-22T16:02:52+0500 gate: run postponed load1=0.5 wincpu=23.9 waited=20s

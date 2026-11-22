@@ -5,7 +5,7 @@
  },
  {
   "id": "01_roadmap",
-  "text": "There are five parts: what the literature and existing optimizers do; the future work the papers themselves name; the gap we found; the experiment designed on that gap, and its status; and what comes next."
+  "text": "There are five parts: what the literature and existing optimizers do; the future work the papers themselves name; the gap we found; the experiment designed on that gap, and its pilot results; and what comes next."
  },
  {
   "id": "02_sec1",
@@ -60,44 +60,28 @@
   "text": "Full validation is the oracle. The arms are: a full rebuild with all tests and benchmarks; an incremental build; testmon, as PerfAgent uses it; a naive changed-module rule; and static benchmark selection. These existing arms also run with a full check every k steps. Last is our policy, with an ablation for each of its three parts."
  },
  {
-  "id": "15_report",
-  "text": "Misses are reported as k of N, with a Wilson confidence interval, and never as zero misses means safe. The headline cost is estimated seconds: test and benchmark durations from full runs, plus measured build time and selection overhead."
+  "id": "15r1_cost",
+  "text": "Now the pilot results, all preliminary. First, where the cost is. On networkx, benchmarks dominate. One full benchmark pass took 659 to 2,444 seconds over six measured passes, a median of about 730, against about 87 seconds for build plus serial tests: about 8 to 28 times. Most of it is setup. 87 to 96 percent of a pass is one module's 49 cases, and 80 to 94 percent of a pass is outside the timing loops. With setup cached, a pass would be about 1.5 to 2 times build plus tests; that is an estimate, not a measurement. The build is a minor lever: about 0.15 percent here, and 16 to 18 percent of build plus tests on bottleneck, before benchmarks. And the cost is itself noisy, for reasons not yet known."
  },
  {
-  "id": "15b_cost",
-  "text": "RQ1 first. For networkx, all 19 states, preliminary and from single runs: the full test suite, run serially, takes a median of 85.7 seconds per edit, and all 6,771 tests pass. The build is 1.19 to 2.11 percent of that, so it is negligible. S16 is marked noisy, and S17 borderline."
+  "id": "15b1_coverage",
+  "text": "Second, the oracle gap, starting with coverage. Of the 15 true optimizations among the 18 replayed edits, 9 change no function that any benchmark executes in the measured profile: 60 percent, with a confidence interval of 36 to 80 percent. So many, not most. By static call graph it is 4 of 15. So even full benchmarking cannot confirm many of these speed-ups with the project's own suite. This is established on networkx only; elsewhere it was not validly tested."
  },
  {
-  "id": "15g_bench",
-  "text": "But tests are only the visible cost. One full benchmark pass on networkx costs at least 0.9 to 4.5 hours per edit, against about 87 seconds for build plus tests: about 40 to 180 times the rest. That is a lower bound, from import cost alone. The cause: one benchmark module builds all its graphs at import time, taking 65 to 71 seconds, and process isolation repeats that import for every case. A measured full pass is scheduled."
+  "id": "15pw_power",
+  "text": "The second part of the gap is power. Of 10 frozen slowdowns, full benchmarking detects at most 3, 2 on target, and none in the pre-set bands. So the pre-registered result is that regression safety of reduced selection is not measurable on networkx with this set. Five of the seven misses are reached by no benchmark. The A/A run gave 0 false verdicts in 46, but only about 2 times slowdowns are reliably caught on the sampled heavy cases. A profile-completeness check flagged 1 comparison in 50. A post-hoc re-check did not confirm it, and the flag stands."
  },
  {
-  "id": "15c_contrast",
-  "text": "For contrast, in the C-extension project bottleneck, the clean build is about 22 percent of build plus tests, before benchmarks, against 1.2 to 2.1 percent for networkx. One probe found a historical upstream bug, an edit to iterators dot h that rebuilt nothing. It was fixed in 2019, and our replay base contains the fix. It is a real unsafe-incremental-build bug the maintainers had to fix; we probe its consequence counterfactually."
+  "id": "15t1_testmon",
+  "text": "Third, functional test selection is a solved, modest win. Testmon is about 3.5 to 4 times cheaper than full validation end to end, not the 15 times that test-seconds suggest, and about 6 times on the worked edit. It misses 0 of 20 frozen mutants, with a 95 percent upper bound of 16.1 percent. Those mutants are caught almost by construction, so this is not a safety guarantee. The changed-module rule misses 2 of 20, through test-file naming. And PerfAgent already uses testmon per edit."
  },
  {
-  "id": "15d_rq2",
-  "text": "Cost only; benchmarks not yet included; functional misses come next. These are the first RQ2 numbers, preliminary, over the 18 networkx edits. The bars are estimated end-to-end seconds: tests, build and pytest startup. Full validation is estimated at 1,548 seconds, and 1,634 were measured. Testmon is estimated at 330, and measured at 404 in a concurrent run, so end to end it is about 4 times cheaper. Testmon with a full check every five edits is 594, every three edits 735, and our policy 655. Nothing here ranks the arms."
- },
- {
-  "id": "15e_worked",
-  "text": "On one worked edit, at step 10, full validation runs 6,768 tests. Testmon selects 20, the changed-module rule 28, and our function-level rule 38."
- },
- {
-  "id": "15h_faults",
-  "text": "Now fault detection, on the frozen mutants. Full validation kills 20 of the 25, so N is 20. Every arm except changed-module on its own misses none of the 20. At 95 percent, that means a miss rate below 16.1 percent, not safe. The changed-module rule misses 2 of 20, because those test files are not named after their modules; any periodic full check catches both one to three steps later. The honest reading: on this fault class, detection holds almost by construction. So plain testmon is the cheapest at equal detection, and our policy's extra cost buys no extra functional detection here."
- },
- {
-  "id": "15i_coverage",
-  "text": "Three more draft results, counts only. First, benchmark coverage: for 12 of the 18 edits, no benchmark's profile at the base executes any edited function. So even full benchmarking cannot confirm most of these speed-ups with the project's own suite. Second, our profile-based benchmark selection, as specified, collapses to all 171 cases from step 3 on, because it needs re-profiling at checkpoints, and that input does not exist yet. That is a design gap, not a selection result. Third, none of the 5 surviving mutants became detectable later, so the pre-registered null for accumulation stands on networkx."
- },
- {
-  "id": "15f_findings",
-  "text": "One more finding. Our policy's full checks fired on module-level edits, so right now it behaves much like a full check every 4 edits or so. That is a design finding, and the threshold is not retuned. Still pending: slowdown detection, the bottleneck build hazard, and a measured benchmark pass."
+  "id": "15a4_negatives",
+  "text": "Fourth, the honest negatives for our policy. The fault model cannot tell selection rules apart, because every per-edit arm catches the mutants at injection by construction. And our policy, as implemented, costs more: 655 seconds against 330 for plain testmon. Counting benchmarks, batching is 1.7 to 6 times cheaper than per-edit arms, and our policy costs about twice batching, which depends on its profile selection collapsing to all benchmarks. It behaves like a full check every 4 edits, and accumulation showed no effect. There is no claim that it beats batching."
  },
  {
   "id": "17_future",
-  "text": "So tests are the visible cost, but benchmarks are 40 to 180 times bigger, and benchmark selection is where a policy can matter most. That leads to part five, future work. It leads with benchmark coverage of optimized code, and with re-profiling at checkpoints. Also open: the remaining literature screening, and NameRTS as a comparator after the meeting. Then comes the later study: AI-based selection, measured against this deterministic baseline."
+  "text": "So the next step follows the evidence. First, a pre-registered replication of the coverage finding, because it was not validly tested outside networkx: measured profiles at each edit's parent, a stricter mining rule fixed before mining, and a check of each diff, before any decision to pivot. Then checkpoint re-profiling, a fault model that can separate selection rules, a measured setup-cached benchmark pass, and the remaining literature search, including the novelty risk. Later comes the AI-based study, measured against this deterministic baseline."
  },
  {
   "id": "18_close",

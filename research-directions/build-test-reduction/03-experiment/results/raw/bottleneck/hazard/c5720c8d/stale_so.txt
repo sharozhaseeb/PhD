@@ -1,0 +1,5 @@
+cols: raw strip file
+1f4af8f74567d1ed c2e81d6da45edeb1 move.so
+c1752fe1ecf1fe0a 8d52fec85cbcab75 nonreduce.so
+2b3673908ccad4c4 a5304453fce02685 nonreduce_axis.so
+26f42bb340859fd4 7c01c2c957a926ce reduce.so

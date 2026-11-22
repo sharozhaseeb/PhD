@@ -1,0 +1,4 @@
+move.so
+nonreduce.so
+nonreduce_axis.so
+reduce.so

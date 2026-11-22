@@ -1,0 +1,10 @@
+incremental vs clean (raw / stripped):
+move.so          raw:DIFF stripped:DIFF
+nonreduce.so     raw:DIFF stripped:DIFF
+nonreduce_axis.so raw:DIFF stripped:DIFF
+reduce.so        raw:DIFF stripped:DIFF
+parent vs clean (raw / stripped):
+move.so          raw:DIFF stripped:DIFF
+nonreduce.so     raw:DIFF stripped:DIFF
+nonreduce_axis.so raw:DIFF stripped:DIFF
+reduce.so        raw:DIFF stripped:DIFF

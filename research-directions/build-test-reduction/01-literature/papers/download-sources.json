@@ -1001,5 +1001,74 @@
     "topics": [
       "R2"
     ]
+  },
+  {
+    "path": "papers/2025-SWE-fficiency-arXiv-2511.06090.pdf",
+    "source_url": "https://arxiv.org/pdf/2511.06090",
+    "bytes": 2876324,
+    "sha256": "e23b7fa061f8ea6a2c9fe4aa84367adb207bc0e5b0bbac2e4ea2aee2879ae30d",
+    "magic": "%PDF",
+    "filename": "2025-SWE-fficiency-arXiv-2511.06090.pdf",
+    "downloaded_on": "2026-11-22"
+  },
+  {
+    "path": "papers/2025-Yang-WEDGE-arXiv-2505.23471.pdf",
+    "source_url": "https://arxiv.org/pdf/2505.23471v3",
+    "bytes": 1165160,
+    "sha256": "332e7a582bf8efd35671aeb9b7e2abde3de1c881ab1ba0e4f0f07ae9435c5324",
+    "magic": "%PDF",
+    "filename": "2025-Yang-WEDGE-arXiv-2505.23471.pdf",
+    "downloaded_on": "2026-11-22"
+  },
+  {
+    "filename": "2020-Duplyakin-Datacenter-Performance-Only-Constant-Is-Change-arXiv.pdf",
+    "title": "In Datacenter Performance, The Only Constant Is Change",
+    "source_url": "https://arxiv.org/pdf/2003.04824",
+    "bytes": 1284625,
+    "sha256": "5b5168906817e683a3c60d1e2be8904e5fb891b0632629326d6a63906858bd4a",
+    "downloaded_on": "2026-11-22",
+    "magic": "%PDF-"
+  },
+  {
+    "filename": "2018-Maricq-Taming-Performance-Variability-OSDI.pdf",
+    "title": "Taming Performance Variability",
+    "source_url": "https://www.usenix.net/system/files/osdi18-maricq.pdf",
+    "bytes": 1726216,
+    "sha256": "0167078e2f7c5bf3023d519a4abeeabf40d4b39110e68cd98068e305415edc48",
+    "downloaded_on": "2026-11-22",
+    "magic": "%PDF-"
+  },
+  {
+    "filename": "2025-Japke-Isolation-Synchronized-Benchmarks-arXiv.pdf",
+    "title": "Investigating the Impact of Isolation on Synchronized Benchmarks (UCC 25)",
+    "source_url": "https://arxiv.org/pdf/2511.03533",
+    "bytes": 759518,
+    "sha256": "de2a9fcf9c228e2ceb53d90e40766392873edc8297367322189ee50bc3d8e456",
+    "downloaded_on": "2026-11-22",
+    "magic": "%PDF-"
+  },
+  {
+    "filename": "2025-Shahedi-Method-Level-Perf-Evolution-Java-arXiv-2508.07084.pdf",
+    "title": "An Empirical Study on Method-Level Performance Evolution in Open-Source Java Projects",
+    "source_url": "https://arxiv.org/pdf/2508.07084",
+    "bytes": 1426985,
+    "sha256": "d98feb3d3dad76998ab2093239d35e8bccc9272c5df48258353b7f9161ec4443",
+    "downloaded_on": "2026-11-22"
+  },
+  {
+    "filename": "2026-FormulaCode-arXiv-2603.16011.pdf",
+    "title": "FormulaCode: Evaluating Agentic Optimization on Large Codebases",
+    "source_url": "https://arxiv.org/pdf/2603.16011",
+    "bytes": 3430646,
+    "sha256": "23c0426a3be7eccfba1892eb3cfe74fc91e4839d4a666a7c2a09dad7fd7bae29",
+    "downloaded_on": "2026-11-22"
+  },
+  {
+    "filename": "2025-Henning-When-Should-I-Run-My-Application-Benchmark-FSE.pdf",
+    "title": "When Should I Run My Application Benchmark? Studying Cloud Performance Variability for the Case of Stream Processing Applications",
+    "source_url": "https://arxiv.org/pdf/2504.11826",
+    "bytes": 1906578,
+    "sha256": "f4ac08d6f578a4a1f35b68584d00d4778f1efc5cc587eb32323a5da361968e15",
+    "downloaded_on": "2026-11-22"
   }
 ]

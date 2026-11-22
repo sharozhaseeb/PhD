@@ -1,0 +1,101 @@
+{
+ "frozen_at": "2026-11-22T15:31+05:00 (before any night measurement)",
+ "plan": "results/raw/night-2026-11-22/PLAN.md",
+ "aa": {
+  "s02": {
+   "state_sha": "d3d79cc8f0b6f708cc9f35277a8b170b61064959",
+   "cases": [
+    "benchmark_neighbors.NonNeighbors.time_complete(100)",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')"
+   ],
+   "processes": 2
+  },
+  "s08": {
+   "state_sha": "52b7255afe5d291d019230f32f9662c01926377f",
+   "cases": [
+    "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths"
+   ],
+   "processes": 2
+  },
+  "s01": {
+   "state_sha": "867fda8df9a3d7bf381ce3c7955ada4bace9f079",
+   "cases": [
+    "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')"
+   ],
+   "processes": 2
+  },
+  "s09": {
+   "state_sha": "b85a99864d2dad36e20a2dcc1a56f162e3dbb122",
+   "cases": [
+    "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')"
+   ],
+   "processes": 5
+  }
+ },
+ "repeat": {
+  "01": {
+   "state_sha": "867fda8df9a3d7bf381ce3c7955ada4bace9f079",
+   "tier1": [
+    "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')"
+   ],
+   "tier2_n": 170
+  },
+  "02": {
+   "state_sha": "d3d79cc8f0b6f708cc9f35277a8b170b61064959",
+   "tier1": [
+    "benchmark_neighbors.NonNeighbors.time_complete(100)",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+    "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')"
+   ],
+   "tier2_n": 162
+  },
+  "03": {
+   "state_sha": "e773a6af2363440e319f68be10bfed9d89e098c9",
+   "tier1": [
+    "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+    "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+    "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')"
+   ],
+   "tier2_n": 168
+  },
+  "04": {
+   "state_sha": "33152ccb8c82c4f2eda66a2f19915674ae96aa0b",
+   "tier1": [],
+   "tier2_n": 171
+  },
+  "08": {
+   "state_sha": "52b7255afe5d291d019230f32f9662c01926377f",
+   "tier1": [
+    "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths"
+   ],
+   "tier2_n": 170
+  }
+ },
+ "drift": {
+  "state_sha": "181f295117f7f7488644c87f04699290f8e49188",
+  "canary": [
+   "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')",
+   "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')",
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')"
+  ],
+  "passes": 3
+ },
+ "bn": {
+  "state_sha": "f51ed862e619dcff7b7b3691e58d5fc6ead4076b",
+  "time_cases": 840,
+  "passes": 2
+ }
+}

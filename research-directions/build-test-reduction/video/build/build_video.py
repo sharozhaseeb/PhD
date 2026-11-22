@@ -75,7 +75,7 @@ def card_roadmap():
     rows = ["What the literature and existing optimizers do",
             "Future work the papers themselves state",
             "The gap we found, and what we do not claim",
-            "The experiment designed on that gap, and its status so far",
+            "The experiment designed on that gap, and its pilot results",
             "What comes next"]
     y = 310
     for i, r in enumerate(rows, 1):
@@ -551,6 +551,175 @@ def card_coverage():
     return chrome(im, "Part 4 \u00b7 Benchmarks and latent faults", "03-experiment/results/results.md (Benchmark selection; Fault detection, latent re-check); raw/networkx/profile/S0_181f2951.json")
 
 
+# ---------------------------------------------------------------- v11 Part 4 (final results, 2026-11-22)
+def _rmd():
+    return re.sub(r"\s+", " ", (RES / "results.md").read_text(encoding="utf-8"))
+
+
+def chk(*strings, src=None):
+    """Every string shown on a card must appear verbatim in its source (results.md unless given)."""
+    txt = src if src is not None else _rmd()
+    for x in strings:
+        assert x in txt, "not in source: " + x
+    return True
+
+
+def bullets(d, x, y, items, size=26, width=1740, gap=16, col=None):
+    for it in items:
+        d.rectangle((x, y + size // 2, x + 10, y + size // 2 + 10), fill=ACC)
+        y = text_wrap(d, (x + 26, y), it, F(SANS, size), col or INK, width - 26, 5) + gap
+    return y
+
+
+def card_r1():
+    import matplotlib; matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    chk("659–2444 s", "≈ 730 s", "8–28×", "87–96 %", "80–94 %", "132–171 s", "1.5–2×", "≈ 0.15 %", "≈ 87 s", "≈ 3.7×", "16–18 %", "71–89 s")
+    rows = [("Build (pip install -e), median", 1.19, 1.19), ("Serial tests, per edit", 71, 89),
+            ("Benchmark timing loops, per pass", 132, 171), ("Setup cached (estimate, not measured)", 130, 170),
+            ("Full benchmark pass, 6 passes", 659, 2444)]
+    fig, ax = plt.subplots(figsize=(10.6, 4.6), dpi=100)
+    fig.patch.set_facecolor("#fbfaf7"); ax.set_facecolor("#fbfaf7")
+    for i, (lab, lo, hi) in enumerate(rows):
+        est = "estimate" in lab
+        ax.barh(i, max(hi - lo, hi * 0.06), left=lo if hi > lo else lo * 0.97, height=0.5,
+                color="none" if est else ("#be5c14" if "pass" in lab and "Full" in lab else "#4a6fa5"),
+                edgecolor="#be5c14" if est else "none", hatch="//" if est else None, lw=1.5)
+        ax.text(hi * 1.12, i, (f"{lo:g} s" if lo == hi else f"{lo:g}\u2013{hi:g} s"), va="center", fontsize=12, color="#1c2230")
+    ax.plot([730], [4], marker="|", ms=26, mew=3, color="#1c2230"); ax.text(730, 4.42, "median \u2248 730 s", ha="center", fontsize=10)
+    ax.set_xscale("log"); ax.set_xlim(0.8, 12000); ax.invert_yaxis()
+    ax.set_yticks(range(len(rows)), [r[0] for r in rows], fontsize=12); ax.set_xlabel("seconds (log scale)", fontsize=12)
+    for sp in ("top", "right"):
+        ax.spines[sp].set_visible(False)
+    ax.grid(axis="x", color="#e3e0d8"); ax.set_axisbelow(True)
+    fig.tight_layout(); fig.savefig(OUT / "r1_chart.png", facecolor=fig.get_facecolor()); plt.close(fig)
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.text((90, 80), "R1 \u00b7 Where the per-edit cost is (networkx)", font=F(SERIFB, 48), fill=INK)
+    pill(d, 90, 152, "PRELIMINARY \u00b7 SINGLE PASSES, NOISY-LABELLED")
+    im.paste(Image.open(OUT / "r1_chart.png"), (40, 215))
+    bullets(d, 1130, 235, [
+        "Benchmarks \u2248 8\u201328\u00d7 build + serial tests (\u2248 87 s); \u2248 8\u00d7 at the median pass.",
+        "87\u201396 % of a pass is one module's 49 benchmark_algorithms cases; 80\u201394 % of a pass is outside the timing loops.",
+        "Setup cached: \u2248 1.5\u20132\u00d7 build + tests (estimate, not measured).",
+        "Build: \u2248 0.15 % once benchmarks count. bottleneck: \u2248 16\u201318 % of build + tests, before benchmarks (noisy).",
+        "Cost is itself noisy: \u2248 3.7\u00d7 spread across 6 passes; one module's setup drifts \u2248 1.7\u20133\u00d7 within a protocol (cause unknown)."],
+        size=24, width=720, gap=12)
+    return chrome(im, "Part 4 \u00b7 R1 cost", "03-experiment/results/results.md (RQ1 headline; RQ1; Bottleneck); knowledge-base/findings.md R1, R2, R4, N7")
+
+
+def card_b1():
+    md = _rmd()
+    chk("9/15", "60 %", "36–80 %", "4/15", "11–52 %", "B1 is established on networkx only", "18/20", "4/8")
+    sec = md.split("Finding B1")[1].split("Finding B2")[0]
+    covered = {int(a): int(b) for a, b in re.findall(r"(\d+): (\d+)", re.search(r"\(steps ([^)]*)\)", sec.split("The other 6 edits")[1]).group(1))}
+    nonopt = [int(x) for x in re.findall(r"step (\d+) `[0-9a-f]+`", sec)]
+    assert sorted(nonopt) == [8, 13, 17], nonopt
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.text((90, 80), "B1 \u00b7 The oracle gap, part 1: coverage", font=F(SERIFB, 48), fill=INK)
+    pill(d, 90, 152, "PRELIMINARY \u00b7 COUNTS \u00b7 NETWORKX ONLY")
+    d.text((90, 225), "9/15 true optimizations (60 %, Wilson 36\u201380 %) change no function any benchmark executes.", font=F(SANSB, 31), fill=ACC)
+    x0, w, y0 = 90, 96, 285
+    for k in range(1, 19):
+        c = covered.get(k); no = k in nonopt
+        fill = (245, 243, 238) if no else ((74, 111, 165) if c else (225, 222, 214))
+        d.rounded_rectangle((x0 + (k - 1) * w, y0, x0 + (k - 1) * w + w - 10, y0 + 80), radius=8, fill=fill,
+                            outline=(170, 165, 155) if no else None, width=2)
+        tc = (255, 255, 255) if (c and not no) else INK
+        d.text((x0 + (k - 1) * w + 10, y0 + 6), str(k), font=F(SANSB, 22), fill=tc)
+        lab = "not opt." if no else (f"{c} case{'s' if c != 1 else ''}" if c else "none")
+        d.text((x0 + (k - 1) * w + 10, y0 + 40), lab, font=F(SANS, 19), fill=(255, 255, 255) if (c and not no) else MUTED)
+    d.text((90, y0 + 92), "replayed step 1\u201318 \u00b7 blue: benchmark cases that execute a changed function (S0 profile) \u00b7 outlined: not an optimization (steps 8, 13, 17)",
+           font=F(SANS, 21), fill=MUTED)
+    bullets(d, 90, 440, [
+        "By static call graph: 4/15 (27 %, Wilson 11\u201352 %).",
+        "\u201cMany\u201d, not \u201cmost\u201d: the confidence interval includes 36 %.",
+        "So even FULL benchmarking cannot confirm many of these claimed speed-ups with the project's own suite.",
+        "B1 is established on networkx only. Elsewhere it was not validly tested: geopandas 18/20 (static, old base; not established), pvlib not informative, bottleneck 4/8 as frozen."],
+        size=27, width=1740, gap=14)
+    return chrome(im, "Part 4 \u00b7 B1 oracle gap: coverage", "03-experiment/results/results.md (Finding B1; networkx edit sets; Q3); meeting pack A13")
+
+
+def card_power():
+    chk("3 of 10", "10.8–60.3", "2 of 10", "not measurable", "0 false verdicts in 46", "7.7 %", "2 of the 3", "1 slower in 50", "1.13×", "p = 0.0019", "0.97–1.01×")
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.text((90, 80), "The oracle gap, part 2: power", font=F(SERIFB, 48), fill=INK)
+    pill(d, 90, 152, "PRELIMINARY \u00b7 SINGLE ORACLE RUN \u00b7 PROVISIONAL")
+    d.text((90, 225), "Slowdown oracle (10 frozen slowdowns, FULL benchmarks)", font=F(SANSB, 30), fill=ACC)
+    y = bullets(d, 90, 275, [
+        "Detected: 3 of 10 as classified (Wilson 10.8\u201360.3 %), 2 of 10 on target, 0 in the pre-set bands.",
+        "Pre-registered result: regression safety of reduced selection is not measurable on networkx with the frozen set.",
+        "Of the 7 FULL misses, 5 are reached by no benchmark: the suite, not the selection rule, limits detection."], size=27) + 10
+    d.text((90, y), "Noise floor and profile completeness", font=F(SANSB, 30), fill=ACC)
+    bullets(d, 90, y + 50, [
+        "A/A: 0 false verdicts in 46 comparisons (Wilson upper bound 7.7 %, optimistic); only \u2248 2\u00d7 slowdowns reliably caught on 2 of the 3 sampled benchmark_algorithms cases.",
+        "Profile-completeness check (not safety evidence): 1 slower in 50 (#9, 1.13\u00d7, p = 0.0019). A post-hoc re-check did not confirm it (0.97\u20131.01\u00d7); the pre-registered flag stands."],
+        size=27)
+    return chrome(im, "Part 4 \u00b7 Oracle gap: power", "03-experiment/results/results.md (Slowdown oracle; Benchmark A/A noise floor; profile-completeness check)")
+
+
+def card_t1():
+    chk("121 824", "1548", "1634", "1413", "3 583", "330", "404", "461", "221", "0 / 20", "2 / 20", "0–16.1 %", "2.8–30.1 %", "279.7 s", "88.0 s")
+    rows = [("A0 FULL", "121 824", "1548", "1634 first runs; 1413 re-runs (noisy)", "0 / 20", "0\u201316.1 %"),
+            ("A2 testmon (PerfAgent-style)", "3 583", "330", "404 (concurrent, pinned)", "0 / 20", "0\u201316.1 %"),
+            ("A3 changed-module", "461", "221", "\u2014", "2 / 20", "2.8\u201330.1 %")]
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.text((90, 80), "T1 \u00b7 Functional test selection: a solved, modest win", font=F(SERIFB, 46), fill=INK)
+    pill(d, 90, 152, "PRELIMINARY \u00b7 18 EDITS \u00b7 SIMULATED MISSES, N = 20")
+    cols = [("Arm", 90), ("Tests run", 620), ("Est. end-to-end s", 820), ("Measured end-to-end s", 1080), ("Missed", 1510), ("95 % Wilson", 1660)]
+    y = 230
+    for t, x in cols:
+        d.text((x, y), t, font=F(SANSB, 23), fill=INK)
+    d.line((90, y + 38, 1830, y + 38), fill=(205, 200, 190), width=2); y += 52
+    for r in rows:
+        tm = "testmon" in r[0]
+        for (t, x), v in zip(cols, r):
+            text_wrap(d, (x, y), v, F(SANSB if tm else SANS, 23), ACC if tm else INK, 400 if x == 1080 else 520, 2)
+        y += 66
+    bullets(d, 90, y + 10, [
+        "testmon is \u2248 3.5\u20134\u00d7 cheaper than FULL end to end (1634 s or 1413 s vs 404 s), not the 15\u00d7 that test-seconds suggest; its first database build took 279.7 s vs 88.0 s plain.",
+        "Worked edit (step 10): 6,768 \u2192 20 tests; about 86 s \u2192 14 s end to end (\u2248 6\u00d7), because pytest startup remains.",
+        "Mutants are filtered by FULL and caught almost by construction: not a safety guarantee. A3's misses come from test-file naming.",
+        "PerfAgent already uses testmon per edit: this part is not new."], size=25, gap=12)
+    return chrome(im, "Part 4 \u00b7 T1 testmon", "03-experiment/results/results.md (RQ2/RQ3; Fault detection); results/worked-edit.md; knowledge-base/findings.md T1, T2")
+
+
+def card_a4():
+    chk("655", "330", "541", "1.7–6×", "27 338", "13 350", "k ≈ 4", "0 latent faults", "171/171")
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.text((90, 80), "A4 \u00b7 Our policy does not help on this data", font=F(SERIFB, 48), fill=INK)
+    pill(d, 90, 152, "PRELIMINARY \u00b7 SIMULATED \u00b7 HONEST NEGATIVES")
+    d.text((90, 225), "(a) Design limitation", font=F(SANSB, 30), fill=ACC)
+    y = bullets(d, 90, 275, ["The functional fault model cannot tell selection rules apart: mutants sit in the edited functions, so every per-edit arm catches them at injection by construction."], size=27) + 8
+    d.text((90, y), "(b) A4 as implemented costs more", font=F(SANSB, 30), fill=ACC)
+    y = bullets(d, 90, y + 50, [
+        "Tests + build: A4 655 s (est.) is dominated by plain testmon (330 s) and testmon + full every k=8 (541 s), all 20/20 caught.",
+        "With benchmarks counted, batching is 1.7\u20136\u00d7 cheaper than per-edit arms; A4 \u2248 2\u00d7 batching (27 338 s vs \u2248 13 350 s). This depends on B2: profile selection collapses to 171/171 without checkpoint re-profiling.",
+        "A4 behaves like periodic full checks at k \u2248 4; accumulation: 0 latent faults of 5 (pre-registered null stands)."], size=27) + 8
+    d.text((90, y), "No \u201cA4 beats batching\u201d claim.", font=F(SANSB, 28), fill=INK)
+    return chrome(im, "Part 4 \u00b7 A4 negatives", "03-experiment/results/results.md (RQ3 \u2014 C5 batching comparators; Fault detection; Finding B2)")
+
+
+def card_future11():
+    a13 = (ROOT / "meeting-2026-11-advisor/01-agenda-and-asks.md").read_text(encoding="utf-8")
+    assert "B1 was not validly tested elsewhere" in a13 and "pre-registered B1 replication" in a13
+    rows = [("1 \u00b7 Pre-registered B1 replication first (ask A13)", "B1 was not validly tested outside networkx. Measured profiles at each edit's parent, a stricter mining rule fixed before mining, a diff-based check of each edit; decide on a pivot after.", "meeting-2026-11-advisor/01-agenda-and-asks.md, A13"),
+            ("2 \u00b7 Checkpoint re-profiling (B2)", "So profile-based benchmark selection has its input after each full check.", "03-experiment/results/results.md, Finding B2"),
+            ("3 \u00b7 A fault model that separates rules", "Faults in callers or callees and interaction faults (planned, not built).", "meeting-2026-11-advisor/03-results-summary.md, S4"),
+            ("4 \u00b7 Measure what was estimated", "A setup-cached benchmark pass; the scikit-learn heavy-build cost (not run).", "03-results-summary.md, S1"),
+            ("5 \u00b7 Literature and comparators", "W1: benchmark coverage of performance-improving commits (novelty risk: WEDGE/PerfForge); NameRTS after the meeting.", "A13; 03-experiment/readiness.md \u00a73"),
+            ("6 \u00b7 Next study", "AI-based selection, measured against this deterministic baseline.", "pm/CHARTER.md")]
+    im = canvas(); d = ImageDraw.Draw(im)
+    d.text((90, 80), "5", font=F(SERIFB, 90), fill=ACC)
+    d.text((180, 98), "Future work", font=F(SERIFB, 54), fill=INK)
+    y = 220
+    for a, b, c in rows:
+        d.text((90, y), a, font=F(SANSB, 28), fill=INK)
+        y2 = text_wrap(d, (90, y + 38), b, F(SANS, 26), INK, 1740, 4)
+        d.text((90, y2), c, font=F(SANS, 20), fill=MUTED)
+        y = y2 + 34
+    return chrome(im, "Part 5 \u00b7 Future work", "files named under each item")
+
+
 def card_future():
     rows = [("Benchmark coverage of optimized code (W3, B1)", "Most replayed edits are executed by no benchmark; how to confirm their speed-ups", "03-experiment/results/results.md, Finding B1"),
             ("Checkpoint re-profiling (W3, B2)", "Re-measure profiles at each full check so profile-based benchmark selection has its input", "03-experiment/results/results.md, Finding B2"),
@@ -573,7 +742,7 @@ def card_close():
     im = canvas(); d = ImageDraw.Draw(im)
     d.text((160, 360), "Study 1: where it stands", font=F(SERIFB, 70), fill=INK)
     d.rectangle((160, 470, 240, 476), fill=ACC)
-    d.text((160, 510), "Literature and practice survey final  ·  gap stated  ·  experiment in preparation", font=F(SANS, 36), fill=MUTED)
+    d.text((160, 510), "Literature and practice survey final  ·  gap stated  ·  pilot results preliminary", font=F(SANS, 36), fill=MUTED)
     text_wrap(d, (160, 860), "Narration is synthetic; documents and analyses were prepared with AI assistance and reviewed by the student.",
               F(SANS, 28), MUTED, 1600)
     return im
@@ -624,15 +793,12 @@ SEGMENTS = [
     ("12", "doc", "w3_targets", "12_targets", dict(part=PART[4], src="03-experiment/readiness.md §1.2", a=(.5, .5, 1), b=(.4, .5, 1.1))),
     ("13", "doc", "w3_replay", "13_replay", dict(part=PART[4], src="03-experiment/readiness.md §2", a=(.5, .5, 1), b=(.45, .5, 1.08))),
     ("14", "doc", "w3_arms", "14_arms", dict(part=PART[4], src="03-experiment/readiness.md §3", a=(.5, 0, 1), b=(.5, 1, 1), move=(0.12, 0.88))),
-    ("15b", "card", card_cost, "15b_cost", {}),
-    ("15g", "card", card_bench, "15g_bench", {}),
-    ("15c", "card", card_contrast, "15c_contrast", {}),
-    ("15d", "card", card_rq2, "15d_rq2", {}),
-    ("15e", "card", card_worked, "15e_worked", {}),
-    ("15h", "card", card_faults, "15h_faults", {}),
-    ("15i", "card", card_coverage, "15i_coverage", {}),
-    ("15f", "card", card_findings, "15f_findings", {}),
-    ("17", "card", card_future, "17_future", {}),
+    ("15r1", "card", card_r1, "15r1_cost", {}),
+    ("15b1", "card", card_b1, "15b1_coverage", {}),
+    ("15pw", "card", card_power, "15pw_power", {}),
+    ("15t1", "card", card_t1, "15t1_testmon", {}),
+    ("15a4", "card", card_a4, "15a4_negatives", {}),
+    ("17", "card", card_future11, "17_future", {}),
     ("18", "card", card_close, "18_close", dict(hold=5.0)),
 ]
 LEAD, TAIL = 0.4, 0.4

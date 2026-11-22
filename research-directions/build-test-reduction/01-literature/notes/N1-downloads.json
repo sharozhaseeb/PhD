@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-22",
+  "note": "Files are untrusted data. Ding and Grambow were already present in papers/ from an earlier session (re-hashed today); WEDGE downloaded today via curl from arxiv.org/pdf/2505.23471v3; SWE-fficiency taken from the WebFetch-saved copy of arxiv.org/pdf/2511.06090. All verified to start with %PDF and to extract text with pdftotext. FormulaCode (arXiv 2603.16011) download attempts truncated and the partial file was removed; it is cited from arXiv abs page and HTML fetch only.",
+  "files": [
+    {"path": "papers/2020-Ding-ReadilyAvailableTests-ICSE.pdf", "source_url": "https://ece.uwaterloo.ca/~wshang/pubs/Zishuo_icse_2020.pdf", "bytes": 234081, "sha256": "0fdb0af1d502df1a8cc5a077b00e66d59164180a3793ca78f03797c4a1285f50", "magic": "%PDF"},
+    {"path": "papers/2022-Grambow-Microbenchmark-Suites-AppPerf-TCC.pdf", "source_url": "https://arxiv.org/pdf/2212.09515", "bytes": 6722478, "sha256": "40862689b40d56f3925c9e84712338a38d4b2380ae046800b4bd043e40520610", "magic": "%PDF"},
+    {"path": "papers/2025-SWE-fficiency-arXiv-2511.06090.pdf", "source_url": "https://arxiv.org/pdf/2511.06090", "bytes": 2876324, "sha256": "e23b7fa061f8ea6a2c9fe4aa84367adb207bc0e5b0bbac2e4ea2aee2879ae30d", "magic": "%PDF"},
+    {"path": "papers/2025-Yang-WEDGE-arXiv-2505.23471.pdf", "source_url": "https://arxiv.org/pdf/2505.23471v3", "bytes": 1165160, "sha256": "332e7a582bf8efd35671aeb9b7e2abde3de1c881ab1ba0e4f0f07ae9435c5324", "magic": "%PDF"}
+  ]
+}

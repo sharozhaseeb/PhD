@@ -66,3 +66,8 @@ Order after beat 14 (arms): 15b RQ1 test cost chart (all 19 states; S16 noisy, S
 Dropped for length: the readiness §4.4/§5 reporting-rules doc beat and the separate data-prep card.
 
 Every Part 4 number is parsed from `03-experiment/results/` at build time; the parsed values are written to `bt-lab/video/*_facts.json`.
+
+## v11 (2026-11-22, final results): Part 4 rebuilt
+
+Story order (PM, 15:03): 15r1 R1 cost → 15b1 B1 coverage (18-step strip, 9/15 true optimizations) → 15pw oracle power (slowdown oracle, A/A, profile completeness) → 15t1 testmon (T1) → 15a4 A4 negatives → 17 future work led by A13 (pre-registered B1 replication first).
+Every Part 4 card asserts at build time that each number it shows appears verbatim in `03-experiment/results/results.md` (A13 wording: `meeting-2026-11-advisor/01-agenda-and-asks.md`). Superseded figures (≥ 0.9 h, 40–180×, bottleneck 22 %, "most", "10×") no longer appear.

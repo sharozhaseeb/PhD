@@ -1,0 +1,4 @@
+move.so          stale-vs-clean raw:DIFF stripped:DIFF
+nonreduce.so     stale-vs-clean raw:DIFF stripped:DIFF
+nonreduce_axis.so stale-vs-clean raw:DIFF stripped:DIFF
+reduce.so        stale-vs-clean raw:DIFF stripped:DIFF

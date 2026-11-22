@@ -1,0 +1,19 @@
+f51ed862e619dcff7b7b3691e58d5fc6ead4076b
+96
+BUILD_RC=0
+copying build/lib.linux-x86_64-3.8/bottleneck/nonreduce_axis.cpython-38-x86_64-linux-gnu.so -> bottleneck
+
+real	0m6.242s
+user	0m5.560s
+sys	0m1.523s
+bottleneck/move.cpython-38-x86_64-linux-gnu.so
+bottleneck/nonreduce.cpython-38-x86_64-linux-gnu.so
+bottleneck/nonreduce_axis.cpython-38-x86_64-linux-gnu.so
+bottleneck/reduce.cpython-38-x86_64-linux-gnu.so
+TEST_RC=0
+........................................................................ [ 75%]
+...............................................                          [100%]
+- generated xml file: /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/bottleneck/s0-junit.xml -
+191 passed in 24.32s
+1.4.0.dev0+2.gf51ed86 1.19.5
+?? bottleneck/src/bn_config.h

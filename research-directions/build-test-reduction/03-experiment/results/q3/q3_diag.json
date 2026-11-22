@@ -1,0 +1,361 @@
+{
+ "geopandas": {
+  "n_edits": 20,
+  "n_with_suite_at_parent": 20,
+  "static_unreached_among_with_suite": 18,
+  "name_unreached_among_with_suite": 7,
+  "edits": [
+   {
+    "sha": "16ee64f7de",
+    "date": "2017-11-20",
+    "suite_at_parent": true,
+    "n_bench_files": 6,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "7d50380229",
+    "date": "2018-07-15",
+    "suite_at_parent": true,
+    "n_bench_files": 6,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/tools/overlay.py::overlay"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "48653f3e94",
+    "date": "2018-07-27",
+    "suite_at_parent": true,
+    "n_bench_files": 6,
+    "static_unreached": false,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "4f933d38f1",
+    "date": "2018-12-09",
+    "suite_at_parent": true,
+    "n_bench_files": 6,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "d39b6429c9",
+    "date": "2019-04-16",
+    "suite_at_parent": true,
+    "n_bench_files": 7,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/geoseries.py::GeoSeries.to_crs"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "d52326523b",
+    "date": "2019-09-14",
+    "suite_at_parent": true,
+    "n_bench_files": 7,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/tools/sjoin.py::sjoin"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "c42f9e4a97",
+    "date": "2020-09-21",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/sindex.py::RTreeIndex.is_empty"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "5759f0c4ec",
+    "date": "2021-01-28",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": false,
+    "name_reached": [
+     "benchmarks/geom_methods.py::Bench.setup",
+     "geopandas/geoseries.py::GeoSeries.explode"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "fc60ece191",
+    "date": "2021-05-28",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "fed13df9e5",
+    "date": "2021-09-24",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/geoseries.py::GeoSeries.explode"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "3d0d7e48ff",
+    "date": "2021-09-25",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/tools/overlay.py::overlay"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "39834890c4",
+    "date": "2021-09-25",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/sindex.py::PyGEOSSTRTreeIndex.valid_query_predicates"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "46f98addbf",
+    "date": "2021-09-27",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/tools/sjoin.py::sjoin"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "6802f43e51",
+    "date": "2021-10-01",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/tools/clip.py::clip"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "f8b2fc2bd3",
+    "date": "2023-01-19",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/array.py::GeometryArray.to_crs"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "35463adda6",
+    "date": "2023-07-01",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/geodataframe.py::GeoDataFrame.overlay",
+     "geopandas/tools/overlay.py::overlay"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "fdb1960bf6",
+    "date": "2024-05-19",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "a61af6e318",
+    "date": "2024-06-07",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "6286f13f8d",
+    "date": "2025-01-17",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "99d5cc98b1",
+    "date": "2025-02-26",
+    "suite_at_parent": true,
+    "n_bench_files": 9,
+    "static_unreached": true,
+    "name_reached": [
+     "geopandas/geodataframe.py::GeoDataFrame.overlay",
+     "geopandas/tools/overlay.py::overlay"
+    ],
+    "name_unreached": false
+   }
+  ]
+ },
+ "pvlib-python": {
+  "n_edits": 14,
+  "n_with_suite_at_parent": 9,
+  "static_unreached_among_with_suite": 9,
+  "name_unreached_among_with_suite": 8,
+  "edits": [
+   {
+    "sha": "3aefbd627f",
+    "date": "2014-08-27",
+    "suite_at_parent": false,
+    "n_bench_files": 0,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": false
+   },
+   {
+    "sha": "9b4af46a49",
+    "date": "2017-02-16",
+    "suite_at_parent": false,
+    "n_bench_files": 0,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": false
+   },
+   {
+    "sha": "10339eef40",
+    "date": "2018-08-14",
+    "suite_at_parent": false,
+    "n_bench_files": 0,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": false
+   },
+   {
+    "sha": "5ee82b1c3f",
+    "date": "2018-10-05",
+    "suite_at_parent": false,
+    "n_bench_files": 0,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": false
+   },
+   {
+    "sha": "7b17d621b6",
+    "date": "2018-11-05",
+    "suite_at_parent": false,
+    "n_bench_files": 0,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": false
+   },
+   {
+    "sha": "3269dc7470",
+    "date": "2021-03-18",
+    "suite_at_parent": true,
+    "n_bench_files": 8,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "50dcc7fe41",
+    "date": "2021-05-07",
+    "suite_at_parent": true,
+    "n_bench_files": 8,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "01a23e31bc",
+    "date": "2021-05-26",
+    "suite_at_parent": true,
+    "n_bench_files": 8,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "c1856ac5a7",
+    "date": "2023-03-17",
+    "suite_at_parent": true,
+    "n_bench_files": 10,
+    "static_unreached": true,
+    "name_reached": [
+     "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.setup",
+     "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_fixed",
+     "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_poa_fixed",
+     "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_poa_tracking",
+     "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_tracking",
+     "pvlib/bifacial/infinite_sheds.py::get_irradiance",
+     "pvlib/bifacial/infinite_sheds.py::get_irradiance_poa"
+    ],
+    "name_unreached": false
+   },
+   {
+    "sha": "fc8eebb4d3",
+    "date": "2023-09-21",
+    "suite_at_parent": true,
+    "n_bench_files": 10,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "a994fb7e63",
+    "date": "2025-09-23",
+    "suite_at_parent": true,
+    "n_bench_files": 10,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "74ded02044",
+    "date": "2025-10-03",
+    "suite_at_parent": true,
+    "n_bench_files": 10,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "31ccbb5e14",
+    "date": "2025-12-03",
+    "suite_at_parent": true,
+    "n_bench_files": 10,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   },
+   {
+    "sha": "2803eb8641",
+    "date": "2026-02-04",
+    "suite_at_parent": true,
+    "n_bench_files": 10,
+    "static_unreached": true,
+    "name_reached": [],
+    "name_unreached": true
+   }
+  ]
+ }
+}

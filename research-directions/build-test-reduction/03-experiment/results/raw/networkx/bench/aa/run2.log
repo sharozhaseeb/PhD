@@ -1,0 +1,9 @@
+2026-11-22T11:05:06+05:00 A/A start (amendment 1): 23 cases, 5 processes x 3 values x 2 repeats (rep0 A-first, rep1 B-first)
+2026-11-22T11:05:13+05:00 gate: loadavg=0.06 wincpu=11.0 ok=1/3
+2026-11-22T11:06:21+05:00 gate: loadavg=0.63 wincpu=79.0 ok=0/3
+2026-11-22T11:07:29+05:00 gate: loadavg=0.24 wincpu=84.0 ok=0/3
+2026-11-22T11:08:36+05:00 gate: loadavg=0.12 wincpu=17.0 ok=1/3
+2026-11-22T11:09:43+05:00 gate: loadavg=0.09 wincpu=17.0 ok=2/3
+2026-11-22T11:10:49+05:00 gate: loadavg=0.37 wincpu=9.0 ok=3/3
+interleave: 92 entries -> /tmp/tmpqzjmefrh/i.json
+2026-11-22T11:53:34+05:00 A/A done in 2559s; peak load 1.06; errors 0

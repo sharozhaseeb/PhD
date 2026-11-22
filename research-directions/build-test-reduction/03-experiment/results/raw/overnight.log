@@ -340,3 +340,29 @@ LOAD GATE: 1.75 > 1.5 — label noisy
 {"repeat":3,"base":"f51ed862","clean_s":4.719,"null_s":0.179,"one_template_s":2.198,"bottleneck_h_s":2.813,"loadavg":"2.35 2.01 2.00"}
 2026-11-21T20:04:00+05:00 === 2. slowdown oracle
 interleave: 40 entries -> /tmp/tmpl91qp0po/i.json
+0 networkx/algorithms/distance_regular.py::global_parameters not detected by FULL (excluded) 0 benches
+interleave: 1026 entries -> /tmp/tmpm_s0ay_1/i.json
+1 networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra moderate (1.2-1.5x) 171 benches
+interleave: 1026 entries -> /tmp/tmp5glvvvkw/i.json
+2 networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource other-slower 171 benches
+interleave: 1026 entries -> /tmp/tmpazsz015q/i.json
+3 networkx/algorithms/components/connected.py::is_connected not detected by FULL (excluded) 171 benches
+interleave: 1026 entries -> /tmp/tmp5bxq1emd/i.json
+4 networkx/algorithms/shortest_paths/unweighted.py::_single_shortest_path not detected by FULL (excluded) 171 benches
+interleave: 40 entries -> /tmp/tmp8kuew2pp/i.json
+5 networkx/algorithms/shortest_paths/dense.py::floyd_warshall_tree not detected by FULL (excluded) 0 benches
+interleave: 40 entries -> /tmp/tmp2ry6tqqk/i.json
+6 networkx/algorithms/isomorphism/isomorph.py::could_be_isomorphic not detected by FULL (excluded) 0 benches
+interleave: 40 entries -> /tmp/tmpy44dghe5/i.json
+7 networkx/algorithms/centrality/katz.py::katz_centrality_numpy not detected by FULL (excluded) 0 benches
+interleave: 1026 entries -> /tmp/tmprtaf3vs7/i.json
+8 networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors other-slower 171 benches
+interleave: 40 entries -> /tmp/tmpukcfw1fz/i.json
+9 networkx/algorithms/isomorphism/isomorphvf2.py::DiGMState.__init__ not detected by FULL (excluded) 0 benches
+2026-11-22T05:10:13+05:00 === 3. bottleneck iterators.h hazard study
+2026-11-22T05:30:18+05:00 === 4. measured FULL benchmark pass at S0 (asv default 2 processes x 3 values; label .idle)
+loadavg=1.63
+LOAD GATE: 1.63 > 1.5 — label noisy
+bench: 171 cases -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/bench/S0_181f2951.idle.json
+loadavg=1.00
+2026-11-22T05:58:02+05:00 === overnight done

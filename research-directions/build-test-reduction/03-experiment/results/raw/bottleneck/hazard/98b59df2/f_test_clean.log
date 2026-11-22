@@ -1,0 +1,134 @@
+
+==================================== ERRORS ====================================
+_________ ERROR collecting bottleneck/tests/input_modification_test.py _________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/input_modification_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+_____________ ERROR collecting bottleneck/tests/list_input_test.py _____________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/list_input_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+_______________ ERROR collecting bottleneck/tests/memory_test.py _______________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/memory_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+________________ ERROR collecting bottleneck/tests/move_test.py ________________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/move_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+___________ ERROR collecting bottleneck/tests/nonreduce_axis_test.py ___________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/nonreduce_axis_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+_____________ ERROR collecting bottleneck/tests/nonreduce_test.py ______________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/nonreduce_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+_______________ ERROR collecting bottleneck/tests/reduce_test.py _______________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/reduce_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+____________ ERROR collecting bottleneck/tests/scalar_input_test.py ____________
+ImportError while importing test module '/home/sharoz/bt-lab/exp/work/bn-hazard/98b59df2/clean/bottleneck/tests/scalar_input_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+bottleneck/__init__.py:2: in <module>
+    from .reduce import (
+E   ModuleNotFoundError: No module named 'bottleneck.reduce'
+
+During handling of the above exception, another exception occurred:
+/home/sharoz/.local/share/uv/python/cpython-3.8-linux-x86_64-gnu/lib/python3.8/importlib/__init__.py:127: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+bottleneck/__init__.py:35: in <module>
+    raise ImportError(
+E   ImportError: bottleneck modules failed to import, likely due to a mismatch in NumPy versions. Either upgrade numpy to 1.16+ or install with:
+E   	pip install --no-build-isolation --no-cache-dir bottleneck
+- generated xml file: /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/bottleneck/hazard/98b59df2/f_junit_clean.xml -
+=========================== short test summary info ============================
+ERROR bottleneck/tests/input_modification_test.py
+ERROR bottleneck/tests/list_input_test.py
+ERROR bottleneck/tests/memory_test.py
+ERROR bottleneck/tests/move_test.py
+ERROR bottleneck/tests/nonreduce_axis_test.py
+ERROR bottleneck/tests/nonreduce_test.py
+ERROR bottleneck/tests/reduce_test.py
+ERROR bottleneck/tests/scalar_input_test.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 8 errors during collection !!!!!!!!!!!!!!!!!!!!
+8 errors in 0.08s

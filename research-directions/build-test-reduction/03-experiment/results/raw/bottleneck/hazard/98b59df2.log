@@ -1,0 +1,62 @@
+parent_state=daf08e9bf096c2a6e48afbbdc0257bca9c26be02 commit_state=041107573764ec3cee8017442a90bd764a3d549e
+== (a) build parent state cleanly
+build rc=0 real	0m5.558s
+cols: sha256(raw) sha256(strip --strip-debug) file
+4807defb778c311e bed0234c55439d93 move.so
+5e658df38479b1c5 eea7887c7489d7ad nonreduce.so
+69d54f37b3a300a0 91d9382729069086 nonreduce_axis.so
+a03cedb82ffb7e2b 5c249f6fd0dd7617 reduce.so
+== (b) apply commit diff (= checkout of commit state)
+ bottleneck/src/iterators.h       |   2 +
+ bottleneck/src/reduce_template.c | 166 ++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 148 insertions(+), 20 deletions(-)
+== (c) INCREMENTAL build
+build rc=1 real	0m0.307s
+so files rebuilt (mtime changed) in incremental:
+== (d) CLEAN build in separate copy
+build rc=1 real	0m0.360s
+sha256sum: 'bottleneck/*.so': No such file or directory
+strip: 'bottleneck/*.so': No such file
+== (e) compare incremental vs clean
+incremental vs clean (raw / stripped):
+move.so          raw:DIFF stripped:DIFF
+nonreduce.so     raw:DIFF stripped:DIFF
+nonreduce_axis.so raw:DIFF stripped:DIFF
+reduce.so        raw:DIFF stripped:DIFF
+parent vs clean (raw / stripped):
+move.so          raw:DIFF stripped:DIFF
+nonreduce.so     raw:DIFF stripped:DIFF
+nonreduce_axis.so raw:DIFF stripped:DIFF
+reduce.so        raw:DIFF stripped:DIFF
+== probe: pre-fix setup.py (iterators.h absent from depends=), incremental from parent build
+build rc=1 real	0m0.327s
+so rebuilt in stale probe:
+move.so          stale-vs-clean raw:DIFF stripped:DIFF
+nonreduce.so     stale-vs-clean raw:DIFF stripped:DIFF
+nonreduce_axis.so stale-vs-clean raw:DIFF stripped:DIFF
+reduce.so        stale-vs-clean raw:DIFF stripped:DIFF
+== (f) tests
+inc rc=0 191 passed in 23.92s
+clean rc=2 8 errors in 0.08s
+stale rc=0 191 passed in 25.24s
+inc vs clean: 191 / 8 tests, outcome differences: 199 ['bottleneck/tests/nonreduce_axis_test.py::test_out_of_bounds_raises[argpartition-float64]', 'bottleneck/tests/scalar_input_test.py::test_scalar_input[nanargmax]', 'bottleneck/tests/nonreduce_axis_test.py::test_out_of_bounds_raises[partition-float64]', '.py::bottleneck.tests.memory_test', 'bottleneck/tests/reduce_test.py::test_arg_parse_raises[ss]', 'bottleneck/tests/nonreduce_axis_test.py::test_nonreduce_axis[push]', 'bottleneck/tests/reduce_test.py::test_arg_parsing[nanstd]', 'bottleneck/tests/move_test.py::test_arg_parse_raises[move_rank]', 'bottleneck/tests/nonreduce_test.py::test_replace_nan_int[int64]', 'bottleneck/tests/reduce_test.py::test_reduce[nanstd]']
+stale vs clean: 191 / 8 tests, outcome differences: 199 ['bottleneck/tests/nonreduce_axis_test.py::test_out_of_bounds_raises[argpartition-float64]', 'bottleneck/tests/scalar_input_test.py::test_scalar_input[nanargmax]', 'bottleneck/tests/nonreduce_axis_test.py::test_out_of_bounds_raises[partition-float64]', '.py::bottleneck.tests.memory_test', 'bottleneck/tests/reduce_test.py::test_arg_parse_raises[ss]', 'bottleneck/tests/nonreduce_axis_test.py::test_nonreduce_axis[push]', 'bottleneck/tests/reduce_test.py::test_arg_parsing[nanstd]', 'bottleneck/tests/move_test.py::test_arg_parse_raises[move_rank]', 'bottleneck/tests/nonreduce_test.py::test_replace_nan_int[int64]', 'bottleneck/tests/reduce_test.py::test_reduce[nanstd]']
+inc {'passed': 191}
+clean {'failed': 8}
+stale {'passed': 191}
+== (g) benchmarks (interleaved, 3 repeats): filter=reduce\.\w+\.time_nan(min|max)\((?!.*10000000)
+2.14 1.79 1.38 2/1181 49914
+interleave: 576 entries -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/bottleneck/hazard/98b59df2/g_bench.json
+1.63 1.81 1.49 2/1189 56275
+cases: 64 errors/skipped entries: 192
+Traceback (most recent call last):
+  File "<stdin>", line 12, in <module>
+  File "/mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/harness/bth/stats.py", line 97, in asv_rule
+    r = _ratio(ref, new)
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/harness/bth/stats.py", line 27, in _ratio
+    mr, mn = float(median(ref)), float(median(new))
+                   ^^^^^^^^^^^
+  File "/home/sharoz/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/statistics.py", line 617, in median
+    raise StatisticsError("no median for empty data")
+statistics.StatisticsError: no median for empty data

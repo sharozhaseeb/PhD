@@ -1,0 +1,234 @@
+{
+ "repo": "pvlib-python",
+ "package": "pvlib",
+ "head_at_mining": "91a21d9dc316ef04c6e585a0a263cf262b1be21f",
+ "bench_dir": "benchmarks/benchmarks",
+ "rule": "frozen/q3_project_rule.md",
+ "records": [
+  {
+   "sha": "3aefbd627f88ed0d5d1bcda0b4057595e3525c4a",
+   "date": "2014-08-27T12:44:30-04:00",
+   "subject": "improved performance for dealing with NaN input data, original fix could not handle 0-d inputs",
+   "files": [
+    "pvlib/pvl_tools.py"
+   ],
+   "src_lines": 21,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "9b4af46a49a1aa0942e048d4e7a9ce9090b16474",
+   "date": "2017-02-16T17:04:21-08:00",
+   "subject": "Added coefficients for CIGS and a-Si modules types. (#308)",
+   "files": [
+    "pvlib/atmosphere.py",
+    "pvlib/test/test_atmosphere.py"
+   ],
+   "src_lines": 41,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "10339eef40b62775cc4d3037a118cf25a940fd52",
+   "date": "2018-08-14T08:19:14-07:00",
+   "subject": "improve performance of ephemeris dataframe assembly (#529)",
+   "files": [
+    "pvlib/solarposition.py",
+    "pvlib/test/test_solarposition.py"
+   ],
+   "src_lines": 16,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "5ee82b1c3f3f6b851f9f16a4ad52b9ff8cf53375",
+   "date": "2018-10-05T15:34:49-07:00",
+   "subject": "add test for hour_angle, vectorize (#599)",
+   "files": [
+    "pvlib/solarposition.py",
+    "pvlib/test/test_solarposition.py"
+   ],
+   "src_lines": 37,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "7b17d621b6ab9d80b4aea860bef0d2b69bef0977",
+   "date": "2018-11-05T13:21:49-06:00",
+   "subject": "fix wrong deltat coefficient (#600)",
+   "files": [
+    "pvlib/spa.py",
+    "pvlib/test/test_spa.py"
+   ],
+   "src_lines": 21,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "10d54de65302b5f83d650b0ac00eaffbe44f4cdc",
+   "date": "2019-10-31T11:35:43-04:00",
+   "subject": "coefficient estimation method following DeSoto(2006) (#784)",
+   "files": [
+    "pvlib/ivtools.py",
+    "pvlib/test/test_ivtools.py"
+   ],
+   "src_lines": 236,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "236 source lines > 200"
+  },
+  {
+   "sha": "3269dc747047556db72f267680f6ca28246f9ff0",
+   "date": "2021-03-18T11:59:48-06:00",
+   "subject": "Function to calculate temperature coefficient of power for pvsyst (#1190)",
+   "files": [
+    "pvlib/ivtools/sdm.py"
+   ],
+   "src_lines": 92,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "50dcc7fe412d9e27fe06670b8057e3d8e9ce5b19",
+   "date": "2021-05-07T15:33:36-06:00",
+   "subject": "Rename eta_m and eta_m_ref to module_efficiency (#1218)",
+   "files": [
+    "pvlib/modelchain.py",
+    "pvlib/pvsystem.py",
+    "pvlib/temperature.py"
+   ],
+   "src_lines": 42,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "01a23e31bcb9e4f844c5877a48cd7681406c6696",
+   "date": "2021-05-26T10:49:35-07:00",
+   "subject": "Horizon coefficient should be allowed to go negative in the Perez transposition model (#1239)",
+   "files": [
+    "pvlib/irradiance.py"
+   ],
+   "src_lines": 1,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "a49123bd659e12b05b7a6fe68dbc14ffd624f1b1",
+   "date": "2022-12-20T19:04:55+01:00",
+   "subject": "ADR PV efficiency model from pvpltools-python (take 2) (#1602)",
+   "files": [
+    "pvlib/pvarray.py"
+   ],
+   "src_lines": 225,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "225 source lines > 200"
+  },
+  {
+   "sha": "c1856ac5a7ed4e544ca4f6ae865a975c7b41538d",
+   "date": "2023-03-17T20:11:38-04:00",
+   "subject": "Vectorize `pvlib.bifacial.utils._vf_ground_sky_2d` across `surface_tilt` (#1682)",
+   "files": [
+    "pvlib/bifacial/infinite_sheds.py",
+    "pvlib/bifacial/utils.py"
+   ],
+   "src_lines": 129,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "fc8eebb4d374b309fe4779d9164aec9a1ba8850c",
+   "date": "2023-09-21T10:13:49-04:00",
+   "subject": "`fit_pvefficiency_adr` compatibility with scipy 1.11.2 (#1866)",
+   "files": [
+    "pvlib/pvarray.py"
+   ],
+   "src_lines": 6,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "555b29a290f6d60551385777a6ed70b0f628a398",
+   "date": "2024-06-10T16:44:27+02:00",
+   "subject": "Quantum efficiency & spectral response conversion funcs (#2041)",
+   "files": [
+    "pvlib/spectrum/__init__.py",
+    "pvlib/spectrum/mismatch.py",
+    "pvlib/tools.py"
+   ],
+   "src_lines": 241,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "241 source lines > 200"
+  },
+  {
+   "sha": "a994fb7e633ee225be7a844bdae7e5b2649dd554",
+   "date": "2025-09-23T21:35:01+02:00",
+   "subject": "Add 2025 coefficients for Huld model (#2486)",
+   "files": [
+    "pvlib/pvarray.py"
+   ],
+   "src_lines": 78,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "74ded020440f0dca38648d95132a7389e1f6a2ab",
+   "date": "2025-10-03T09:05:24-04:00",
+   "subject": "Add `scipy.optimize.elementwise.find_root` (`method='chandrupatla'`) to bishop88 functions (#2498)",
+   "files": [
+    "pvlib/pvsystem.py",
+    "pvlib/singlediode.py"
+   ],
+   "src_lines": 196,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "31ccbb5e1429511672a65b12bdf9b313956a3a72",
+   "date": "2025-12-03T17:18:26+01:00",
+   "subject": "Denote Faiman default coefficients are for module temperature (#2607)",
+   "files": [
+    "pvlib/temperature.py"
+   ],
+   "src_lines": 16,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "2803eb864166f24b6a2d65a1e2167c4e11796754",
+   "date": "2026-02-04T20:14:03+05:30",
+   "subject": "Fix ZeroDivisionError in simple_efficiency when load_loss=0 (#2646)",
+   "files": [
+    "pvlib/transformer.py"
+   ],
+   "src_lines": 5,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "bba49c0c477bdb442bf889f071a7a86d03d1766e",
+   "date": "2026-02-12T02:25:58+05:30",
+   "subject": "Add simple_efficiency tests for numpy array inputs (#2661)",
+   "files": [],
+   "src_lines": 0,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "no package source files changed"
+  }
+ ]
+}

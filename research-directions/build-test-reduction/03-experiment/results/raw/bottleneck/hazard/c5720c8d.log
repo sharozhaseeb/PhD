@@ -1,0 +1,57 @@
+parent_state=df4d97a61554dd92d12f85307beb5e0196200560 commit_state=dfa701f5ea759c1e30ac3e08ba22ec8268aeb35f
+== (a) build parent state cleanly
+build rc=0 real	0m5.137s
+cols: sha256(raw) sha256(strip --strip-debug) file
+1f4af8f74567d1ed c2e81d6da45edeb1 move.so
+c1752fe1ecf1fe0a 8d52fec85cbcab75 nonreduce.so
+2b3673908ccad4c4 a5304453fce02685 nonreduce_axis.so
+011a8af28bbeda81 acb00cda53a546be reduce.so
+== (b) apply commit diff (= checkout of commit state)
+ bottleneck/src/iterators.h       |  3 ++-
+ bottleneck/src/reduce_template.c | 13 +++++++++++--
+ 2 files changed, 13 insertions(+), 3 deletions(-)
+== (c) INCREMENTAL build
+build rc=0 real	0m5.195s
+so files rebuilt (mtime changed) in incremental:
+move.so
+nonreduce.so
+nonreduce_axis.so
+reduce.so
+== (d) CLEAN build in separate copy
+build rc=0 real	0m5.334s
+== (e) compare incremental vs clean
+incremental vs clean (raw / stripped):
+move.so          raw:DIFF stripped:DIFF
+nonreduce.so     raw:DIFF stripped:DIFF
+nonreduce_axis.so raw:DIFF stripped:DIFF
+reduce.so        raw:DIFF stripped:DIFF
+parent vs clean (raw / stripped):
+move.so          raw:DIFF stripped:DIFF
+nonreduce.so     raw:DIFF stripped:DIFF
+nonreduce_axis.so raw:DIFF stripped:DIFF
+reduce.so        raw:DIFF stripped:DIFF
+== probe: pre-fix setup.py (iterators.h absent from depends=), incremental from parent build
+build rc=0 real	0m2.466s
+so rebuilt in stale probe:
+reduce.so
+move.so          stale-vs-clean raw:DIFF stripped:DIFF
+nonreduce.so     stale-vs-clean raw:DIFF stripped:DIFF
+nonreduce_axis.so stale-vs-clean raw:DIFF stripped:DIFF
+reduce.so        stale-vs-clean raw:DIFF stripped:DIFF
+== (f) tests
+inc rc=0 191 passed in 25.29s
+clean rc=0 191 passed in 24.83s
+stale rc=0 191 passed in 24.39s
+inc vs clean: 191 / 191 tests, outcome differences: 0 []
+stale vs clean: 191 / 191 tests, outcome differences: 0 []
+inc {'passed': 191}
+clean {'passed': 191}
+stale {'passed': 191}
+== (g) benchmarks (interleaved, 3 repeats): filter=\.time_(nan)?median\((?!.*10000000)
+1.10 0.84 0.79 2/1181 30620
+interleave: 576 entries -> /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/bottleneck/hazard/c5720c8d/g_bench.json
+1.38 1.42 1.10 2/1181 39868
+cases: 64 errors/skipped entries: 0
+INC vs CLEAN (ref=CLEAN): {'same': 64}
+STALE vs CLEAN: {'same': 64}
+max |log ratio| INC/CLEAN: ratio range 0.946..1.087

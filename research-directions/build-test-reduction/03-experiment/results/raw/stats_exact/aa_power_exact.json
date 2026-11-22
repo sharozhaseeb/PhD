@@ -1,0 +1,344 @@
+{
+ "scipy_auto": {
+  "median_all": {
+   "1.12": 0.475,
+   "1.2": 0.905,
+   "1.5": 1.0,
+   "2.0": 1.0
+  },
+  "median_algorithms": {
+   "1.12": 0.27,
+   "1.2": 0.345,
+   "1.5": 0.73,
+   "2.0": 0.96
+  },
+  "median_other": {
+   "1.12": 0.4775,
+   "1.2": 0.9175,
+   "1.5": 1.0,
+   "2.0": 1.0
+  },
+  "n": 23,
+  "per_case": {
+   "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.01)')": {
+    "1.12": 0.27,
+    "1.2": 0.345,
+    "1.5": 0.73,
+    "2.0": 0.92
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": {
+    "1.12": 0.02,
+    "1.2": 0.13,
+    "1.5": 0.64,
+    "2.0": 0.96
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Erdos Renyi (100, 0.9)')": {
+    "1.12": 0.92,
+    "1.2": 1.0,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')": {
+    "1.12": 0.09,
+    "1.2": 0.265,
+    "1.5": 0.805,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_remove_nodes_from('Graph')": {
+    "1.12": 0.475,
+    "1.2": 0.93,
+    "1.5": 0.99,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_subgraph_large('Graph')": {
+    "1.12": 0.305,
+    "1.2": 0.46,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_to_directed('Graph')": {
+    "1.12": 0.825,
+    "1.2": 0.97,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')": {
+    "1.12": 0.63,
+    "1.2": 0.96,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_to_undirected('MultiDiGraph')": {
+    "1.12": 0.73,
+    "1.2": 0.96,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('wheel_graph(1000)')": {
+    "1.12": 0.48,
+    "1.2": 1.0,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('directed_wheel(10)')": {
+    "1.12": 0.825,
+    "1.2": 0.98,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('wheel_graph(10)')": {
+    "1.12": 0.935,
+    "1.2": 0.98,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_complete(100)": {
+    "1.12": 0.19,
+    "1.2": 0.41,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_star_center_rim(100)": {
+    "1.12": 0.44,
+    "1.2": 0.77,
+    "1.5": 0.995,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(100)": {
+    "1.12": 0.785,
+    "1.2": 0.99,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(1000)": {
+    "1.12": 0.465,
+    "1.2": 0.635,
+    "1.5": 0.895,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.NonNeighbors.time_star_center(10)": {
+    "1.12": 0.375,
+    "1.2": 0.87,
+    "1.5": 0.995,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 1)": {
+    "1.12": 0.345,
+    "1.2": 0.75,
+    "1.5": 0.985,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 2)": {
+    "1.12": 0.555,
+    "1.2": 0.905,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(20)', 3)": {
+    "1.12": 0.38,
+    "1.2": 0.725,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 1)": {
+    "1.12": 0.3,
+    "1.2": 0.905,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 2)": {
+    "1.12": 0.93,
+    "1.2": 1.0,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct_multi_instance(<class 'networkx.classes.graph.Graph'>)": {
+    "1.12": 0.77,
+    "1.2": 0.99,
+    "1.5": 1.0,
+    "2.0": 1.0
+   }
+  }
+ },
+ "exact": {
+  "median_all": {
+   "1.12": 0.515,
+   "1.2": 0.93,
+   "1.5": 1.0,
+   "2.0": 1.0
+  },
+  "median_algorithms": {
+   "1.12": 0.335,
+   "1.2": 0.415,
+   "1.5": 0.805,
+   "2.0": 0.975
+  },
+  "median_other": {
+   "1.12": 0.5175000000000001,
+   "1.2": 0.9375,
+   "1.5": 1.0,
+   "2.0": 1.0
+  },
+  "n": 23,
+  "per_case": {
+   "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.01)')": {
+    "1.12": 0.335,
+    "1.2": 0.415,
+    "1.5": 0.805,
+    "2.0": 0.93
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": {
+    "1.12": 0.025,
+    "1.2": 0.15,
+    "1.5": 0.685,
+    "2.0": 0.975
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Erdos Renyi (100, 0.9)')": {
+    "1.12": 0.925,
+    "1.2": 1.0,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')": {
+    "1.12": 0.15,
+    "1.2": 0.315,
+    "1.5": 0.865,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_remove_nodes_from('Graph')": {
+    "1.12": 0.52,
+    "1.2": 0.93,
+    "1.5": 0.995,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_subgraph_large('Graph')": {
+    "1.12": 0.305,
+    "1.2": 0.505,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_to_directed('Graph')": {
+    "1.12": 0.86,
+    "1.2": 0.99,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')": {
+    "1.12": 0.65,
+    "1.2": 0.975,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_classes.GraphBenchmark.time_to_undirected('MultiDiGraph')": {
+    "1.12": 0.735,
+    "1.2": 0.965,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('wheel_graph(1000)')": {
+    "1.12": 0.49,
+    "1.2": 1.0,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('directed_wheel(10)')": {
+    "1.12": 0.84,
+    "1.2": 0.99,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('wheel_graph(10)')": {
+    "1.12": 0.945,
+    "1.2": 0.99,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_complete(100)": {
+    "1.12": 0.205,
+    "1.2": 0.455,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_star_center_rim(100)": {
+    "1.12": 0.515,
+    "1.2": 0.8,
+    "1.5": 0.995,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(100)": {
+    "1.12": 0.79,
+    "1.2": 0.995,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(1000)": {
+    "1.12": 0.505,
+    "1.2": 0.665,
+    "1.5": 0.92,
+    "2.0": 1.0
+   },
+   "benchmark_neighbors.NonNeighbors.time_star_center(10)": {
+    "1.12": 0.4,
+    "1.2": 0.88,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 1)": {
+    "1.12": 0.365,
+    "1.2": 0.795,
+    "1.5": 0.995,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 2)": {
+    "1.12": 0.595,
+    "1.2": 0.945,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(20)', 3)": {
+    "1.12": 0.44,
+    "1.2": 0.795,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 1)": {
+    "1.12": 0.34,
+    "1.2": 0.92,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 2)": {
+    "1.12": 0.935,
+    "1.2": 1.0,
+    "1.5": 1.0,
+    "2.0": 1.0
+   },
+   "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct_multi_instance(<class 'networkx.classes.graph.Graph'>)": {
+    "1.12": 0.775,
+    "1.2": 0.99,
+    "1.5": 1.0,
+    "2.0": 1.0
+   }
+  }
+ },
+ "original_reported": {
+  "median_all": {
+   "1.12": 0.475,
+   "1.2": 0.905,
+   "1.5": 1.0,
+   "2.0": 1.0
+  },
+  "median_algorithms": {
+   "1.12": 0.27,
+   "1.2": 0.345,
+   "1.5": 0.73,
+   "2.0": 0.96
+  },
+  "median_other": {
+   "1.12": 0.4775,
+   "1.2": 0.9175,
+   "1.5": 1.0,
+   "2.0": 1.0
+  }
+ }
+}

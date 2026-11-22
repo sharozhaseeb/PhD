@@ -1,0 +1,10 @@
+2026-11-22T15:33:22+05:00 queue start pid 1025; hard stop 2026-11-23T06:25:00+05:00
+2026-11-22T15:33:22+05:00 aa: gate
+2026-11-22T15:34:23+05:00 gate: loadavg=0.31 wincpu=100.0 ok=0/3
+2026-11-22T15:35:11+05:00 queue killed by W3 in its first gate (no run had started): SP.wincpu powershell probe timed out (60 s) and returned 100; amendment 1 = Windows CPU from telemetry
+2026-11-22T15:35:12+05:00 queue start pid 1177; hard stop 2026-11-23T06:25:00+05:00
+2026-11-22T15:35:12+05:00 aa: gate
+2026-11-22T15:35:13+05:00 gate: loadavg=0.25 wincpu=16.366666666666664 ok=1/3
+2026-11-22T15:36:13+05:00 gate: loadavg=0.22 wincpu=10.533333333333333 ok=2/3
+2026-11-22T15:37:13+05:00 gate: loadavg=0.08 wincpu=14.033333333333333 ok=3/3
+2026-11-22T15:37:15+05:00 aa: start, cap 7200s (planned 7200s), stall 700s

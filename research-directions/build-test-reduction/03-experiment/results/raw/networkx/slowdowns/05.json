@@ -1,0 +1,764 @@
+{
+ "slowdown": {
+  "step": 6,
+  "relpath": "networkx/algorithms/shortest_paths/dense.py",
+  "qualname": "floyd_warshall_tree",
+  "kind": "double_call"
+ },
+ "function": "networkx/algorithms/shortest_paths/dense.py::floyd_warshall_tree",
+ "benches_measured": [],
+ "oracle": "within reach (S0 profile \u222a static reach) + out-of-reach spot check (frozen seeded sample)",
+ "verdicts": {},
+ "note": "no benchmark reaches the function per S0 profile/static reach; only the spot check is measured",
+ "spotcheck_out_of_reach": [
+  "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+  "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')",
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')",
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')",
+  "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')",
+  "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')",
+  "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+  "benchmark_neighbors.NonNeighbors.time_star_rim(1000)",
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')"
+ ],
+ "raw_runs": [],
+ "spotcheck_verdicts": {
+  "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')": {
+   "ratio": 0.9403113310588668,
+   "p": 0.09307359307359307,
+   "status": "same"
+  },
+  "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')": {
+   "ratio": 0.9933269686827099,
+   "p": 0.8181818181818182,
+   "status": "same"
+  },
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')": {
+   "ratio": 0.9848736111332823,
+   "p": 0.5887445887445888,
+   "status": "same"
+  },
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')": {
+   "ratio": 0.9863930623607817,
+   "p": 0.30952380952380953,
+   "status": "same"
+  },
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')": {
+   "ratio": 0.9776174982091921,
+   "p": 0.3939393939393939,
+   "status": "same"
+  },
+  "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')": {
+   "ratio": 0.9960780155217761,
+   "p": 0.8181818181818182,
+   "status": "same"
+  },
+  "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')": {
+   "ratio": 0.9887027777914441,
+   "p": 0.8181818181818182,
+   "status": "same"
+  },
+  "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')": {
+   "ratio": 1.001032676593331,
+   "p": 0.5887445887445888,
+   "status": "same"
+  },
+  "benchmark_neighbors.NonNeighbors.time_star_rim(1000)": {
+   "ratio": 0.9893023973117155,
+   "p": 0.9372294372294373,
+   "status": "same"
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')": {
+   "ratio": 0.9636995536890415,
+   "p": 0.9372294372294373,
+   "status": "same"
+  }
+ },
+ "spotcheck_raw_runs": [
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0017089209868572652,
+    0.0016387439682148397,
+    0.0014800609787926078
+   ],
+   "number": 1,
+   "wall_s": 4.148794916982297,
+   "loadavg_before": 0.93,
+   "loadavg_after": 0.93,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0016917249886319041,
+    0.0015813090139999986,
+    0.0016149349976330996
+   ],
+   "number": 1,
+   "wall_s": 4.763324264029507,
+   "loadavg_before": 0.93,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')",
+   "samples": [
+    2.147878205869347e-05,
+    2.450650604441762e-05,
+    2.331882994621992e-05
+   ],
+   "number": 500,
+   "wall_s": 4.51658872194821,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')",
+   "samples": [
+    3.037115396000445e-05,
+    2.6254983968101442e-05,
+    2.1519894013181327e-05
+   ],
+   "number": 500,
+   "wall_s": 4.4728362709865905,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')",
+   "samples": [
+    0.9020279709948227,
+    0.9578408260131255,
+    0.9336638550157659
+   ],
+   "number": 1,
+   "wall_s": 8.76232247398002,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.88,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')",
+   "samples": [
+    0.9134129729936831,
+    0.9536423140089028,
+    0.9092667790246196
+   ],
+   "number": 1,
+   "wall_s": 8.66417820402421,
+   "loadavg_before": 0.88,
+   "loadavg_after": 0.9,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.013473177968990058,
+    0.012662193970754743,
+    0.012939112959429622
+   ],
+   "number": 1,
+   "wall_s": 4.112881791021209,
+   "loadavg_before": 0.9,
+   "loadavg_after": 0.83,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.012344444985501468,
+    0.01342638599453494,
+    0.013276864017825574
+   ],
+   "number": 1,
+   "wall_s": 4.1181618720293045,
+   "loadavg_before": 0.83,
+   "loadavg_after": 0.83,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0007786679780110717,
+    0.0005795329925604165,
+    0.0006452230154536664
+   ],
+   "number": 1,
+   "wall_s": 4.1480728019960225,
+   "loadavg_before": 0.83,
+   "loadavg_after": 0.92,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0006339339888654649,
+    0.0005798069760203362,
+    0.0006063029868528247
+   ],
+   "number": 1,
+   "wall_s": 4.1404898290056735,
+   "loadavg_before": 0.92,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')",
+   "samples": [
+    7.925273006549105e-05,
+    9.195762482704595e-05,
+    7.883807003963739e-05
+   ],
+   "number": 200,
+   "wall_s": 0.2706450769910589,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')",
+   "samples": [
+    7.83584249438718e-05,
+    7.911307504400611e-05,
+    7.835265016183257e-05
+   ],
+   "number": 200,
+   "wall_s": 0.25792589801130816,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')",
+   "samples": [
+    1.8242618010845035e-06,
+    1.8959194014314562e-06,
+    1.8297902017366141e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.26994562201434746,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')",
+   "samples": [
+    1.9003613037057222e-06,
+    1.8685477029066533e-06,
+    1.8367466982454061e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.27312738995533437,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+   "samples": [
+    3.415597404818982e-05,
+    3.3363512018695474e-05,
+    3.258549398742616e-05
+   ],
+   "number": 500,
+   "wall_s": 0.27573628502432257,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+   "samples": [
+    3.388097789138556e-05,
+    3.3440293977037075e-05,
+    3.3435844001360236e-05
+   ],
+   "number": 500,
+   "wall_s": 0.26311471400549635,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_rim(1000)",
+   "samples": [
+    1.140858803410083e-05,
+    1.109937799628824e-05,
+    1.1239969986490906e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.4140306979534216,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.86,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_rim(1000)",
+   "samples": [
+    1.1243187997024507e-05,
+    1.1589469970203937e-05,
+    1.1220044980291277e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.39456379698822275,
+   "loadavg_before": 0.86,
+   "loadavg_after": 0.86,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004565770999761298,
+    0.0047539795050397515,
+    0.0045878730015829206
+   ],
+   "number": 2,
+   "wall_s": 0.2528433169936761,
+   "loadavg_before": 0.86,
+   "loadavg_after": 0.86,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004579365602694452,
+    0.005572667589876801,
+    0.005268477194476873
+   ],
+   "number": 5,
+   "wall_s": 0.3506760750315152,
+   "loadavg_before": 0.86,
+   "loadavg_after": 0.86,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.001558251038659364,
+    0.0015661179786548018,
+    0.001465661043766886
+   ],
+   "number": 1,
+   "wall_s": 4.150270332989749,
+   "loadavg_before": 0.86,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0017075619543902576,
+    0.0016396560240536928,
+    0.0020431660232134163
+   ],
+   "number": 1,
+   "wall_s": 4.424806636001449,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')",
+   "samples": [
+    2.085341210477054e-05,
+    2.0650765975005924e-05,
+    2.063979790546e-05
+   ],
+   "number": 500,
+   "wall_s": 4.094989679986611,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.88,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')",
+   "samples": [
+    2.0524958032183348e-05,
+    2.0761274034157396e-05,
+    2.117918198928237e-05
+   ],
+   "number": 500,
+   "wall_s": 4.130870560999028,
+   "loadavg_before": 0.88,
+   "loadavg_after": 0.89,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')",
+   "samples": [
+    0.9050052429665811,
+    0.9365966959740035,
+    0.9023194030160084
+   ],
+   "number": 1,
+   "wall_s": 8.710236455022823,
+   "loadavg_before": 0.89,
+   "loadavg_after": 0.84,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')",
+   "samples": [
+    0.9170099080074579,
+    0.9060003309859894,
+    0.9551099420059472
+   ],
+   "number": 1,
+   "wall_s": 9.13914860098157,
+   "loadavg_before": 0.84,
+   "loadavg_after": 0.95,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.013506079034414142,
+    0.011313292023260146,
+    0.012861613999120891
+   ],
+   "number": 1,
+   "wall_s": 4.058937338995747,
+   "loadavg_before": 0.95,
+   "loadavg_after": 0.95,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.013025870954152197,
+    0.01399178704014048,
+    0.014764813997317106
+   ],
+   "number": 1,
+   "wall_s": 4.138944681966677,
+   "loadavg_before": 0.95,
+   "loadavg_after": 1.19,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0006229790160432458,
+    0.0006096939905546606,
+    0.0006435399991460145
+   ],
+   "number": 1,
+   "wall_s": 4.185782324988395,
+   "loadavg_before": 1.19,
+   "loadavg_after": 1.1,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.000671338988468051,
+    0.0006156719755381346,
+    0.0006130129913799465
+   ],
+   "number": 1,
+   "wall_s": 4.153035613009706,
+   "loadavg_before": 1.1,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')",
+   "samples": [
+    7.342404511291534e-05,
+    7.41461550933309e-05,
+    7.699246983975172e-05
+   ],
+   "number": 200,
+   "wall_s": 0.25373886502347887,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')",
+   "samples": [
+    7.711871003266424e-05,
+    7.151992991566658e-05,
+    7.220183499157429e-05
+   ],
+   "number": 200,
+   "wall_s": 0.24602023599436507,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')",
+   "samples": [
+    2.1219248068518936e-06,
+    2.136460808105767e-06,
+    1.998438802547753e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.2394997500232421,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')",
+   "samples": [
+    2.1001623943448068e-06,
+    2.4504677974618973e-06,
+    2.0474295946769416e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.23974052601261064,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+   "samples": [
+    3.473215596750378e-05,
+    3.5760289989411834e-05,
+    3.3708233968354764e-05
+   ],
+   "number": 500,
+   "wall_s": 0.26630611496511847,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+   "samples": [
+    3.306620405055583e-05,
+    3.585539397317916e-05,
+    3.432674799114466e-05
+   ],
+   "number": 500,
+   "wall_s": 0.2696704209665768,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_rim(1000)",
+   "samples": [
+    1.1939614021684975e-05,
+    1.1677366972435265e-05,
+    1.1438518995419145e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.4186609699972905,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_rim(1000)",
+   "samples": [
+    1.1868408997543157e-05,
+    1.1955416994169354e-05,
+    1.1874707008246332e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.41159964399412274,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.57,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004793895804323256,
+    0.004694100795313716,
+    0.004697809007484466
+   ],
+   "number": 5,
+   "wall_s": 0.3434328120201826,
+   "loadavg_before": 1.57,
+   "loadavg_after": 1.52,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B"
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.005095256987260655,
+    0.005385743017541245,
+    0.007302573503693566
+   ],
+   "number": 2,
+   "wall_s": 0.25537367700599134,
+   "loadavg_before": 1.52,
+   "loadavg_after": 1.52,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A"
+  }
+ ],
+ "spotcheck_detects": [],
+ "reach_selection_unsafe_for_this_slowdown": false,
+ "max_slower_ratio": null,
+ "class": "not detected by FULL (excluded)"
+}

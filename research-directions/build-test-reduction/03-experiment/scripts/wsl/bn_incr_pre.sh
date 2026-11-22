@@ -1,0 +1,1 @@
+cd ~/bt-lab/exp/work/bottleneck-replay; grep -n '#include' bottleneck/src/reduce_template.c | head -3; grep -n "def make_c_files\|mtime\|modified" -n bottleneck/src/bn_template.py | head; sed -n '/def make_c_files/,/^def /p' bottleneck/src/bn_template.py | head -50

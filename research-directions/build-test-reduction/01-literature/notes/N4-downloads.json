@@ -1,0 +1,5 @@
+[
+  {"filename":"2025-Shahedi-Method-Level-Perf-Evolution-Java-arXiv-2508.07084.pdf","title":"An Empirical Study on Method-Level Performance Evolution in Open-Source Java Projects","source_url":"https://arxiv.org/pdf/2508.07084","bytes":1426985,"sha256":"d98feb3d3dad76998ab2093239d35e8bccc9272c5df48258353b7f9161ec4443","downloaded_on":"2026-11-22"},
+  {"filename":"2026-FormulaCode-arXiv-2603.16011.pdf","title":"FormulaCode: Evaluating Agentic Optimization on Large Codebases","source_url":"https://arxiv.org/pdf/2603.16011","bytes":3430646,"sha256":"23c0426a3be7eccfba1892eb3cfe74fc91e4839d4a666a7c2a09dad7fd7bae29","downloaded_on":"2026-11-22"},
+  {"filename":"2025-Henning-When-Should-I-Run-My-Application-Benchmark-FSE.pdf","title":"When Should I Run My Application Benchmark? Studying Cloud Performance Variability for the Case of Stream Processing Applications","source_url":"https://arxiv.org/pdf/2504.11826","bytes":1906578,"sha256":"f4ac08d6f578a4a1f35b68584d00d4778f1efc5cc587eb32323a5da361968e15","downloaded_on":"2026-11-22"}
+]

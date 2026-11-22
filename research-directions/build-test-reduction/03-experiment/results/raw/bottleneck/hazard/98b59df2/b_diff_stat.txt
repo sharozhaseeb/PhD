@@ -1,0 +1,3 @@
+ bottleneck/src/iterators.h       |   2 +
+ bottleneck/src/reduce_template.c | 166 ++++++++++++++++++++++++++++++++++-----
+ 2 files changed, 148 insertions(+), 20 deletions(-)

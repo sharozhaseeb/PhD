@@ -22,3 +22,13 @@
 - **4:** a measured FULL benchmark cost per edit.
 
 **Not in this queue:** the oracle-repeatability rule (needs item 4's protocol ×3), cap-only/additive-budget comparators, and NameRTS (post-meeting).
+
+## Outcome (2026-11-22 06:05 PKT) — all items ran; queue done 05:58
+
+| # | Result |
+|---|---|
+| 1 | Done 20:04 → results.md "RQ1 — idle re-timing" (`rq1_networkx_idle.csv`). None of the 19 re-runs is M5-clean (start load 1.54–2.95; S0–S6 overlapped profiling); S16/S17 return to ≈ 71 s. |
+| 1b | Done. Clean build 4.7–5.4 s, null 0.18 s (3 repeats). Load was 1.46–2.35, so the "noisy" label stays under M5. |
+| 2 | Done 05:10 → results.md "Slowdown oracle". |
+| 3 | Done 05:30 → `build-hazard-iterators-h.md`. |
+| 4 | Done 05:58: **1668 s** (the second slowest of 6 same-protocol passes that night; range 659–2444 s, see results.md), 171/171 cases, labelled noisy (M5). This **corrects** the "≥ 1.78 h" estimate above. The 65–71 s import figure was measured under load; the measured per-import cost is about 13 s. The "Expected duration" column above therefore over-estimated items 2 and 4. |

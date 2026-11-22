@@ -22,7 +22,7 @@ o0 = json.loads((raw / "oracle-tests/S0_181f2951.json").read_text())["tests"]
 secs = {t: o0.get(t, {}).get("duration", 0.0) for t in d0}
 mods = json.loads((inp / "modules.json").read_text())
 static = json.loads((inp / "static_reach_methods.json").read_text())
-bench0 = (raw / "bench/S0_181f2951.json") if (raw / "bench/S0_181f2951.json").exists() else None
+bench0 = next((raw / f for f in ("bench/S0_181f2951.idle.json", "bench/S0_181f2951.json") if (raw / f).exists()), None)
 bsecs = {c["id"]: c["wall_s"] for c in json.loads(bench0.read_text())["results"]} if bench0 else {}
 prof0 = (raw / "profile/S0_181f2951.json") if (raw / "profile/S0_181f2951.json").exists() else None
 profiles = json.loads(prof0.read_text())["profiles"] if prof0 else {}
@@ -60,12 +60,13 @@ rows = [
     ("A2 testmon (PerfAgent-style)", "none (pure Python, B1)", None if tm is None else len(tm), None if tm is None else T(tm), len(all_bench_ids), B(set(all_bench_ids))),
     ("A3 changed-module", "none", len(cm_t), T(cm_t), len(cm_b), B(cm_b)),
     ("A5 static-bench (+testmon tests)", "none", None if tm is None else len(tm), None if tm is None else T(tm), len(static_b), B(static_b)),
-    ("A4 ours (function-level + profile)", "none", len(ours_t), T(ours_t), None if prof_b is None else len(prof_b), None if prof_b is None else B(prof_b)),
+    ("A4 single-edit view (no accumulation; S0 depmap + S0 profile)", "none", len(ours_t), T(ours_t), None if prof_b is None else len(prof_b), None if prof_b is None else B(prof_b)),
 ]
 L = [f"# Worked edit — step {step}: FULL vs reduced validation (PRELIMINARY)", "",
      f"**Edit:** `{st['orig_sha'][:8]}` — {subj}", f"**State:** S{step-1} → S{step} (`{st['state_sha'][:8]}`); replayed source diff only (readiness §2).",
      f"**Changed functions (bth.changed_fns):** " + ", ".join(f"`{f}`" for f in sorted(changed)), "",
-     "**Evidence boundary:** every selection below uses only data observed at S0, the last full check before this edit, so there is no hindsight.",
+     "**Evidence boundary:** every selection below uses only data observed at S0 (before this edit), so there is no hindsight. "
+     "This is a **single-edit view**: it applies each rule to this one edit with S0 data. It is not the session simulation, where A4 accumulates changed functions since its last full check and uses checkpoint data.",
      "- Costs are *estimated seconds*: per-test serial durations and per-benchmark FULL-protocol wall time, both from S0 (readiness §5).",
      "- End-to-end adds the build and the measured median pytest startup.",
      "- Raw inputs: `raw/networkx/{depmap,oracle-tests,bench,profile,changes,testmon}/` and `sim/networkx/inputs/`.", "",
@@ -88,8 +89,11 @@ L += ["", f"Tests selected by A4 that are not in A3: {len(ours_t - cm_t)}. Tests
       f"Static reach (A5) selects {len(static_b)}/{len(all_bench_ids)} benchmark cases. Profile reach (A4) selects "
       f"{'pending' if prof_b is None else len(prof_b)}.", "",
       "**Reading:** test *execution* drops from about 71 s to about 0.02 s. End-to-end, though, the reduced arms still pay about 13.6 s of pytest startup, "
-      "so the drop is about 86 s to about 14 s (about 6x), not 3500x. Benchmarks are pending and would dominate: one FULL benchmark pass is at least 0.9 h "
-      "(results.md, RQ1 headline).", "",
+      "so the drop is about 86 s to about 14 s (about 6x), not 3500x. Benchmarks dominate: one FULL benchmark pass costs 659–2444 s (median about 730 s) across 6 measured passes "
+      "(2 processes; noisy or concurrent; results.md, RQ1 headline). Benchmark seconds in the table are from the noisy S0 pass (item 4).", "",
+      "**A4 as simulated in the session** (`sim/networkx/rq2_steps.csv`, arm OURS, step 10): its last full check was step 8, so it runs **71 tests** "
+      "(accumulated since step 8) and **171/171 benchmark cases**, because profiles older than the last checkpoint count as unknown under P8 (finding B2). "
+      "The single-edit row above matches the ablation without accumulation (`OURS:accumulate=False`: 38 tests).", "",
       "**Caveat.** This is one edit, shown to explain the mechanism. Costs and misses over the whole session are in `results.md` (RQ2/RQ3)."]
 (exp / "results/worked-edit.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 print("\n".join(L[-16:]))

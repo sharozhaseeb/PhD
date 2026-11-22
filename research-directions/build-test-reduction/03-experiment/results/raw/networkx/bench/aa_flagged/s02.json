@@ -1,0 +1,3048 @@
+{
+ "plan": "results/raw/networkx/bench/aa_flagged/plan.md",
+ "slowdown": 2,
+ "state_sha": "d3d79cc8f0b6f708cc9f35277a8b170b61064959",
+ "protocol": {
+  "processes": 2,
+  "values": 3,
+  "repeats": 5,
+  "order": "rotated per repeat: AB BA AB BA AB"
+ },
+ "wall_s": 266.9692897796631,
+ "n_runs": 90,
+ "n_errors": 0,
+ "peak_run_load": 0.46,
+ "n_pre_gate_not_ok": 0,
+ "pre_gate_waited_s": 160.7,
+ "m5_label": "measured-window",
+ "t_first": "2026-11-22T15:38:28+0500",
+ "t_last": "2026-11-22T15:41:43+0500",
+ "cases": {
+  "benchmark_neighbors.NonNeighbors.time_complete(100)": {
+   "rep0": {
+    "ratio": 1.052070032647081,
+    "p": 0.17965367965367965,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9878883528317259,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.10853885233462,
+    "p": 0.48484848484848486,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 0.9091171670735333,
+    "p": 1.0,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 0.98005852245903,
+    "p": 0.6991341991341992,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 1.0335774012483263,
+    "p": 0.6100075520376812,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')": {
+   "rep0": {
+    "ratio": 0.905235732396511,
+    "p": 0.06493506493506493,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9987968383467786,
+    "p": 0.8181818181818182,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 0.8620589396491137,
+    "p": 0.025974025974025976,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 0.8632423507912323,
+    "p": 0.8181818181818182,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 1.0072719730633777,
+    "p": 0.5887445887445888,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 0.9629749544830695,
+    "p": 0.013271804739910291,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')": {
+   "rep0": {
+    "ratio": 0.8226847337263847,
+    "p": 0.04112554112554113,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 1.0636368161369407,
+    "p": 0.06493506493506493,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.0255557317352553,
+    "p": 0.8181818181818182,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 0.9950980007817166,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 1.0094490405333396,
+    "p": 0.5887445887445888,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 1.003087695340826,
+    "p": 0.9117089753194283,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')": {
+   "rep0": {
+    "ratio": 0.9253893665173841,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9949846891818283,
+    "p": 0.5887445887445888,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 0.9994344423803577,
+    "p": 0.6991341991341992,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.1069446366542843,
+    "p": 0.0021645021645021645,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 1.006405002668417,
+    "p": 0.6991341991341992,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 1.0049607273444183,
+    "p": 0.8072749507289148,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')": {
+   "rep0": {
+    "ratio": 0.9898188777211254,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 1.0195560653862032,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.0334069169372855,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.0295201154341627,
+    "p": 0.48484848484848486,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 1.1430307398487312,
+    "p": 0.09307359307359307,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 1.0473177058876455,
+    "p": 0.1668661704632597,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')": {
+   "rep0": {
+    "ratio": 0.8859518861557668,
+    "p": 0.09307359307359307,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9993260866906782,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 0.8749344003455636,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.0673571589037114,
+    "p": 0.09307359307359307,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 0.9751891837950799,
+    "p": 0.17965367965367965,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 0.9643209663270318,
+    "p": 0.09334079652708835,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')": {
+   "rep0": {
+    "ratio": 0.8998661166865314,
+    "p": 0.5887445887445888,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.7662811643390999,
+    "p": 0.09307359307359307,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.0128177409092896,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.0313805000751917,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 0.9872281381365833,
+    "p": 0.6991341991341992,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 1.0045153926235106,
+    "p": 0.8766349003139949,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')": {
+   "rep0": {
+    "ratio": 0.9093664538193721,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9360995775299276,
+    "p": 0.06493506493506493,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 0.9850539386062208,
+    "p": 1.0,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 0.9460265770538382,
+    "p": 0.04112554112554113,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 0.9775493656698656,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 0.9480232832929302,
+    "p": 0.10232626822732968,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  },
+  "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')": {
+   "rep0": {
+    "ratio": 1.0356278819821096,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9828054849742073,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.0137105274985536,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.0078590360436022,
+    "p": 0.5887445887445888,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep4": {
+    "ratio": 1.0465834658230386,
+    "p": 0.025974025974025976,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pooled": {
+    "ratio": 1.0107469654710572,
+    "p": 0.3952670113331167,
+    "status": "same",
+    "n": [
+     30,
+     30
+    ]
+   }
+  }
+ },
+ "raw_runs": [
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.6145970999787096e-06,
+    1.6244801998254844e-06,
+    1.6087347001302987e-06,
+    1.6778964996774448e-06,
+    1.6672192999976688e-06,
+    2.410470800168696e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5356517039981554,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:28+0500",
+   "t_end": "2026-11-22T15:38:28+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 14.1,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.701524099917151e-06,
+    1.8530369001382497e-06,
+    1.622661300280015e-06,
+    2.2030002000974492e-06,
+    1.725075200010906e-06,
+    1.7380232002324193e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.9139291639985458,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:28+0500",
+   "t_end": "2026-11-22T15:38:29+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.00507801799903973,
+    0.00508770400119829,
+    0.005203873999562347,
+    0.005088072000944521,
+    0.004956922999554081,
+    0.004862311998294899
+   ],
+   "number": 1,
+   "wall_s": 0.4591895149969787,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:29+0500",
+   "t_end": "2026-11-22T15:38:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.004574986600346165,
+    0.004576656599965645,
+    0.004458545200031949,
+    0.004734090199781349,
+    0.0046257182002591435,
+    0.005248918000143021
+   ],
+   "number": 5,
+   "wall_s": 0.6203934080003819,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:30+0500",
+   "t_end": "2026-11-22T15:38:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.006456600998717477,
+    0.005990034000205924,
+    0.004699420498582185,
+    0.009313896000094246,
+    0.00910436599951936,
+    0.005852660500750062
+   ],
+   "number": 2,
+   "wall_s": 0.5362353969976539,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:30+0500",
+   "t_end": "2026-11-22T15:38:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.005036999600270065,
+    0.00522847219981486,
+    0.005476997399819083,
+    0.004798768000182463,
+    0.005202656999608734,
+    0.004525181800272548
+   ],
+   "number": 5,
+   "wall_s": 0.6649261589991511,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:31+0500",
+   "t_end": "2026-11-22T15:38:32+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004756031400029314,
+    0.00448194019991206,
+    0.005844973800412845,
+    0.00511178619999555,
+    0.006067243599682115,
+    0.0049855653996928595
+   ],
+   "number": 5,
+   "wall_s": 0.6857685699978902,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:32+0500",
+   "t_end": "2026-11-22T15:38:32+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004581253400101559,
+    0.0045896244002506135,
+    0.004901538199919742,
+    0.004732684200280346,
+    0.0046112976000586055,
+    0.006115534600394312
+   ],
+   "number": 5,
+   "wall_s": 0.6551971080007206,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:32+0500",
+   "t_end": "2026-11-22T15:38:33+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.005011942999772145,
+    0.0050896065004053526,
+    0.005626452000797144,
+    0.008992463999675238,
+    0.005074864000562229,
+    0.006568640501427581
+   ],
+   "number": 2,
+   "wall_s": 0.590344225998706,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:33+0500",
+   "t_end": "2026-11-22T15:38:33+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.005072509999081376,
+    0.008453133501461707,
+    0.006460678499934147,
+    0.005300884498865344,
+    0.0053060725003888365,
+    0.005135279499882017
+   ],
+   "number": 2,
+   "wall_s": 0.5584173829993233,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:33+0500",
+   "t_end": "2026-11-22T15:38:34+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.004205121199629502,
+    0.0037095412000780923,
+    0.005976653800462373,
+    0.004737200799718266,
+    0.0037747972004581244,
+    0.004013454000232741
+   ],
+   "number": 5,
+   "wall_s": 0.7003835679970507,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:34+0500",
+   "t_end": "2026-11-22T15:38:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.0035468210000544785,
+    0.0037878527997236232,
+    0.0036876534002658447,
+    0.00525707720007631,
+    0.003593608799565118,
+    0.0035570362000726164
+   ],
+   "number": 5,
+   "wall_s": 0.5932826159987599,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:35+0500",
+   "t_end": "2026-11-22T15:38:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.0035859397998137866,
+    0.00492631379966042,
+    0.004840525599865942,
+    0.0036467500001890587,
+    0.004689909599983366,
+    0.0035871325999323744
+   ],
+   "number": 5,
+   "wall_s": 0.6075973639999575,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:35+0500",
+   "t_end": "2026-11-22T15:38:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.003503295500195236,
+    0.0034687875013332814,
+    0.003440544000113732,
+    0.0039985820003494155,
+    0.004902649499854306,
+    0.005094304500744329
+   ],
+   "number": 2,
+   "wall_s": 0.5580687010005931,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:36+0500",
+   "t_end": "2026-11-22T15:38:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.0076189885003259405,
+    0.004614657498677843,
+    0.00432676799937326,
+    0.004310153000915307,
+    0.004755987500175252,
+    0.004585137001413386
+   ],
+   "number": 2,
+   "wall_s": 0.5550323039969953,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:37+0500",
+   "t_end": "2026-11-22T15:38:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.0045102820004103705,
+    0.005909942499783938,
+    0.005097622499306453,
+    0.003717810499438201,
+    0.003855702500004554,
+    0.003661178499896778
+   ],
+   "number": 2,
+   "wall_s": 0.5567578879999928,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:37+0500",
+   "t_end": "2026-11-22T15:38:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.0035995814003399575,
+    0.003681291200337,
+    0.003643281399854459,
+    0.004054637999797705,
+    0.004714845599664841,
+    0.0038128505999338812
+   ],
+   "number": 5,
+   "wall_s": 0.6148284990013053,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:38+0500",
+   "t_end": "2026-11-22T15:38:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.004735004599933745,
+    0.004753047200210858,
+    0.004081437199783977,
+    0.003557166799873812,
+    0.00367970500010415,
+    0.003585061200283235
+   ],
+   "number": 5,
+   "wall_s": 0.5983783379997476,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:38+0500",
+   "t_end": "2026-11-22T15:38:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.5637633001460927e-06,
+    1.5638910997950005e-06,
+    1.6672955000103684e-06,
+    1.6263372999674176e-06,
+    1.6302248001011322e-06,
+    1.7743550000886898e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5286515430016152,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:39+0500",
+   "t_end": "2026-11-22T15:38:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.6688862000592052e-06,
+    1.6560879994358403e-06,
+    1.640400000178488e-06,
+    1.5453549996891525e-06,
+    1.9894176002708264e-06,
+    1.532769999903394e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4532942429977993,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:39+0500",
+   "t_end": "2026-11-22T15:38:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.004644438600371359,
+    0.004658646600000793,
+    0.0057269035998615435,
+    0.00456795259960927,
+    0.00463367139964248,
+    0.0047218765997968145
+   ],
+   "number": 5,
+   "wall_s": 0.6413228050005273,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:40+0500",
+   "t_end": "2026-11-22T15:38:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.00467427659968962,
+    0.004673374999401858,
+    0.004640916799689876,
+    0.00483943779981928,
+    0.00455718520024675,
+    0.004624181800318183
+   ],
+   "number": 5,
+   "wall_s": 0.635979940998368,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:40+0500",
+   "t_end": "2026-11-22T15:38:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.0049538860002940055,
+    0.004969727500792942,
+    0.004897573500784347,
+    0.00655271349933173,
+    0.004824154999369057,
+    0.004702807000285247
+   ],
+   "number": 2,
+   "wall_s": 0.5426073749986244,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:41+0500",
+   "t_end": "2026-11-22T15:38:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.004476852000152576,
+    0.005553838000196265,
+    0.004580989500027499,
+    0.004755653999382048,
+    0.004637155499949586,
+    0.004624896500899922
+   ],
+   "number": 2,
+   "wall_s": 0.5064880710015132,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:42+0500",
+   "t_end": "2026-11-22T15:38:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.0045918970008642646,
+    0.004624344501280575,
+    0.0046908849999454105,
+    0.004495424498600187,
+    0.004493447999266209,
+    0.0045814320001227316
+   ],
+   "number": 2,
+   "wall_s": 0.5028800780019083,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:38:42+0500",
+   "t_end": "2026-11-22T15:38:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004615085599652957,
+    0.005008760999771766,
+    0.006197180200251751,
+    0.004604482400463894,
+    0.004551102400000673,
+    0.004447316200094064
+   ],
+   "number": 5,
+   "wall_s": 0.6395805339998333,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:38:43+0500",
+   "t_end": "2026-11-22T15:38:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 18.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.005247340999630978,
+    0.009595932000593166,
+    0.006269070001508226,
+    0.004869919999691774,
+    0.0050897059991257265,
+    0.004842109499804792
+   ],
+   "number": 2,
+   "wall_s": 0.551942833000794,
+   "loadavg_before": 0.26,
+   "loadavg_after": 0.26,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:03+0500",
+   "t_end": "2026-11-22T15:39:04+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.26,
+    "wincpu": 13.3,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.005158440500963479,
+    0.004937102999974741,
+    0.004980331999831833,
+    0.005162045001270599,
+    0.007936051999422489,
+    0.004895038498943904
+   ],
+   "number": 2,
+   "wall_s": 0.5075893840003118,
+   "loadavg_before": 0.26,
+   "loadavg_after": 0.26,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:04+0500",
+   "t_end": "2026-11-22T15:39:04+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.26,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.0037962535006954568,
+    0.004396010499476688,
+    0.004183811000984861,
+    0.0045471345001715235,
+    0.0037290394993760856,
+    0.003763373499168665
+   ],
+   "number": 2,
+   "wall_s": 0.5541588010019041,
+   "loadavg_before": 0.26,
+   "loadavg_after": 0.26,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:04+0500",
+   "t_end": "2026-11-22T15:39:05+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.26,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.003988310500062653,
+    0.003997135499957949,
+    0.003936966499168193,
+    0.005528549500013469,
+    0.003925962999346666,
+    0.007169649499701336
+   ],
+   "number": 2,
+   "wall_s": 0.5866677759986487,
+   "loadavg_before": 0.26,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:05+0500",
+   "t_end": "2026-11-22T15:39:06+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.26,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.0039034662004269194,
+    0.004589067799679469,
+    0.005272483199951239,
+    0.004565859400463524,
+    0.0044726910004101224,
+    0.004885984399879817
+   ],
+   "number": 5,
+   "wall_s": 0.6901399340022181,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:06+0500",
+   "t_end": "2026-11-22T15:39:06+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.005828572600148618,
+    0.006118644199887058,
+    0.0040704474005906375,
+    0.007305267400079174,
+    0.007447481200506445,
+    0.004785167999943951
+   ],
+   "number": 5,
+   "wall_s": 0.7791715970015503,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:06+0500",
+   "t_end": "2026-11-22T15:39:07+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.0037845168000785632,
+    0.00382544140011305,
+    0.003737812799954554,
+    0.0038410902001487558,
+    0.004014821199962171,
+    0.004208929200103739
+   ],
+   "number": 5,
+   "wall_s": 0.6219828539979062,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:07+0500",
+   "t_end": "2026-11-22T15:39:08+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.003952073000255041,
+    0.004169306399853667,
+    0.004020561200013617,
+    0.004342520000500371,
+    0.00519832059944747,
+    0.00394198799986043
+   ],
+   "number": 5,
+   "wall_s": 0.6575837700002012,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:08+0500",
+   "t_end": "2026-11-22T15:39:08+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.004177615800290369,
+    0.0051681293996807655,
+    0.004277302000264172,
+    0.0038122717996884603,
+    0.003849482200166676,
+    0.003845646000263514
+   ],
+   "number": 5,
+   "wall_s": 0.7489062009990448,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:08+0500",
+   "t_end": "2026-11-22T15:39:09+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.00393335000044317,
+    0.004196629200305324,
+    0.0039709055999992415,
+    0.003904555799817899,
+    0.004667773799883435,
+    0.006247894600528525
+   ],
+   "number": 5,
+   "wall_s": 0.7209031899983529,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:09+0500",
+   "t_end": "2026-11-22T15:39:10+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.63014360005036e-06,
+    1.6382842000894015e-06,
+    1.6386862000217662e-06,
+    1.6929336998146027e-06,
+    1.8919075999292544e-06,
+    2.3921265001263235e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5925759199999447,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:10+0500",
+   "t_end": "2026-11-22T15:39:10+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    2.05623559995729e-06,
+    1.9596742000430823e-06,
+    2.2467760001745773e-06,
+    1.7335559001367074e-06,
+    1.5609943002345972e-06,
+    1.7303364002145828e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5955758890013385,
+   "loadavg_before": 0.32,
+   "loadavg_after": 0.37,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:10+0500",
+   "t_end": "2026-11-22T15:39:11+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.32,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.00463530879933387,
+    0.0068780851994233675,
+    0.00620343399932608,
+    0.005673956200189423,
+    0.00519974060007371,
+    0.0052817649993812665
+   ],
+   "number": 5,
+   "wall_s": 0.6836597190012981,
+   "loadavg_before": 0.37,
+   "loadavg_after": 0.37,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:11+0500",
+   "t_end": "2026-11-22T15:39:12+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.37,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.004798519800533541,
+    0.004765206199954264,
+    0.004743014600535389,
+    0.004590263400314143,
+    0.004701462799857836,
+    0.0045924094003567005
+   ],
+   "number": 5,
+   "wall_s": 0.6535471319984936,
+   "loadavg_before": 0.37,
+   "loadavg_after": 0.37,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:12+0500",
+   "t_end": "2026-11-22T15:39:12+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.37,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.0047286444001656495,
+    0.004695120199903613,
+    0.0047621138000977226,
+    0.005258816200512229,
+    0.006624818799900822,
+    0.006154430999595206
+   ],
+   "number": 5,
+   "wall_s": 0.6723095500019554,
+   "loadavg_before": 0.37,
+   "loadavg_after": 0.37,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:39:12+0500",
+   "t_end": "2026-11-22T15:39:13+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.37,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.0069729663999169135,
+    0.006875853000383359,
+    0.005583489199489122,
+    0.0046788844003458506,
+    0.0046935329999541866,
+    0.004687284800456837
+   ],
+   "number": 5,
+   "wall_s": 0.6862612869990699,
+   "loadavg_before": 0.37,
+   "loadavg_after": 0.37,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:39:13+0500",
+   "t_end": "2026-11-22T15:39:14+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.37,
+    "wincpu": 13.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004760000998430769,
+    0.0045450590005202685,
+    0.004576364999593352,
+    0.007351229500272893,
+    0.004720829500001855,
+    0.004522513499978231
+   ],
+   "number": 2,
+   "wall_s": 0.5188377999984368,
+   "loadavg_before": 0.16,
+   "loadavg_after": 0.16,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:34+0500",
+   "t_end": "2026-11-22T15:40:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.16,
+    "wincpu": 13.2,
+    "waited_s": 80.3
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.00471904980004183,
+    0.004464528200333007,
+    0.00455767859966727,
+    0.004718720199889503,
+    0.005887903600523714,
+    0.004573216200515162
+   ],
+   "number": 5,
+   "wall_s": 0.6191262969987292,
+   "loadavg_before": 0.16,
+   "loadavg_after": 0.16,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:35+0500",
+   "t_end": "2026-11-22T15:40:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.16,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.0049713339994923444,
+    0.005067650999990292,
+    0.005134275999807869,
+    0.005176912000024458,
+    0.006860794999738573,
+    0.005577330501182587
+   ],
+   "number": 2,
+   "wall_s": 0.5207177779993799,
+   "loadavg_before": 0.16,
+   "loadavg_after": 0.16,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:35+0500",
+   "t_end": "2026-11-22T15:40:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.16,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.005010510500142118,
+    0.005216389499764773,
+    0.00765703700017184,
+    0.005893631499930052,
+    0.005414560000644997,
+    0.005241093000222463
+   ],
+   "number": 2,
+   "wall_s": 0.5310375769986422,
+   "loadavg_before": 0.16,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:36+0500",
+   "t_end": "2026-11-22T15:40:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.16,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.004480512200098019,
+    0.003639574599947082,
+    0.003592133799975272,
+    0.004708813399338397,
+    0.004201320400170516,
+    0.00523417860022164
+   ],
+   "number": 5,
+   "wall_s": 0.695971835997625,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:36+0500",
+   "t_end": "2026-11-22T15:40:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.003871237599378219,
+    0.004039477399783209,
+    0.003579796600388363,
+    0.0035618442001577933,
+    0.006313836399931461,
+    0.003724796400638297
+   ],
+   "number": 5,
+   "wall_s": 0.6233614519987896,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:37+0500",
+   "t_end": "2026-11-22T15:40:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.004163811200123746,
+    0.004654380200372543,
+    0.003912578200106509,
+    0.003607249200285878,
+    0.0035811021996778438,
+    0.0035718209997867233
+   ],
+   "number": 5,
+   "wall_s": 0.5920859649995691,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:38+0500",
+   "t_end": "2026-11-22T15:40:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.0036087298001802994,
+    0.003627293799945619,
+    0.003608811600133777,
+    0.004288765600358601,
+    0.003988920799747575,
+    0.0051065133993688505
+   ],
+   "number": 5,
+   "wall_s": 0.5966178830021818,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:38+0500",
+   "t_end": "2026-11-22T15:40:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.005551771499085589,
+    0.0037837324998690747,
+    0.003782380999837187,
+    0.005740396500186762,
+    0.006556543999977293,
+    0.0051229135005996795
+   ],
+   "number": 2,
+   "wall_s": 0.5412850089996937,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:39+0500",
+   "t_end": "2026-11-22T15:40:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.006541123999340925,
+    0.005521649500224157,
+    0.0040986695003084606,
+    0.005138152500876458,
+    0.004356945499239373,
+    0.005376988001444261
+   ],
+   "number": 2,
+   "wall_s": 0.5666768650007725,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:39+0500",
+   "t_end": "2026-11-22T15:40:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.007530433600186371,
+    0.004660033999971347,
+    0.0042271805999916975,
+    0.0039762968001014086,
+    0.003910583599645179,
+    0.005480350399739109
+   ],
+   "number": 5,
+   "wall_s": 0.7519360949991096,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:40+0500",
+   "t_end": "2026-11-22T15:40:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.00400332450044516,
+    0.00522288650063274,
+    0.006652747000771342,
+    0.004990867499145679,
+    0.0039032069998938823,
+    0.0040181955009757075
+   ],
+   "number": 2,
+   "wall_s": 0.6161668239983555,
+   "loadavg_before": 0.23,
+   "loadavg_after": 0.29,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:41+0500",
+   "t_end": "2026-11-22T15:40:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.23,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.7478018002293538e-06,
+    1.6856721995281986e-06,
+    1.8601370000396856e-06,
+    1.7056513999705202e-06,
+    1.8241173995193095e-06,
+    1.6381289999117144e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4928029780021461,
+   "loadavg_before": 0.29,
+   "loadavg_after": 0.29,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:41+0500",
+   "t_end": "2026-11-22T15:40:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.29,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    2.68064360061544e-06,
+    2.166036600101506e-06,
+    2.5268062003306115e-06,
+    1.622976599901449e-06,
+    1.6063306000432931e-06,
+    1.6326521996234078e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.5026073279987031,
+   "loadavg_before": 0.29,
+   "loadavg_after": 0.29,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:42+0500",
+   "t_end": "2026-11-22T15:40:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.29,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.004680147500039311,
+    0.004818198498469428,
+    0.004810108001038316,
+    0.004595722499288968,
+    0.007786709000356495,
+    0.008528692000254523
+   ],
+   "number": 2,
+   "wall_s": 0.5543596900024568,
+   "loadavg_before": 0.29,
+   "loadavg_after": 0.29,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:40:42+0500",
+   "t_end": "2026-11-22T15:40:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.29,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.004795309001565329,
+    0.005078412999864668,
+    0.006764847999875201,
+    0.006075241000871756,
+    0.007014811500994256,
+    0.004790688499269891
+   ],
+   "number": 2,
+   "wall_s": 0.5855012210013228,
+   "loadavg_before": 0.29,
+   "loadavg_after": 0.29,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:40:43+0500",
+   "t_end": "2026-11-22T15:40:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.29,
+    "wincpu": 13.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.004920872399816289,
+    0.004742616200383054,
+    0.0048132837997400205,
+    0.005007974999898579,
+    0.004794776400376577,
+    0.004906888600089587
+   ],
+   "number": 5,
+   "wall_s": 0.6370269079998252,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:24+0500",
+   "t_end": "2026-11-22T15:41:24+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.8,
+    "waited_s": 40.2
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.004753208799957065,
+    0.005014846599806333,
+    0.004711961800057907,
+    0.004602593199524563,
+    0.005284458999813069,
+    0.006116282800212503
+   ],
+   "number": 5,
+   "wall_s": 0.6444336800013843,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:24+0500",
+   "t_end": "2026-11-22T15:41:25+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.006049435500244726,
+    0.005148191499756649,
+    0.004780142999152304,
+    0.00534377899930405,
+    0.0052352660004544305,
+    0.004907829999865498
+   ],
+   "number": 2,
+   "wall_s": 0.5130886000006285,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:25+0500",
+   "t_end": "2026-11-22T15:41:25+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004489139400538989,
+    0.004643933400075184,
+    0.004737096400640439,
+    0.00465151300013531,
+    0.004728773200622527,
+    0.004747855399909895
+   ],
+   "number": 5,
+   "wall_s": 0.621284408000065,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.24,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:25+0500",
+   "t_end": "2026-11-22T15:41:26+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.00497600800008513,
+    0.005299940999975661,
+    0.005219027500061202,
+    0.0059130065001227194,
+    0.0058457055001781555,
+    0.00544402900050045
+   ],
+   "number": 2,
+   "wall_s": 0.5177440119987295,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:26+0500",
+   "t_end": "2026-11-22T15:41:27+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.005119273999298457,
+    0.005245932499747141,
+    0.004976765500032343,
+    0.005553578499529976,
+    0.005557889999181498,
+    0.0051899684985983185
+   ],
+   "number": 2,
+   "wall_s": 0.5070955849987513,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:27+0500",
+   "t_end": "2026-11-22T15:41:27+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.00375902119994862,
+    0.004141335799795342,
+    0.003940290000173263,
+    0.003852792799443705,
+    0.004304067200428108,
+    0.004562498599989339
+   ],
+   "number": 5,
+   "wall_s": 0.6344594049987791,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:27+0500",
+   "t_end": "2026-11-22T15:41:28+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.004040803799580317,
+    0.003892864200315671,
+    0.0038098125995020384,
+    0.0037618102003762035,
+    0.003725339599623112,
+    0.003750867000053404
+   ],
+   "number": 5,
+   "wall_s": 0.5794027750016539,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:28+0500",
+   "t_end": "2026-11-22T15:41:28+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.0038550128003407734,
+    0.004105300400260603,
+    0.004417173600086244,
+    0.003843384000356309,
+    0.004225141200004145,
+    0.0038643370004137977
+   ],
+   "number": 5,
+   "wall_s": 0.6061973140022019,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:28+0500",
+   "t_end": "2026-11-22T15:41:29+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.004191257600177778,
+    0.003911135999805993,
+    0.0043228217997238975,
+    0.0038160194002557547,
+    0.0036912288000166883,
+    0.0037700150001910514
+   ],
+   "number": 5,
+   "wall_s": 0.5958108099985111,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:29+0500",
+   "t_end": "2026-11-22T15:41:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.004071304199896986,
+    0.004308409200166352,
+    0.0041911902000720145,
+    0.004097745599574409,
+    0.004056242200022098,
+    0.004043959999398794
+   ],
+   "number": 5,
+   "wall_s": 0.6231474119995255,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:30+0500",
+   "t_end": "2026-11-22T15:41:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.005080769199412316,
+    0.004318564599816455,
+    0.004197390799527056,
+    0.004061644600005821,
+    0.004316552000091178,
+    0.004494915800023591
+   ],
+   "number": 5,
+   "wall_s": 0.6317609350007842,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.3,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:30+0500",
+   "t_end": "2026-11-22T15:41:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.004240681999363005,
+    0.003918301600060658,
+    0.0038309267998556606,
+    0.00387996680001379,
+    0.0038982064004812857,
+    0.003956765799375717
+   ],
+   "number": 5,
+   "wall_s": 0.622626066000521,
+   "loadavg_before": 0.3,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:31+0500",
+   "t_end": "2026-11-22T15:41:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.3,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.004299973599700024,
+    0.0036690747998363803,
+    0.0037065948003146333,
+    0.003944604000571417,
+    0.003949706799903652,
+    0.003810952799540246
+   ],
+   "number": 5,
+   "wall_s": 0.6176066500011075,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:31+0500",
+   "t_end": "2026-11-22T15:41:32+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.6250633998424747e-06,
+    1.6329947000485844e-06,
+    1.5963860001647844e-06,
+    1.808806699773413e-06,
+    1.7765609998605215e-06,
+    1.6806413997983328e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5343631040013861,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:32+0500",
+   "t_end": "2026-11-22T15:41:33+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    2.1313713001291036e-06,
+    1.5991987002053066e-06,
+    1.6928248998738127e-06,
+    1.6347025000868598e-06,
+    1.612854799896013e-06,
+    1.5802682002686198e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5163741280011891,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:33+0500",
+   "t_end": "2026-11-22T15:41:33+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.004740595199837117,
+    0.004936746799648973,
+    0.00482196759985527,
+    0.004699210800026776,
+    0.004605260000244016,
+    0.004793901000084588
+   ],
+   "number": 5,
+   "wall_s": 0.61519367299843,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:33+0500",
+   "t_end": "2026-11-22T15:41:34+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 14.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.004766652199759846,
+    0.004714371600130107,
+    0.004884011399553856,
+    0.0048371785997005645,
+    0.004671753199363593,
+    0.005002300000342075
+   ],
+   "number": 5,
+   "wall_s": 0.6240322910016403,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:34+0500",
+   "t_end": "2026-11-22T15:41:34+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.004816495599516202,
+    0.005378250999638112,
+    0.00495166379987495,
+    0.00480864319979446,
+    0.00496617319950019,
+    0.004872233199421316
+   ],
+   "number": 5,
+   "wall_s": 0.6370352250014548,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:34+0500",
+   "t_end": "2026-11-22T15:41:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.004813391599600436,
+    0.004983365599764511,
+    0.005334713599586394,
+    0.0053662867998355065,
+    0.004933357800473459,
+    0.004900057800114155
+   ],
+   "number": 5,
+   "wall_s": 0.6724679340004514,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:35+0500",
+   "t_end": "2026-11-22T15:41:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004636011999537004,
+    0.005032846498579602,
+    0.004623783999704756,
+    0.006115236499681487,
+    0.006821990498792729,
+    0.008361968499229988
+   ],
+   "number": 2,
+   "wall_s": 0.5247503169994161,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:36+0500",
+   "t_end": "2026-11-22T15:41:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.006282742000621511,
+    0.00609795399941504,
+    0.011736133999875165,
+    0.005121532500197645,
+    0.0050471525009925244,
+    0.005008857000575517
+   ],
+   "number": 2,
+   "wall_s": 0.6575587950028421,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:36+0500",
+   "t_end": "2026-11-22T15:41:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.006041184500645613,
+    0.005520790500668227,
+    0.006110104999606847,
+    0.005397994498707703,
+    0.005446310000479571,
+    0.005027273000450805
+   ],
+   "number": 2,
+   "wall_s": 0.5306253679991642,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:37+0500",
+   "t_end": "2026-11-22T15:41:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.00544285750038398,
+    0.0054921055016166065,
+    0.006112944500273443,
+    0.006552959499458666,
+    0.006422788499548915,
+    0.007000748499194742
+   ],
+   "number": 2,
+   "wall_s": 0.5374237339965475,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:37+0500",
+   "t_end": "2026-11-22T15:41:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.0039135986000474075,
+    0.003761741799826268,
+    0.003830459399614483,
+    0.003784744599397527,
+    0.003935247800109209,
+    0.004113770399999339
+   ],
+   "number": 5,
+   "wall_s": 0.5807558729975426,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:38+0500",
+   "t_end": "2026-11-22T15:41:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.0037568338004348332,
+    0.0036227667995262893,
+    0.004058292799891205,
+    0.0036438490002183243,
+    0.003795087799517205,
+    0.0038193419997696763
+   ],
+   "number": 5,
+   "wall_s": 0.573307124999701,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:39+0500",
+   "t_end": "2026-11-22T15:41:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.003753528800007189,
+    0.004105294799956027,
+    0.003661687599378638,
+    0.0036001665997901,
+    0.003888489400560502,
+    0.003913407800428104
+   ],
+   "number": 5,
+   "wall_s": 0.585878917001537,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:39+0500",
+   "t_end": "2026-11-22T15:41:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.0037618070004100447,
+    0.0037635941996995827,
+    0.003957857199566206,
+    0.0038930276001337915,
+    0.003755558800185099,
+    0.003780821200052742
+   ],
+   "number": 5,
+   "wall_s": 0.6070457770001667,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:40+0500",
+   "t_end": "2026-11-22T15:41:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.004121895600110293,
+    0.004169986800116021,
+    0.0042732690002594605,
+    0.0038929546004510484,
+    0.003941520200169179,
+    0.004144819599605398
+   ],
+   "number": 5,
+   "wall_s": 0.639061728001252,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:40+0500",
+   "t_end": "2026-11-22T15:41:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.00399950680002803,
+    0.00417939619946992,
+    0.004080571599479299,
+    0.004285110199998598,
+    0.004000550600176211,
+    0.003968124999664724
+   ],
+   "number": 5,
+   "wall_s": 0.5942186860011134,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.46,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:41+0500",
+   "t_end": "2026-11-22T15:41:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.0038465837998955974,
+    0.003860113999689929,
+    0.0038778873997216577,
+    0.0038478784001199527,
+    0.0037814880000951235,
+    0.004139505000057398
+   ],
+   "number": 5,
+   "wall_s": 0.616211677002866,
+   "loadavg_before": 0.46,
+   "loadavg_after": 0.46,
+   "skipped": false,
+   "error": null,
+   "label": "A",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T15:41:42+0500",
+   "t_end": "2026-11-22T15:41:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.46,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.005265450000297278,
+    0.004580986800283427,
+    0.00410776380012976,
+    0.003959293600200908,
+    0.003930766399571439,
+    0.00391653140031849
+   ],
+   "number": 5,
+   "wall_s": 0.6130144199996721,
+   "loadavg_before": 0.46,
+   "loadavg_after": 0.46,
+   "skipped": false,
+   "error": null,
+   "label": "B",
+   "repeat": 4,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T15:41:42+0500",
+   "t_end": "2026-11-22T15:41:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.46,
+    "wincpu": 16.6,
+    "waited_s": 0.0
+   }
+  }
+ ]
+}

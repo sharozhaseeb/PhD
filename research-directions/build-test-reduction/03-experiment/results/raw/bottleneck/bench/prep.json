@@ -1,0 +1,15 @@
+{
+ "state_sha": "f51ed862e619dcff7b7b3691e58d5fc6ead4076b",
+ "clone": "/home/sharoz/bt-lab/exp/work/bn-bench",
+ "kinds": {
+  "peakmem": 1,
+  "time": 840
+ },
+ "time_cases_per_module": {
+  "move": 280,
+  "nonreduce": 8,
+  "nonreduce_axis": 60,
+  "reduce": 492
+ },
+ "head": "f51ed862e619dcff7b7b3691e58d5fc6ead4076b"
+}

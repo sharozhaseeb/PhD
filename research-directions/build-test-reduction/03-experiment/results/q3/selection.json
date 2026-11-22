@@ -1,0 +1,37 @@
+{
+ "rule": "frozen/q3_project_rule.md",
+ "candidates": [
+  {
+   "repo": "geopandas",
+   "package": "geopandas",
+   "head": "3e92048f628971d0ed24b512740fae82ed6376c5",
+   "asv_conf": [
+    "asv.conf.json"
+   ],
+   "bench_dir": "benchmarks",
+   "native_source_files": 0,
+   "py_source_files": 73,
+   "n_qualifying": 20,
+   "frozen": "edits/geopandas.q3.candidates.json",
+   "sha256": "f5a73f62d2649ad1e6767ab685c84f4398f13f8c17a45ec2340494fca8d96d65"
+  },
+  {
+   "repo": "pvlib-python",
+   "package": "pvlib",
+   "head": "91a21d9dc316ef04c6e585a0a263cf262b1be21f",
+   "asv_conf": [
+    "benchmarks/asv.conf.json"
+   ],
+   "bench_dir": "benchmarks/benchmarks",
+   "native_source_files": 1,
+   "py_source_files": 67,
+   "n_qualifying": 14,
+   "frozen": "edits/pvlib-python.q3.candidates.json",
+   "sha256": "e094b9cc8a7285e6f0bbb62d1fe4ea232aaa2af4aaa3a6a796507f0486749e70"
+  }
+ ],
+ "chosen": [
+  "geopandas",
+  "pvlib-python"
+ ]
+}

@@ -1,6 +1,8 @@
 # W3 results — PRELIMINARY
 
-> **Costs come from counts and estimated seconds. Functional misses are measured on 20 frozen mutants; performance-regression misses are pending. Benchmarks are not yet included in the per-arm totals.** (Benchmark cost is reported separately in RQ1, where it dominates.)
+> **Costs come from counts and estimated seconds. Functional misses are measured on 20 frozen mutants. The slowdown oracle is measured (10 frozen slowdowns; FULL itself detects few of them, see "Slowdown oracle"). Regression detection is not yet fed into the per-arm simulation. Benchmarks are not yet included in the per-arm totals.** (Benchmark cost is reported separately in RQ1, where it dominates.)
+>
+> **Update 2026-11-22 06:00 PKT:** overnight items 2 (slowdowns) and 3 (bottleneck `iterators.h` hazard, `build-hazard-iterators-h.md`) are written up below. Item 4 (measured FULL benchmark pass) finished at 05:58: **1668 s**, labelled **noisy** under M5. It **corrects** the earlier "≥ 0.9 h" lower bound (see RQ1 headline).
 
 **Status: PRELIMINARY, 2026-11-21 20:00 PKT. Partial data; numbers change as runs finish.** Every number links to a raw file under `results/raw/`. Each raw JSON carries the target state SHA and the harness tree hash in its `meta` block. Design: `../readiness.md` (v1.1). Rules: `../rules.md`.
 
@@ -12,21 +14,80 @@
 |---|---|---|
 | Edit list frozen | ✅ 20 commits (subject rule; see the readiness §1.3 correction) | ✅ window amended by the general reformat rule (readiness §1.3, Deviation 2; PM-approved 18:11) |
 | Replay states | ✅ 18 applied, 2 dropped (apply conflicts) | ✅ 13 of 16 applied on the amended window (base `f51ed86`); the 5-edit replay is kept as a sensitivity row |
-| RQ1 FULL cost per state | ✅ tests + build, 19 states; ⚠ FULL benchmark pass stopped as infeasible (8/171 cases in 2360 s); import-based lower bound reported; measured pass scheduled (`OVERNIGHT.md` item 4) | ✅ build probes (`rq1_bottleneck_build.md`); idle re-time scheduled (item 1b) |
+| RQ1 FULL cost per state | ✅ tests + build, 19 states; ✅ measured FULL benchmark pass at S0: 1668 s, 2 processes, noisy (`OVERNIGHT.md` item 4); the earlier import-based bound is superseded | ✅ build probes (`rq1_bottleneck_build.md`); idle re-time done (item 1b; still noisy under M5) |
 | RQ2 counts per arm | ✅ test counts + test-seconds + end-to-end (18 steps, 16 arms); ✅ benchmark-selection counts (S0 profiles); ✅ functional safety; 🟡 benchmark seconds and regression safety (overnight) | — |
-| Injected faults | ✅ 25 mutants frozen, 20 killed by FULL, detection simulated; ✅ latent re-check done: **0 of 5** survivors become detectable later (pre-registered null stands); 🟡 slowdowns (overnight item 2) | — |
+| Injected faults | ✅ 25 mutants frozen, 20 killed by FULL, detection simulated; ✅ latent re-check done: **0 of 5** survivors become detectable later (pre-registered null stands); ✅ slowdown oracle measured: FULL detects at most **3 of 10** (2 on target, 0 in the pre-set bands), so regression safety is **not measurable** with the frozen set (pre-registered primary result); the first out-of-reach spot check had no power (6 vs 6) and is withdrawn; the powered re-run, relabelled a **profile-completeness check** (not safety evidence), finds **1 slower in 50** out-of-reach comparisons over all 5 slowdowns (#9, louvain 1.13×, p = 0.0019; flagged by the pre-registered rule; a post-hoc re-check with a base-vs-base control, **not order-balanced** (partial run), **did not reproduce it**, 0.97–1.01×, partial 5/6 runs; the flag stands; #0 is labelled concurrent and #7 noisy) | ✅ `iterators.h` hazard study (`build-hazard-iterators-h.md`): the stale-header hazard did not reproduce; **measured false pass** of an incremental tree after a failed compile (`98b59df2`); states 9–13 held out; main result = amended window, states 1–8 |
 
-## RQ1 headline — benchmarks dominate per-edit validation cost
+## RQ1 headline — benchmarks dominate per-edit validation cost, and most of that cost is import-time setup
 
-On networkx, **one FULL benchmark pass costs at least 0.9–4.5 h per edit**, against **≈ 87 s for build + serial tests**. That makes benchmarks about **40–180×** the rest of FULL validation, so **benchmark cost, not build or test cost, is the dominant per-edit cost** on this project.
+On networkx, **one FULL benchmark pass (all 171 cases, asv's default 2 processes × 3 values) cost 659–2444 s across 6 measured passes on the night of 21–22 Nov.** The median is ≈ 730 s (≈ 12 min). Build + serial tests take **≈ 87 s**, so benchmarks are about **8–28×** the rest of FULL validation (≈ 8× at the median). **Benchmark cost, not build or test cost, is the dominant per-edit cost** on this project.
 
-**How the number was obtained.**
+**Most of the benchmark cost is setup (advisor review, 07:50):**
+- **87–96 % of a pass is spent in one module's 49 cases (`benchmark_algorithms`)**, over the 6 passes. Their time includes their timing loops, but 80–94 % of a pass lies outside the timing loops, mostly per-process start-up and import-time setup: they rebuild all their graphs at module import, once per process.
+- **The benchmarks' timing loops take only 132–171 s per pass** (Σ samples × number). Measured: 171 s in item 4; 132–144 s on the base side of the slowdown-oracle passes (`raw/networkx/slowdowns/0{1,2,3,4,8}.json`).
+- **Estimate, not measured — "setup cached":** if the import-time setup were built once and reused, a FULL pass would cost roughly its timing loops, **≈ 130–170 s, about 1.5–2× build + tests (≈ 87 s)** instead of 8–28×.
+  - This is a lower bound. It leaves out per-process start-up and warm-up values.
+  - So benchmarks would still be the largest single part, but no longer dominant by an order of magnitude.
+  - Selection would still matter, at a much smaller scale.
+- **Build share including benchmarks:** ≈ 1.2 s of ≈ 820 s at the median pass, **≈ 0.15 %**.
+
+**The 6 passes (all noisy-labelled or concurrent; single passes):**
+- **Dedicated S0 pass (overnight item 4):** 1668 s, `raw/networkx/bench/S0_181f2951.idle.json`. 171/171 cases, 0 errors. Labelled **noisy** (M5: load 1.63 at start; 1 of 171 cases > 1.5).
+- **Slowdown-oracle base side, per pass:** the mean over its 3 interleaved passes of the unpatched clone, from `raw/networkx/slowdowns/0{1,2,3,4,8}.json`.
+  - #3: 659 s; #4: 665 s; #8: 708 s, all runs at load ≤ 1.45; #2: 751 s.
+  - #1: 2444 s, with 177/1026 runs > 1.5.
+  - These are at states S2–S10 rather than S0, but with the same benchmark code.
+- **Finding (benchmark-cost noise): the spread is ≈ 3.7× under one protocol on one machine in one night.** So a single FULL benchmark pass is a noisy cost unit. Per-edit benchmark cost should be reported as a range, and any cost-matched arm comparison (RQ3) has to use per-case cost weights from one pass, not wall time from separate passes. WSL load does not explain it: item 4 had only 1 case > 1.5 yet took 1668 s. The cause is **unknown**. The later per-run data (machine-state finding) show the variation sits in one module's per-process setup, not in the timed samples. Host-side load is one candidate, but it was not measured, and at 10:42 Windows CPU read 11 %. M5 should also gate on Windows CPU, as the overnight start gate did.
+- **Where the time goes:** `benchmark_algorithms` (49 cases) is 1570 s of the 1668 s pass and ≈ 620 s of the 708 s pass (#8). Its per-case median is 8.7–8.8 s in the fast passes and 27 s in item 4, which is roughly 4–13 s per import for 2 processes. Timing loops are only ≈ 171 s per pass. The rest is process start-up and import-time graph construction.
+
+**Finding (machine state, 2026-11-22): `benchmark_algorithms` per-process setup drifts across the day.** It was ≈ 1.6× slower after the PC restart than in the morning, part of a day-long drift (≈ 4 → 40 s per process; see the A/A section), while the timed samples did not change. **The cause is unknown.**
+
+| | Before the restart (spot check #0, #5, #6; 06:19–07:28) | After the restart (spot check #7; 10:13–10:44) |
+|---|---|---|
+| `benchmark_algorithms` run wall time (5 processes × 3 values; one case-state) | median **114 s**, 70–183 s (n = 30) | median **177 s**, 135–239 s (n = 10) |
+| Same case, after / before | — | **1.08–1.96×**, median ≈ 1.6× (each #7 run's wall ÷ the median of the same case's morning runs, both labels; the critic's alternative methods give ≈ 1.41–1.80×, median ≈ 1.5×) |
+| Timed samples (base side, same cases), after / before | — | **0.92–1.16×**, median ≈ 0.96× (median of the #7 base run's samples ÷ the median of the morning base runs' sample medians; includes 5 cheap cases; the critic gets 0.92–1.03× for the algorithm cases) |
+| Cheap cases (other modules) | median ≈ 1 s | median ≈ 1 s |
+| WSL 1-minute load at each run | ≤ 1.10 | 0.14–0.43; 1.62 once |
+| Windows CPU at the gate | ≤ 20 % (gate) | ≤ 20 % (gate); 11 % at a spot reading at 10:42 |
+| Power plan | not recorded | Balanced (read 10:43) |
+| Memory | not recorded | WSL: 5.2 GB available, no swap use, PSI memory/io 0; Windows: 2.5 of 15.8 GB free (10:45) |
+
+**Raw files:** `raw/networkx/slowdowns/spotcheck_powered/{00,05,06,07}.json`; per-run `t_start`/`t_end` are in `07.partial.jsonl`.
+
+**Reading:**
+- The extra time is in **per-process setup**: process start, imports, and `benchmark_algorithms`' import-time graph construction. The timing loops did not slow.
+- **The cause is unknown.** Candidates, none verified:
+  - host memory pressure, which would slow the WSL VM's allocation-heavy setup;
+  - the power or boost state after boot;
+  - a cold page cache.
+- The likely link: **the same effect probably explains the failed A/A run's 2–3× overrun** (07:49–09:14). That run is not verified: no per-run data survived.
+- **Consequences:**
+  - (1) **Per-pass benchmark cost**, which is dominated by setup, varies with machine state beyond the 3.7× already seen. This adds to the benchmark-cost noise finding.
+  - (2) The asv verdicts compare **timed samples**, and these did not move. Because A and B runs alternate, **slow drift** in machine state shifts both sides alike, so the ratio is shielded from it. It is **not** shielded from a **change in variance**: a noisier machine widens the "same" spread and lowers power. The A/A re-run measures the machine as it is now, overrun included, on purpose (PM 10:43).
+- **No system setting was changed.** The power plan and other settings are the owner's call.
+
+**Correction (2026-11-22 06:05, revised after the critic review at 06:06): the earlier "at least 0.9–4.5 h" lower bound was wrong, an over-estimate by ≈ 9×.** Derivation, like for like at 2 processes: bound 1.78 h = 6408 s against the median measured pass of ≈ 730 s gives 6408 / 730 ≈ 8.8×. Across all 6 passes the factor is 2.6–9.7×. It multiplied a 65–71 s import time measured at 19:18 under concurrent load (likely cause, **not verified**). The old figures stay below for the record and are struck from the headline.
+
+**How the earlier (superseded) number was obtained.**
 - *Observed:* the asv-compatible runner (`bth.benchrun`, 5 processes × 3 values + 1 warmup, a fresh process per case, as asv isolates benchmarks) completed **8 of 171 cases in 2360 s**, ≈ 295 s per case. The run was **concurrent (CPU-pinned)**: CPUs 2–5, beside the RQ2 chain on 6–11. It was stopped as infeasible (`raw/networkx/bench/LABELS.md`).
 - *Cause, measured:* importing `benchmarks/benchmark_algorithms.py` takes **65–71 s** (two runs, CPUs 0–1), because it builds all its graphs at import time. The other 7 modules import in ≈ 0.1 s (`raw/networkx/bench/import_times_S0.txt`). That module holds **49 of the 171 cases**, and process isolation repeats the import for every case and process.
-- *Estimate (lower bound, import cost only):* Σ over cases of processes × import time = **0.89 h (1 process), 1.78 h (2 processes, asv's default), 4.45 h (5 processes, our protocol)** per FULL benchmark pass. Timing loops come on top. This is an estimate, not a measured full pass; the measured full pass needs an idle machine for hours and is scheduled.
-- *Consequence:* benchmark **selection** (P1 profile reach, A5 static reach) and amortising module setup are where the savings can be large. Test selection saves at most ≈ 87 s per edit here.
+- *Estimate (lower bound, import cost only):* Σ over cases of processes × import time = **0.89 h (1 process), 1.78 h (2 processes, asv's default), 4.45 h (5 processes, our protocol)** per FULL benchmark pass. Timing loops come on top. This is an estimate, not a measured full pass.
+- *Measured pass (overnight item 4, 05:30–05:58 PKT):* 1668 s, as above. It is **labelled noisy** under the pre-registered M5 rule: the 1-minute load was 1.63 > 1.5 at its start, left over from item 3's own benchmarks. The script's start gate only labels and does not postpone, which is a logged deviation (`raw/networkx/bench/LABELS.md`).
+  - Used as a **noisy per-pass cost** and for per-case cost weights.
+  - Not used for regression decisions or the noise floor. A re-run needs PM approval.
+- *Consequence:* benchmark **selection** (P1 profile reach, A5 static reach) and amortising module setup are where the savings can be large: **87–96 % of a pass is the 49 `benchmark_algorithms` cases, mostly import-time graph construction repeated per process.** Test selection saves at most ≈ 87 s per edit here.
 
-**Bottleneck (C extension), for contrast:** a clean build is 9.9 s, which is **≈ 22 % of clean build + full tests, before benchmarks** (34.4 s of tests, 168 pass; single noisy runs; `rq1_bottleneck_build.md`). For networkx the build is 1.19–2.11 %.
+**Bottleneck (C extension), for contrast:** on the amended base `f51ed86`, a clean build takes **4.7–5.4 s** (item 1b, 3 repeats, `raw/bottleneck/retime-idle/repeat{1,2,3}.json`) and the full suite **≈ 24 s** (191 tests; `raw/bottleneck/hazard/*/f_test_{inc,stale}.log`, `raw/bottleneck/s0-junit.xml`). So the build is **≈ 16–18 % of clean build + full tests, before benchmarks**. All runs are **noisy** (load 1.46–2.35). For networkx the build is 1.19–2.11 %.
+- The earlier figure (9.9 s, ≈ 22 %, 168 tests; `rq1_bottleneck_build.md`) was on the superseded base `22657ac` under concurrent load and is superseded.
+
+**Bottleneck build hazards, measured (`build-hazard-iterators-h.md`):**
+- **Harness/replay lesson H1, not a finding about reduced builds (advisor review): an incremental tree masks a failed compile, and RTS then passes.** Rejecting a failed build (rule B0, kept) is what any harness does. Observed on a replayed, non-compiling state (`98b59df2`). This is a replay artefact: a prerequisite commit is missing, so the state never existed upstream. The full suite passed on the stale binaries; testmon itself was not run on bottleneck.
+  - What happened: replayed edit `98b59df2` (step 9 of 13) does not compile. The incremental tree kept the old `.so` files and **passed 191/191 tests**, while the clean build failed.
+  - Rule B0 was adopted: a failed build is a reject, whatever the tests say (rules.md §2).
+- **The `iterators.h` stale-header hazard did not reproduce at the natural edits.** The pre-fix probe leaves stale artefacts, but they are byte-identical to a correct rebuild.
+- **B4 (`.so` hash differential) is invalid as specified,** because the build path is embedded in every `.so`. Fixing it is a post-meeting item.
+- **Scope (PM ruling 05:50):** bottleneck states 9–13 are held out of benchmark runs and the headline. **The main bottleneck result is the amended pre-registered window (base `f51ed86`) truncated to states 1–8**, before the uncompilable state (PM clarification 06:10, superseding the 05:50 "5-edit window" wording). The 5-edit replay (`edits/bottleneck-5edit.*`) stays a sensitivity row. Limitation: the bottleneck evidence covers 8 edits.
 
 ## RQ1 — cost of FULL validation per edit (networkx)
 
@@ -35,7 +96,7 @@ Raw: `raw/networkx/{build,oracle-tests}/S<k>_<sha8>.json`. Table: `rq1_networkx.
 **Definitions:**
 - **Build** = `pip install -e . --no-deps --no-build-isolation`. This is the per-candidate build step that SWE-Perf, GSO and SWE-fficiency run (W2).
 - **Tests** = the full pytest suite, run **serially** (no xdist, per M1), wall time.
-- **Benchmarks** = the full asv suite (171 cases) through our asv-compatible runner, with 5 processes × 3 values and 1 warmup. This pass was stopped as infeasible; see the RQ1 headline. A measured pass with 2 processes is scheduled (`OVERNIGHT.md` item 4).
+- **Benchmarks** = the full asv suite (171 cases) through our asv-compatible runner, with 5 processes × 3 values and 1 warmup. That 5-process pass was stopped as infeasible. Six full passes were later measured with 2 processes × 3 values (659–2444 s, median ≈ 730 s, including `OVERNIGHT.md` item 4); see the RQ1 headline.
 
 | State | SHA | Build (s) | Tests wall (s) | Σ test durations (s) | Tests | Failed | timing_label (rule below) |
 |---|---|---|---|---|---|---|---|
@@ -72,9 +133,35 @@ The thresholds were not adjusted to change any label. The `tests_concurrent_load
 - **S16 is noisy:** a uniform 1.57× per-test shift across unrelated tests. S16 edits only `cluster.py::_triangles_and_degree_iter`, so the cause is external load.
 - **S17 is borderline clean:** wall time 119 s, but by the rule its slowdown is partial (1.075 median shift, untouched-tests ratio 1.147). Its top slowed tests (gomory_hu, traveling_salesman, kcutsets) do not reach its edit (`structuralholes.py::effective_size`).
 - **Re-timing.** All states will be re-timed on an idle machine and both values reported (PM request).
-- **Benchmarks.** The FULL benchmark pass at S0 was stopped as infeasible (8/171 cases in 2360 s). The cost is reported as an import-based lower bound in the RQ1 headline, and a measured pass is scheduled overnight (`OVERNIGHT.md` item 4).
+- **Benchmarks.** One FULL benchmark pass costs 659–2444 s (6 measured passes, 2 processes; median ≈ 730 s), see the RQ1 headline. The earlier import-based lower bound is superseded.
 
-## RQ2/RQ3 — selection counts per arm over the 18-edit networkx session (DRAFT: tests only)
+### RQ1 — idle re-timing (overnight item 1, 19:38–20:04 PKT)
+
+**What:** build + serial FULL tests were re-run for all 19 states (`*.idle.json` in `raw/networkx/{build,oracle-tests}/`).
+- Table: `rq1_networkx_idle.csv`, made by `scripts/idle_compare.py`.
+- Load at start: the `loadavg=` line printed by `oracle_nx.sh` before each run, from `raw/overnight.log`.
+
+| | First run | "Idle" re-run |
+|---|---|---|
+| Median tests wall time | 86.1 s | 77.2 s |
+| Range | 75.4–142.2 s | 70.7–83.8 s |
+| First / re-run ratio | 0.96–1.99 | |
+| Re-run build (`pip install -e`) | | 0.95–1.75 s |
+| Re-run tests | | all 6771 tests, exit 0 |
+
+**Despite the name, none of the 19 re-runs is M5-clean.**
+- S0–S6 overlapped this session's profile job (19:38–19:46, `concurrency_log.json`). Even so, the overnight gate had opened at 19:38: WSL load ≤ 1.0 and Windows CPU ≤ 20 % for 3 minutes.
+- From S1 on, the 1-minute load at start was **1.54–2.95**, above the 1.5 gate.
+- Part of that is self-inflicted: the gate reads the 1-minute average right after the previous serial run, which adds up to ≈ 1. That does not explain values of 2–3. The rest is unidentified, probably other sessions.
+- So every re-run is labelled **noisy**, and the gate fix below (postpone, not label) applies.
+
+**What the re-runs still show (direction, not precise values):**
+- **S16 and S17 return to normal:** 71.5 s and 71.0 s, against 142.2 s and 119.2 s first time. That confirms their first-run slowness was external load, as the timing_label rule said for S16. S17 was borderline under that rule; it now looks load-affected too.
+- **The other 17 states agree within 0.96–1.20×.** The re-runs are mostly a little faster.
+- **RQ1's per-edit serial test cost is ≈ 71–89 s** across both runs, excluding the S16/S17 first runs. Build is 1–2 % of that.
+- **The headline does not change:** about 85 s per edit for build + tests, against a 659–2444 s FULL benchmark pass.
+
+## RQ2/RQ3 — selection counts per arm over the 18-edit networkx session (DRAFT: tests only; 18 replayed edits = 15 optimizations + 3 non-optimizations matched by the subject rule, see "networkx edit sets")
 
 > Cost from counts and estimated seconds; functional misses on the frozen mutant set are below. Benchmarks **not** included in these totals (see the RQ1 headline).
 
@@ -107,11 +194,11 @@ The thresholds were not adjusted to change any label. The `tests_concurrent_load
 | A4 − profile (A3 bench rule) | 35 742 | 403.2 | 655 | — | 5 | 855 |
 | A4 with periodic k=5 | 31 136 | 382.8 | 633 | — | 4 | 2413 |
 
-**Reading (draft; no safety numbers yet, so nothing here ranks the arms):**
-- **Headline ratio, end-to-end where measured.** testmon took **404 s measured** for S1–S18, vs **1634 s measured** for FULL serial tests + build: about **4× cheaper**, not the 15× that test-seconds alone suggest (85 vs 1279). Startup and testmon's own analysis dominate its real cost. Its first run (DB build at S0) took 279.7 s vs 88.0 s plain, 3.2×.
+**Reading (draft).** What ranks the arms so far: **functional safety only.** Every arm misses 0/20 frozen mutants except A3 changed-module, which misses 2/20 (fault-detection table below). So among the arms with equal functional detection, cost decides. What does **not** rank them: **regression safety**, which is not measurable on networkx with the frozen slowdown set (FULL detects at most 2–3 of 10; see "Slowdown oracle"). Benchmark cost per arm is also not yet in the totals:
+- **Headline ratio, end-to-end where measured.** testmon took **404 s measured** for S1–S18, vs **1634 s measured** for FULL serial tests + build: about **4× cheaper**. **This comparison mixes load conditions:** the 1634 s includes the noisy S16 run, and testmon was measured concurrently. The idle FULL re-runs (item 1, `*.idle.json`) give **1413 s, i.e. 3.5×**; the idle S0–S5 runs overlapped profiling (`concurrency_log.json`). So the ratio is 3.5–4×, not the 15× that test-seconds alone suggest (85 vs 1279). Startup and testmon's own analysis dominate its real cost. Its first run (DB build at S0) took 279.7 s vs 88.0 s plain, 3.2×.
 - **A4 currently behaves like periodic full checks at k ≈ 4.** Its score trigger fired at steps 3, 5, 8 and 13, plus the final check: 5 full checks, each caused by a **module-level edit**. Module-level edits expand A_t to every function of the module under F6, which pushes the score past T = 10.
   - Its cost (655 s est. end-to-end) sits **between A2 + k=5 (594 s) and A2 + k=3 (735 s)**.
-  - On the frozen mutants, its extra selections buy no extra functional detection (see the fault-detection table). Regression detection is pending (overnight).
+  - On the frozen mutants, its extra selections buy no extra functional detection (see the fault-detection table). Regression detection is measured for FULL only so far (see "Slowdown oracle"); it is not yet in the per-arm simulation.
   - T is not retuned; this is a design finding about the pre-registered score.
 - **Benchmarks.** A5's static reach selects 61 % of cases (1893 / 3078) and all 171 on the worked edit. The changed-module benchmark rule selects 0, since only 1 of 8 bench files maps to a module.
 - **Accumulation** adds 494 test runs (35 742 vs 35 248). They are spread over steps 2, 7, 10–12 and 15–17; the largest is step 12 (421 vs 140), because the accumulated set still holds step 9–11 functions. That is +3 est. test-s. No detection benefit was found: the latent-fault class is empty on networkx (0 of 5 survivors become detectable later), so the pre-registered null stands.
@@ -119,10 +206,11 @@ The thresholds were not adjusted to change any label. The `tests_concurrent_load
 
 ### Benchmark selection (counts; S0 profiles now measured, 171/171, 0 errors)
 
-**Finding B1 — most replayed optimizations are not executed by any benchmark.**
+**Finding B1 — many replayed optimizations are not executed by any benchmark** (12/18 replayed edits; **9/15 true optimizations, Wilson 36–80 %**, so "most" is not established; see "networkx edit sets").
 - **The number:** for **12 of the 18 edits**, the S0 profile of **no** benchmark case executes any function the edit changed (module-level lines excluded). The steps are 1, 2, 5–8, 11–13, 15, 17 and 18.
+- **Mining precision (post-hoc audit, ≈ 12:33):** 3 of the 18 replayed edits are not optimizations by their subject: step 8 `519e819f` (MAINT), step 13 `bf130bfe` ("coefficient"), step 17 `9f6079c0` (bug fix). **On the 15 true optimizations, 9/15 are unreached (60 %, Wilson 36–80 %).** B1 still points the same way, but "most" is not established. See Q3.
 - **The other 6 edits:** 1–8 cases execute at least one changed function (steps 3: 8, 4: 3, 9: 4, 10: 1, 14: 1, 16: 4).
-- **Consequence:** *even FULL benchmarking cannot confirm the claimed speed-up of most of these commits with the project's own suite.* This bears on the RQ1 benchmark headline: FULL pays ≥ 0.9 h per edit largely for benchmarks that do not touch the edit.
+- **Consequence:** *even FULL benchmarking cannot confirm the claimed speed-up of many of these commits (9/15 true optimizations; CI 36–80 %) with the project's own suite.* This bears on the RQ1 benchmark headline: FULL pays 659–2444 s per edit (median ≈ 730 s; 6 measured passes, 2 processes) largely for benchmarks that do not touch the edit.
 - **Source:** `raw/networkx/profile/S0_181f2951.json` (merged from 5 parallel parts; not a timing).
 
 **Finding B2 — A4's profile selection, as specified, collapses to "all benchmarks" after its first full check.**
@@ -133,7 +221,7 @@ The thresholds were not adjusted to change any label. The `tests_concurrent_load
   - A5 + k=5: 2235.
   - FULL: 3078.
 - **Static reach (A5)** selects all 171 cases on 11 steps (1–7, 10, 12–14) and 0–7 on the other 7. It selects all 171 on steps 1 and 2, where profile reach finds 0, because of module-level edits and import-closure edges.
-- **Safety:** whether any of these selections misses a regression is the overnight slowdown oracle: within reach, plus the out-of-reach spot check.
+- **Safety:** see "Slowdown oracle" below. FULL itself detects at most 3 of the 10 frozen slowdowns, and the out-of-reach spot check could not detect anything (no power), so there is no regression-safety evidence for these selections.
 
 ### Fault detection on the frozen mutant set (networkx, functional)
 
@@ -159,13 +247,474 @@ The thresholds were not adjusted to change any label. The `tests_concurrent_load
 - `isomorph.py::fast_could_be_isomorphic` (step 8): its killing tests live in `tests/test_isomorphism.py`.
 - `katz.py::katz_centrality_numpy` (step 9): its killing tests live in `tests/test_katz_centrality.py`.
 - Neither test file's name matches its module, so the rule selects no test for either edit.
-- With any periodic full check, both are caught at the next checkpoint (delay 1–3 steps).
+- With any periodic full check, both are caught at the next checkpoint (delay 1–2 steps).
 
 **Reading (honest):**
 - **On this fault class, selection catches almost everything by construction (M2).** The mutants sit in the edited functions, so every dependency-based arm catches all 20 at the injection step, and the arms differ only in cost.
 - **Cost at equal detection (20 / 20): plain testmon is the cheapest** (330 s est. end-to-end, 404 s measured), ahead of A4 (655 s est.). On this evidence, **our policy's extra cost buys no extra functional detection**. The latent class is empty on networkx (0 / 5), so accumulation shows no benefit here, as pre-registered. Its possible value is in benchmark selection (regression safety overnight) and as a safety backstop for weak rules like A3.
 - **testmon caveat:** at the injection step the simulation uses testmon's *clean-replay* selection ∩ kill set (readiness §4.1). Real testmon runs with each mutant present are not done yet; it re-selects on changed blocks, so the result is expected to match, but that is unverified.
 - **N = 20 is small.** "0 / 20" means a miss rate below 16.1 % at 95 %, **not** "safe".
+
+### networkx edit sets — reconciliation (PM 12:35; text only)
+
+**Three edit sets are in play:**
+- **20 mined** commits (`edits/networkx.candidates.json`, subject rule).
+- **18 replayed** states (steps 1–18): 2 mined commits, `675034ad` and `abf2feda`, were dropped on apply conflicts. Both are true optimizations.
+- **15 true optimizations among the 18 replayed**, by a post-hoc manual reading of the subjects. Steps **8** (`519e819f`, MAINT), **13** (`bf130bfe`, rich_club "coefficient") and **17** (`9f6079c0`, bug fix in vectorized code) are not optimizations. Among the 20 mined, 17 are true optimizations.
+
+**Every B1 figure is over the 18 replayed states** (module-level lines excluded):
+
+| Reach measure | All 18 replayed | 15 true optimizations |
+|---|---|---|
+| S0 measured profile | 12/18, 67 % [44–84 %] | **9/15, 60 % [36–80 %]** |
+| S0 static call graph | 7/18, 39 % [20–61 %] | **4/15, 27 % [11–52 %]** |
+
+Static reach leaves fewer edits unreached than the profile does, on both sets.
+
+**Other networkx results that include steps 8, 13 or 17, and whether they change:**
+- **RQ1 cost per state** (S8, S13, S17) and the RQ1 table: **valid as written.** They are costs of validating a replayed edit sequence. S17's timing note (borderline, load-affected) is unchanged.
+- **RQ2/RQ3 selection counts and costs, all arms including testmon and A4/C5:** **valid**, for the same reason. They cover all 18 replayed edits.
+  - **A4's score trigger fired at steps 8 and 13**, both non-optimization edits; 13 is a module-level edit. So 2 of A4's 5 full checks come from non-optimization edits.
+  - C5's additive budget shares those triggers.
+  - The A4 ≈ "periodic k≈4" reading stays a property of this replayed sequence.
+- **Frozen mutants:**
+  - Step 8's mutant (`fast_could_be_isomorphic`) is killed by FULL. It is **one of A3's 2 misses**.
+  - Step 13's (`rich_club_coefficient`) survived FULL, so it is not in N = 20.
+  - Step 17's (`effective_size`) is killed.
+  - Restricted to true-optimization steps: N = 18, A3 misses 1/18 (`katz`, step 9), and every other arm misses 0/18. **Conclusions unchanged.**
+- **Slowdowns:** #6 (`could_be_isomorphic`, step 8) sits in a non-optimization edit's function.
+  - It was undetected by FULL, unreached, and shows 10 same in the profile-completeness check.
+  - Removing it leaves 9 slowdowns; FULL detection stays at most 3, and the profile-completeness check is 1 slower in 40.
+- **Worked edit** (step 10, `c1c468d5`, a true optimization): unaffected.
+- **C7 and F6-order:** not step-specific; unaffected.
+
+**Wording rule applied:** where a result spans all 18 steps, "replayed edits" means the mined sequence: 15 optimizations plus 3 non-optimizations matched by the subject rule. Only B1, which is a claim about optimization edits, is also given on the 15.
+
+### Q3 — Does B1 replicate? Optimization edits that no benchmark reaches (PM 07:50; no timing). Rewritten ≈ 12:33 after a critic review with 2 BLOCKING findings
+
+**Rule, frozen before cloning:** `../frozen/q3_project_rule.md`, with an addendum.
+- **Projects:** candidates tried in a fixed order: geopandas, pvlib-python, xarray. The first 2 that pass are used, which turned out to be geopandas and pvlib-python. xarray was not needed. Selection log: `q3/selection.json`.
+- **Mining:** the same subject-only mining rule as networkx. The edit lists were frozen before any reach was computed; sha256 in `frozen/FROZEN.md`, verified.
+- **Measure:** an edit is **unreached** when none of its changed functions (module-level lines excluded) is reached by any asv benchmark. Reach comes from the static call graph at the parent of the oldest edit.
+- **Raw files:**
+  - `q3/q3_b1_static.first_count.json` holds the **as-frozen** counts, including bottleneck 4/8.
+  - `q3/q3_b1_static.json` holds the recount with the post-hoc bottleneck `NAME` interpretation (0/8). The networkx, geopandas and pvlib counts are identical in both.
+  - `q3/q3_diag.json` holds the post-hoc heuristic.
+
+**Primary result, as frozen:**
+
+| Project | Unreached (static call graph, single base) | Note |
+|---|---|---|
+| networkx | 7/18, 39 % [20–61 %] | measured S0 profile: **12/18, 67 % [44–84 %]** (B1) |
+| geopandas | 18/20, 90 % [70–97 %] | base 2017, edits 2017–2025 |
+| pvlib-python | 14/14 | **invalid**: the 2014 base has no asv suite |
+| bottleneck, states 1–8 | **4/8, 50 % [22–78 %]** | static Python + name-based native, as frozen |
+
+**Why these numbers do not establish B1 outside networkx:**
+1. **The mining regex has poor precision on some projects (post-hoc manual audit of the subjects).**
+   - `efficien` matches "coefficient" and "efficiency"; `optimi[sz]` matches `scipy.optimize`; `faster` matches function names. For networkx, **only 1 of its 3 non-optimizations** (`bf130bfe`) matched via "coefficient". The other two matched via `faster` in function names (`519e819f`) and `vectoriz` in a bug-fix subject (`9f6079c0`).
+   - **True optimizations by subject:** networkx **17/20**, bottleneck **16/16**, geopandas **19/20**, pvlib **≈ 4/14**.
+     - networkx non-optimizations: `bf130bfe` rich_club_coefficient parameter; `9f6079c0` a bug fix in vectorized code; `519e819f` MAINT, matching through `fast_/faster_` names.
+     - geopandas: `6286f13f` is a DOC commit.
+     - pvlib: 9 of its 10 suite-era edits are not optimizations (coefficient or efficiency wording, a `scipy.optimize` API).
+   - **So the pvlib count says nothing about B1.**
+   - **networkx B1 on true optimizations only:** removing steps 8, 13 and 17 leaves **9/15, 60 % [36–80 %]**, against 12/18. The finding holds.
+2. **Static reach from one old base is not a bound in either direction.**
+   - Functions added after the base (geopandas 2017; e.g. `GeometryArray.to_crs`) are unreached by construction, which over-counts unreached edits.
+   - Static reach can also over-reach: branch-insensitive edges, and benchmarks removed later, under-count unreached edits. networkx shows static reach covering more than the profile (7 vs 12).
+   - The frozen addendum predicted that static reach would **under**-count unreached edits; for geopandas the effect of the old base may dominate the other way.
+3. **The name heuristic (post hoc, `q3_diag.py`, written after the first count) is not an over-approximation of reach.**
+   - It checks only whether a changed function's own name appears in the suite at the edit's parent. It does not follow calls.
+   - It misses helpers reached through calls, e.g. geopandas `plotting.py::_flatten_multi_geoms`, which static reach does reach.
+   - So it is **neither a lower nor an upper bound**. geopandas by this heuristic: 7/20 unreached. Reported as a heuristic only.
+4. **Bottleneck `NAME` interpretation (post hoc, after the first count).**
+   - The 4 "unreached" edits change `NAME`, the generic body of a C template. The commit subjects say they concern nanmin/nanmax/nanargmin.
+   - These functions are named in the suite, so they are probably reached. But the code fix ("reached if any native function of the package is named") is **too broad**: it is always true for bottleneck, and it is not per extension.
+   - A per-function expansion of the template blocks was not done. **As frozen: 4/8. Under the template interpretation: 0/8.** Both are reported.
+5. **Smaller limits:**
+   - The changed-function sets include test and benchmark functions: diffs are parent → commit with no source pathspec, whereas networkx's replay excluded tests.
+   - Rule 2 was checked by file count, not lines (pvlib: 1 native file vs 67 `.py`).
+   - The rule file's header says "≈ 07:58", but its file time is 07:53.
+
+**Deviations from the frozen rule:**
+- pvlib was declared invalid and kept, not replaced by xarray.
+- Post-hoc name heuristic and per-edit bases.
+- Post-hoc bottleneck `NAME` rule.
+- Manual precision audit of subjects.
+
+**Reading, after the review:**
+- **B1 is established on networkx only:** measured profiles, 9/15 true optimizations unreached.
+- **geopandas:** the as-frozen static count (18/20) is consistent with B1, but the measure is biased by the old base. The name heuristic gives 7/20. Neither is a bound. **Consistent with B1 under a heuristic; not established.**
+- **pvlib:** not informative; the mined sample is mostly not optimizations.
+- **bottleneck:** 4/8 as frozen, 0/8 under the template interpretation. Its suite enumerates its functions by name.
+- **What B1 replication would need:**
+  - measured benchmark profiles (`sys.monitoring`, as for networkx) at each edit's parent;
+  - a mining rule with better precision, e.g. excluding `coefficient`/`efficiency`, applied before mining. That is a rule change for any new study, not this one.
+
+**Side finding (true at bottleneck base `f51ed862`):** in `asv_bench/benchmarks/reduce.py`, `time_nanmax` calls `bn.nanmin` (lines 44–45 and 90–91).
+- The template code shared by nanmin and nanmax is still reached.
+- Only nanmax-specific code paths are never benchmarked.
+
+### RQ3 — C5 batching comparators at matched cost (networkx, simulation; PM 06:27 Q1)
+
+**Summary (advisor review, 07:50). There is no "A4 beats batching" headline.**
+1. **The design cannot tell selection rules apart.** Every arm with a per-edit tier catches every mutant at its injection step, **by construction of the mutant placement**: the mutants sit in the edited functions (M2). So caught-at-injection differences between per-edit arms and batching reflect the mutant model, not rule quality.
+2. **A4 as implemented costs more.** On primary cost it is dominated by plain TESTMON. With benchmarks it costs ≈ 2× batching at matched cost, and that depends on finding B2: profile selection collapses to all 171 cases without checkpoint re-profiling. It is not intrinsic to the design.
+
+**Plan, pre-registered before any output:** `sim/networkx/c5_plan.md` (file saved 06:29:51; its header says 06:35, which is wrong — the file time is the real one). The simulation ran at 07:39–07:40. Raw files: `sim/networkx/c5_steps.csv{,.faults.csv,.summary.csv}`, `c5_compare.{csv,json}`, `c5_run.log`. Script: `scripts/c5_compare.py`.
+
+**Comparators** (`bth.select.Batch`, 7 unit tests in `tests/test_batch.py`, rules.md §6) are pure **batching**: nothing is built or run between full checks.
+- **cap-only** `BATCH:cap=k` is FSB / a time cap.
+- **additive-budget** `BATCH:budget=T` is risk-mass "-la" batching with A4's own score as the risk sum.
+- Inputs are frozen: the same 18 steps and the same 20 mutants FULL kills. No T or k was tuned.
+
+| Arm | Full checks | **Est. end-to-end s, no benchmarks** (primary) | + benchmarks (item-4 weights, noisy) | Missed (every arm: 0/20, 95 % Wilson CI 0–16.1 %) | Caught at injection step | Mean delay (steps) | Mean / max window |
+|---|---|---|---|---|---|---|---|
+| BATCH:cap=2 / 3 / 5 / 8 | 9 / 6 / 4 / 3 | 774 / 516 / 344 / 258 | 15 783 / 10 522 / 7 015 / 5 261 | 0/20 | 9 / 6 / 5 / 2 | 0.55 / 1.05 / 1.70 / 3.65 | 2.0 / 3.0 / 4.8 / 7.4 (max 2–8) |
+| BATCH:budget=5 / 10 / 20 | 8 / 5 / 3 | 688 / 430 / 258 | 14 030 / 8 769 / 5 261 | 0/20 | 10 / 6 / 3 | 0.65 / 1.30 / 3.75 | 2.4 / 3.5 / 7.5 (max 3–12) |
+| BATCH:budget=10,cap=5 | 5 | 430 | 8 769 | 0/20 | 6 | 1.30 | 3.5 (identical to budget=10: the cap never changes a decision; at step 13 it coincides with the budget trigger) |
+| **A4 OURS (T = 10)** | 5 | **655** | 27 338 | 0/20 | **20** | **0** | 1.6 (max 5) |
+| OURS T = 5 / T = 20 | 8 / 3 | 855 / 641 | 30 874 / 27 325 | 0/20 | 20 / 20 | 0 / 0 | 1.6 / 1.75 |
+| TESTMON + k = 2 / 3 / 5 / 8 | 9 / 6 / 4 / 3 | 931 / 735 / 594 / 541 | ≈ 30 560–30 950 | 0/20 | 20 | 0 | 1.4–1.9 |
+| TESTMON (no full check) / FULL | 0 / 18 | 330 / 1548 | 30 349 / 31 567 | 0/20 | 20 / 20 | 0 | 1.0 |
+
+**Matched cost (the pre-registered comparison, at A4's 655 s, linear interpolation inside each family):**
+
+| | Mean delay (steps) | Caught at injection | Mean window (edits to bisect) |
+|---|---|---|---|
+| A4 | **0** | **20 / 20** | 1.6 |
+| cap-only, between cap = 3 and cap = 2 | 0.78 | 7.6 / 20 | 2.5 |
+| additive-budget, between T = 10 and T = 5 | 0.73 | 9.5 / 20 | 2.5 |
+
+**Equal detection:** **no batching member reaches A4's 20/20 caught at the injection step.** No batching arm run here reaches it; cap = 1, a full check at every step, would, but it was not run (inferred). Every arm with a per-edit tier does. The cheapest member of the fixed-k + per-edit family is TESTMON + k = 8 at 541 s, and plain TESTMON, with no full checks, gets there at 330 s.
+
+**Reading:**
+- **First, a construction caveat (M2).** The mutants sit in the edited functions, so **every arm with a per-edit tier gets delay 0 by construction.** The comparison below therefore shows what the mutant model allows, not evidence that A4's design is better.
+- **On the primary cost (no benchmarks), A4 has more caught-at-injection than both batching families at matched cost (by construction, see summary point 1), and A4 is itself dominated** by plain TESTMON (330 s) and by TESTMON + k = 8 (541 s), both with 20/20 at injection.
+  - At A4's cost, batching finds **half to about 60 %** of the mutants one step or more later: 12.4/20 late for cap-only, 10.5/20 for additive-budget.
+  - Batching also leaves ≈ 2.5 candidate edits per failure.
+- **The advantage comes from the per-edit tier, not from the trigger.**
+  - Plain TESTMON, with no full checks, also gets 20/20 at injection at **330 s, half A4's cost**. That matches the RQ2 reading: on this mutant class the per-edit selection catches everything by construction (M2).
+  - The additive-budget trigger fires at **exactly the same steps as A4** (3, 5, 8, 13, 18). So the trigger alone, without the per-edit tier, is what batching measures.
+- **The secondary cost, with benchmarks, reverses the cost picture.**
+  - Batching runs benchmarks only at its full checks: 5 300–15 800 s.
+  - A4 runs about 27 300 s. Its profile selection collapses to all 171 cases after the first full check (finding B2), and TESTMON / FULL run all benchmarks every step (≈ 30 000 s).
+  - **So once benchmark cost counts, every arm with a per-edit benchmark tier costs 1.7–6× more than batching**, ranging from 27 325 / 15 783 to 31 567 / 5 261.
+  - **At A4's matched primary cost,** batching with benchmarks interpolates to ≈ 13 350 s for both families, so **A4 costs ≈ 2.0×.**
+  - **Convention:** TESTMON and FULL have no benchmark selection and run all 171 cases every step. STATIC_BENCH was not in this arm set. On this evidence, A4's benchmark selection (P1 + P8) has to work, through checkpoint re-profiling, before A4 can compete on total cost.
+  - The benchmark weights come from one noisy pass, and the cost varies ≈ 3.7× between passes.
+- **Caveats:**
+  - Only functional mutants are used, since regression detection is not measurable on networkx. Mutants sit in edited functions, which favours any per-edit tier.
+  - Batching's bisection cost after a failing batch is **not** modelled (every check is green except the fault), so batching's cost is a lower bound.
+  - Under the pre-registered window definition, a per-edit arm's full-check hit at the injection step counts the whole window since the previous full check. That is why A4 shows 1.6 rather than 1.0. The definition was kept as pre-registered.
+  - T = 20 is cheaper than T = 10 with the same detection here. T was not retuned (rules.md).
+
+### Slowdown oracle (networkx, performance; overnight item 2)
+
+**Set:** 10 frozen synthetic slowdowns (`frozen/networkx.slowdowns.json`, sha256 in `frozen/FROZEN.md`), each placed in a function changed at its step. Nine call the function's body twice (`double_call`); #8 uses a list instead of a set for membership.
+
+**Measurement** (`scripts/slowdowns_nx.py`; raw `raw/networkx/slowdowns/<i>.json`, with the plan written before each run as `<i>.plan.json`):
+- Each slowdown has two clones at its state S_s, one patched. They are measured interleaved A/B with `bth.benchrun` on CPUs 2–5. The verdict is the asv rule (ratio > 1.1 and Mann-Whitney p < 0.002) on pooled samples.
+- **Within reach:** the measured cases are those whose S0 profile or static reach includes the slowed function. They run 2 processes × 3 values × 3 repeats.
+- **Out-of-reach spot check:** the frozen seeded sample of 10 cases (`frozen/networkx.slowdown_spotcheck.json`, seed 20261121), minus the reach. They run 1 process × 3 values × 2 repeats. **This gives 6 vs 6 samples, too few for the test: see "Safety of reach-based selection"; the column below is not evidence.**
+- **On target:** "on target" below means the flagged case executes the slowed function in its S0 profile.
+
+| # | Step | Slowed function (kind) | Reach: profile / static → measured | Within-reach verdict (FULL) | Out-of-reach spot check | Class (script) |
+|---|---|---|---|---|---|---|
+| 0 | 1 | `distance_regular.global_parameters` | 0 / 0 → 0 | not measurable: no case reaches it | 10 cases, 0 slower | not detected |
+| 1 | 2 | `weighted.bidirectional_dijkstra` | 0 / 171 → 171 | 1 slower, **off target**: `time_connected_components('Erdos Renyi (100, 0.1)')` 1.245×, p = 0.0018. Also 1 "faster" off target (`time_average_clustering`, 0.858×). | none left (reach = all 171) | moderate (1.2–1.5×) — **judged noise, see below** |
+| 2 | 3 | `weighted._dijkstra_multisource` | 8 / 171 → 171 | **9 slower:** all **8 profiled** `time_multi_source_dijkstra` cases at **1.81–1.90×** (p = 3.2e-7), plus 1 off target (`NonNeighbors.time_complete(100)`, 1.14×) | none left | other-slower (max 1.90×) |
+| 3 | 4 | `components.connected.is_connected` | 3 / 171 → 171 | 0 slower (171 same) | none left | not detected |
+| 4 | 5 | `unweighted._single_shortest_path` | 0 / 171 → 171 | 0 slower (171 same) | none left | not detected |
+| 5 | 6 | `dense.floyd_warshall_tree` | 0 / 0 → 0 | not measurable | 10 cases, 0 slower | not detected |
+| 6 | 8 | `isomorph.could_be_isomorphic` | 0 / 0 → 0 | not measurable | 10 cases, 0 slower | not detected |
+| 7 | 9 | `katz.katz_centrality_numpy` | 0 / 0 → 0 | not measurable | 10 cases, 0 slower | not detected |
+| 8 | 10 | `generic._build_paths_from_predecessors` (list membership) | 1 / 171 → 171 | **1 slower, on target:** `ManyComponentsBenchmark.time_single_source_all_shortest_paths` **1.116×** (p = 4.5e-7) | none left | other-slower (max 1.12×) |
+| 9 | 11 | `isomorphvf2.DiGMState.__init__` | 0 / 0 → 0 | not measurable | 10 cases, 0 slower | not detected |
+
+**What "other-slower" means.** FULL's asv rule did flag the slowdown: at least one case is significantly slower. But the largest slowdown falls in neither strength band pre-registered for the regression set: "strong" is ≥ 2×, "moderate" is 1.2–1.5× (readiness §4.2, ruling 2). #2 peaks at 1.90×, between the bands. #8 peaks at 1.12×, below the moderate band. So "other-slower" is a real detection whose size the pre-registered bands did not foresee. It is not a miss and not noise.
+
+**Detection by FULL.**
+- **As classified by the script:** FULL detects **3 of 10** (30 %; 95 % Wilson CI **10.8–60.3 %**). These are #1, #2 and #8.
+- **On target:** **2 of 10** (Wilson **5.7–51.0 %**), #2 and #8.
+- **#1 is judged an oracle false positive.** Its only "slower" case never executes `bidirectional_dijkstra` in its S0 profile, and the patch only touches that function's body. Its p = 0.0018 sits just under the 0.002 threshold. The same run also produced an off-target "faster" verdict. 177 of its 1026 runs had a 1-minute load above 1.5.
+  - Across the whole oracle there are about 890 off-target comparisons (843 within reach + 50 spot-check, though the 50 spot-check comparisons cannot produce a verdict). Three of them gave a non-"same" verdict. That is in line with chance at α = 0.002 with many comparisons, especially since samples from one process are not independent, which makes Mann-Whitney p optimistic.
+  - This is a reading, not a re-measurement. Oracle repeatability (readiness §5) would settle it.
+- **The 7 slowdowns FULL misses:** 5 (#0, 5, 6, 7, 9) are reached by **no** benchmark case, by profile or by static reach. The other 2 are reached in different ways. **#3** (`is_connected`) is reached by 3 profiled cases; its ratios are 0.95–1.01. **#4** (`_single_shortest_path`) is reached **only by static reach** (profile reach 0), so it is a coverage miss. Double-calling either function moves no case past the asv rule.
+
+**Safety of reach-based selection.**
+- **The out-of-reach spot check has no power, and its result is withdrawn (critic review, 2026-11-22 06:06).**
+  - The 50 comparisons (5 slowdowns × 10 cases) are 1 process × 3 values × 2 repeats, which gives **6 vs 6 samples**. The smallest possible two-sided exact Mann-Whitney p for 6 vs 6 is 2/924 = **0.00216, above α = 0.002**. So `bth.stats.asv_rule` cannot return "slower" however large the slowdown. Checked: fully separated samples at 3× give p = 0.00216, "same".
+  - The observed spot-check p-values are multiples of 1/462; the smallest is 0.015.
+  - So "0 of 50 slower" holds **by construction** and says nothing about reach safety. It is also a protocol deviation: readiness §5 asks for ≥ 5 processes.
+  - **Powered re-run (PM-approved 06:10).** It is reported below.
+
+**Profile-completeness check (powered out-of-reach spot check) (2026-11-22 06:10–07:40, 10:09–11:04 and 12:03–12:25 PKT; **complete, 5 of 5 slowdowns**).**
+
+**What it is (relabelled per advisor review):**
+- It covers only slowdowns that **no** benchmark reaches. It asks whether anything **outside the measured reach** slows down, which tests whether the S0 profiles are complete. **It is not evidence that selection is safe.**
+- The #5 order effect below motivated the order arm in the A/A run.
+- **Plan:** `raw/networkx/slowdowns/spotcheck_powered.plan.md`, written before measuring. It uses the same frozen 10-case sample.
+- **Protocol:** 5 processes × 3 values × 1 repeat, giving **15 vs 15 samples**. The smallest attainable p is 3.4e-6 under the normal approximation used at the time (scipy 'auto'); under the **exact** test it is **1.3e-8** (corrected 2026-11-22 15:55, see "Exact-test recompute"). The #5 "faster" case reached that minimum (fully separated samples).
+  - **Power:** 1.00 at 1.2× and 0.81 at 1.12×, but simulated **at 5 % noise**. The observed spread is much larger (below), so real power is lower, and only large slowdowns would reliably be caught.
+  - **Fixed order:** with 1 repeat, every case ran **base first, then slowed**, with no order rotation. "Interleaved" here means alternating per case, not counterbalanced.
+- **Gate:** checked before each slowdown block: WSL load ≤ 1.0 and Windows CPU ≤ 20 % for 3 × 60 s, postponing rather than labelling. It is not re-checked at the moment the block starts.
+  - #5's record shows a Windows CPU reading of 21 % taken just after the gate passed.
+  - #7 started at load 0.72, one check after a gate reading of 0.33.
+- **Cap:** the 1.5 h cap includes driver start-up, so it fired at 07:39:32, before 06:10:22 + 5400 s.
+- **Plan deviation:** the plan's "nothing else concurrently" rule was broken once, during #0 (see the table).
+- **Raw files:** `raw/networkx/slowdowns/spotcheck_powered/{00,05,06,07,09}.json`, `{07,09}.partial.jsonl` and `driver.log`.
+
+| # | Slowed function | Out-of-reach cases (all 10) | Smallest p | Ratio range | Peak load (M5) |
+|---|---|---|---|---|---|
+| 0 | `distance_regular.global_parameters` | **10 same, 0 slower** | 3.7e-3 | 0.75–1.15 | 0.88 (below the 1.5 noisy threshold); labelled **concurrent**, because 06:28–06:29 this session ran unit tests on Windows (`CONCURRENCY.md`). The JSON's `m5_label` was not relabelled. |
+| 5 | `dense.floyd_warshall_tree` | **9 same, 0 slower**, 1 faster | 3.4e-6 (exact: 1.3e-8) | 0.63–1.24 | 1.10 |
+| 6 | `isomorph.could_be_isomorphic` | **10 same, 0 slower** | 7.8e-4 | 0.94–1.21 | 0.92 |
+| 7 | `katz.katz_centrality_numpy` | **10 same, 0 slower**. Measured in the top-up, 10:13–10:44, after the PC restart; the first attempt at 07:30 was cut off by the cap and nothing was saved. | 0.051 | see `07.json` | 1.62, so **noisy** (M5) |
+| 9 | `isomorphvf2.DiGMState.__init__` | **9 same, 1 slower**: `time_louvain_communities('Erdos Renyi (100, 0.9)')`, **1.13×, p = 0.0019**. Measured in two parts: runs 1–4 at 10:51–11:04 (cut by the cap), runs 5–20 at 12:03–12:25 after the A/A, resumed from the checkpoint. The louvain case's base and slowed runs (runs 7–8, 12:12–12:18) both fall in the second part; no case is split. | **9.7e-5** (`time_remove_nodes_from('MultiDiGraph')`, ratio 1.099; only the ratio condition kept it "same") | 0.89–1.37 | 0.72 peak; the block started at 0.76; the second session's gate saw Windows CPU 100 % at 11:59 |
+
+**Reading:**
+- **Over all 5 slowdowns: 1 "slower" in 50 out-of-reach comparisons.**
+- **By the pre-registered rule (C11), this flags #9: reach-based selection would be unsafe for it.** Reported as such.
+- **Reading — possibly a false positive, not verified. The C11 flag stands; a post-hoc re-measurement (below) adds context only:**
+  - `DiGMState.__init__` is in neither the static nor the S0 profile reach of the louvain case. The profile holds no `isomorphism` function at all.
+  - p = 0.0019 is just under α = 0.002, and the ratio of 1.13 is just over 1.1.
+  - The A/A run shows noise this close to the threshold: in repeat 0 two A/A cases had p < 0.002 and were held back only by the ratio condition. In the same #9 block a second case also reached p < 0.002 with ratio 1.099.
+  - The louvain case leans slower in other blocks too: #0 1.13× (p = 0.43), #6 1.21× (p = 0.046).
+  - **Against the false-positive reading:** the A/A run itself gave 0 false verdicts in 46.
+  - **Post-hoc re-check (PM-approved 12:31; plan `raw/networkx/slowdowns/recheck9/plan.md`, written before measuring; PARTIAL):**
+    - **Setup:** the same case at #9's state, with three clones: **base**, **slow** (#9 patch) and **base2**, a second unpatched control in the same block. 5 × 3, two rotated repeats, measured 12:37–12:54; the cap hit at 12:57. The Q3 critic subagent ran alongside (read-only; `recheck9/CONCURRENCY.md`).
+    - **Cut short:** the 25 min cap stopped it after **5 of 6 runs**. Repeat 1's base run is missing, so base has 15 samples instead of 30.
+    - **Consequence:** base was measured once, first in the block, so **comparisons against base are not order-balanced**. Slow vs base2 is not balanced either: slow ran before base2 in both repeats. **No comparison in the partial data is order-balanced.** Repeat 0 has the same order as the original block (base, then slow) and still reads "same". Raw: `recheck9/runs.partial.jsonl`, `recheck9/result_partial.json`.
+    - **Verdicts:**
+
+      | Comparison | Ratio | p | Verdict |
+      |---|---|---|---|
+      | slow vs base, repeat 0 (15 vs 15) | 0.985 | 0.59 | same |
+      | slow vs base, pooled (15 base vs 30 slow) | 0.981 | 0.51 | same |
+      | slow vs base2, pooled (30 vs 30) | 1.008 | 0.81 | same |
+      | **control:** base2 vs base, repeat 0 | 0.978 | 0.97 | same |
+      | **control:** base2 vs base, pooled (15 vs 30; the plan's rule) | 0.973 | 0.66 | same |
+
+    - **Sample medians:** slowed-clone medians 0.0123–0.0126 s; base 0.0128 s; base2 0.0123–0.0125 s. In the original #9 block they were slow 0.01385 s against base 0.01225 s.
+    - **Plan outcome "same / same": the re-check fails to confirm the original "slower" verdict.**
+    - **The pre-registered C11 flag for #9 still stands as the primary result.** The re-check adds context only: the 1.13× was not reproduced, under a stable control. It is consistent with the original being 1 false positive among 50 comparisons at α = 0.002 (under 50 nulls the chance of ≥ 1 false "slower" is ≈ 5 %, from 1 − 0.999⁵⁰ for one-sided "slower" at two-sided α. ≈ 9.5 % is the upper bound for either direction. Both ignore the ratio condition and the shared base runs), but does not prove it.
+  - #7 was measured after the PC restart, with ≈ 1.6× slower per-process setup.
+  - The A/A power figures below apply: for 2 of the 3 sampled `benchmark_algorithms` cases (of 49), only ≈ 2× slowdowns are reliably detectable.
+  - This is a spot check over 5 slowdowns × 10 seeded cases = 50 comparisons, not a miss rate.
+  - The A/A noise floor (Q2) gives the false-verdict rate against which it is read.
+- **One strong off-target verdict:**
+  - **What:** in #5, `time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')` was **faster** in the slowed clone, 0.628×, with fully separated samples (p = 3.4e-6 by the normal approximation; 1.3e-8 exact).
+  - **Why it is not a slowdown effect:** a double call inside `floyd_warshall_tree` cannot speed up eigenvector centrality.
+  - **Evidence for an order or warm-up effect:** it was the **first case of its block** and ran base first.
+    - The base side took 183 s of wall time against 100 s for the slowed side.
+    - The base samples include two outliers (0.0119, 0.0128 s), and even the rest sit at ≈ 0.0035 s against ≈ 0.0022 s for the slowed side.
+    - Load rose to 1.10 during the base run, the block's peak.
+    - A cold-start effect on the first case, combined with the fixed order, is the likely cause. That is not verified. The A/A run (Q2) has the same fixed A-then-B order, so it will show whether such an order effect exists.
+  - **Why it matters:** the oracle can return confident off-target verdicts. That is why the A/A run matters before any slowdown verdict is trusted. It is not a safety failure: "faster" is not a missed slowdown.
+- **Also noted:**
+  - "Same" verdicts span ratios **0.755–1.236**: per-case medians move by up to ±24 % between two clones with no relevant change.
+  - In #6, two cases had p below α but small ratios (`harmonic_centrality` 0.95, p = 7.8e-4; `multi_source_dijkstra` 1.034, p = 1.2e-3). Only the asv rule's ratio > 1.1 condition kept them "same". So the p-test alone flags small off-target shifts.
+  - **No CI-based M5 label** ("measured", CI < 10 %) is applied to these timings. They are used only for verdicts, which are labelled by load.
+- **Also:** for the other 5 slowdowns, static reach covered all 171 cases, so there was nothing outside reach to spot-check. This is an over-approximation: `benchmark_algorithms` imports everything.
+- **Within-reach caveat (first oracle run):** the two off-target "slower" verdicts (#1, #2's `NonNeighbors`) lie **outside profile reach but inside static reach**. If they were real, a profile-based selection (A4/P1) would have missed them. We judge them noise because a benchmark that never runs the function cannot be slowed by a change in its body. This rests on the stated assumption that import-time code is unaffected.
+
+**Tie to B1: this is a benchmark-coverage finding.**
+- **7 of the 10 slowed functions are executed by no benchmark case in its S0 profile:** #0, 1, 4, 5, 6, 7, 9. Excluding #6, which sits on the non-optimization step 8: 6 of 9.
+- This matches B1, where 9 of 15 true optimizations (12 of 18 replayed edits) are executed by no benchmark.
+- On networkx, **two limits come before any selection rule** (advisor review 13:05). No selection can beat FULL, and FULL sees 2–3 of these 10 slowdowns.
+  - **(a) Coverage (B1):** 7 of 10 slowed functions are executed by no benchmark: #0, 1, 4, 5, 6, 7 and 9. #4 (`_single_shortest_path`) is one of these, so it is a **coverage miss, not a power miss**.
+  - **(b) Oracle power (A/A):** for 2 of the 3 sampled `benchmark_algorithms` cases, only ≈ 2× slowdowns are reliably detected.
+    - #3 (`is_connected`) is reached by 3 profiled `eigenvector_centrality_numpy` cases in that module. Their ratios are 0.95–1.01, p ≥ 0.22.
+    - So a large hidden slowdown is unlikely, but a small real one (< ≈ 1.1×) cannot be excluded: #3 may be a **power miss of a small effect**.
+- Selection safety can therefore only be judged on #2 and #8:
+  - Both are inside profile reach (8/8 and 1/1 cases) and inside static reach.
+  - A changed-module benchmark rule (A3) selects 0 cases and would miss both.
+  - **The per-arm regression simulation is not yet run.**
+
+**Primary, pre-registered result (PM ruling 2026-11-22 05:50).**
+**Regression safety of reduced selection is not measurable on networkx with the frozen set.**
+- By the frozen entry rule (≥ 1 case ≥ 2×, or 1.2–1.5× for moderate), the only candidate is #1, and #1 is off target and judged noise. So there are **0 on-target detections in the pre-set bands**, and the pre-registered regression set is empty.
+- **The slowdown result in its own right:** FULL itself detects **at most 2–3 of 10** frozen slowdowns. On networkx, the project's benchmark coverage (B1) and the oracle's power (A/A) both limit regression detection, ahead of any selection rule.
+
+**Post-hoc exploratory analysis — NOT pre-registered, never merged into the headline** (logged in `raw/networkx/bench/LABELS.md`).
+- #2 (1.90×, 8/8 profiled cases) and #8 (1.12×, 1/1 profiled case) are real on-target FULL detections outside the pre-set bands.
+- Both lie inside the profile reach and the static reach. So A4/P1 (profile), A5 (static) and every arm that runs all benchmarks would select the slowed cases. A3 (changed-module benchmark rule, 0 cases) would miss both.
+- This is a reach argument on 2 slowdowns. The per-arm regression simulation is not run.
+
+**Load labels (M5).**
+- 410 of 5330 benchmark runs (7.7 %) had a 1-minute load > 1.5 at the before or after sample. Per M5 those runs are **noisy**: #1 177, #3 160, #4 29, #7 21, #2 12, #5 11; #0, 6, 8 and 9 had none.
+- The two on-target verdicts have p ≈ 1e-7, far from the threshold.
+- The runs for #8 never exceeded 1.45.
+
+### Benchmark A/A noise floor and order effect (networkx; Q2, re-run 11:05–11:53 PKT)
+
+**Plan:** `raw/networkx/bench/aa/aa_noise.plan.md`, with amendments 1 and 2, all written before the measurement. The first 26-case run (07:49–09:14) hit its cap and **saved nothing**; that is the reason for amendment 2 and the per-run checkpoints.
+- **Design:** S0 against S0 in two independent clones, so any verdict is a false one.
+- **Cases:** the frozen 23-case subset (`frozen/networkx.aa_noise_sample_cut23.json`: 3 `benchmark_algorithms` + 20 others, seeded).
+- **Protocol:** 5 processes × 3 values, 15 vs 15 samples per repeat.
+  - Repeat 0 runs **A first** (the oracle's fixed order); repeat 1 runs **B first**. Pooling both gives ABBA.
+- **Load:** the gate passed at 11:10:49 (load 0.37, Windows CPU 9 %). Peak run load was 1.06, below the 1.5 noisy threshold. Nothing else ran.
+- **Raw files:** `aa/runs.partial.jsonl` (92 runs, with `t_start`/`t_end`), `aa/raw_runs.json`, `aa/aa_result.json`.
+
+| | Fixed order (repeat 0) | Reversed (repeat 1) | ABBA (pooled, 30 vs 30) |
+|---|---|---|---|
+| False "slower" / false "faster" | **0 / 0 of 23** | **0 / 0 of 23** | **0 / 0 of 23** |
+| Ratio spread of the "same" verdicts: min / p05 / median / p95 / max | 0.87 / 0.96 / 1.01 / 1.09 / **1.77** | 0.76 / 0.93 / 1.00 / 1.05 / **1.49** (computed 12:27 from `aa_result.json`, linear percentile) | 0.98 / 0.98 / 1.01 / 1.08 / 1.12 |
+
+**Reading:**
+- **Noise floor:** the asv rule gave **0 false verdicts in 46 per-repeat A/A comparisons** (95 % Wilson upper bound 7.7 %; 0/23 per arm, upper bound 14.3 %).
+  - The 46 comparisons are the same 23 cases twice, not independent, so 7.7 % is optimistic.
+  - Repeatability (plan item 3) is trivial: 0 non-"same" verdicts in either repeat.
+  - This fits the slowdown oracle's ≈ 3 off-target non-"same" verdicts in ≈ 890 comparisons. It cannot separate a 0.3 % false rate from zero.
+- **The A/A noise sits close to the threshold** (critic review, 11:58):
+  - In repeat 0, two cases passed p < 0.002 and were stopped only by the ratio condition: `CommonNeighbors.time_complete(100)` (p = 9.7e-5, ratio 1.094) and a `k_factor` case (p = 0.0014, ratio 1.032).
+  - Repeat 1 also shows large ratios: `CommonNeighbors.time_complete(100)` 0.761 and `time_star_center_rim(100)` 1.485, both p = 0.007.
+  - So "0/46" means no false verdict, but the noise is not far from producing one.
+- **The ratio part of the rule passes large A/A differences.** In the fixed order, `time_tarjan_scc('Erdos Renyi (1000, 0.01)')` had a **1.77× ratio** with p = 0.051, so it stayed "same". Its sample coefficient of variation is 0.63.
+  - With ABBA pooling the spread narrows to 0.98–1.12.
+  - So under a fixed order a single noisy case can show a large spurious ratio. Only the p-value keeps it from a false verdict, and the same p-value hides real slowdowns of that size (see power).
+- **No order effect:**
+  - Per case, first-run / second-run time has median **0.99**. The first run was slower in only 10 of 23 cases (sign test p = 0.68).
+  - The first case of the run (`tarjan_scc`) showed the opposite direction to #5: its first run was *faster* (0.75).
+  - **No order effect was detected across cases, but this test has low power:**
+    - 23 cases, only 3 of them `benchmark_algorithms`.
+    - The first case of the run is a single observation (n = 1).
+    - Samples cluster by process: `tarjan_scc` A had one process at ≈ 7 ms against ≈ 2 ms for the others.
+  - **#5's cause is unresolved.** #5 was a run-level shift, not scatter: all 15 base samples sat at 3.3–4.8 ms against ≈ 2.2 ms, fully separated. A first-in-block effect is consistent with it. Here the first A/A run likewise took longer in wall time (196 s against 132 s), but not in its samples.
+- **Power from measured noise** replaces the assumed 5 % noise. It is a bootstrap of 15 vs 15 from each case's pooled samples, seed 20261122.
+  - It ignores within-process correlation, so these figures are **optimistic**.
+
+  | Slowdown | 1.12× | 1.2× | 1.5× | 2.0× |
+  |---|---|---|---|---|
+  | all 23 cases (median) | 0.48 | 0.91 | 1.00 | 1.00 |
+  | 3 `benchmark_algorithms` cases (median) | **0.27** | **0.35** | **0.73** | 0.96 |
+  | — per case, at 1.2× | | 0.13 / 0.345 / 1.00 | | |
+  | 20 other cases | 0.48 | 0.92 | 1.00 | 1.00 |
+
+  - Per-case sample CV: median 0.11 on the A side, 0.097 on B, 0.104 pooled; max 0.63.
+  - **Consequence:**
+    - For **2 of the 3** sampled `benchmark_algorithms` cases (the module most edits and slowdowns sit behind), the oracle reliably catches only about 2× slowdowns; the third case is fine at 1.12×. These are **3 sampled cases out of 49** `benchmark_algorithms` cases, so this is indicative, not a module-wide estimate.
+    - The bootstrap mixes A/B clone differences and ignores process clustering.
+    - A "not detected by FULL" on a moderate slowdown there can be a power failure of the oracle, not absent coverage. #3 may be such a miss, of a small effect only (its 3 profiled cases read 0.95–1.01). **#4 is a coverage miss:** no benchmark executes it.
+    - This qualifies the slowdown-oracle reading. It does not change the B1 coverage count, which is about reach, not power.
+- **Overrun again, now measured per run (PM 10:09: report it as a finding).**
+  - The 92 runs took **2483 s** against **753 s expected**. The expectation is the item-4 pass's per-case wall time × 2.5 for 5 processes.
+  - **The whole excess is in the `benchmark_algorithms` runs:** 132–235 s each, **2.6–5.9× expected** (median 4.0×). The cheap cases ran at 0.74–1.14× (median 0.90×).
+  - **Per-process `benchmark_algorithms` cost across the day** (derivation: per-case wall ÷ processes, ignoring the timing loops, which are < 1 s; this assumes cost is linear in the number of processes):
+    - overnight: ≈ 4.4 s (slowdown base passes #2, #3, #4, #8: medians 8.6–8.8 s ÷ 2), but **≈ 18 s for #1** (36.4 s ÷ 2, under load > 1.5);
+    - item 4 (05:30): ≈ 13 s (27 s ÷ 2; load 1.63 at start);
+    - morning spot check: ≈ 23 s (114 s ÷ 5);
+    - now: **26–47 s, median 40 s.**
+  - So **one module's per-process setup cost** (`benchmark_algorithms`) varies about 10× across the day and protocols, and does **not** rise monotonically.
+    - Within one protocol the spread is smaller: ≈ 1.7× for 5 × 3 (morning vs now) and ≈ 3× for 2 × 3 (overnight vs item 4), or ≈ 4.2× including #1's loaded overnight pass (4.3 → 18.2 s).
+    - The **timed samples stayed stable** (machine-state finding).
+    - Serial test timings were stable between the first runs and the overnight re-runs (0.96–1.20×, excluding S16/S17). Tests were **not** re-timed after the restart. Load stayed below 1.1 **during this run**; item 4 and #1 ran above 1.5. The cause is still **unknown** (see the machine-state finding in RQ1). The asv verdicts use the timing samples, which this does not inflate. What it inflates is the **cost** of a FULL benchmark pass.
+
+### Pre-registered noise floor (1 + 3·σ_noise) — applied where σ exists (advisor review 13:05; computed, no new timing)
+
+**The rule** (readiness §4.2 and §5, rules.md §5): a regression additionally needs **ratio > 1 + 3·σ_noise(b)**. σ_noise(b) comes from the per-benchmark A/A ratio distribution of an S0-vs-S0 control with **5 repeats**. Cases where the asv rule fires but the ratio is below the floor are counted and reported.
+
+**Until now this rule was applied nowhere.** That is a gap: every slowdown and spot-check verdict above uses the asv rule alone.
+
+**What exists:** σ_noise for **23 of 171 cases** only, from the A/A re-run (`raw/networkx/bench/aa/`), with **2 repeats, not 5**. Two estimates are in `aa/sigma_noise.json`:
+- **σ_rep:** the standard deviation of the two per-repeat A/A ratios. It follows the plan's definition, but with n = 2 it is very rough.
+- **σ_boot:** the bootstrap standard deviation of the median ratio, 15 vs 15 from the pooled samples, 300 draws, seed 20261122.
+- **Resulting floors 1 + 3σ:** median 1.07 (σ_rep) and 1.09 (σ_boot). Range 1.02–2.64 and 1.04–1.48. Highest: `tarjan_scc` 2.64 / 1.48, `CommonNeighbors.time_star_center_rim(100)` 1.97 / 1.41.
+
+**Verdicts it would decide:** **none of the flagged "slower" cases is among the 23 cases with σ.** These are #1 `connected_components('ER (100, 0.1)')`, #2's 8 `multi_source_dijkstra` cases and `NonNeighbors.time_complete(100)`, #8 `ManyComponentsBenchmark.time_single_source_all_shortest_paths`, and #9 `louvain_communities('ER (100, 0.9)')`. **So the pre-registered rule cannot be applied to any of them.**
+
+**Labelled proxy only, not the pre-registered rule:** the floors of A/A cases from the same benchmark class.
+
+| Verdict | Ratio | Proxy floor (same class): σ_rep / σ_boot | Reading |
+|---|---|---|---|
+| #1 off-target (ER (100, **0.1**)) | 1.245 | sibling `connected_components('ER (100, **0.9**)')` 1.28 / 1.22 | **ambiguous:** below the σ_rep floor, above the σ_boot floor |
+| #9 out-of-reach (C11 flag) | 1.130 | UndirectedAlgorithmBenchmarks 1.05–1.28 / 1.04–1.22 | inside the band for one sibling, above it for the other: ambiguous |
+| #2 off-target `NonNeighbors` | 1.140 | `NonNeighbors.time_star_center(10)` 1.03 / 1.08; CommonNeighbors up to 1.97 / 1.41 | ambiguous |
+| #2 on-target (8 cases) | 1.81–1.90 | no `benchmark_shortest_path` case in the A/A | above every A/A floor except `tarjan_scc` (σ_rep) and one CommonNeighbors case |
+| #8 on-target | 1.116 | no `benchmark_many_components` case in the A/A | above the median floors (1.07 / 1.09), below many individual floors |
+
+**Reading:**
+- #2's on-target detection (≈ 1.85×) would very likely survive the noise floor.
+- #1, #8 and #9 sit **inside or at the edge of the noise band** of comparable cases. Under the pre-registered floor they might not count as regressions, but this cannot be decided without σ for those cases.
+- The **C11 flag for #9 stands**: the floor cannot be applied to its case.
+
+**Deviation (recorded):**
+- The noise-floor control was run on **23 of 171 cases with 2 repeats**, not on all cases with 5 repeats as pre-registered. The cause: the 1.5 h caps, and the failed first A/A run.
+- So σ_noise is **missing for 148 cases**, including every case with a "slower" verdict. The 1 + 3σ condition is therefore **not applied** to any reported verdict. The proxy table above is post hoc.
+- **Two further departures:**
+  - Readiness §5 asks for a FULL interleaved control; the A/A covered a subset.
+  - σ comes from **S0**, while the verdicts were made at states S1–S11.
+- `aa/sigma_noise.json` has **no `meta` block**, unlike the other raw files.
+
+### Exact-test recompute of every performance verdict (PM 15:46, after W1 read the asv source; compute only, 15:50)
+
+- **Why:**
+  - `bth.stats.asv_rule` used scipy's `mannwhitneyu(method="auto")`. That is exact only for n < 8 with no ties, and otherwise a normal approximation with tie and continuity corrections.
+  - asv itself (`asv/_stats.py`, `main`, read 2026-11-22 via a fetch agent; nothing downloaded or run) uses an **exact** two-sided test when max(m, n) ≤ 20. Above that it uses an uncorrected normal approximation. Below a minimum attainable p it falls back to a 99 % CI check, and with repeat = 1 it skips the statistics.
+- **What:** `scripts/recompute_exact.py` re-tested **1,026 verdicts** from their raw samples under three methods: the old test, scipy exact at every size, and asv's rule. Output in `raw/stats_exact/recompute.json`.
+  - The A/A: 69 = 23 cases × (rep0, rep1, pooled).
+  - The reach oracles of #1–#4 and #8: 5 × 171.
+  - The 6v6 spot checks of #0, #5, #6, #7 and #9: 50.
+  - The powered profile-completeness check: 50.
+  - The #9 re-check: 2.
+- **Result: 0 of 1,026 verdicts change** under exact or asv. (The PM's 15:57 note says "2,094"; that was my uncounted first figure, corrected to 1,026 at 15:51.)
+- **The borderline p-values get stronger, not weaker:**
+
+| Verdict | Old p | Exact p |
+|---|---|---|
+| #9 louvain | 1.87e-3 | 1.19e-3 |
+| #1 `connected_components ER(100, 0.1)` | 1.83e-3 | 1.27e-3 |
+| #2 `NonNeighbors.time_complete(100)` | 2.3e-4 | 9.6e-5 |
+
+  The closest non-flagged case with ratio > 1.1 has exact p = 0.0057.
+- **Minimum attainable p** (`stats.min_attainable_p`):
+  - **6 v 6: 0.00216** under every method (2/924). The "6 v 6 cannot reach α" result stands.
+  - **15 v 15:** 3.4e-6 was the normal approximation; the **exact value is 1.3e-8** (corrected above in the profile-completeness section).
+  - Exact values for the other sizes: 12 v 12: 7.4e-7; 18 v 18: 2.2e-10.
+- **From now on:** the exact test is primary (`stats.mwu_p(method="exact")`), and the old test is shown next to it for continuity. This is amendment 2 of the night analysis. `asv_rule`'s default is unchanged, so earlier scripts reproduce.
+- **A/A bootstrap power under the exact test** (15:55; `scripts/aa_power_exact.py` → `raw/stats_exact/aa_power_exact.json`):
+  - Same seed and procedure; the old-test run reproduces the reported medians exactly.
+  - The exact test gives slightly **more** power: at 1.2×, **0.93** overall (was 0.905), **0.415** for the 3 `benchmark_algorithms` cases (was 0.345), 0.94 for the others.
+  - At 1.12× the values are 0.515 / 0.335; at 2× they are 1.0 / 0.975.
+  - The reading is unchanged: the heavy-module cases need ≈ 2× for reliable detection.
+
+### Mining precision by agent labelling (D26, PM 15:55; computed 15:52 by `scripts/labels_b1.py` → `results/labelling/precision_b1.json`)
+
+- **Labelling:** codebook v1 (frozen 15:44). Two agent raters agreed on 79 of 81 rows, κ = 0.948. **Same-model raters:** a threat; κ is likely inflated. The adjudicator decided ids 18 (OPT), 33 (NOT_OPT) and 67 (NOT_OPT).
+- **v1 regex rule precision** (rule-qualified ∩ OPT / rule-qualified, Wilson 95 %):
+
+| Project | Precision | 95 % CI |
+|---|---|---|
+| networkx | 15/20 | 53–89 % |
+| bottleneck | 15/16 | 72–99 % |
+| geopandas | 17/20 | 64–95 % |
+| pvlib-python | 3/14 | 8–48 % |
+| **pooled** | **50/70, 71 %** | 60–81 % |
+
+- **Against the earlier manual reading of subjects** (networkx 17/20, geopandas 19/20):
+  - The agents agree that networkx steps 8, 13 and 17 are not optimizations.
+  - They label **two more networkx commits NOT_OPT:**
+    - step 6 `0d3fe6ac` (id 25), "a new API `floyd_warshall_tree`; existing functions unchanged";
+    - the dropped `675034ad` (id 39), "mainly an ISMAGS bug fix".
+  - For geopandas they agree on `6286f13f` (DOC) and add two:
+    - `6802f43e` (id 9), "mainly a multipoint-clipping bug fix";
+    - `7d503802` (id 67), adjudicated NOT_OPT.
+  - **Caveat on id 67:** both raters said UNSURE because the decisive `overlay.py` diff was truncated and the link returned 503. The adjudicator's reason cites details (`buffer(0)` inputs, column suffixes) that are not visible in the sheet's truncated diff.
+    - **Checked by the PM (16:03) against the full commit `.diff` (1,072 lines):** the adjudicator evidently used the full diff, a source outside the sheet.
+    - Most cited details are confirmed: the old function renamed `_overlay_old`, a new implementation, tests re-based on QGIS fixtures (`tests/data/overlay/nybb_qgis/`), and `use_sindex` handling.
+    - One is wrong: "make_valid" does not appear in the diff.
+    - **The NOT_OPT label stands.** Codebook v2's "sheet only, cite sources" rule covers this from now on.
+- **B1 restated on agent-labelled optimizations** among the 18 replayed networkx edits (S0 reach, module-level lines excluded; reproduces 12/18 and 9/15 exactly):
+
+| Edit set | Profile unreached | Static unreached |
+|---|---|---|
+| all 18 | 12/18, 67 % [44–84 %] | 7/18, 39 % [20–61 %] |
+| manual OPT (15) | **9/15**, 60 % [36–80 %] | 4/15, 27 % [11–52 %] |
+| agent OPT (14) | **8/14**, 57 % [33–79 %] | 3/14, 21 % [8–48 %] |
+
+  Step 6 is unreached under both measures, so dropping it lowers both counts by one. **The B1 reading does not change:** "many, not most" (the CI spans 50 %), on networkx only.
+- **Codebook v2** (`frozen/labelling/codebook-v2.md`, frozen 15:53) adopts the adjudicator's four rules for the replication sheet: bug fix plus speed-up, opt-in backends, output order, and link fields. It also requires full source diffs in the sheet.
 
 ### C7 finding — function-level dependency data is partly nondeterministic (networkx)
 
@@ -189,5 +738,10 @@ The thresholds were not adjusted to change any label. The `tests_concurrent_load
 - **Test-ID agreement:** junit (oracle) and depmap test IDs agree on 6768 tests. The 3 junit-only entries are module-level skips with 0 s duration.
 
 ## Provenance note
+
+- **S0 profile, part 1 (24 `UndirectedAlgorithmBenchmarks.time_[a-l]` cases): provenance problem found and checked (13:11–13:28).**
+  - **What happened:** part 1 ran 19:23–19:46 in the shared `networkx-replay` work tree. From 19:38 the overnight re-timing checked that tree out through later states, so `meta.state_sha` records S6.
+  - **Check:** an isolated re-profile at S0 (`raw/networkx/profile/S0_181f2951.part1.reprofile.json`) gives **identical executed-function sets for all 24 cases**. No reach-based claim (B1, the spot-check reach, #3, #9) changes.
+  - **Lesson:** profiling and timing jobs must not share a work tree. Details in `raw/networkx/bench/LABELS.md`.
 
 The harness tree hash differs between S0 (`c02203a8…`) and S1+ (`ec7dba4c…`). In between, `replay.py` got the blob invariant and `benchrun.py` got the asv package import. Neither file is on the `oracle-tests` code path.

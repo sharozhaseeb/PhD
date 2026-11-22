@@ -87,6 +87,18 @@ Sources from G1–G7 were seen only as search results [A]. The ones worth readin
 | pytest-testmon | PyPI JSON | 2.3.1, `requires_python >=3.11`, Beta |
 | Peass (Reichelt et al.) | WebSearch `Reichelt Kühne Hasselbring "Automated Identification of Performance Changes at Code Level" QRS 2022` | IEEE QRS 2022, pp. 916–925, DOI 10.1109/QRS57517.2022.00096 |
 
+## Novelty searches on measured findings (2026-11-22)
+
+Targeted searches on W3 findings B1, C11, N6, N7, R1 and H1/C8.
+- Query logs: `notes/N1-benchmark-coverage-search.md` (37 queries), `notes/N2-aa-noise-search.md` and `notes/N3-cost-and-stale-binary-search.md` (20 searches, 9 fetches).
+- Tools: WebSearch, WebFetch, arXiv, and GitHub source for asv and pyperf. ACM DL and IEEE Xplore were not re-run.
+- Results are in `beyond-literature-claims.md`, section "Measured findings vs literature (2026-11-22)".
+
+**Open from these searches**
+- Read Laaber & Leitner MSR 2018 and FormulaCode in full.
+- Search the asv and pandas GitHub issue trackers directly.
+- Confirm the installed asv version's default factor, and that `mann_whitney_u` is two-sided.
+
 ## Known gaps in coverage (not read or not obtained)
 
 **Full text not obtained**

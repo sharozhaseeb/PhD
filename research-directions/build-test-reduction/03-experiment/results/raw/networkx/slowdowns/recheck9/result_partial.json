@@ -1,0 +1,10 @@
+{
+ "label": "POST HOC (context only; C11 flag stands)",
+ "status": "PARTIAL: 5 of 6 runs; repeat-1 base cut off by the 25 min cap",
+ "rep0_slow_vs_base": "0.985 p=0.59 same (15v15)",
+ "rep0_base2_vs_base": "0.978 p=0.97 same (15v15)",
+ "rep1_slow_vs_base2": "0.996 p=0.9 same (15v15)",
+ "pooled_slow_vs_base_15v30": "0.981 p=0.51 same",
+ "pooled_base2_vs_base_15v30": "0.973 p=0.66 same",
+ "pooled_slow_vs_base2_30v30": "1.008 p=0.81 same"
+}

@@ -1,0 +1,5 @@
+inc vs clean: 191 / 191 tests, outcome differences: 0 []
+stale vs clean: 191 / 191 tests, outcome differences: 0 []
+inc {'passed': 191}
+clean {'passed': 191}
+stale {'passed': 191}

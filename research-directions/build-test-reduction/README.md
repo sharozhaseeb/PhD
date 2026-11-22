@@ -1,8 +1,8 @@
 # Study 1: reduced build and test validation for iterative code optimization
 
-**Status:** 2026-11-21. W1 literature v3.2 is final for the meeting. W2 practice survey is a final draft, critic-checked. W3 experiment has readiness v1.1 and PRELIMINARY draft results ([results.md](03-experiment/results/results.md)); overnight runs pending. Advisor meeting about 2026-11-23/24. Nothing in this folder is committed or advisor-approved.
+**Status:** 2026-11-21, updated 2026-11-22. W1 literature v3.2 is final for the meeting. W2 practice survey is a final draft, critic-checked. W3 experiment has readiness v1.1 and PRELIMINARY pilot results ([results.md](03-experiment/results/results.md)); W3's queue is complete (A/A noise floor, profile-completeness check, B1 replication Q3). Advisor meeting about 2026-11-23/24. Nothing in this folder is advisor-approved; the latest edits are not committed.
 
-**Evidence boundary.** W1 and W2 are targeted primary-source reviews, not systematic reviews; their claims carry [R]/[src] read in source, [I]/[inf] inferred, [U]/[unk] unknown labels. W3 numbers will exist only with a command, raw file, target repo SHA and harness SHA ([readiness](03-experiment/readiness.md)). Statements about the advisor use the persona labels (REAL, OWNER, AI-SIM, INFER, UNKNOWN; [persona](pm/advisor/persona.md)). All advisor "reviews" in `pm/advisor/` are AI-written rehearsals, not the advisor's opinion. Novelty means only "not found in our recorded searches".
+**Evidence boundary.** W1 and W2 are targeted primary-source reviews, not systematic reviews; their claims carry [R]/[src] read in source, [I]/[inf] inferred, [U]/[unk] unknown labels. W3 numbers exist only with a command, raw file, target repo SHA and harness SHA ([readiness](03-experiment/readiness.md)). Statements about the advisor use the persona labels (REAL, OWNER, AI-SIM, INFER, UNKNOWN; [persona](pm/advisor/persona.md)). All advisor "reviews" in `pm/advisor/` are AI-written rehearsals, not the advisor's opinion. Novelty means only "not found in our recorded searches".
 
 ## The study in one paragraph
 
@@ -34,13 +34,13 @@ For the meeting itself, start at the [meeting pack](meeting-2026-11-advisor/READ
 |---|---|---|
 | [`01-literature/`](01-literature/README.md) | W1: methods literature, closest works, beyond-literature claims, search log, 138 references (W1 README still says 136) and 72 open-access PDFs | v3.2, final for the meeting |
 | [`02-practice-survey/`](02-practice-survey/README.md) | W2: how 28 systems build and verify each candidate; findings F1–F7; per-system notes; critic logs | Final draft (its README still says "draft 2026-11-21") |
-| [`03-experiment/`](03-experiment/readiness.md) | W3: [readiness](03-experiment/readiness.md), [rules](03-experiment/rules.md), [harness spec](03-experiment/docs/harness-spec.md), configs, frozen edit lists, scripts, tests, [raw outputs](03-experiment/results/raw/), [results.md](03-experiment/results/results.md) | PRELIMINARY draft results; overnight runs pending |
+| [`03-experiment/`](03-experiment/readiness.md) | W3: [readiness](03-experiment/readiness.md), [rules](03-experiment/rules.md), [harness spec](03-experiment/docs/harness-spec.md), configs, frozen edit lists, scripts, tests, [raw outputs](03-experiment/results/raw/), [results.md](03-experiment/results/results.md) | PRELIMINARY pilot results; queue complete (A/A 0/46 with limits; profile-completeness 1/50 flag) |
 | [`pm/`](pm/CHARTER.md) | [Charter](pm/CHARTER.md), [TPM log](pm/tpm-log.md), advisor model and reviews in [`pm/advisor/`](pm/advisor/persona.md), [working notes](pm/working-notes/README.md) | Live |
-| [`meeting-2026-11-advisor/`](meeting-2026-11-advisor/README.md) | Meeting pack: study statement, agenda and asks, predicted questions, results placeholder | Written 2026-11-21 |
+| [`meeting-2026-11-advisor/`](meeting-2026-11-advisor/README.md) | Meeting pack: study statement, agenda and asks, predicted questions, W3 results summary | Written 2026-11-21, updated 2026-11-22 |
 
 ## What is claimed and not claimed
 
-**Claimed (as measurements W3 must produce, not yet produced).** Study 1 measures where existing deterministic build and test reduction becomes unsafe when edits are performance-motivated and accumulate. Four suspected mechanisms ([one-pager](01-literature/literature-in-one-page.md), [claims](01-literature/beyond-literature-claims.md)):
+**Claimed (as measurements W3 must produce; PRELIMINARY measurements now exist for C7, C8 and B1/C11, see the [results summary](meeting-2026-11-advisor/03-results-summary.md)).** Study 1 measures where existing deterministic build and test reduction becomes unsafe when edits are performance-motivated and accumulate. Four suspected mechanisms ([one-pager](01-literature/literature-in-one-page.md), [claims](01-literature/beyond-literature-claims.md)):
 
 | Claim | Mechanism | Search status in the claims file |
 |---|---|---|
@@ -68,9 +68,9 @@ Supporting claims: C1 (narrowed), C6, C3, C2. Struck: C4, C9, C10 (reasons in th
 |---|---|---|
 | ACM DL and IEEE Xplore searches | Scripted access was blocked on 2026-11-21 (HTTP 403 / 418); the queries are recorded in [gap-and-search-log.md](01-literature/gap-and-search-log.md) for a manual run. A later manual run in the student's Chrome is recorded in [database-search-2026-11-21.md](01-literature/database-search-2026-11-21.md): 123 records screened, none anticipates C1, C5, C8 or C11 as stated, and Chittimalli and Harrold (TSE 2009) narrows C7. W1 v3.2 (README, one-pager, gap log) now records this run | Closed (W1 v3.2) |
 | NameRTS comparator | Not run by anyone here. Public replication package; planned as a post-meeting comparator | [W1 README](01-literature/README.md), [readiness](03-experiment/readiness.md) section 3 |
-| W3 results | PRELIMINARY draft for networkx (RQ1, RQ2, draft RQ3) and bottleneck build probes. Overnight: idle re-timing, slowdowns, `iterators.h` hazard, measured benchmark pass. No benchmark A/A noise floor yet | [results.md](03-experiment/results/results.md), [OVERNIGHT.md](03-experiment/results/OVERNIGHT.md) |
+| W3 results | PRELIMINARY pilot results for networkx (RQ1, RQ2, draft RQ3, slowdown oracle) and bottleneck (build cost, `iterators.h` hazard). A/A noise floor 0/46 with limits; profile-completeness 1/50 flag; B1 networkx only (Q3 inconclusive) | [results.md](03-experiment/results/results.md), [OVERNIGHT.md](03-experiment/results/OVERNIGHT.md) |
 | W3 environment | The readiness v1.1 blocker (no `pip`, `venv` or `Python.h` in WSL) is superseded: results use uv-managed CPython 3.12.16 (networkx) and 3.8.20 (bottleneck) | [results.md](03-experiment/results/results.md) "Platform"; [rq1_bottleneck_build.md](03-experiment/results/rq1_bottleneck_build.md) |
-| Compiled-project build cost | bottleneck clean build measured at about 22% of build plus tests (noisy). The scikit-learn cost-only measurement planned in readiness is not reported in the results files | [readiness](03-experiment/readiness.md) section 1.2 |
+| Compiled-project build cost | bottleneck clean build measured at about 16-18% of build plus tests on the amended base (noisy). The scikit-learn cost-only measurement planned in readiness is not reported in the results files | [readiness](03-experiment/readiness.md) section 1.2 |
 | bottleneck on a 2019–20 toolchain | May need an older interpreter; compatibility patches would be logged (threat T7) | [readiness](03-experiment/readiness.md) section 1.2, 6 |
 | Accumulation ablation may be null | Expected null unless at least 3 latent faults per repo exist | [readiness](03-experiment/readiness.md) section 4.1b |
 | Oracle repeatability | The full-benchmark verdict must be re-run at least 3 times before any miss is counted | [readiness](03-experiment/readiness.md) section 5 |

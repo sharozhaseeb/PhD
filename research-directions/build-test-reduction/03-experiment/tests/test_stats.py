@@ -74,3 +74,20 @@ def test_noise_sigma_and_regressed():
     assert regressed(ref, new, sigma=0.02)
     assert not regressed(ref, new, sigma=0.15)   # 1 + 3*0.15 = 1.45 > 1.3
     assert not regressed(ref, _samples(3, 1.0), sigma=0.0)
+
+
+def test_mwu_methods_exact_vs_normal():
+    """PM 15:46 / W1: asv uses an exact MWU for max(m, n) <= 20; the harness default was scipy 'auto'."""
+    import math
+    from bth import stats
+    a = [float(i) for i in range(15)]; b = [float(i + 15) for i in range(15)]   # full separation, U = 0
+    ex = stats.mwu_p(a, b, "exact")
+    assert math.isclose(ex, 2 / math.comb(30, 15), rel_tol=1e-6)
+    assert stats.mwu_p(a, b, "asv") == ex                      # 15 <= 20 -> exact
+    assert stats.mwu_p(a, b, "scipy_auto") > 1e-6              # normal approx, about 3e-6
+    assert math.isclose(stats.min_attainable_p(6, 6), 2 / 924)
+    assert stats.min_attainable_p(6, 6) > 0.002                # 6 v 6 cannot fire under any exact test
+    big_a = [float(i) for i in range(30)]; big_b = [float(i + 30) for i in range(30)]
+    z = (0 - 450) / math.sqrt(900 * 61 / 12)
+    assert math.isclose(stats.mwu_p(big_a, big_b, "asv"), math.erfc(abs(z) / math.sqrt(2)), rel_tol=1e-9)
+    assert stats.asv_rule(a, [x * 2 for x in b], method="exact").status == "slower"

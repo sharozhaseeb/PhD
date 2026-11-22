@@ -337,6 +337,8 @@ def parse_arm(spec: str):
         k, T = kw.pop("k", None), kw.pop("T", 10)
         trig = ("periodic", k) if k is not None else ("score", T)
         return spec, lambda ctx: S.Ours(ctx, trigger=trig, **kw)
+    if name == "BATCH":   # C5 comparators: BATCH:cap=k (cap-only) / BATCH:budget=T[,cap=k] (additive budget)
+        return spec, lambda ctx: S.Batch(ctx, budget=kw.get("budget"), cap=kw.get("cap"))
     if name == "PERIODIC":
         inner, k = kw.get("inner", "INC"), kw["k"]
         _, ifac = parse_arm(inner)

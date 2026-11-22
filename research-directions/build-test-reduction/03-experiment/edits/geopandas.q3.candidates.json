@@ -1,0 +1,325 @@
+{
+ "repo": "geopandas",
+ "package": "geopandas",
+ "head_at_mining": "3e92048f628971d0ed24b512740fae82ed6376c5",
+ "bench_dir": "benchmarks",
+ "rule": "frozen/q3_project_rule.md",
+ "records": [
+  {
+   "sha": "16ee64f7dec236528634a7036c97c76dd6ae2340",
+   "date": "2017-11-20T23:25:43+03:00",
+   "subject": "PERF: writing mutliple records at once to increase speed in GeoPackage (#605)",
+   "files": [
+    "geopandas/io/file.py"
+   ],
+   "src_lines": 3,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "7d50380229eb84375546c2dc586de659096a6e61",
+   "date": "2018-07-15T14:45:44-05:00",
+   "subject": "PERF/ENH: new overlay implementation (#429)",
+   "files": [
+    "geopandas/tools/overlay.py"
+   ],
+   "src_lines": 194,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "48653f3e9438102d7a2c0594905723edfb334f6c",
+   "date": "2018-07-27T01:57:24-04:00",
+   "subject": "PERF: added check for multi-geometries (#785)",
+   "files": [
+    "geopandas/plotting.py"
+   ],
+   "src_lines": 3,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "4f933d38f155d6080b6da74e4e246c6bb625bcfa",
+   "date": "2018-12-09T17:13:20+09:00",
+   "subject": "PERF: Improve iterfeatures performance (#864)",
+   "files": [
+    "geopandas/geodataframe.py"
+   ],
+   "src_lines": 71,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "d39b6429c992545deeed7a315bce4b851210f150",
+   "date": "2019-04-16T21:11:19+02:00",
+   "subject": "PERF: Optimize pyproj >= 2.1 transformations  (#962)",
+   "files": [
+    "geopandas/geoseries.py"
+   ],
+   "src_lines": 10,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "d52326523b84bbc1c699462dcede86f509a4c82a",
+   "date": "2019-09-14T04:35:59-04:00",
+   "subject": "PERF: Repeated sjoins using the same dataframes re-use spatial indexes (#789)",
+   "files": [
+    "geopandas/tools/sjoin.py"
+   ],
+   "src_lines": 53,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "5d1181af6bcca88351d84bb63fc0fbe0e32ce055",
+   "date": "2020-03-24T09:08:27+01:00",
+   "subject": "ENH: (optionally) use pygeos for vectorized GeometryArray operations (#1154)",
+   "files": [
+    "geopandas/__init__.py",
+    "geopandas/_compat.py",
+    "geopandas/_config.py",
+    "geopandas/_vectorized.py",
+    "geopandas/array.py",
+    "geopandas/geoseries.py",
+    "geopandas/tools/sjoin.py"
+   ],
+   "src_lines": 1680,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "1680 source lines > 200"
+  },
+  {
+   "sha": "c42f9e4a97b38180acc4540a38cecec9f4d942b3",
+   "date": "2020-09-21T13:35:33-05:00",
+   "subject": "ENH: speed up emptiness and size checks for rtree (#1625)",
+   "files": [
+    "geopandas/sindex.py"
+   ],
+   "src_lines": 12,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "5759f0c4ec981bcd99f59f3da3f4fdae45992aa9",
+   "date": "2021-01-28T00:44:56-08:00",
+   "subject": "ENH: integrate pygeos.get_parts for faster explode() (#1693)",
+   "files": [
+    "geopandas/_compat.py",
+    "geopandas/geoseries.py"
+   ],
+   "src_lines": 42,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "fc60ece1919fe7ae15fc8599187a8f845c739b60",
+   "date": "2021-05-28T17:35:35+02:00",
+   "subject": "PERF: avoid calculating total_bounds in .cx indexing when not needed (#1951)",
+   "files": [
+    "geopandas/base.py"
+   ],
+   "src_lines": 3,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "134f4e4dd482ddf84c2b8d77d73fdf7a87d3f5fa",
+   "date": "2021-09-03T12:31:26+02:00",
+   "subject": "TST: speedup hexbin plot with bigger gridsize (#2097)",
+   "files": [],
+   "src_lines": 0,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "no package source files changed"
+  },
+  {
+   "sha": "8d4679f7ef988e5319d0b5fc499868b25d11a91e",
+   "date": "2021-09-24T08:59:28-07:00",
+   "subject": "PERF: Add new overlay benchmarks (#2118)",
+   "files": [],
+   "src_lines": 0,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "no package source files changed"
+  },
+  {
+   "sha": "fed13df9e50475fe9648fb51cbf6ea71fe3b6158",
+   "date": "2021-09-24T20:35:28+02:00",
+   "subject": "PERF: MultiIndex creation in explode (#2110)",
+   "files": [
+    "geopandas/geoseries.py"
+   ],
+   "src_lines": 12,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "3d0d7e48ffde9108bdfdb3ea6113a2b4d104dde8",
+   "date": "2021-09-25T17:19:28+02:00",
+   "subject": "PERF: fix performance regression in overlay keep_geometry_type=True (in checking for GeometryCollection) (#2103)",
+   "files": [
+    "geopandas/tools/overlay.py"
+   ],
+   "src_lines": 70,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "39834890c40fc248a0c355dc4a0d5283b759c10e",
+   "date": "2021-09-25T21:14:12+02:00",
+   "subject": "PERF: pre-define PyGEOSSTRTreeIndex.valid_query_predicates (#2136)",
+   "files": [
+    "geopandas/sindex.py"
+   ],
+   "src_lines": 4,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "46f98addbf4fe45efb760a6f0f066b0625a556e6",
+   "date": "2021-09-27T20:58:16+02:00",
+   "subject": "PERF: avoid doing total_bounds calculation in sjoin (#2135)",
+   "files": [
+    "geopandas/tools/sjoin.py"
+   ],
+   "src_lines": 20,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "6802f43e51f6b227467edfb6c013e31f6f58ffc2",
+   "date": "2021-10-01T17:45:02+02:00",
+   "subject": "BUG: Fix multipoint clipping / PERF: query for all geometry types at once (#2148)",
+   "files": [
+    "geopandas/tools/clip.py"
+   ],
+   "src_lines": 114,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "f8b2fc2bd362b421cd0acd30d5f494cdf272c1b2",
+   "date": "2023-01-19T22:13:45+00:00",
+   "subject": "PERF: Implement cached transformer.from_crs for to_crs (#2762)",
+   "files": [
+    "geopandas/array.py"
+   ],
+   "src_lines": 8,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "04c2dee547777d9e87f9df4c85cc372a03b29f93",
+   "date": "2023-05-06T15:54:43+02:00",
+   "subject": "CI: speedup tests by using mamba-org micromamba action (#2836)",
+   "files": [],
+   "src_lines": 0,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "no package source files changed"
+  },
+  {
+   "sha": "35463adda663dfa57c9809865ebbb15448823278",
+   "date": "2023-07-01T10:04:19-04:00",
+   "subject": "PERF: replace buffer(0) with make_valid() in _overlay_difference (#2939)",
+   "files": [
+    "geopandas/geodataframe.py",
+    "geopandas/tools/overlay.py"
+   ],
+   "src_lines": 30,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "4143488e64b33cbcf1599507a22b76a94d91e754",
+   "date": "2024-03-28T17:47:58+01:00",
+   "subject": "PERF: improve frame_join part of spatial join (#2353)",
+   "files": [
+    "geopandas/array.py",
+    "geopandas/geodataframe.py",
+    "geopandas/tools/sjoin.py"
+   ],
+   "src_lines": 265,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "265 source lines > 200"
+  },
+  {
+   "sha": "fdb1960bf643bdd617b1a1ccf55497fbaf251861",
+   "date": "2024-05-19T21:14:18+02:00",
+   "subject": "PERF: improve performance of getting unique geometry types for GeoParquet metadata (#3296)",
+   "files": [
+    "geopandas/io/arrow.py"
+   ],
+   "src_lines": 39,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "a61af6e31818c76975306e643dd60a738c470b72",
+   "date": "2024-06-07T11:12:20+02:00",
+   "subject": "PERF: improve reading of geoarrow encoded Parquet (avoid converting coords to geopandas object dtype) (#3322)",
+   "files": [
+    "geopandas/io/arrow.py"
+   ],
+   "src_lines": 17,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "6286f13f8de8748edfa1ed9bc7deb4d05b83a300",
+   "date": "2025-01-17T02:46:00-08:00",
+   "subject": "DOC: Document use of `use_arrow=True` for faster IO (#3391)",
+   "files": [
+    "geopandas/geodataframe.py",
+    "geopandas/io/file.py"
+   ],
+   "src_lines": 7,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "99d5cc98b19d4e1d70a0fd81d68d1f5f453a48d9",
+   "date": "2025-02-26T20:35:06+01:00",
+   "subject": "ENH: improve performance of overlay/identity (#3504)",
+   "files": [
+    "geopandas/geodataframe.py",
+    "geopandas/tools/overlay.py"
+   ],
+   "src_lines": 38,
+   "ai_authored": false,
+   "qualifies": true,
+   "reason": ""
+  },
+  {
+   "sha": "ee889bb6365319dee15b43ad001539ef10b090f0",
+   "date": "2026-10-12T23:00:11+02:00",
+   "subject": "TST: suppress warning about slow performance of searchsorted in base extension tests (#3890)",
+   "files": [],
+   "src_lines": 0,
+   "ai_authored": false,
+   "qualifies": false,
+   "reason": "no package source files changed"
+  }
+ ]
+}

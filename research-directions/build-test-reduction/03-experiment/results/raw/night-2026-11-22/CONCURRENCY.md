@@ -1,0 +1,3 @@
+- 15:43:50–15:44:02 PKT: W3 built frozen/labelling/sheet.jsonl (git show over 81 commits; nice 19, taskset CPUs 0,1) while night item (b) block s02 ran on CPUs 2–5. Runs in that window are flagged concurrent (check their pre_gate/loadavg).
+- ≈15:45:30–15:47:25 PKT: W3 mistake: an unniced `find /` in WSL (searching for the asv source) also walked /mnt/c, heavy I/O, while item (b) block s02/s08 ran. Killed 15:47:25. Runs whose t_start..t_end overlap this window are flagged concurrent in the write-up.
+- 15:49–15:51 PKT: W3 ran stats unit tests, scripts/recompute_exact.py and a smoke run of night_analyse.py (nice 19, CPUs 0,1) during item (b).

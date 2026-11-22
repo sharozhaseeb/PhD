@@ -1,0 +1,471 @@
+{
+ "precision_v1": {
+  "networkx": {
+   "opt": 15,
+   "qualified": 20,
+   "precision": 0.75,
+   "wilson95": [
+    0.531,
+    0.888
+   ]
+  },
+  "bottleneck": {
+   "opt": 15,
+   "qualified": 16,
+   "precision": 0.938,
+   "wilson95": [
+    0.717,
+    0.989
+   ]
+  },
+  "geopandas": {
+   "opt": 17,
+   "qualified": 20,
+   "precision": 0.85,
+   "wilson95": [
+    0.64,
+    0.948
+   ]
+  },
+  "pvlib-python": {
+   "opt": 3,
+   "qualified": 14,
+   "precision": 0.214,
+   "wilson95": [
+    0.076,
+    0.476
+   ]
+  },
+  "pooled": {
+   "opt": 50,
+   "qualified": 70,
+   "precision": 0.714,
+   "wilson95": [
+    0.599,
+    0.807
+   ]
+  }
+ },
+ "label_counts_all_rows": {
+  "networkx": {
+   "OPT": 15,
+   "NOT_OPT": 6,
+   "UNSURE": 0
+  },
+  "bottleneck": {
+   "OPT": 15,
+   "NOT_OPT": 1,
+   "UNSURE": 0
+  },
+  "geopandas": {
+   "OPT": 19,
+   "NOT_OPT": 7,
+   "UNSURE": 0
+  },
+  "pvlib-python": {
+   "OPT": 3,
+   "NOT_OPT": 15,
+   "UNSURE": 0
+  }
+ },
+ "networkx_reconcile": {
+  "replayed": [
+   {
+    "step": 1,
+    "sha": "f618240c0e",
+    "id": 6,
+    "subject": "Faster `intersection_array` computation for checking distance-regularity (#7181)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 2,
+    "sha": "090cc0910a",
+    "id": 4,
+    "subject": "Bidirectional dijkstra optimization: from 1.1x to 25x faster (#8206)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 3,
+    "sha": "0bad061e0e",
+    "id": 74,
+    "subject": "Optimizing Dijkstra's path construction for all targets case (#8218)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 4,
+    "sha": "4714bb5cf9",
+    "id": 38,
+    "subject": "Optimizing is_connected (#8266)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 5,
+    "sha": "222c6522b9",
+    "id": 77,
+    "subject": "optimize _single_shortest_path function (#6337)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 6,
+    "sha": "0d3fe6ac99",
+    "id": 25,
+    "subject": "Adding the Tree Optimization in Floyd Warshall (#8361)",
+    "manual": "OPT",
+    "agents": "NOT_OPT"
+   },
+   {
+    "step": 7,
+    "sha": "e55ffa30d5",
+    "id": 37,
+    "subject": "Kruskal MST early break for efficiency (#8296)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 8,
+    "sha": "519e819f64",
+    "id": 76,
+    "subject": "MAINT: Reuse `could_be_isomorphic` in `fast_/faster_` variants (#8497)",
+    "manual": "NOT_OPT",
+    "agents": "NOT_OPT"
+   },
+   {
+    "step": 9,
+    "sha": "802c0a2d8e",
+    "id": 60,
+    "subject": "perf: replace built-in sum() with np.sum() in pagerank and katz (#8561)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 10,
+    "sha": "c1c468d521",
+    "id": 30,
+    "subject": "Optimize _build_paths_from_predecessors stack logic for 30-40% speedup (#8460)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 11,
+    "sha": "c56ada4623",
+    "id": 16,
+    "subject": "Optimize VF2 GMState frontier update by removing full core scan (#8649)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 12,
+    "sha": "f77c3b6852",
+    "id": 27,
+    "subject": "Speed up the residual flow reset in `edmonds_karp` and simplify the `minimum_cut",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 13,
+    "sha": "bf130bfec4",
+    "id": 42,
+    "subject": "ENH: add n_samples parameter to rich_club_coefficient for multi-sample averaging",
+    "manual": "NOT_OPT",
+    "agents": "NOT_OPT"
+   },
+   {
+    "step": 14,
+    "sha": "7f7afab198",
+    "id": 49,
+    "subject": "ENH: Simplifying _build_paths_from_predecessors - 10% faster (#8844)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 15,
+    "sha": "68206456ba",
+    "id": 2,
+    "subject": "ENH: Speed up connectivity checks in random_reference and lattice_reference (#88",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 16,
+    "sha": "4a72b69adc",
+    "id": 46,
+    "subject": "Optimize _triangles_and_degree_iter by caching neighbor sets (#8743)",
+    "manual": "OPT",
+    "agents": "OPT"
+   },
+   {
+    "step": 17,
+    "sha": "9f6079c012",
+    "id": 62,
+    "subject": "BUG: Fix row-max normalization in vectorized effective_size (#8906)",
+    "manual": "NOT_OPT",
+    "agents": "NOT_OPT"
+   },
+   {
+    "step": 18,
+    "sha": "2e0ae8ad95",
+    "id": 5,
+    "subject": "Speed up chain_decomposition and bridges 2.5x to 4x by dropping the intermediate",
+    "manual": "OPT",
+    "agents": "OPT"
+   }
+  ],
+  "dropped_on_apply": [
+   {
+    "sha": "675034adb1",
+    "id": 39,
+    "manual": "OPT",
+    "agents": "NOT_OPT"
+   },
+   {
+    "sha": "abf2feda22",
+    "id": 14,
+    "manual": "OPT",
+    "agents": "OPT"
+   }
+  ],
+  "not_in_states": [
+   {
+    "sha": "306bbbcd9b",
+    "id": 33,
+    "qualifies": false,
+    "agents": "NOT_OPT",
+    "subject": "Optimize Leiden data handling (#8715)"
+   }
+  ],
+  "disagreements": [
+   {
+    "step": 6,
+    "sha": "0d3fe6ac99",
+    "id": 25,
+    "subject": "Adding the Tree Optimization in Floyd Warshall (#8361)",
+    "manual": "OPT",
+    "agents": "NOT_OPT"
+   },
+   {
+    "sha": "675034adb1",
+    "id": 39,
+    "manual": "OPT",
+    "agents": "NOT_OPT"
+   }
+  ]
+ },
+ "geopandas_agent_not_opt_among_qualified": [
+  {
+   "sha": "7d50380229",
+   "id": 67,
+   "subject": "PERF/ENH: new overlay implementation (#429)",
+   "agents": "NOT_OPT",
+   "reason_r1": "truncated; shown diff is test data only, overlay.py rewrite cut off; link fetch failed (503)"
+  },
+  {
+   "sha": "6802f43e51",
+   "id": 9,
+   "subject": "BUG: Fix multipoint clipping / PERF: query for all geometry types at once (#2148)",
+   "agents": "NOT_OPT",
+   "reason_r1": "primarily a multipoint clipping bug fix with restructuring; performance is secondary"
+  },
+  {
+   "sha": "6286f13f8d",
+   "id": 64,
+   "subject": "DOC: Document use of `use_arrow=True` for faster IO (#3391)",
+   "agents": "NOT_OPT",
+   "reason_r1": "docs on use_arrow; library code change is docstring only"
+  }
+ ],
+ "B1": {
+  "per_step": [
+   {
+    "step": 1,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": true
+   },
+   {
+    "step": 2,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": false
+   },
+   {
+    "step": 3,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": false,
+    "static_unreached": false
+   },
+   {
+    "step": 4,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": false,
+    "static_unreached": false
+   },
+   {
+    "step": 5,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": false
+   },
+   {
+    "step": 6,
+    "agents": "NOT_OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": true
+   },
+   {
+    "step": 7,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": false
+   },
+   {
+    "step": 8,
+    "agents": "NOT_OPT",
+    "manual": "NOT_OPT",
+    "profile_unreached": true,
+    "static_unreached": true
+   },
+   {
+    "step": 9,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": false,
+    "static_unreached": false
+   },
+   {
+    "step": 10,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": false,
+    "static_unreached": false
+   },
+   {
+    "step": 11,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": false
+   },
+   {
+    "step": 12,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": false
+   },
+   {
+    "step": 13,
+    "agents": "NOT_OPT",
+    "manual": "NOT_OPT",
+    "profile_unreached": true,
+    "static_unreached": true
+   },
+   {
+    "step": 14,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": false,
+    "static_unreached": false
+   },
+   {
+    "step": 15,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": true
+   },
+   {
+    "step": 16,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": false,
+    "static_unreached": false
+   },
+   {
+    "step": 17,
+    "agents": "NOT_OPT",
+    "manual": "NOT_OPT",
+    "profile_unreached": true,
+    "static_unreached": true
+   },
+   {
+    "step": 18,
+    "agents": "OPT",
+    "manual": "OPT",
+    "profile_unreached": true,
+    "static_unreached": true
+   }
+  ],
+  "all18": {
+   "profile": {
+    "k": 12,
+    "n": 18,
+    "share": 0.667,
+    "wilson95": [
+     0.437,
+     0.837
+    ]
+   },
+   "static": {
+    "k": 7,
+    "n": 18,
+    "share": 0.389,
+    "wilson95": [
+     0.203,
+     0.614
+    ]
+   }
+  },
+  "manual_opt": {
+   "profile": {
+    "k": 9,
+    "n": 15,
+    "share": 0.6,
+    "wilson95": [
+     0.357,
+     0.802
+    ]
+   },
+   "static": {
+    "k": 4,
+    "n": 15,
+    "share": 0.267,
+    "wilson95": [
+     0.109,
+     0.52
+    ]
+   }
+  },
+  "agent_opt": {
+   "profile": {
+    "k": 8,
+    "n": 14,
+    "share": 0.571,
+    "wilson95": [
+     0.326,
+     0.786
+    ]
+   },
+   "static": {
+    "k": 3,
+    "n": 14,
+    "share": 0.214,
+    "wilson95": [
+     0.076,
+     0.476
+    ]
+   }
+  }
+ }
+}

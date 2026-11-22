@@ -173,6 +173,49 @@ class Periodic(Arm):
         self.inner.observe(t, decision, outcome, st)
 
 
+class Batch(Arm):
+    """C5 batching comparators (W1 candidate-rules C5; R2 notes): NO per-edit check.
+
+    Between full checks nothing runs and nothing is built (build "none"); edits accumulate as a batch.
+    A full check (the batch flush) happens when
+      - cap:    steps since the last full check >= cap  (FSB / TWB-like cap; cap-only when budget is None), or
+      - budget: OURS' additive score (|A_t| + w_header*headers + w_fallback*fallbacks) >= budget
+                (risk-mass "-la" batching with the learned r_i replaced by our measured score), or
+      - the last step, or OURS' mandatory triggers (build-config edit, unknown native extension).
+    The score bookkeeping is delegated to an inner OURS arm so both use identical accumulation.
+    """
+
+    def __init__(self, ctx: Context, budget=None, cap=None, w_header=5, w_fallback=5):
+        super().__init__(ctx)
+        if budget is None and cap is None:
+            raise ValueError("Batch needs budget and/or cap")
+        self.budget, self.cap = budget, cap
+        self.name = "BATCH" + (f":budget={budget}" if budget is not None else "") + (f":cap={cap}" if cap is not None else "")
+        trig = ("score", budget) if budget is not None else ("none", 0)
+        self.inner = Ours(ctx, trigger=trig, w_header=w_header, w_fallback=w_fallback)
+
+    def new_state(self):
+        st = self.inner.new_state()
+        st.last_full = 0
+        return st
+
+    def decide(self, t, changes, st=None):
+        st = st if st is not None else self.st
+        d = self.inner.decide(t, changes, st)
+        reasons = list(d.fallback_reasons) if d.full_check else []
+        if self.cap is not None and t - getattr(st, "last_full", 0) >= self.cap:
+            reasons.append("cap")
+        if d.full_check or "cap" in reasons:
+            return _full(self.ctx, tuple(reasons))
+        return Decision("none", frozenset(), frozenset(), False, ("batch_wait",))
+
+    def observe(self, t, decision, outcome, st=None):
+        st = st if st is not None else self.st
+        if decision.full_check:
+            st.last_full = t
+        self.inner.observe(t, decision, outcome, st)
+
+
 class Ours(Arm):
     name = "OURS"
 

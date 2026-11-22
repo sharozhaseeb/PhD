@@ -139,3 +139,65 @@ def test_taskset_prefix(monkeypatch):
     assert benchrun._worker_cmd("py", "measure", {}, cpus="2-5")[:3] == ["taskset", "-c", "2-5"]
     monkeypatch.setattr(shutil, "which", lambda n: None)
     assert benchrun._worker_cmd("py", "measure", {}, cpus="2-5")[0] == "py"
+
+
+def test_run_interleaved_checkpoints_and_resumes(tmp_path, monkeypatch):
+    """Each finished (case, state, repeat) run is appended to a JSONL checkpoint; a resume skips them."""
+    from types import SimpleNamespace
+    calls = []
+
+    def fake_measure(case, sd, py, **kw):
+        calls.append((case.id, str(sd)))
+        return {"id": case.id, "samples": [1.0], "error": None, "skipped": False}
+
+    monkeypatch.setattr(benchrun, "measure", fake_measure)
+    cs = [SimpleNamespace(id="c1"), SimpleNamespace(id="c2")]
+    st = [("A", "a", "py"), ("B", "b", "py")]
+    ck = tmp_path / "ck.jsonl"
+    full = benchrun.run_interleaved(cs, st, 2, checkpoint=ck)
+    assert len(full) == 8 and len(ck.read_text().splitlines()) == 8
+    # simulate a kill after 3 runs: keep 3 lines, resume
+    lines = ck.read_text().splitlines()[:3]
+    ck.write_text("\n".join(lines) + "\n")
+    calls.clear()
+    res = benchrun.run_interleaved(cs, st, 2, checkpoint=ck)
+    assert len(calls) == 5 and len(res) == 8
+    assert [(r["id"], r["label"], r["repeat"]) for r in res] == [(r["id"], r["label"], r["repeat"]) for r in full]
+
+
+def test_make_gate_postpones_then_passes(tmp_path):
+    """Night plan 2026-11-22: the per-run gate waits while load or Windows CPU is high, logs each postponement."""
+    import time as _t
+    loads = iter([3.0, 2.0, 1.2])
+    clock = {"t": 0.0}
+    tel = tmp_path / "win.jsonl"
+    tel.write_text(json.dumps({"epoch": _t.time(), "cpu": 5.0}) + "\n")
+    log = tmp_path / "driver.log"
+    g = benchrun.make_gate(1.5, 20, str(tel), max_wait_s=600, poll_s=20, log=str(log),
+                           _load=lambda: next(loads), _sleep=lambda s: clock.__setitem__("t", clock["t"] + s),
+                           _now=lambda: clock["t"])
+    r = g()
+    assert r["ok"] and r["load1"] == 1.2 and r["wincpu"] == 5.0 and r["waited_s"] == 40
+    assert log.read_text().count("gate: run postponed") == 2
+
+
+def test_make_gate_gives_up_and_labels(tmp_path):
+    import time as _t
+    clock = {"t": 0.0}
+    tel = tmp_path / "win.jsonl"
+    tel.write_text(json.dumps({"epoch": _t.time(), "cpu": 55.0}) + "\n")
+    g = benchrun.make_gate(1.5, 20, str(tel), max_wait_s=60, poll_s=20, _load=lambda: 0.5,
+                           _sleep=lambda s: clock.__setitem__("t", clock["t"] + s), _now=lambda: clock["t"])
+    r = g()
+    assert r["ok"] is False and r["wincpu"] == 55.0 and r["waited_s"] >= 60
+    # stale telemetry is ignored (no Windows reading -> load only)
+    tel.write_text(json.dumps({"epoch": _t.time() - 3600, "cpu": 99.0}) + "\n")
+    assert benchrun.make_gate(1.5, 20, str(tel), _load=lambda: 0.5)()["ok"] is True
+
+
+def test_run_interleaved_records_pre_gate(monkeypatch):
+    from types import SimpleNamespace
+    monkeypatch.setattr(benchrun, "measure", lambda c, sd, py, **kw: {"id": c.id, "samples": [1.0]})
+    res = benchrun.run_interleaved([SimpleNamespace(id="c")], [("A", "a", "py"), ("B", "b", "py")], 2,
+                                   pre_run=lambda: {"ok": True, "load1": 0.3})
+    assert len(res) == 4 and all(r["pre_gate"]["ok"] for r in res)

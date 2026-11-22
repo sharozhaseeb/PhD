@@ -1,0 +1,5 @@
+[
+ {"filename":"2020-Duplyakin-Datacenter-Performance-Only-Constant-Is-Change-arXiv.pdf","title":"In Datacenter Performance, The Only Constant Is Change","source_url":"https://arxiv.org/pdf/2003.04824","bytes":1284625,"sha256":"5b5168906817e683a3c60d1e2be8904e5fb891b0632629326d6a63906858bd4a","downloaded_on":"2026-11-22","magic":"%PDF-"},
+ {"filename":"2018-Maricq-Taming-Performance-Variability-OSDI.pdf","title":"Taming Performance Variability","source_url":"https://www.usenix.net/system/files/osdi18-maricq.pdf","bytes":1726216,"sha256":"0167078e2f7c5bf3023d519a4abeeabf40d4b39110e68cd98068e305415edc48","downloaded_on":"2026-11-22","magic":"%PDF-"},
+ {"filename":"2025-Japke-Isolation-Synchronized-Benchmarks-arXiv.pdf","title":"Investigating the Impact of Isolation on Synchronized Benchmarks (UCC 25)","source_url":"https://arxiv.org/pdf/2511.03533","bytes":759518,"sha256":"de2a9fcf9c228e2ceb53d90e40766392873edc8297367322189ee50bc3d8e456","downloaded_on":"2026-11-22","magic":"%PDF-"}
+]

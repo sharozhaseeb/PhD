@@ -1,0 +1,1068 @@
+{
+ "rule": "frozen/q3_project_rule.md",
+ "networkx_profile_reference": {
+  "k_unreached": 12,
+  "n": 18,
+  "wilson95": [
+   0.4374906934425036,
+   0.8372144563633714
+  ],
+  "source": "results.md finding B1 (S0 profile reach, measured)"
+ },
+ "summary": [
+  {
+   "project": "networkx (static reach, S0; replayed diffs)",
+   "k_unreached": 7,
+   "n": 18,
+   "wilson95": [
+    0.20304991926931162,
+    0.6138133141934384
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "geopandas",
+   "k_unreached": 18,
+   "n": 20,
+   "wilson95": [
+    0.6989617935882066,
+    0.9721341060158468
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "pvlib-python",
+   "k_unreached": 14,
+   "n": 14,
+   "wilson95": [
+    0.7846829880728186,
+    1.0
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "bottleneck (states 1-8)",
+   "k_unreached": 0,
+   "n": 8,
+   "wilson95": [
+    0.0,
+    0.3244156195108769
+   ],
+   "edits_with_no_function_changed": 0
+  },
+  {
+   "project": "bottleneck (states 1-13)",
+   "k_unreached": 0,
+   "n": 13,
+   "wilson95": [
+    0.0,
+    0.22810184305529166
+   ],
+   "edits_with_no_function_changed": 0
+  }
+ ],
+ "detail": [
+  {
+   "project": "networkx (static reach, S0; replayed diffs)",
+   "edits": [
+    {
+     "step": 1,
+     "changed_functions": [
+      "networkx/algorithms/distance_regular.py::global_parameters",
+      "networkx/algorithms/distance_regular.py::intersection_array"
+     ],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "step": 2,
+     "changed_functions": [
+      "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra",
+      "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra.<locals>.path"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 3,
+     "changed_functions": [
+      "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 4,
+     "changed_functions": [
+      "networkx/algorithms/components/connected.py::is_connected",
+      "networkx/algorithms/components/connected.py::number_connected_components"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 5,
+     "changed_functions": [
+      "networkx/algorithms/shortest_paths/unweighted.py::_single_shortest_path",
+      "networkx/algorithms/shortest_paths/unweighted.py::single_source_shortest_path",
+      "networkx/algorithms/shortest_paths/unweighted.py::single_source_shortest_path.<locals>.join",
+      "networkx/algorithms/shortest_paths/unweighted.py::single_target_shortest_path"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 6,
+     "changed_functions": [
+      "networkx/algorithms/shortest_paths/dense.py::floyd_warshall_tree"
+     ],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "step": 7,
+     "changed_functions": [
+      "networkx/algorithms/tree/mst.py::kruskal_mst_edges"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 8,
+     "changed_functions": [
+      "networkx/algorithms/isomorphism/isomorph.py::could_be_isomorphic",
+      "networkx/algorithms/isomorphism/isomorph.py::fast_could_be_isomorphic",
+      "networkx/algorithms/isomorphism/isomorph.py::faster_could_be_isomorphic"
+     ],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "step": 9,
+     "changed_functions": [
+      "networkx/algorithms/centrality/katz.py::katz_centrality_numpy",
+      "networkx/algorithms/link_analysis/pagerank_alg.py::_pagerank_scipy"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 10,
+     "changed_functions": [
+      "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 11,
+     "changed_functions": [
+      "networkx/algorithms/isomorphism/isomorphvf2.py::DiGMState.__init__",
+      "networkx/algorithms/isomorphism/isomorphvf2.py::GMState.__init__"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 12,
+     "changed_functions": [
+      "networkx/algorithms/flow/edmondskarp.py::edmonds_karp_impl",
+      "networkx/algorithms/flow/maxflow.py::minimum_cut"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 13,
+     "changed_functions": [
+      "networkx/algorithms/richclub.py::rich_club_coefficient"
+     ],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "step": 14,
+     "changed_functions": [
+      "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 15,
+     "changed_functions": [
+      "networkx/algorithms/smallworld.py::lattice_reference",
+      "networkx/algorithms/smallworld.py::random_reference"
+     ],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "step": 16,
+     "changed_functions": [
+      "networkx/algorithms/cluster.py::_triangles_and_degree_iter"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "step": 17,
+     "changed_functions": [
+      "networkx/algorithms/structuralholes.py::effective_size"
+     ],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "step": 18,
+     "changed_functions": [
+      "networkx/algorithms/chains.py::chain_decomposition",
+      "networkx/algorithms/chains.py::chain_decomposition.<locals>._build_chain",
+      "networkx/algorithms/chains.py::chain_decomposition.<locals>._dfs_cycle_forest"
+     ],
+     "unreached_edit": true,
+     "no_function_changed": false
+    }
+   ]
+  },
+  {
+   "project": "geopandas",
+   "base": "74fa1368a3a8edcff8728fa1577bd74e13ccf65e",
+   "n_bench_cases": 21,
+   "n_reached_funcs": 56,
+   "edits": [
+    {
+     "sha": "16ee64f7dec236528634a7036c97c76dd6ae2340",
+     "subject": "PERF: writing mutliple records at once to increase speed in GeoPackage (#605)",
+     "changed_functions": [
+      "geopandas/io/file.py::to_file"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "7d50380229eb84375546c2dc586de659096a6e61",
+     "subject": "PERF/ENH: new overlay implementation (#429)",
+     "changed_functions": [
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.setup_method",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_bad_how",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_difference",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_duplicate_column_name",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_geometry_not_named_geometry",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_geoseries_warning",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_identity",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_intersection",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_nonpoly",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_symmetric_difference",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_union",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_union_no_index",
+      "geopandas/tests/test_overlay.py::TestOverlayNYBB.test_union_non_numeric_index",
+      "geopandas/tests/test_overlay.py::dfs",
+      "geopandas/tests/test_overlay.py::dfs_index",
+      "geopandas/tests/test_overlay.py::expected_features",
+      "geopandas/tests/test_overlay.py::test_bad_how",
+      "geopandas/tests/test_overlay.py::test_duplicate_column_name",
+      "geopandas/tests/test_overlay.py::test_geometry_not_named_geometry",
+      "geopandas/tests/test_overlay.py::test_geoseries_warning",
+      "geopandas/tests/test_overlay.py::test_overlay",
+      "geopandas/tests/test_overlay.py::test_overlay.<locals>._read",
+      "geopandas/tests/test_overlay.py::test_overlay_nybb",
+      "geopandas/tests/test_overlay.py::test_overlay_overlap",
+      "geopandas/tests/test_overlay.py::test_preserve_crs",
+      "geopandas/tests/test_overlay.py::test_raise_nonpoly",
+      "geopandas/tools/overlay.py::_ensure_geometry_column",
+      "geopandas/tools/overlay.py::_overlay_difference",
+      "geopandas/tools/overlay.py::_overlay_intersection",
+      "geopandas/tools/overlay.py::_overlay_old",
+      "geopandas/tools/overlay.py::_overlay_symmetric_diff",
+      "geopandas/tools/overlay.py::_overlay_union",
+      "geopandas/tools/overlay.py::overlay"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "48653f3e9438102d7a2c0594905723edfb334f6c",
+     "subject": "PERF: added check for multi-geometries (#785)",
+     "changed_functions": [
+      "geopandas/plotting.py::_flatten_multi_geoms"
+     ],
+     "reached_functions": [
+      "geopandas/plotting.py::_flatten_multi_geoms"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "4f933d38f155d6080b6da74e4e246c6bb625bcfa",
+     "subject": "PERF: Improve iterfeatures performance (#864)",
+     "changed_functions": [
+      "geopandas/geodataframe.py::GeoDataFrame.iterfeatures",
+      "geopandas/geodataframe.py::GeoDataFrame.iterfeatures.<locals>.fill_none",
+      "geopandas/tests/test_geodataframe.py::TestDataFrame.test_geodataframe_iterfeatures"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "d39b6429c992545deeed7a315bce4b851210f150",
+     "subject": "PERF: Optimize pyproj >= 2.1 transformations  (#962)",
+     "changed_functions": [
+      "geopandas/geoseries.py::GeoSeries.to_crs"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "d52326523b84bbc1c699462dcede86f509a4c82a",
+     "subject": "PERF: Repeated sjoins using the same dataframes re-use spatial indexes (#789)",
+     "changed_functions": [
+      "geopandas/tools/sjoin.py::sjoin"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "c42f9e4a97b38180acc4540a38cecec9f4d942b3",
+     "subject": "ENH: speed up emptiness and size checks for rtree (#1625)",
+     "changed_functions": [
+      "geopandas/sindex.py::RTreeIndex.is_empty",
+      "geopandas/sindex.py::RTreeIndex.size"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "5759f0c4ec981bcd99f59f3da3f4fdae45992aa9",
+     "subject": "ENH: integrate pygeos.get_parts for faster explode() (#1693)",
+     "changed_functions": [
+      "benchmarks/geom_methods.py::Bench.setup",
+      "benchmarks/geom_methods.py::Bench.time_explode",
+      "geopandas/geoseries.py::GeoSeries.__new__",
+      "geopandas/geoseries.py::GeoSeries.explode"
+     ],
+     "reached_functions": [
+      "geopandas/geoseries.py::GeoSeries.__new__"
+     ],
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "fc60ece1919fe7ae15fc8599187a8f845c739b60",
+     "subject": "PERF: avoid calculating total_bounds in .cx indexing when not needed (#1951)",
+     "changed_functions": [
+      "geopandas/base.py::_CoordinateIndexer.__getitem__"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "fed13df9e50475fe9648fb51cbf6ea71fe3b6158",
+     "subject": "PERF: MultiIndex creation in explode (#2110)",
+     "changed_functions": [
+      "geopandas/geoseries.py::GeoSeries.explode"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "3d0d7e48ffde9108bdfdb3ea6113a2b4d104dde8",
+     "subject": "PERF: fix performance regression in overlay keep_geometry_type=True (in checking for GeometryCollection) (#2103)",
+     "changed_functions": [
+      "geopandas/tests/test_overlay.py::test_keep_geom_type_geometry_collection",
+      "geopandas/tests/test_overlay.py::test_keep_geom_type_geometry_collection2",
+      "geopandas/tools/overlay.py::overlay"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "39834890c40fc248a0c355dc4a0d5283b759c10e",
+     "subject": "PERF: pre-define PyGEOSSTRTreeIndex.valid_query_predicates (#2136)",
+     "changed_functions": [
+      "geopandas/sindex.py::PyGEOSSTRTreeIndex.valid_query_predicates"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "46f98addbf4fe45efb760a6f0f066b0625a556e6",
+     "subject": "PERF: avoid doing total_bounds calculation in sjoin (#2135)",
+     "changed_functions": [
+      "geopandas/tools/sjoin.py::sjoin"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "6802f43e51f6b227467edfb6c013e31f6f58ffc2",
+     "subject": "BUG: Fix multipoint clipping / PERF: query for all geometry types at once (#2148)",
+     "changed_functions": [
+      "geopandas/tools/clip.py::_clip_gdf_with_polygon",
+      "geopandas/tools/clip.py::_clip_line_poly",
+      "geopandas/tools/clip.py::_clip_points",
+      "geopandas/tools/clip.py::clip",
+      "geopandas/tools/tests/test_clip.py::test_clip_multipoint"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "f8b2fc2bd362b421cd0acd30d5f494cdf272c1b2",
+     "subject": "PERF: Implement cached transformer.from_crs for to_crs (#2762)",
+     "changed_functions": [
+      "geopandas/array.py::GeometryArray.estimate_utm_crs",
+      "geopandas/array.py::GeometryArray.to_crs"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "35463adda663dfa57c9809865ebbb15448823278",
+     "subject": "PERF: replace buffer(0) with make_valid() in _overlay_difference (#2939)",
+     "changed_functions": [
+      "geopandas/geodataframe.py::GeoDataFrame.overlay",
+      "geopandas/tools/overlay.py::_overlay_difference",
+      "geopandas/tools/overlay.py::overlay"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "fdb1960bf643bdd617b1a1ccf55497fbaf251861",
+     "subject": "PERF: improve performance of getting unique geometry types for GeoParquet metadata (#3296)",
+     "changed_functions": [
+      "geopandas/io/arrow.py::_create_metadata",
+      "geopandas/io/arrow.py::_get_geometry_types",
+      "geopandas/io/tests/test_arrow.py::test_create_metadata_with_z_geometries"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "a61af6e31818c76975306e643dd60a738c470b72",
+     "subject": "PERF: improve reading of geoarrow encoded Parquet (avoid converting coords to geopandas object dtype) (#3322)",
+     "changed_functions": [
+      "geopandas/io/arrow.py::_arrow_to_geopandas",
+      "geopandas/io/tests/test_arrow.py::test_column_order"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "6286f13f8de8748edfa1ed9bc7deb4d05b83a300",
+     "subject": "DOC: Document use of `use_arrow=True` for faster IO (#3391)",
+     "changed_functions": [
+      "geopandas/geodataframe.py::GeoDataFrame.to_arrow",
+      "geopandas/io/file.py::_read_file"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "99d5cc98b19d4e1d70a0fd81d68d1f5f453a48d9",
+     "subject": "ENH: improve performance of overlay/identity (#3504)",
+     "changed_functions": [
+      "geopandas/geodataframe.py::GeoDataFrame.overlay",
+      "geopandas/tests/test_overlay.py::test_non_overlapping",
+      "geopandas/tests/test_overlay.py::test_overlay",
+      "geopandas/tests/test_overlay.py::test_overlay_nybb",
+      "geopandas/tools/overlay.py::_overlay_identity",
+      "geopandas/tools/overlay.py::overlay"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    }
+   ]
+  },
+  {
+   "project": "pvlib-python",
+   "base": "7f3bacbe684b39ceca801a8f7808afa1c1edeb37",
+   "n_bench_cases": 0,
+   "n_reached_funcs": 0,
+   "edits": [
+    {
+     "sha": "3aefbd627f88ed0d5d1bcda0b4057595e3525c4a",
+     "subject": "improved performance for dealing with NaN input data, original fix could not handle 0-d inputs",
+     "changed_functions": [
+      "pvlib/pvl_tools.py::Parse.parse_fcn"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "9b4af46a49a1aa0942e048d4e7a9ce9090b16474",
+     "subject": "Added coefficients for CIGS and a-Si modules types. (#308)",
+     "changed_functions": [
+      "pvlib/atmosphere.py::first_solar_spectral_correction",
+      "pvlib/test/test_atmosphere.py::test_first_solar_spectral_correction"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "10339eef40b62775cc4d3037a118cf25a940fd52",
+     "subject": "improve performance of ephemeris dataframe assembly (#529)",
+     "changed_functions": [
+      "pvlib/solarposition.py::ephemeris",
+      "pvlib/test/test_solarposition.py::test_ephemeris_physical_no_tz"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "5ee82b1c3f3f6b851f9f16a4ad52b9ff8cf53375",
+     "subject": "add test for hour_angle, vectorize (#599)",
+     "changed_functions": [
+      "pvlib/solarposition.py::hour_angle",
+      "pvlib/test/test_solarposition.py::test_hour_angle"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "7b17d621b6ab9d80b4aea860bef0d2b69bef0977",
+     "subject": "fix wrong deltat coefficient (#600)",
+     "changed_functions": [
+      "pvlib/spa.py::calculate_deltat",
+      "pvlib/test/test_spa.py::SpaBase.test_calculate_deltat"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "3269dc747047556db72f267680f6ca28246f9ff0",
+     "subject": "Function to calculate temperature coefficient of power for pvsyst (#1190)",
+     "changed_functions": [
+      "pvlib/ivtools/sdm.py::pvsyst_temperature_coeff",
+      "pvlib/ivtools/sdm.py::pvsyst_temperature_coeff.<locals>.maxp",
+      "pvlib/tests/ivtools/test_sdm.py::test__calc_theta_phi_exact",
+      "pvlib/tests/ivtools/test_sdm.py::test__calc_theta_phi_exact_one_nan",
+      "pvlib/tests/ivtools/test_sdm.py::test__calc_theta_phi_exact_vector",
+      "pvlib/tests/ivtools/test_sdm.py::test__update_io",
+      "pvlib/tests/ivtools/test_sdm.py::test__update_rsh_fixed_pt_vector",
+      "pvlib/tests/ivtools/test_sdm.py::test__update_rsh_fixed_pt_vmp0",
+      "pvlib/tests/ivtools/test_sdm.py::test_pvsyst_temperature_coeff"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "50dcc7fe412d9e27fe06670b8057e3d8e9ce5b19",
+     "subject": "Rename eta_m and eta_m_ref to module_efficiency (#1218)",
+     "changed_functions": [
+      "pvlib/modelchain.py::ModelChain.infer_temperature_model",
+      "pvlib/pvsystem.py::PVSystem.noct_sam_celltemp",
+      "pvlib/pvsystem.py::PVSystem.noct_sam_celltemp.<locals>._build_kwargs_noct_sam",
+      "pvlib/pvsystem.py::PVSystem.pvsyst_celltemp",
+      "pvlib/pvsystem.py::PVSystem.pvsyst_celltemp.<locals>.build_celltemp_kwargs",
+      "pvlib/temperature.py::noct_sam",
+      "pvlib/temperature.py::pvsyst_cell",
+      "pvlib/tests/test_modelchain.py::pvwatts_dc_pvwatts_ac_noct_sam_temp_system",
+      "pvlib/tests/test_modelchain.py::pvwatts_dc_pvwatts_ac_pvsyst_temp_system",
+      "pvlib/tests/test_modelchain.py::test_run_model_with_weather_noct_sam_temp",
+      "pvlib/tests/test_modelchain.py::test_temperature_models_arrays_multi_weather",
+      "pvlib/tests/test_pvsystem.py::test_PVSystem_noct_celltemp",
+      "pvlib/tests/test_pvsystem.py::test_PVSystem_noct_celltemp_error",
+      "pvlib/tests/test_pvsystem.py::test_PVSystem_pvsyst_celltemp",
+      "pvlib/tests/test_pvsystem.py::two_array_system",
+      "pvlib/tests/test_temperature.py::test_noct_sam",
+      "pvlib/tests/test_temperature.py::test_noct_sam_against_sam",
+      "pvlib/tests/test_temperature.py::test_noct_sam_options",
+      "pvlib/tests/test_temperature.py::test_pvsyst_cell_eta_m_deprecated",
+      "pvlib/tests/test_temperature.py::test_pvsyst_cell_kwargs"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "01a23e31bcb9e4f844c5877a48cd7681406c6696",
+     "subject": "Horizon coefficient should be allowed to go negative in the Perez transposition model (#1239)",
+     "changed_functions": [
+      "pvlib/irradiance.py::perez",
+      "pvlib/tests/test_irradiance.py::test_gti_dirint",
+      "pvlib/tests/test_irradiance.py::test_perez_negative_horizon"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "c1856ac5a7ed4e544ca4f6ae865a975c7b41538d",
+     "subject": "Vectorize `pvlib.bifacial.utils._vf_ground_sky_2d` across `surface_tilt` (#1682)",
+     "changed_functions": [
+      "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.setup",
+      "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_fixed",
+      "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_poa_fixed",
+      "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_poa_tracking",
+      "benchmarks/benchmarks/infinite_sheds.py::InfiniteSheds.time_get_irradiance_tracking",
+      "pvlib/bifacial/infinite_sheds.py::_vf_ground_sky_integ",
+      "pvlib/bifacial/infinite_sheds.py::get_irradiance",
+      "pvlib/bifacial/infinite_sheds.py::get_irradiance_poa",
+      "pvlib/bifacial/utils.py::_vf_ground_sky_2d",
+      "pvlib/tests/bifacial/test_infinite_sheds.py::test__vf_ground_sky_integ",
+      "pvlib/tests/bifacial/test_infinite_sheds.py::test_get_irradiance",
+      "pvlib/tests/bifacial/test_utils.py::test__vf_ground_sky_2d",
+      "pvlib/tests/bifacial/test_utils.py::test_system_fixed_tilt"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "fc8eebb4d374b309fe4779d9164aec9a1ba8850c",
+     "subject": "`fit_pvefficiency_adr` compatibility with scipy 1.11.2 (#1866)",
+     "changed_functions": [
+      "pvlib/pvarray.py::fit_pvefficiency_adr"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "a994fb7e633ee225be7a844bdae7e5b2649dd554",
+     "subject": "Add 2025 coefficients for Huld model (#2486)",
+     "changed_functions": [
+      "pvlib/pvarray.py::_infer_k_huld",
+      "pvlib/pvarray.py::huld",
+      "pvlib/pvarray.py::pvefficiency_adr",
+      "tests/test_pvarray.py::test_huld",
+      "tests/test_pvarray.py::test_huld_errors",
+      "tests/test_pvarray.py::test_huld_params"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "74ded020440f0dca38648d95132a7389e1f6a2ab",
+     "subject": "Add `scipy.optimize.elementwise.find_root` (`method='chandrupatla'`) to bishop88 functions (#2498)",
+     "changed_functions": [
+      "pvlib/pvsystem.py::i_from_v",
+      "pvlib/pvsystem.py::max_power_point",
+      "pvlib/pvsystem.py::singlediode",
+      "pvlib/pvsystem.py::v_from_i",
+      "pvlib/singlediode.py::bishop88",
+      "pvlib/singlediode.py::bishop88_i_from_v",
+      "pvlib/singlediode.py::bishop88_mpp",
+      "pvlib/singlediode.py::bishop88_v_from_i",
+      "tests/test_pvsystem.py::test_i_from_v",
+      "tests/test_pvsystem.py::test_i_from_v_size",
+      "tests/test_pvsystem.py::test_mpp_array",
+      "tests/test_pvsystem.py::test_mpp_floats",
+      "tests/test_pvsystem.py::test_mpp_recombination",
+      "tests/test_pvsystem.py::test_mpp_series",
+      "tests/test_pvsystem.py::test_v_from_i_size",
+      "tests/test_singlediode.py::test_bishop88_full_output_kwarg",
+      "tests/test_singlediode.py::test_bishop88_init_cond",
+      "tests/test_singlediode.py::test_bishop88_kwargs_fails",
+      "tests/test_singlediode.py::test_bishop88_kwargs_transfer",
+      "tests/test_singlediode.py::test_bishop88_pdSeries_len_one",
+      "tests/test_singlediode.py::test_method_spr_e20_327",
+      "tests/test_singlediode.py::test_newton_fs_495",
+      "tests/test_singlediode.py::test_pvsyst_breakdown",
+      "tests/test_singlediode.py::test_pvsyst_recombination_loss",
+      "tests/test_singlediode.py::test_singlediode_precision",
+      "tests/test_singlediode.py::test_v_from_i_i_from_v_precision"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "31ccbb5e1429511672a65b12bdf9b313956a3a72",
+     "subject": "Denote Faiman default coefficients are for module temperature (#2607)",
+     "changed_functions": [
+      "pvlib/temperature.py::faiman",
+      "pvlib/temperature.py::faiman_rad"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    },
+    {
+     "sha": "2803eb864166f24b6a2d65a1e2167c4e11796754",
+     "subject": "Fix ZeroDivisionError in simple_efficiency when load_loss=0 (#2646)",
+     "changed_functions": [
+      "pvlib/transformer.py::simple_efficiency",
+      "tests/test_transformer.py::test_simple_efficiency_zero_load_loss"
+     ],
+     "reached_functions": [],
+     "unreached_edit": true,
+     "no_function_changed": false
+    }
+   ]
+  },
+  {
+   "project": "bottleneck (states 1-8)",
+   "base": "f51ed862e619dcff7b7b3691e58d5fc6ead4076b",
+   "n_bench_cases": 51,
+   "reach": "static Python + W3-new name-based native",
+   "native_names_at_base": [
+    "NAME",
+    "allnan",
+    "anynan",
+    "argpartition",
+    "median",
+    "move_mean",
+    "move_median",
+    "move_rank",
+    "move_sum",
+    "nanmean",
+    "nanrankdata",
+    "nansum",
+    "partition",
+    "push",
+    "rankdata",
+    "ss"
+   ],
+   "edits": [
+    {
+     "sha": "c6956068bc263fbdeedeee5194f3d913c83aa9d5",
+     "changed_functions": [],
+     "header_edits": [
+      "bottleneck/src/reduce_template.c"
+     ],
+     "py_reached": [],
+     "native_reached_by_name": [],
+     "header_reached": true,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "c5720c8d66882f9d92f6ec0a73bbd8ccbfe1c013",
+     "changed_functions": [
+      "native::bottleneck.reduce.median"
+     ],
+     "header_edits": [
+      "bottleneck/src/iterators.h",
+      "bottleneck/src/reduce_template.c"
+     ],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.median"
+     ],
+     "header_reached": true,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "a638b282f6f16b5f7bb69e9df1c9770713224b1e",
+     "changed_functions": [],
+     "header_edits": [
+      "bottleneck/src/iterators.h"
+     ],
+     "py_reached": [],
+     "native_reached_by_name": [],
+     "header_reached": true,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "0819d3aaf743f5df25b3b4dc3c4e4aaa1df8dcc1",
+     "changed_functions": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "3b7618c0b60f0494188648881aa817c0493da89c",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "962e227309d5be5fcd7eb21804156ad5265a7698",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "8106e742fe828f9ab1e08de6bb16c98d2b0ef804",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "445d3768642a24fc9245c60e2114fa6f6719d199",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    }
+   ]
+  },
+  {
+   "project": "bottleneck (states 1-13)",
+   "base": "f51ed862e619dcff7b7b3691e58d5fc6ead4076b",
+   "n_bench_cases": 51,
+   "reach": "static Python + W3-new name-based native",
+   "native_names_at_base": [
+    "NAME",
+    "allnan",
+    "anynan",
+    "argpartition",
+    "median",
+    "move_mean",
+    "move_median",
+    "move_rank",
+    "move_sum",
+    "nanmean",
+    "nanrankdata",
+    "nansum",
+    "partition",
+    "push",
+    "rankdata",
+    "ss"
+   ],
+   "edits": [
+    {
+     "sha": "c6956068bc263fbdeedeee5194f3d913c83aa9d5",
+     "changed_functions": [],
+     "header_edits": [
+      "bottleneck/src/reduce_template.c"
+     ],
+     "py_reached": [],
+     "native_reached_by_name": [],
+     "header_reached": true,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "c5720c8d66882f9d92f6ec0a73bbd8ccbfe1c013",
+     "changed_functions": [
+      "native::bottleneck.reduce.median"
+     ],
+     "header_edits": [
+      "bottleneck/src/iterators.h",
+      "bottleneck/src/reduce_template.c"
+     ],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.median"
+     ],
+     "header_reached": true,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "a638b282f6f16b5f7bb69e9df1c9770713224b1e",
+     "changed_functions": [],
+     "header_edits": [
+      "bottleneck/src/iterators.h"
+     ],
+     "py_reached": [],
+     "native_reached_by_name": [],
+     "header_reached": true,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "0819d3aaf743f5df25b3b4dc3c4e4aaa1df8dcc1",
+     "changed_functions": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "3b7618c0b60f0494188648881aa817c0493da89c",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "962e227309d5be5fcd7eb21804156ad5265a7698",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "8106e742fe828f9ab1e08de6bb16c98d2b0ef804",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "445d3768642a24fc9245c60e2114fa6f6719d199",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "98b59df2f414f0a13e6e867bdd32e6fa92205da1",
+     "changed_functions": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_edits": [
+      "bottleneck/src/iterators.h"
+     ],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.NAME"
+     ],
+     "header_reached": true,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "a72e0d23da09be6dff2c15af87696ba94b6e28ac",
+     "changed_functions": [
+      "native::bottleneck.reduce.anynan"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.anynan"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "cfc7bac14fb2549efe68b61502dd280453756037",
+     "changed_functions": [
+      "native::bottleneck.reduce.allnan"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.allnan"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "e0d30c10b59f9ca852ae3f27e94fdb3a8322f784",
+     "changed_functions": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    },
+    {
+     "sha": "933b6537f2ad06b6e7e41a74023bf16989bf26e7",
+     "changed_functions": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_edits": [],
+     "py_reached": [],
+     "native_reached_by_name": [
+      "native::bottleneck.reduce.nansum"
+     ],
+     "header_reached": false,
+     "unreached_edit": false,
+     "no_function_changed": false
+    }
+   ]
+  }
+ ]
+}

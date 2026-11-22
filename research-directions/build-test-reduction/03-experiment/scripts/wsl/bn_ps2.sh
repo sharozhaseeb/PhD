@@ -1,0 +1,1 @@
+du -sm ~/.cache/uv 2>/dev/null; ls -la ~/.cache/uv/ 2>/dev/null | head -3; find ~/.cache/uv -newermt '-2 minutes' -type f 2>/dev/null | head -3; ls ~/bt-lab/exp/venvs/bn38/lib/python3.8/site-packages 2>&1 | head
