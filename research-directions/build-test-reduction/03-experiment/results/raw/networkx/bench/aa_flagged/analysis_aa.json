@@ -1,0 +1,336 @@
+{
+ "2": {
+  "m5_label": "measured-window",
+  "cases": {
+   "benchmark_neighbors.NonNeighbors.time_complete(100)": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     1.052070032647081,
+     0.9878883528317259,
+     1.10853885233462,
+     0.9091171670735333,
+     0.98005852245903
+    ],
+    "sigma_rep": 0.07584880473581491,
+    "sigma_boot": 0.06460691597911478,
+    "floor_rep": 1.2275464142074448,
+    "floor_boot": 1.1938207479373444,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.1397281761524238,
+     "p": 0.00022789861951546706,
+     "status": "slower"
+    },
+    "survives_rep": false,
+    "survives_boot": false
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     0.905235732396511,
+     0.9987968383467786,
+     0.8620589396491137,
+     0.8632423507912323,
+     1.0072719730633777
+    ],
+    "sigma_rep": 0.07133358678034722,
+    "sigma_boot": 0.05086536910319489,
+    "floor_rep": 1.2140007603410417,
+    "floor_boot": 1.1525961073095847,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.8762029925748074,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     0.8226847337263847,
+     1.0636368161369407,
+     1.0255557317352553,
+     0.9950980007817166,
+     1.0094490405333396
+    ],
+    "sigma_rep": 0.09335386795615669,
+    "sigma_boot": 0.07912170675266679,
+    "floor_rep": 1.28006160386847,
+    "floor_boot": 1.2373651202580005,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.8398349951631847,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     0.9253893665173841,
+     0.9949846891818283,
+     0.9994344423803577,
+     1.1069446366542843,
+     1.006405002668417
+    ],
+    "sigma_rep": 0.06490475094282966,
+    "sigma_boot": 0.08488060532642386,
+    "floor_rep": 1.194714252828489,
+    "floor_boot": 1.2546418159792716,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.9036836947533684,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     0.9898188777211254,
+     1.0195560653862032,
+     1.0334069169372855,
+     1.0295201154341627,
+     1.1430307398487312
+    ],
+    "sigma_rep": 0.05843310521947239,
+    "sigma_boot": 0.08240623390013113,
+    "floor_rep": 1.175299315658417,
+    "floor_boot": 1.2472187017003935,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.8586890755559602,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     0.8859518861557668,
+     0.9993260866906782,
+     0.8749344003455636,
+     1.0673571589037114,
+     0.9751891837950799
+    ],
+    "sigma_rep": 0.0806544624810437,
+    "sigma_boot": 0.06518971753125945,
+    "floor_rep": 1.241963387443131,
+    "floor_boot": 1.1955691525937784,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.8246124150009218,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     0.8998661166865314,
+     0.7662811643390999,
+     1.0128177409092896,
+     1.0313805000751917,
+     0.9872281381365833
+    ],
+    "sigma_rep": 0.10916856375023204,
+    "sigma_boot": 0.10278350763199082,
+    "floor_rep": 1.3275056912506962,
+    "floor_boot": 1.3083505228959724,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.8111526480836988,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     0.9093664538193721,
+     0.9360995775299276,
+     0.9850539386062208,
+     0.9460265770538382,
+     0.9775493656698656
+    ],
+    "sigma_rep": 0.03100195868995338,
+    "sigma_boot": 0.08740918530670952,
+    "floor_rep": 1.0930058760698602,
+    "floor_boot": 1.2622275559201286,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.8485998284976546,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     1.0356278819821096,
+     0.9828054849742073,
+     1.0137105274985536,
+     1.0078590360436022,
+     1.0465834658230386
+    ],
+    "sigma_rep": 0.024926485992933397,
+    "sigma_boot": 0.07519973261129427,
+    "floor_rep": 1.0747794579788001,
+    "floor_boot": 1.225599197833883,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.8942048546427335,
+     "p": 3.2278370106587223e-07,
+     "status": "slower"
+    },
+    "survives_rep": true,
+    "survives_boot": true
+   }
+  }
+ },
+ "8": {
+  "m5_label": "measured-window",
+  "cases": {
+   "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     1.0269777565294411,
+     1.3353264469347799,
+     1.1196836752676282,
+     1.0215970111460007,
+     1.957770815390512
+    ],
+    "sigma_rep": 0.3931205520342968,
+    "sigma_boot": 0.17453147733605565,
+    "floor_rep": 2.1793616561028903,
+    "floor_boot": 1.523594432008167,
+    "aa_pooled": {
+     "exact": "slower",
+     "scipy_auto": "slower"
+    },
+    "original": {
+     "ratio": 1.1162599996710492,
+     "p": 4.503144038450884e-07,
+     "status": "slower"
+    },
+    "survives_rep": false,
+    "survives_boot": false
+   }
+  }
+ },
+ "1": {
+  "m5_label": "measured-window",
+  "cases": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     1.558500077924912,
+     1.1404011158633534,
+     1.1355088987109512,
+     1.4471078567883064,
+     0.8818675944958354
+    ],
+    "sigma_rep": 0.27072356202539677,
+    "sigma_boot": 0.2018772569991737,
+    "floor_rep": 1.8121706860761904,
+    "floor_boot": 1.6056317709975212,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.2445636573788232,
+     "p": 0.0018307246496942306,
+     "status": "slower"
+    },
+    "survives_rep": false,
+    "survives_boot": false
+   }
+  }
+ },
+ "9": {
+  "m5_label": "measured-window",
+  "cases": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')": {
+    "n_repeats": 5,
+    "complete": true,
+    "ratios": [
+     1.0283248481381562,
+     1.0282251765155317,
+     1.137242149084116,
+     1.0757622516744527,
+     1.0378260189566137
+    ],
+    "sigma_rep": 0.04665979015549051,
+    "sigma_boot": 0.07428788628616438,
+    "floor_rep": 1.1399793704664716,
+    "floor_boot": 1.2228636588584931,
+    "aa_pooled": {
+     "exact": "same",
+     "scipy_auto": "same"
+    },
+    "original": {
+     "ratio": 1.130403258141872,
+     "p": 0.0018654646290708888,
+     "status": "slower",
+     "n_base": 15,
+     "n_slow": 15
+    },
+    "survives_rep": false,
+    "survives_boot": false
+   }
+  }
+ }
+}

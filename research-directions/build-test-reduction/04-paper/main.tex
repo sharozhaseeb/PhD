@@ -1,0 +1,70 @@
+% Study 1 paper, first full draft (W6-PAPER, started 2026-11-22).
+% Template: IEEEtran conference, two-column. Switching to acmart (sigconf) only
+% needs the preamble below; sections use plain LaTeX.
+% Build (once a TeX toolchain exists; none is installed yet):
+%   python scripts/make_all.py && python scripts/check.py && latexmk -pdf main.tex
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  % Tectonic/XeTeX: Times-compatible fonts (IEEEtran expects Times)
+  \usepackage{fontspec}
+  \setmainfont{texgyretermes}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+  \setsansfont{texgyreheros}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+  \setmonofont{texgyrecursor}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold, ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\fi
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cite}
+\usepackage{url}
+
+% ---- drafting aids (remove before submission; check.py lists remaining ones) ----
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{[TODO:} #1\textbf{]}}}
+\newcommand{\citeneeded}[1]{\textcolor{orange}{\textbf{[cite: #1]}}}
+\newcommand{\pct}{\,\%}
+\newcommand{\x}{$\times$}
+\newcommand{\pend}{\textcolor{red}{pending}}
+\newcommand{\ci}[2]{[#1--#2\pct]}
+
+% ---- every number in the text comes from here (generated; do not edit) ----
+\input{generated/numbers.tex}
+
+\begin{document}
+
+% Title: plain, scoped to the case study until E1 lands, and without "expensive" until E5
+% measures the setup-cached cost (advisor review of draft 1, 2026-11-22).
+\title{Can the Benchmarks See the Edit? Cost and Visibility of Per-Edit Validation for Python Optimization Commits --- A Case Study on networkx}
+
+\author{\IEEEauthorblockN{\TODO{author block; anonymise for double-blind venues}}}
+
+\maketitle
+
+\input{sections/abstract}
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/design}
+\input{sections/rq1-cost}
+\input{sections/oracle}
+\input{sections/rq4-reductions}
+\input{sections/discussion}
+\input{sections/threats}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+
+\appendices
+\input{sections/appendix}
+
+\end{document}

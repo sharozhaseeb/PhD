@@ -1,0 +1,109 @@
+{
+ "2": {
+  "function": "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource",
+  "kind": "double_call",
+  "state_sha": "d3d79cc8f0b6f708cc9f35277a8b170b61064959",
+  "cases": {
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')": {
+    "calls": 28,
+    "total_s": 0.5070599219999999,
+    "fn_cum_s": 0.434153426,
+    "share": 0.8562171987239017
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')": {
+    "calls": 25,
+    "total_s": 0.5095230149999995,
+    "fn_cum_s": 0.43527384900000005,
+    "share": 0.8542771105246354
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')": {
+    "calls": 23,
+    "total_s": 0.5125465919999997,
+    "fn_cum_s": 0.43773996400000004,
+    "share": 0.8540491163776975
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')": {
+    "calls": 23,
+    "total_s": 0.5121172640000001,
+    "fn_cum_s": 0.441643174,
+    "share": 0.8623868106895141
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')": {
+    "calls": 29,
+    "total_s": 0.5064594190000002,
+    "fn_cum_s": 0.42486347300000005,
+    "share": 0.8388894688519947
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')": {
+    "calls": 27,
+    "total_s": 0.5065366620000001,
+    "fn_cum_s": 0.424100731,
+    "share": 0.8372557463570127
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')": {
+    "calls": 29,
+    "total_s": 0.505814399,
+    "fn_cum_s": 0.43059108500000004,
+    "share": 0.851282774573604
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')": {
+    "calls": 28,
+    "total_s": 0.5080740920000001,
+    "fn_cum_s": 0.42475318900000003,
+    "share": 0.8360063929416026
+   }
+  }
+ },
+ "3": {
+  "function": "networkx/algorithms/components/connected.py::is_connected",
+  "kind": "double_call",
+  "state_sha": "e773a6af2363440e319f68be10bfed9d89e098c9",
+  "cases": {
+   "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')": {
+    "calls": 22,
+    "total_s": 0.5087683510000001,
+    "fn_cum_s": 0.002013571,
+    "share": 0.003957736356914229
+   },
+   "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')": {
+    "calls": 35,
+    "total_s": 0.5001259469999998,
+    "fn_cum_s": 0.00233647,
+    "share": 0.004671763210877761
+   },
+   "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')": {
+    "calls": 55,
+    "total_s": 0.5016307750000004,
+    "fn_cum_s": 0.002626555,
+    "share": 0.005236032418465549
+   }
+  }
+ },
+ "8": {
+  "function": "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors",
+  "kind": "list_membership",
+  "state_sha": "52b7255afe5d291d019230f32f9662c01926377f",
+  "cases": {
+   "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths": {
+    "calls": 12878,
+    "total_s": 0.49509660499999986,
+    "fn_cum_s": 0.28082015200000005,
+    "share": 0.5672027421799835
+   }
+  }
+ },
+ "1": {
+  "function": "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra",
+  "kind": "double_call",
+  "state_sha": "867fda8df9a3d7bf381ce3c7955ada4bace9f079",
+  "cases": {},
+  "note": "no S0-profile-reaching case (reach is static-only)"
+ },
+ "4": {
+  "function": "networkx/algorithms/shortest_paths/unweighted.py::_single_shortest_path",
+  "kind": "double_call",
+  "state_sha": "33152ccb8c82c4f2eda66a2f19915674ae96aa0b",
+  "cases": {},
+  "note": "no S0-profile-reaching case (reach is static-only)"
+ }
+}

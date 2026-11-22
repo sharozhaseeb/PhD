@@ -1,0 +1,41 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph*{What an optimizer accepts}
+An optimizer that accepts an edit when ``tests pass and benchmarks are not slower'' relies on an oracle that, on networkx, executes none of the changed functions for \BOneAgentUnreached{} of \NxAgentOpt{} optimization edits, and that, where it does execute them, missed one slowdown because the function was a small part of the benchmark and another because the benchmark's noise was too high, and where at most \EditsClearMid{} of the \NxAgentOpt{} optimization edits could show a \PowFactorMid\x{} slowdown of their changed code at all.
+For such edits the benchmark verdict ``not slower'' carries no information about the changed functions, as far as one profile shows, and a claimed speed-up is unconfirmed.
+Reducing build and test work, which existing tools already do, leaves this untouched; it shortens the cheap part of validation.
+\TODO{Restate with the pooled replication share (E1); if replication fails, restate as ``depends on suite design'' and keep networkx and bottleneck as the two cases.}
+
+\paragraph*{Recommendations}
+For optimization pipelines and benchmark harnesses that use a project's benchmarks as the performance oracle, the results suggest three practices.
+(1)~Report, for every accepted edit, whether any benchmark executes a changed function and what share of that benchmark's time the function takes, so that ``not slower'' is read only where it means something.
+(2)~Where no benchmark reaches the edit, time the unit tests that do reach it, as SWE-Perf does for its tasks~\cite{he2025sweperf}, as a deterministic fallback oracle, with a measured noise floor.
+(3)~Look at time outside the timing loops before selecting benchmarks: on networkx it is the largest single cost, and by inspection it is mostly import-time setup that caching could remove, whereas selection only scales it down; how much caching saves is not yet measured.
+\TODO{Unit-test fallback (no new run): count how many of the unreached optimizations are executed by at least one unit test, from the existing networkx dependency map; this is the deterministic baseline that generated workloads must beat.}
+
+\paragraph*{Suite design as a hypothesis}
+The networkx suite is organized by graph class and algorithm family, with one module holding most algorithm benchmarks.
+bottleneck's suite, by contrast, names its functions directly; a source reading shows that even there one benchmark of \texttt{nanmax} calls \texttt{nanmin}, so code specific to \texttt{nanmax} is never benchmarked.
+We hypothesize that whether benchmarks see optimization edits depends on how the suite is written; the replication across projects is designed to test this.
+
+\paragraph*{Towards targeted workloads}
+Unreached and low-share edits are where generated, edit-specific workloads could help.
+This study sets the deterministic baseline that such generation must beat; generating workloads, with or without LLMs, is outside its scope.
+
+\subsection{Lessons for measuring this problem}
+\label{sec:lessons}
+
+\paragraph*{Keyword mining of ``performance'' commits is imprecise}
+The precision of the subject rule, against the adjudicated agent labels, was \PrecNx/\PrecNxN{} on networkx, \PrecBn/\PrecBnN{} on bottleneck, \PrecGp/\PrecGpN{} on geopandas and \PrecPv/\PrecPvN{} on pvlib-python (pooled \PrecPooled/\PrecPooledN, \PrecPooledPct\pct, \ci{\PrecPooledLo}{\PrecPooledHi}).
+On pvlib-python the word stem \texttt{efficien} matches ``coefficient'' and ``efficiency'', and \texttt{optimi[sz]} matches \texttt{scipy.optimize}.
+Counts of ``optimization commits'' that rest on keyword hits alone can therefore mislead; every count in this paper uses labelled optimizations.
+
+\paragraph*{Small spot checks have no power by construction}
+A comparison of six against six samples cannot reach $p<\AsvAlpha$ with a two-sided Mann-Whitney test: the smallest attainable $p$ is \MinPSixSix.
+Our first out-of-reach spot check had this size; its ``no slower case'' result held by construction and was withdrawn.
+Any asv-style check with one process and few values per side has the same property.
+
+\paragraph*{Two smaller lessons}
+Mapping the same networkx state twice with identical settings attributed \CSevenFuncs{} of \CSevenTotal{} functions (\CSevenPct\pct) to different test sets, so function-level dependency data needs a repeat run before it is trusted.
+On bottleneck, a replayed state that did not compile still passed \HOnePassed{} tests on the parent's compiled extensions (the clean build failed); it is a replay artefact, but it shows that a validation harness must reject a failed build whatever the tests say.

@@ -1,0 +1,45 @@
+\section{Introduction}
+\label{sec:intro}
+
+Systems that optimize code automatically generate many candidate edits and accept the ones that keep the program correct and make it faster.
+Large-language-model (LLM) optimizers such as SemOpt~\cite{zhao2026semopt} and PerfAgent~\cite{deng2026perfagent}, and the benchmark harnesses that score them, such as SWE-Perf~\cite{he2025sweperf}, GSO~\cite{gso2025}, SWE-fficiency~\cite{ma2025swefficiency} and FormulaCode~\cite{sehgal2026formulacode}, mostly validate each candidate in three steps: rebuild the code, run tests, and run performance workloads.
+When an optimizer works edit by edit, this validation runs once per candidate, so its cost multiplies.
+The obvious response is to reuse what software engineering already has for reducing validation work: incremental and cached builds~\cite{mokhov2020buildsystems,gallaba2020kotinos}, regression test selection (RTS)~\cite{rothermel1997safe,gligoric2015ekstazi,LegunsenShiMarinov2017,WangPradelLiu2026}, and performance-test selection and prioritization~\cite{deoliveira2017perphecy,mostafa2017perfranker,laaber2021tcp}.
+PerfAgent already runs only the tests that pytest-testmon selects after each iteration~\cite{deng2026perfagent}.
+
+We set out to measure how far such deterministic reductions, chosen without AI, can cut per-edit validation of optimization edits, by replaying historical optimization commits of networkx, a pure-Python graph library with an airspeed velocity (asv) benchmark suite~\cite{asvdocs}.
+The measurements moved the question: build and tests turned out to be the small part of per-edit validation and benchmarks the large part, and for many optimization edits the benchmarks never executed the changed code.
+
+\paragraph*{A motivating edit}
+Step~2 of our replayed sequence is the networkx commit \texttt{090cc0910a}, whose subject reads \texttt{"Bidirectional dijkstra optimization: from 1.1x to 25x faster"}.
+Validating it in full means a build, \NxNumTests{} tests (about \NxBuildTests\,s with the build) and a benchmark pass of \NxBenchCases{} cases that costs about \NxBenchPassMedian\,s at the median on our machine.
+A static call graph connects all \NxBenchCases{} cases to \texttt{bidirectional\_dijkstra}, yet in the measured profiles no case executes it (Section~\ref{sec:rq2}).
+The most expensive part of validation therefore cannot confirm the claimed speed-up, and could not see a slowdown in that function either.
+
+\paragraph*{Research questions}
+We ask four questions about per-edit validation of optimization edits:
+\begin{itemize}
+\item[\textbf{RQ1}] (cost) Where does per-edit validation cost go: build, tests or benchmarks?
+\item[\textbf{RQ2}] (coverage) Do a project's own benchmarks execute the code that optimization edits change?
+\item[\textbf{RQ3}] (visibility) When they do, can the full suite detect a slowdown in that code, given the code's share of each benchmark's time and the noise floor?
+\item[\textbf{RQ4}] (reduction) How much do existing deterministic reductions save end to end, and does a deterministic accumulated-change policy add anything?
+\end{itemize}
+
+\paragraph*{Findings, on networkx}
+All findings below are from one project and one machine; Section~\ref{sec:threats} discusses what this limits.
+\TODO{Add the replication projects' per-project and pooled numbers to F2 (E1); keep ``on networkx'' for F1, F3 and F4 unless E4/E5 add a second project.}
+\begin{itemize}
+\item[\textbf{F1}] Benchmarks dominate per-edit validation cost: at the median, a full pass costs about \NxBenchRatioMedian\x{} the build plus serial tests (up to \NxBenchRatioHi\x{} under drift), and \NxOutsideLoopsLo--\NxOutsideLoopsHi\pct{} of a pass lies outside the timing loops. The build is about \NxBuildShareBench\pct{} of the total.
+\item[\textbf{F2}] For \BOneAgentUnreached{} of \NxAgentOpt{} optimization edits (\BOneAgentPct\pct, CI \ci{\BOneAgentLo}{\BOneAgentHi}), no benchmark executes any changed function in its measured profile. The interval includes values below one half, so we do not claim that most edits are unreached.
+\item[\textbf{F3}] Above the pre-registered noise floor the full suite detects \FloorDetect{} of \NumSlowdowns{} injected slowdowns on target (Wilson \ci{\FloorDetectLo}{\FloorDetectHi}); asv's rule alone flags \SlowDetOnTarget. Per edit, if the changed code were \PowFactorMid\x{} slower, at most \EditsClearMid{} of the \NxAgentOpt{} optimization edits would move any benchmark past asv's threshold before noise (\EditsClearHigh{} at \PowFactorHigh\x). Of the \SlowUndetected{} not detected on target, \SlowUnreachedProfile{} lie in functions no measured profile executes, which follows from the reach of the edited functions, and one (\#3) is in a function its benchmarks execute but spend only about \ShareThreeLo--\ShareThreeHi{} of their time in, too little for a doubling to be visible. Where benchmarks do reach, a bootstrap on three cases of the heavy module suggests that, once the noise floor applies, only slowdowns of about \PowFactorOneFive\x{} or more are reliably detected there.
+\item[\textbf{F4}] Unchanged pytest-testmon saves \TestmonRatioLo--\TestmonRatioHi\x{} end to end on tests under mixed load, and misses none of the frozen functional mutants, which sit in the edited functions so that every dependency-based arm catches them by construction; our accumulated-change policy buys no extra detection and costs more (a negative result).
+\end{itemize}
+
+\paragraph*{Contributions}
+\begin{enumerate}
+\item A per-edit cost breakdown of build, tests and benchmarks for replayed optimization edits (RQ1).
+\item A measurement of whether a project's benchmarks can see optimization edits: how often they execute the changed functions, with measured profiles and static reach side by side, and, for executed code, the function's share of the benchmark's time and the power above the noise floor as the reasons a slowdown can still go unseen (RQ2, RQ3). The split into uncovered and below-noise misses follows Peass and Laaber and Leitner~\cite{reichelt2023peass,laaber2018evaluation}, and the share operationalises Amdahl's law; per-commit profiling of benchmark reach has been done for Java refactorings~\cite{traini2021refactoring}; what we did not find in our recorded searches (Section~\ref{sec:related}) is the rate at which performance-improving commits in a Python asv suite are executed by no benchmark.
+\item An overhead-honest measurement of existing RTS in an optimization loop, and a negative result for a deterministic accumulated-change policy (RQ4).
+\end{enumerate}
+Lessons for measuring this problem (mining precision, the zero power of small asv-style spot checks, nondeterministic dependency data and a stale-binary false pass) are in Section~\ref{sec:lessons}.
+The replay harness, frozen inputs and raw data are available as an artifact \TODO{artifact DOI (Zenodo) and anonymised link}.

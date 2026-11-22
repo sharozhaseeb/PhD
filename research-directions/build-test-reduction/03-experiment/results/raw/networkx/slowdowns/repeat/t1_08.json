@@ -1,0 +1,321 @@
+{
+ "plan": "results/raw/networkx/slowdowns/repeat/plan.md",
+ "slowdown": 8,
+ "tier": 1,
+ "state_sha": "52b7255afe5d291d019230f32f9662c01926377f",
+ "function": "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors",
+ "protocol": {
+  "processes": 2,
+  "values": 3,
+  "repeats": 4,
+  "order": "rotated per repeat: base-first, slow-first, ..."
+ },
+ "wall_s": 94.67587780952454,
+ "n_runs": 8,
+ "n_errors": 0,
+ "peak_run_load": 1.06,
+ "n_pre_gate_not_ok": 0,
+ "pre_gate_waited_s": 60.1,
+ "m5_label": "measured-window",
+ "t_first": "2026-11-22T16:50:50+0500",
+ "t_last": "2026-11-22T16:51:49+0500",
+ "cases": {
+  "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths": {
+   "rep0": {
+    "ratio": 1.2923828442403666,
+    "p": 0.0021645021645021645,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 1.0450561472321223,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.1863379195765016,
+    "p": 0.06493506493506493,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 0.9973788613024073,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pair0": {
+    "ratio": 1.1805421803075045,
+    "p": 0.004264764914030538,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pair1": {
+    "ratio": 1.1973874329129448,
+    "p": 0.07825222852623705,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pooled": {
+    "ratio": 1.2020925416833965,
+    "p": 0.0012510612291407744,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "original": {
+    "ratio": 1.1162599996710492,
+    "p": 4.503144038450884e-07,
+    "status": "slower"
+   },
+   "agree": true
+  }
+ },
+ "raw_runs": [
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    8.467104000374092e-06,
+    8.507866001309595e-06,
+    8.263096000518999e-06,
+    8.560643998862361e-06,
+    8.570891501221923e-06,
+    9.221625999998651e-06
+   ],
+   "number": 2000,
+   "wall_s": 2.113478226998268,
+   "loadavg_before": 1.06,
+   "loadavg_after": 1.06,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T16:50:50+0500",
+   "t_end": "2026-11-22T16:50:52+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 1.06,
+    "wincpu": 15,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    9.94141149931238e-06,
+    1.1549693501365254e-05,
+    1.598403499883716e-05,
+    1.0509355999602121e-05,
+    9.678676500698203e-06,
+    1.1811923501227283e-05
+   ],
+   "number": 2000,
+   "wall_s": 2.7481367550026334,
+   "loadavg_before": 0.84,
+   "loadavg_after": 0.84,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T16:51:12+0500",
+   "t_end": "2026-11-22T16:51:15+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.84,
+    "wincpu": 13.6,
+    "waited_s": 20.0
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    1.038153199988301e-05,
+    1.0175249000894837e-05,
+    1.0181183999520726e-05,
+    1.170752799953334e-05,
+    1.3505770999472588e-05,
+    9.706043001642684e-06
+   ],
+   "number": 1000,
+   "wall_s": 2.4878233580020606,
+   "loadavg_before": 0.84,
+   "loadavg_after": 0.93,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T16:51:15+0500",
+   "t_end": "2026-11-22T16:51:18+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.84,
+    "wincpu": 13.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    9.36502200056566e-06,
+    8.661462499730988e-06,
+    9.034549000716651e-06,
+    1.0578503000942873e-05,
+    1.2510832500993274e-05,
+    1.031116100057261e-05
+   ],
+   "number": 2000,
+   "wall_s": 2.3550581780000357,
+   "loadavg_before": 0.93,
+   "loadavg_after": 0.93,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T16:51:18+0500",
+   "t_end": "2026-11-22T16:51:20+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.93,
+    "wincpu": 13.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    1.175331299964455e-05,
+    8.674397500726627e-06,
+    8.523541500835563e-06,
+    8.400308501222753e-06,
+    8.344689000296056e-06,
+    8.341644001120584e-06
+   ],
+   "number": 2000,
+   "wall_s": 2.150289959001384,
+   "loadavg_before": 0.93,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T16:51:20+0500",
+   "t_end": "2026-11-22T16:51:22+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.93,
+    "wincpu": 13.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    1.0684015000151703e-05,
+    1.053972000227077e-05,
+    9.808006001549074e-06,
+    9.359394000057364e-06,
+    8.977540997875622e-06,
+    1.0269399001117563e-05
+   ],
+   "number": 1000,
+   "wall_s": 2.1519580380008847,
+   "loadavg_before": 0.73,
+   "loadavg_after": 0.73,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T16:51:42+0500",
+   "t_end": "2026-11-22T16:51:44+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.73,
+    "wincpu": 16,
+    "waited_s": 20.0
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    1.0212745000899304e-05,
+    1.0015540003223577e-05,
+    1.0659388997737551e-05,
+    1.1135667999042199e-05,
+    2.240826900015236e-05,
+    2.190547500140383e-05
+   ],
+   "number": 1000,
+   "wall_s": 2.3522381920010957,
+   "loadavg_before": 0.73,
+   "loadavg_after": 0.75,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T16:51:44+0500",
+   "t_end": "2026-11-22T16:51:47+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.73,
+    "wincpu": 16,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    1.2663063997024437e-05,
+    1.4144294000288938e-05,
+    1.3997428999573458e-05,
+    8.591406000050483e-06,
+    9.189271000650478e-06,
+    8.704371000931133e-06
+   ],
+   "number": 1000,
+   "wall_s": 2.557312552999065,
+   "loadavg_before": 0.75,
+   "loadavg_after": 0.75,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T16:51:47+0500",
+   "t_end": "2026-11-22T16:51:49+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.75,
+    "wincpu": 16,
+    "waited_s": 0.0
+   }
+  }
+ ]
+}

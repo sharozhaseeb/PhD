@@ -1,0 +1,50 @@
+\section{RQ4: What Do Deterministic Reductions Save?}
+\label{sec:rq4}
+
+Table~\ref{tab:arms} lists the arms over the \NxReplayed{} replayed networkx edits.
+Benchmarks are excluded from these totals; RQ1 shows that they would dominate them.
+
+\begin{table}[t]
+\caption{Arms over the replayed networkx edits: tests run, estimated and measured end-to-end test cost (build plus tests plus start-up, no benchmarks), and misses of the frozen functional mutants (Wilson 95\pct{} CI of the miss rate). Estimated seconds come from per-test durations and are comparable across arms; measured seconds are single runs under different load and are not comparable with the estimates. INC equals FULL in tests run; STATIC-BENCH equals TESTMON in tests and differs only in benchmarks.}
+\label{tab:arms}
+\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Arm & Tests & Est.\ s & Meas.\ s & Missed (CI) \\
+\midrule
+FULL (A0) & \TestsRunFull & \EstFull & \FullMeasured & \MutantsNone/\MutantsKilled{} \ci{\MutantsNone}{\ZeroMissHi} \\
+TESTMON (A2) & \TestsRunTestmon & \EstTestmon & \TestmonMeasured & \MutantsNone/\MutantsKilled{} \ci{\MutantsNone}{\ZeroMissHi} \\
+CHANGED-MOD.\ (A3) & \TestsRunAThree & \EstAThree & -- & \AThreeMissed/\MutantsKilled{} \ci{\AThreeMissLo}{\AThreeMissHi} \\
+A4 (ours) & \TestsRunAFour & \EstAFour & -- & \MutantsNone/\MutantsKilled{} \ci{\MutantsNone}{\ZeroMissHi} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph*{Incremental build}
+For networkx, an incremental build saves almost nothing: the clean build is \NxBuildShareTestsLo--\NxBuildShareTestsHi\pct{} of the test time.
+For bottleneck the build is a larger share of build plus tests (Section~\ref{sec:rq1}), but small once benchmarks count.
+We report it as negligible for this project, not as a saving.
+
+\paragraph*{Test selection, end to end}
+pytest-testmon, unchanged, took \TestmonMeasured\,s over the replayed sequence against \FullMeasured\,s for full serial tests and builds, and \FullIdle\,s in the idle re-run: \TestmonRatioLo--\TestmonRatioHi\x{} cheaper.
+Counting only the seconds of the tests run would suggest \TestSecRatio\x{} (\TestmonTestSec{} against \FullTestSec\,s).
+The difference is pytest start-up, paid per step, and testmon's own analysis; its first run, which builds the database, took \TestmonDB\,s against \TestmonDBPlain\,s for a plain run.
+The testmon measurement ran concurrently with other work and the full run includes one noisy state, so the ratio is a range.
+On the worked example of step~10, test time falls from about \WorkedTestsBefore\,s to \WorkedTestsAfter\,s, about \WorkedRatio\x, because start-up remains.
+Reductions in tests run, as optimizers report them (PerfAgent reports large shares of tests skipped~\cite{deng2026perfagent}), are therefore not proportional reductions in validation time: on networkx, a \TestSecRatio\x{} cut in test-seconds became \TestmonRatioLo--\TestmonRatioHi\x{} end to end, in one run under mixed load.
+
+\paragraph*{Functional safety}
+Every arm except CHANGED-MODULE caught all \MutantsKilled{} frozen mutants at the step that introduced them.
+CHANGED-MODULE missed \AThreeMissed: in both, the killing tests live in a test file whose name does not match the module.
+With a full check every three or every five edits, both are caught one or two steps later.
+Because the mutants sit in the edited functions, every arm that selects by dependency catches them by construction; this fault model cannot rank selection rules, only show that the cheap arm is not obviously unsafe.
+
+\paragraph*{Our accumulated-change policy (negative result)}
+A4 selects tests over the change accumulated since its last full check and triggers a full check when an additive change score crosses a fixed threshold.
+On this sequence it behaved like periodic full checks every \AFourK{} edits or so, and it bought no extra detection: plain testmon catches the same mutants at about half its estimated cost (\EstTestmon{} against \EstAFour\,s).
+The accumulation null, the collapse of its benchmark selection and the batching comparison are in Appendix~\ref{app:a4}.
+
+\paragraph*{Answer to RQ4}
+On networkx, existing test selection saves \TestmonRatioLo--\TestmonRatioHi\x{} of test-validation time end to end with no functional miss on the frozen mutants, and incremental builds save almost nothing.
+Our deterministic accumulated-change policy adds nothing measurable under this fault model.
+Neither touches the benchmark cost of RQ1.

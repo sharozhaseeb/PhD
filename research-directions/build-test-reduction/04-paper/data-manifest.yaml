@@ -1,0 +1,117 @@
+# Inputs read by scripts/make_all.py. Regenerate with: python scripts/make_all.py --manifest
+# Paths are relative to the repository folder research-directions/build-test-reduction/.
+inputs:
+  - path: "01-literature/database-search-2026-11-21.md"
+    size: 18719
+    sha256: "ce47785adbc342e353d7551cf0650f4ed8c21810288cccca619815026519029a"
+  - path: "01-literature/gap-and-search-log.md"
+    size: 10805
+    sha256: "12504af9a6b88d9cf16648ece4b7cf2a05ae248a0edbd805c2f0ca1b81e9de7f"
+  - path: "01-literature/notes/N1-benchmark-coverage-search.md"
+    size: 17643
+    sha256: "cb4f8438320faec5bb7e9c0311e9f320e15319a08fa71f6f8ac7f21f1c89e018"
+  - path: "03-experiment/edits/networkx.candidates.json"
+    size: 7097
+    sha256: "d26678837200ee121be02b7aa09d7129e698ba500af35cfe1ab69273e47a88a9"
+  - path: "03-experiment/frozen/networkx.mutants.json"
+    size: 22692
+    sha256: "a6da4e85d21ebb3ca0d6c62c1a507bde89587a9f07fbc2f12b6c410ba180b19e"
+  - path: "03-experiment/frozen/networkx.slowdowns.json"
+    size: 12630
+    sha256: "d45efd3774a775dcd73707138996b6110aaeca1d54dd9e5d585e6f17689047aa"
+  - path: "03-experiment/results/labelling/agreement.json"
+    size: 139
+    sha256: "414c03de5be403f6f8cc85544f690b9d6fcc05818fbeb5695a02eca36da038c4"
+  - path: "03-experiment/results/labelling/precision_b1.json"
+    size: 9083
+    sha256: "bb54159064a7ac53ec434bc24fa08ea90fc21db68e7b71d208626a685765d14b"
+  - path: "03-experiment/results/q3/b1_construct.json"
+    size: 9898
+    sha256: "3b9dddc908fd8eaf184df84201269b90e4ed8fdaf784508d410adfc5abdf5529"
+  - path: "03-experiment/results/raw/bottleneck/retime-idle/repeat1.json"
+    size: 135
+    sha256: "5284746ed8a98eac5cd169b16235c045860e5c2eea1f46f83c026fe084884a69"
+  - path: "03-experiment/results/raw/bottleneck/retime-idle/repeat2.json"
+    size: 135
+    sha256: "af6d22e5e8aaebdae55d513946d400259bda04ca5a4bb5bb1dd661267d44c024"
+  - path: "03-experiment/results/raw/bottleneck/retime-idle/repeat3.json"
+    size: 135
+    sha256: "17e2d27a761e765424daafb29e2e1ace9cafc8963c82d8b4bedbbb3f244c6eb9"
+  - path: "03-experiment/results/raw/networkx/bench/S0_181f2951.idle.json"
+    size: 74587
+    sha256: "21670815eafb1c4b74ef0468f812d1ac2eccf60e9626a1d97542f676a2ff0b37"
+  - path: "03-experiment/results/raw/networkx/bench/aa/aa_result.json"
+    size: 23505
+    sha256: "36d92c4d467f1d9dceacd47d469bf372baff2e4450b294b8424b60f021761cfb"
+  - path: "03-experiment/results/raw/networkx/bench/aa_flagged/analysis_aa.json"
+    size: 8756
+    sha256: "64acbb4680c22bf6a8040edcab8d7fa097cd5f62f563a55c3f97d99347609f0d"
+  - path: "03-experiment/results/raw/networkx/edit_share.json"
+    size: 14217
+    sha256: "ddb6753b024f366b12c1234ec8d32178906e77390675058900a854cd0a217b52"
+  - path: "03-experiment/results/raw/networkx/faults/killsets.json"
+    size: 77825
+    sha256: "12123023a95177f21f6f1c64afb10a7bd6c059669e6bea521f892e2be2aa16cf"
+  - path: "03-experiment/results/raw/networkx/faults/latent.json"
+    size: 651
+    sha256: "674d6bff43df1bc2832c7cc08161f7244093efb24faf408a7800de2810b4de30"
+  - path: "03-experiment/results/raw/networkx/order_dependent_S0pair.json"
+    size: 3765
+    sha256: "9d9dbf90307fdfeb7be026ad54ff90672f6748d1cf8a524c3ec361a4d9f7fcc9"
+  - path: "03-experiment/results/raw/networkx/profile/S0_181f2951.json"
+    size: 274567
+    sha256: "68397765f78c58ef593e24318c4da95a58b86f18479befba3fd99b54c973ac2e"
+  - path: "03-experiment/results/raw/networkx/slowdowns/00.json"
+    size: 21430
+    sha256: "3358c98bc85b45101c5a2df79a8c59a2dcf2badda87b95cdb964fcba61e556ab"
+  - path: "03-experiment/results/raw/networkx/slowdowns/01.json"
+    size: 584151
+    sha256: "20a12eb4296cb2bd1ae9fcfa313fbf46760a9e3186d669a8779b9147c46f22c9"
+  - path: "03-experiment/results/raw/networkx/slowdowns/02.json"
+    size: 584579
+    sha256: "db483a5aaea5798295a363d7ee24bcb48ffb03d989adc62d69d8d46e70a0f3fb"
+  - path: "03-experiment/results/raw/networkx/slowdowns/03.json"
+    size: 584652
+    sha256: "a09a5ce87f772a2e7914899a17e3b0048a73c0868f7c68f4a73823e40dfb6015"
+  - path: "03-experiment/results/raw/networkx/slowdowns/04.json"
+    size: 584780
+    sha256: "91d37718f82adf7f8976c4a2351485a1f932e11af1c15fc2d24a913d566b1c0a"
+  - path: "03-experiment/results/raw/networkx/slowdowns/05.json"
+    size: 21478
+    sha256: "04c74e324320a649d57897c9370fbe776789b0066113cae3ef276beaf930d8f9"
+  - path: "03-experiment/results/raw/networkx/slowdowns/06.json"
+    size: 21488
+    sha256: "0ed423d3f7aa1fcec3b659923abbb8b1d37a071cdc4e623574a03cbd2caed2bf"
+  - path: "03-experiment/results/raw/networkx/slowdowns/07.json"
+    size: 21466
+    sha256: "b2486f1867588340d1b110549cfa04089f5d415125c419aabf6053bfbd53685b"
+  - path: "03-experiment/results/raw/networkx/slowdowns/08.json"
+    size: 584627
+    sha256: "111ea9664fdc3078f9ecad19956d7f94da59dc5716dfa7d9f50b80975e835008"
+  - path: "03-experiment/results/raw/networkx/slowdowns/09.json"
+    size: 21479
+    sha256: "bb8bfdcacc1efb74e604201327a0064b5b9fe4925f4f8739acdcb9dd0f1edea1"
+  - path: "03-experiment/results/raw/networkx/slowdowns/share.json"
+    size: 4107
+    sha256: "9e08a6bc92457cff14f73ad5bde1e9751bccaa2e396fa9b07ea3323a72df1d92"
+  - path: "03-experiment/results/raw/stats_exact/aa_power_design18.json"
+    size: 12225
+    sha256: "fd720a2218324f53b4529aae0fd10ebbc3ff065395b26c0fa9e0cfa54b2556d7"
+  - path: "03-experiment/results/raw/stats_exact/aa_power_exact.json"
+    size: 8489
+    sha256: "87bb1e5816e62426ea304a793b08b1d5c666661a2672fe4cb3ff1683c616f525"
+  - path: "03-experiment/results/raw/stats_exact/recompute.json"
+    size: 423798
+    sha256: "2f65db264fdbe941ee1fcff1fa7c58bb5ea4d8d1f4c2deecd54719abb2f9baa9"
+  - path: "03-experiment/results/results.md"
+    size: 101976
+    sha256: "1dd6b101008029eadcf70e29d4cf9cf0a97f1ccad2d4c7627f0b7a3797924f2a"
+  - path: "03-experiment/results/rq1_networkx.csv"
+    size: 4149
+    sha256: "0e370d219938a96eb19df8b919b9100f1dd7c312d25b469be47745f9bcf280cc"
+  - path: "03-experiment/results/rq2_networkx.csv"
+    size: 1844
+    sha256: "aab6368ee30ef63369b1f716c6b1b5e52f4faed914ea938932aeb126d31c05bf"
+  - path: "knowledge-base/findings.md"
+    size: 24852
+    sha256: "d2fe3778d4fdc4ea0c9e6f0a931166fb9b3b63285f6c5c18e0d84d4ae258b004"

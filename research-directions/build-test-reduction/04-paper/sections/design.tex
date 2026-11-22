@@ -1,0 +1,102 @@
+\section{Study Design}
+\label{sec:design}
+
+The study combines repository mining (selecting and labelling real optimization commits), benchmarking experiments (cost passes, an A/B slowdown oracle and an A/A control) and a quantitative simulation of reduction arms over the replayed edits.
+We mine real commits rather than generating candidates with an optimizer because real commits come with an expert's diff and a stated intent, so whether an edit is an optimization can be judged, and no optimizer's biases enter the edit set; the mining rule's own biases are discussed in Section~\ref{sec:lessons}.
+Fig.~\ref{fig:pipeline} shows the pipeline.
+A written protocol (subjects, mining rule, arms, frozen fault sets, decision rules and timing protocol) was committed before the measurements \TODO{commit hash and date}.
+Parts of the analysis are post hoc: the commit labels that define the RQ2 edit set were added after mining and after the first coverage count, the noise-run labelling rule was written after a first look at two slow states, and the share analysis and the profile re-check were added after the first results; all deviations are listed in Section~\ref{sec:deviations}.
+The selection and validation rules are deterministic and model-free: no learned or LLM component decides what to build, test or benchmark. The commit labels were produced by LLM agents (Section~\ref{sec:threats}).
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[node distance=3mm and 4mm, every node/.style={font=\footnotesize},
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=7mm, inner sep=2pt, text width=13mm},
+  arr/.style={-{Stealth[length=4pt]}}]
+\node[box] (mine) {mine\\(subject rule)};
+\node[box, right=of mine] (label) {label\\(two raters)};
+\node[box, right=of label] (replay) {replay\\edit sequence};
+\node[box, right=of replay] (prof) {profile and\\static reach};
+\node[box, below=6mm of replay, text width=20mm] (measure) {measure per state:\\build, tests, benchmarks};
+\node[box, below=6mm of prof, text width=15mm] (inject) {frozen mutants,\\slowdowns, A/A};
+\node[box, below=6mm of label, text width=17mm] (arms) {simulate arms\\(selection counts)};
+\draw[arr] (mine) -- (label); \draw[arr] (label) -- (replay); \draw[arr] (replay) -- (prof);
+\draw[arr] (replay) -- (measure); \draw[arr] (prof) -- (inject); \draw[arr] (measure) -- (arms);
+\draw[arr] (inject) -- (measure);
+\end{tikzpicture}
+\caption{Study pipeline. Mining, labelling and replay fix the edit sequence; profiles and static reach give benchmark coverage (RQ2); measured states and injected faults give cost, detection and power (RQ1, RQ3, RQ4).}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Subjects}
+\textbf{networkx} is the main subject, chosen because it has an asv suite in its own repository, a pure-Python build (so build cost does not mask test and benchmark cost) and a recent history with many commits that describe themselves as performance changes. It has an asv suite of \NxBenchCases{} benchmark cases in \NxBenchFiles{} files and \NxNumTests{} tests.
+\textbf{bottleneck}, a NumPy extension written in C from templates, is a contrast subject for build cost only, on \BnEdits{} replayed edits (states after an uncompilable replayed state are held out, Section~\ref{sec:lessons}).
+\TODO{Table 2: subjects and edit counts. Add the E1 replication projects (3--4, chosen by the pre-registered order and attrition rule; candidates xarray, scikit-image, astropy, geopandas, shapely, pandas) with mined, labelled, true-optimization and profiled counts.}
+
+\subsection{Edit mining, labelling and replay}
+\textbf{Mining.} A commit qualifies if its subject matches a fixed regular expression for performance wording (\texttt{perf}, \texttt{speed up}, \texttt{faster}, \texttt{optimize}, \texttt{performance}, \texttt{vectorize}, \texttt{efficien}) and it changes package source.
+For networkx we took the latest \NxMined{} qualifying commits before the study started (November 2026), in chronological order, without manual inclusion or exclusion; the number was fixed in advance to bound the cost of full validation at every state.
+\TODO{Give the date span of the mined commits and their size (changed lines and functions per edit) in Table 2.}
+
+\textbf{Unit of analysis and changed functions.} The unit is one replayed edit (one commit).
+A Python function counts as changed if any removed or added line of the diff falls in its span, including its decorators and its qualified name inside classes and nested functions; added and deleted functions count, blank and comment-only lines do not.
+Changed lines outside every function are module-level changes; they are excluded from coverage counts and expanded to all functions of the module by the selectors.
+For bottleneck, C function definitions are found by a brace scan and template headers map to the Python-visible name.
+\TODO{Validate the changed-function extraction against a hand check of a sample of edits and report the agreement.}
+
+\textbf{Labelling.} Keyword mining is imprecise (Section~\ref{sec:lessons}), so every mined commit of four projects (\LabelRows{} rows, including the Q3 pilot projects of Appendix~\ref{app:q3}) was labelled from its subject, body and diff into three categories (optimization, not an optimization, unsure), using a frozen codebook whose question is whether the commit's main intent is to make existing code faster or use fewer resources without changing what it computes.
+Two raters labelled all rows blind to benchmark reach, replay status and each other; a third agent, the adjudicator, decided the \LabelAdjudicated{} disagreements.
+The raters were two LLM agents of the same model family; we treat this as a threat (Section~\ref{sec:threats}).
+No human rater labelled the rows; the labels are agent labels throughout.
+\TODO{Name the model and version of the raters and the adjudicator, and put the prompts in the artifact.}
+Cohen's $\kappa$ over the three categories was \LabelKappa{} (\LabelAgree{} of \LabelRows{} rows agree).
+The primary edit set for RQ2 is the commits both raters or the adjudicator labelled as optimizations; an earlier reading of the commit subjects alone is reported as a sensitivity set.
+\TODO{Replication (E1): codebook v2 frozen before mining, agent-only labels as here, and held-out precision of the v2 mining rule.}
+
+\textbf{Replay.} The mined commits are applied in order on top of the parent of the oldest one, giving a sequence of states $S_0, S_1, \dots$; \NxDropped{} of the \NxMined{} networkx commits did not apply and were dropped by rule, leaving \NxReplayed{} replayed edits (\NxStates{} states).
+Of these, \NxAgentOpt{} are labelled optimizations by the agents and \NxManualOpt{} by the subject-only reading.
+The replayed sequence is not a real optimizer session: consecutive edits are historical commits, not minutes-apart candidates of one agent.
+Results that are per edit (RQ2, RQ3) do not depend on this; cost totals and the accumulation policy (RQ4) do.
+
+\subsection{Arms}
+Every arm validates every replayed edit.
+\textbf{FULL} (A0) rebuilds from clean, runs all tests serially and all benchmarks.
+\textbf{INC} (A1) builds incrementally.
+\textbf{TESTMON} (A2) runs \texttt{pytest --testmon} unchanged, with its database carried across steps, as PerfAgent does~\cite{deng2026perfagent}.
+\textbf{CHANGED-MODULE} (A3) runs the tests whose file name maps to a changed module.
+\textbf{STATIC-BENCH} (A5) selects benchmarks whose static call-graph reach intersects the changed functions.
+\textbf{A4} is our deterministic policy: function-level test selection over the changes accumulated since the last green full check, profile-based benchmark selection, and a full check triggered when an additive change score crosses a fixed threshold (a model-free variant of risk-mass batching~\cite{sayedsalehi2026riskaware}); its parameters were fixed before the runs.
+Arms are also combined with periodic full checks every $k$ edits.
+Test counts per arm come from real selections (testmon) or from the measured dependency map; seconds are estimated from per-test durations at $S_0$ and calibrated against measured end-to-end time.
+
+\subsection{Coverage measures}
+A benchmark case \emph{executes} an edit if its measured profile contains at least one function the edit changed (module-level lines excluded).
+Profiles were recorded with \texttt{sys.monitoring} for all \NxBenchCases{} cases at $S_0$, during one call of each benchmark after its setup, so functions that run only in untimed setup or at import do not count as executed; this is a counting run, not a timing run.
+\emph{Static reach} uses a conservative import and call graph from $S_0$.
+An edit is \emph{unreached} if no case executes it.
+Reach was taken at $S_0$ for all edits, not at each edit's parent.
+\TODO{E1: profiles at each edit's parent for the replication projects, with the grouped profile runner validated against the networkx $S_0$ reach sets.}
+
+\subsection{Oracles}
+\textbf{Functional.} \MutantsFrozen{} mutants were frozen before any arm was configured, each placed in a function changed at its step; \MutantsKilled{} are killed by the full suite and form the functional fault set.
+\textbf{Performance.} \NumSlowdowns{} synthetic slowdowns were frozen, each in a function changed at its step: nine call the function body twice and one replaces a set by a list for membership tests.
+They are probes of detectability, not models of real regressions.
+For each slowdown, a patched and an unpatched clone are measured interleaved (A/B), and a case is \emph{slower} under asv's rule: ratio of medians above \AsvFactor{} and a two-sided Mann-Whitney $p$ below \AsvAlpha~\cite{asvcommands}.
+All primary verdicts use the exact Mann-Whitney test; re-testing all \RecomputeVerdicts{} verdicts with the exact test changed none of them (Section~\ref{sec:rq3}).
+Within reach, each side has two processes with three values each, in three interleaved repeats; the profile-completeness check and the A/A control use five processes with three values per side and repeat.
+A pre-registered noise floor additionally requires the ratio to exceed $1+3\sigma$, with $\sigma$ from a same-code A/A control.
+The protocol also fixed strength bands for the regression set used to judge selection safety: a ``strong'' slowdown makes some case at least twice as slow, a ``moderate'' one between \BandModLo{} and \BandModHi\x.
+\textbf{Test assumptions.} Mann-Whitney assumes independent samples; samples from one process are correlated, which makes $p$ optimistic, and repeating the oracle (Section~\ref{sec:rq3}) is the check. Wilson intervals assume independent trials; edits and slowdowns that share functions are not fully independent, so the intervals are optimistic.
+\textbf{A/A control.} A frozen, seeded sample of \AACases{} cases (\AAAlgoCases{} of them from the heavy module) was run as $S_0$ against $S_0$ in two clones, with both run orders (ABBA), so every non-``same'' verdict is false.
+Proportions are reported with Wilson 95\pct{} intervals.
+\textbf{Exact test.} The rule we first implemented used scipy's default Mann-Whitney method, a normal approximation at these sample sizes, while asv uses an exact test; re-testing all \RecomputeVerdicts{} verdicts from their raw samples under the exact test changed \RecomputeChanged{} of them, and borderline $p$ values became smaller. All $p$ values in this paper are exact.
+The smallest attainable two-sided exact $p$ is \MinPSixSix{} for six against six samples, above $\alpha=\AsvAlpha$ (Section~\ref{sec:lessons}), and \MinPFifteen{} for fifteen against fifteen.
+
+\subsection{Platform and timing protocol}
+All runs used one desktop machine (\texttt{Intel i5-12400F}, \TODO{core/thread and memory counts as macros}), WSL2 \texttt{Ubuntu 24.04}, \texttt{CPython 3.12}, with the package versions frozen in the artifact.
+The CPU governor cannot be pinned under WSL2.
+Timing runs start only when the machine is idle by a load gate (one-minute load average at most \LoadGate), and runs whose load exceeds the gate are labelled noisy and reported as such, not dropped.
+Benchmarks use our asv-compatible runner with asv's default protocol for cost passes and more processes for verdicts.
+Counts (reach, selections, detections) are machine-independent; wall times are reported as ranges over passes or as a median with its outliers named, never as single-pass point values.
+
+\textbf{Ethics.} We analyse public open-source history and our own measurements; no personal data are analysed and no developers are named or assessed.

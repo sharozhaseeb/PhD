@@ -1,3 +1,10 @@
 - 15:43:50–15:44:02 PKT: W3 built frozen/labelling/sheet.jsonl (git show over 81 commits; nice 19, taskset CPUs 0,1) while night item (b) block s02 ran on CPUs 2–5. Runs in that window are flagged concurrent (check their pre_gate/loadavg).
 - ≈15:45:30–15:47:25 PKT: W3 mistake: an unniced `find /` in WSL (searching for the asv source) also walked /mnt/c, heavy I/O, while item (b) block s02/s08 ran. Killed 15:47:25. Runs whose t_start..t_end overlap this window are flagged concurrent in the write-up.
 - 15:49–15:51 PKT: W3 ran stats unit tests, scripts/recompute_exact.py and a smoke run of night_analyse.py (nice 19, CPUs 0,1) during item (b).
+- 16:26:40 PKT: W3 started scripts/b1_construct.py (git+AST, done in seconds) and scripts/slow_share.py (cProfile of 12 benchmark cases in clone nx-share; nice 19, CPUs 0,1) during night item (b) block s09 (PM 16:25). End time appended below.
+  - slow_share.py ended 16:30:38.
+- 16:44:57 PKT: W3 started scripts/edit_share.py (cProfile of 21 reaching cases in clone nx-share; nice 19, CPUs 0,1) during night item 2 (E3 tier 1) (PM 16:44).
+  - edit_share.py ended 16:51:17.
+- **Correction (16:51, critic):** the 15:43:50 sheet build and the 15:45–15:47 `find /` overlapped **no** run: s02 ended 15:41:43 and s08 ended 15:43:31, and s01 began 15:48:12. The 15:49–15:51 compute overlapped s01 run B rep 0 (15:50:08–15:51:07); handled in results.md.
+- 16:55:24 PKT: W3 ran scripts/aa_power_design.py (pure compute on saved samples; nice 19, CPUs 0,1) during night item 2.
+  - ended 16:55:46.

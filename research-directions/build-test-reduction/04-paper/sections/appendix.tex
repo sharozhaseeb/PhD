@@ -1,0 +1,38 @@
+\section{The A4 policy and batching comparators}
+\label{app:a4}
+A4 combines (a) function-level test selection over the change accumulated since the last green full check, (b) benchmark selection by stored profiles refreshed at each full check, and (c) a full check when an additive score reaches the threshold $T=\AFourT$, plus a final full check.
+The score is the number of accumulated changed functions (a module-level edit counts every function of its module) plus a fixed penalty for each distinct C header edit and each native fallback since the last green full check.
+It targets faults that stay latent until a later edit makes them observable, which a per-edit selection over the current change alone could miss.
+All parameters were fixed before the runs and not tuned.
+\textbf{Behaviour.} On the replayed networkx sequence A4 fired \AFourChecks{} full checks, each caused by an edit at module level; its estimated cost (\EstAFour\,s) lies between testmon with a full check every five edits (\EstTestmonKFive\,s) and every three (\EstTestmonKThree\,s).
+\textbf{Accumulation null.} Accumulation added \AccumExtraRuns{} test runs and found nothing, as pre-registered: \LatentFound{} of the \MutantsSurvive{} mutants that survive the full suite become detectable at a later state, so the class of faults that accumulation targets is empty on networkx.
+\textbf{Ablations.} Removing the order-dependence rule, the accumulation, or the profile rule leaves functional detection unchanged on the frozen mutants; removing accumulation removes \AccumExtraRuns{} test runs.
+\textbf{Benchmark selection collapses.} Because profiles exist only at $S_0$, the rule that profiles must not be older than the last checkpoint marks every profile unknown after the first full check, and the conservative default selects all benchmarks. A labelled variant that violates this rule by reusing $S_0$ profiles selects \BTwoVariant{} cases in total, against \BTwoStatic{} for static reach and \BTwoFull{} for running everything.
+\textbf{Batching at matched cost.} Against pure batching with a fixed cap or an additive budget, interpolated to A4's cost, A4 catches every mutant at the step that introduces it while batching catches part of them one or more steps later; but every arm with a per-edit tier does the same by construction of the mutant placement, and plain testmon reaches it at about half A4's cost. Counting benchmarks reverses the picture: per-edit arms that run benchmarks at every step cost more than batching. We draw no ``A4 beats batching'' conclusion.
+
+\section{Profile completeness}
+\label{app:completeness}
+Benchmarks outside the measured reach of a slowed function should not slow down.
+A powered check of the \SlowMissedUnreached{} unreached slowdowns against a seeded sample of out-of-reach cases found \CompletenessSlower{} slower verdict in \CompletenessN{} comparisons: \#9 on a \texttt{louvain\_communities} case at \SlowNineRatio\x{} (exact $p=\SlowNineExactP$).
+By the pre-registered selection-safety rule this flags reach-based selection as unsafe for \#9, but the flag does not pass the pre-registered noise floor (\SlowNineRatio\x{} against \FloorNine), so it sits at the noise floor rather than above it.
+A post-hoc re-check with a second unpatched control did not reproduce it (\SlowNineRecheckLo--\SlowNineRecheckHi\x), which is consistent with one false positive in \CompletenessN{} comparisons but does not prove it.
+This is a check of the profiles, not evidence that selection is safe.
+
+\section{Static pilot on other projects}
+\label{app:q3}
+Before the replication protocol existed, we applied the networkx mining rule and a static reach count from one old base to three further projects.
+As frozen, geopandas had \QThreeGeo{} of \QThreeGeoN{} mined edits unreached, pvlib-python \QThreePv{} of \QThreePv{}, and bottleneck \QThreeBn{} of \BnEdits.
+None of these establishes anything about coverage: pvlib's base has no asv suite and most of its mined commits are not optimizations; static reach from an old base cannot reach functions added later, which inflates geopandas' count (a post-hoc name heuristic gives \QThreeGeoHeur{} unreached, and is neither a lower nor an upper bound); and bottleneck's count depends on how its C template code is attributed (all its edits are reached under a template interpretation).
+These are the reasons the replication uses measured profiles at each edit's parent and labelled edits.
+
+\section{Cost drift on one machine}
+\label{app:drift}
+The per-process setup cost of \texttt{benchmark\_algorithms} varied by about \DriftWithinLo--\DriftWithinHi\x{} within one protocol during a day at low load, and more across protocols, while the timed samples of the same cases stayed stable and the serial test timings did not move.
+The cause is unknown; host memory pressure, the power or boost state after a restart, and a cold page cache are candidates that we did not verify.
+Longer-term drift of performance measurements is documented for bare-metal and cloud machines~\cite{henning2025when}; we report this observation only as a reason to give benchmark cost as a range.
+
+\section{Further details}
+\label{app:lessons-detail}
+\textbf{Profile provenance.} The first part of the $S_0$ profile ran in a work tree that another job checked out at a later state while it ran; an isolated re-profile at $S_0$ gave identical reach sets for all \ReprofileCases{} affected cases. Profiling and timing must not share a work tree.
+\textbf{Replay invariants.} A blobless clone silently produced states that deleted files; the replay now asserts that every base blob is present and that each step touches only its edit's paths.
+\textbf{The \#9 re-check} had a base-versus-base control and was cut short by its time cap, so none of its comparisons is order-balanced.

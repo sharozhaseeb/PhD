@@ -23,7 +23,7 @@
 On networkx, **one FULL benchmark pass (all 171 cases, asv's default 2 processes × 3 values) cost 659–2444 s across 6 measured passes on the night of 21–22 Nov.** The median is ≈ 730 s (≈ 12 min). Build + serial tests take **≈ 87 s**, so benchmarks are about **8–28×** the rest of FULL validation (≈ 8× at the median). **Benchmark cost, not build or test cost, is the dominant per-edit cost** on this project.
 
 **Most of the benchmark cost is setup (advisor review, 07:50):**
-- **87–96 % of a pass is spent in one module's 49 cases (`benchmark_algorithms`)**, over the 6 passes. Their time includes their timing loops, but 80–94 % of a pass lies outside the timing loops, mostly per-process start-up and import-time setup: they rebuild all their graphs at module import, once per process.
+- **86.9–95.5 % of a pass is spent in one module's 49 cases (`benchmark_algorithms`)**, over the 6 passes (Σ run wall of its cases ÷ Σ run wall of the pass: item 4 94.1 %, `bench/S0_181f2951.idle.json`; base side of `slowdowns/0{1,2,3,4,8}.json` 95.5 / 88.5 / 86.9 / 86.9 / 87.6 %; recomputed 16:20 after W6, earlier text said 87–96 %). Their time includes their timing loops, but 80–94 % of a pass lies outside the timing loops, mostly per-process start-up and import-time setup: they rebuild all their graphs at module import, once per process.
 - **The benchmarks' timing loops take only 132–171 s per pass** (Σ samples × number). Measured: 171 s in item 4; 132–144 s on the base side of the slowdown-oracle passes (`raw/networkx/slowdowns/0{1,2,3,4,8}.json`).
 - **Estimate, not measured — "setup cached":** if the import-time setup were built once and reused, a FULL pass would cost roughly its timing loops, **≈ 130–170 s, about 1.5–2× build + tests (≈ 87 s)** instead of 8–28×.
   - This is a lower bound. It leaves out per-process start-up and warm-up values.
@@ -76,7 +76,7 @@ On networkx, **one FULL benchmark pass (all 171 cases, asv's default 2 processes
 - *Measured pass (overnight item 4, 05:30–05:58 PKT):* 1668 s, as above. It is **labelled noisy** under the pre-registered M5 rule: the 1-minute load was 1.63 > 1.5 at its start, left over from item 3's own benchmarks. The script's start gate only labels and does not postpone, which is a logged deviation (`raw/networkx/bench/LABELS.md`).
   - Used as a **noisy per-pass cost** and for per-case cost weights.
   - Not used for regression decisions or the noise floor. A re-run needs PM approval.
-- *Consequence:* benchmark **selection** (P1 profile reach, A5 static reach) and amortising module setup are where the savings can be large: **87–96 % of a pass is the 49 `benchmark_algorithms` cases, mostly import-time graph construction repeated per process.** Test selection saves at most ≈ 87 s per edit here.
+- *Consequence:* benchmark **selection** (P1 profile reach, A5 static reach) and amortising module setup are where the savings can be large: **86.9–95.5 % of a pass is the 49 `benchmark_algorithms` cases, mostly import-time graph construction repeated per process.** Test selection saves at most ≈ 87 s per edit here.
 
 **Bottleneck (C extension), for contrast:** on the amended base `f51ed86`, a clean build takes **4.7–5.4 s** (item 1b, 3 repeats, `raw/bottleneck/retime-idle/repeat{1,2,3}.json`) and the full suite **≈ 24 s** (191 tests; `raw/bottleneck/hazard/*/f_test_{inc,stale}.log`, `raw/bottleneck/s0-junit.xml`). So the build is **≈ 16–18 % of clean build + full tests, before benchmarks**. All runs are **noisy** (load 1.46–2.35). For networkx the build is 1.19–2.11 %.
 - The earlier figure (9.9 s, ≈ 22 %, 168 tests; `rq1_bottleneck_build.md`) was on the superseded base `22657ac` under concurrent load and is superseded.
@@ -200,7 +200,7 @@ The thresholds were not adjusted to change any label. The `tests_concurrent_load
   - Its cost (655 s est. end-to-end) sits **between A2 + k=5 (594 s) and A2 + k=3 (735 s)**.
   - On the frozen mutants, its extra selections buy no extra functional detection (see the fault-detection table). Regression detection is measured for FULL only so far (see "Slowdown oracle"); it is not yet in the per-arm simulation.
   - T is not retuned; this is a design finding about the pre-registered score.
-- **Benchmarks.** A5's static reach selects 61 % of cases (1893 / 3078) and all 171 on the worked edit. The changed-module benchmark rule selects 0, since only 1 of 8 bench files maps to a module.
+- **Benchmarks.** A5's static reach selects 61.5 % of cases (1893 / 3078) and all 171 on the worked edit. The changed-module benchmark rule selects 0, since only 1 of 8 bench files maps to a module.
 - **Accumulation** adds 494 test runs (35 742 vs 35 248). They are spread over steps 2, 7, 10–12 and 15–17; the largest is step 12 (421 vs 140), because the accumulated set still holds step 9–11 functions. That is +3 est. test-s. No detection benefit was found: the latent-fault class is empty on networkx (0 of 5 survivors become detectable later), so the pre-registered null stands.
 - **F6-order changes nothing on this session** (identical counts with and without it): the 62 flagged functions are touched by no replayed edit and no frozen mutant (C7 finding below).
 
@@ -422,7 +422,7 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
 | # | Step | Slowed function (kind) | Reach: profile / static → measured | Within-reach verdict (FULL) | Out-of-reach spot check | Class (script) |
 |---|---|---|---|---|---|---|
 | 0 | 1 | `distance_regular.global_parameters` | 0 / 0 → 0 | not measurable: no case reaches it | 10 cases, 0 slower | not detected |
-| 1 | 2 | `weighted.bidirectional_dijkstra` | 0 / 171 → 171 | 1 slower, **off target**: `time_connected_components('Erdos Renyi (100, 0.1)')` 1.245×, p = 0.0018. Also 1 "faster" off target (`time_average_clustering`, 0.858×). | none left (reach = all 171) | moderate (1.2–1.5×) — **judged noise, see below** |
+| 1 | 2 | `weighted.bidirectional_dijkstra` | 0 / 171 → 171 | 1 slower, **off target**: `time_connected_components('Erdos Renyi (100, 0.1)')` 1.245×, p = 0.0018 (exact: 1.27e-3); this case is in static reach (as all 171 are) but not in the S0 profile reach of `bidirectional_dijkstra`. Also 1 "faster" off target (`time_average_clustering`, 0.858×). | none left (reach = all 171) | moderate (1.2–1.5×) — **judged noise, see below** |
 | 2 | 3 | `weighted._dijkstra_multisource` | 8 / 171 → 171 | **9 slower:** all **8 profiled** `time_multi_source_dijkstra` cases at **1.81–1.90×** (p = 3.2e-7), plus 1 off target (`NonNeighbors.time_complete(100)`, 1.14×) | none left | other-slower (max 1.90×) |
 | 3 | 4 | `components.connected.is_connected` | 3 / 171 → 171 | 0 slower (171 same) | none left | not detected |
 | 4 | 5 | `unweighted._single_shortest_path` | 0 / 171 → 171 | 0 slower (171 same) | none left | not detected |
@@ -438,9 +438,9 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
 - **As classified by the script:** FULL detects **3 of 10** (30 %; 95 % Wilson CI **10.8–60.3 %**). These are #1, #2 and #8.
 - **On target:** **2 of 10** (Wilson **5.7–51.0 %**), #2 and #8.
 - **#1 is judged an oracle false positive.** Its only "slower" case never executes `bidirectional_dijkstra` in its S0 profile, and the patch only touches that function's body. Its p = 0.0018 sits just under the 0.002 threshold. The same run also produced an off-target "faster" verdict. 177 of its 1026 runs had a 1-minute load above 1.5.
-  - Across the whole oracle there are about 890 off-target comparisons (843 within reach + 50 spot-check, though the 50 spot-check comparisons cannot produce a verdict). Three of them gave a non-"same" verdict. That is in line with chance at α = 0.002 with many comparisons, especially since samples from one process are not independent, which makes Mann-Whitney p optimistic.
+  - Across the whole oracle there are **843 off-target comparisons that can yield a verdict**, plus 50 spot-check comparisons (6 v 6) that cannot: 893 in all (earlier text said "about 890"; reconciled in "W6 hostile-review checks"). Three of them gave a non-"same" verdict. That is in line with chance at α = 0.002 with many comparisons, especially since samples from one process are not independent, which makes Mann-Whitney p optimistic.
   - This is a reading, not a re-measurement. Oracle repeatability (readiness §5) would settle it.
-- **The 7 slowdowns FULL misses:** 5 (#0, 5, 6, 7, 9) are reached by **no** benchmark case, by profile or by static reach. The other 2 are reached in different ways. **#3** (`is_connected`) is reached by 3 profiled cases; its ratios are 0.95–1.01. **#4** (`_single_shortest_path`) is reached **only by static reach** (profile reach 0), so it is a coverage miss. Double-calling either function moves no case past the asv rule.
+- **The 7 slowdowns FULL misses:** 5 (#0, 5, 6, 7, 9) are reached by **no** benchmark case, by profile or by static reach. The other 2 are reached in different ways. **#3** (`is_connected`) is reached by 3 profiled cases; its ratios are 0.95–1.01. **#4** (`_single_shortest_path`) is reached **only by static reach** (profile reach 0), so it is a coverage miss. *Wording note (16:35, PM):* static reach covers **all 171 cases** for #1, #2, #3, #4 and #8 alike (the S0 static call graph over-approximates), so "reached" for #1 and #4 means statically reachable only, and is uninformative; by measured S0 profile, #1 and #4 are **not reached**. "The 5 reached slowdowns" (E3) means profile ∪ static. Double-calling either function moves no case past the asv rule.
 
 **Safety of reach-based selection.**
 - **The out-of-reach spot check has no power, and its result is withdrawn (critic review, 2026-11-22 06:06).**
@@ -526,7 +526,7 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
   - **(a) Coverage (B1):** 7 of 10 slowed functions are executed by no benchmark: #0, 1, 4, 5, 6, 7 and 9. #4 (`_single_shortest_path`) is one of these, so it is a **coverage miss, not a power miss**.
   - **(b) Oracle power (A/A):** for 2 of the 3 sampled `benchmark_algorithms` cases, only ≈ 2× slowdowns are reliably detected.
     - #3 (`is_connected`) is reached by 3 profiled `eigenvector_centrality_numpy` cases in that module. Their ratios are 0.95–1.01, p ≥ 0.22.
-    - So a large hidden slowdown is unlikely, but a small real one (< ≈ 1.1×) cannot be excluded: #3 may be a **power miss of a small effect**.
+    - So a large hidden slowdown is unlikely, but a small real one (< ≈ 1.1×) cannot be excluded: #3 may be a **power miss of a small effect**. **Superseded (16:30):** the slowed function is ≈ 0.5 % of its reaching cases' time, so the expected effect is ≈ 1.005×: #3 is a **dilution miss** (see "W6 hostile-review checks").
 - Selection safety can therefore only be judged on #2 and #8:
   - Both are inside profile reach (8/8 and 1/1 cases) and inside static reach.
   - A changed-module benchmark rule (A3) selects 0 cases and would miss both.
@@ -566,7 +566,7 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
 - **Noise floor:** the asv rule gave **0 false verdicts in 46 per-repeat A/A comparisons** (95 % Wilson upper bound 7.7 %; 0/23 per arm, upper bound 14.3 %).
   - The 46 comparisons are the same 23 cases twice, not independent, so 7.7 % is optimistic.
   - Repeatability (plan item 3) is trivial: 0 non-"same" verdicts in either repeat.
-  - This fits the slowdown oracle's ≈ 3 off-target non-"same" verdicts in ≈ 890 comparisons. It cannot separate a 0.3 % false rate from zero.
+  - This fits the slowdown oracle's 3 off-target non-"same" verdicts in 843 comparisons that can yield a verdict. It cannot separate a 0.3 % false rate from zero.
 - **The A/A noise sits close to the threshold** (critic review, 11:58):
   - In repeat 0, two cases passed p < 0.002 and were stopped only by the ratio condition: `CommonNeighbors.time_complete(100)` (p = 9.7e-5, ratio 1.094) and a `k_factor` case (p = 0.0014, ratio 1.032).
   - Repeat 1 also shows large ratios: `CommonNeighbors.time_complete(100)` 0.761 and `time_star_center_rim(100)` 1.485, both p = 0.007.
@@ -647,6 +647,53 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
   - σ comes from **S0**, while the verdicts were made at states S1–S11.
 - `aa/sigma_noise.json` has **no `meta` block**, unlike the other raw files.
 
+### (b) σ_noise for the 12 flagged verdicts, and the pre-registered 1 + 3σ floor applied (night item 1, 15:37–16:42)
+
+- **Plan:** written 15:32, hashed in `FROZEN.md` at 15:33: `raw/networkx/bench/aa_flagged/plan.md`. Analysis frozen in `scripts/night_analyse.py`.
+  - Amendment 1 (15:35, before any run): the gate's Windows-CPU probe now reads the telemetry file.
+  - Amendment 2 (15:50, before any analysis): the exact test is primary.
+- **Time:** planned 35–55 min. Actual 65 min: ≈ 43 min of runs plus 21 min of per-run gate waits.
+- **Raw data:** `raw/networkx/bench/aa_flagged/s{02,08,01,09}.json`. The result is `analysis_aa.json`.
+- **Design:** an A/A at **each verdict's own state and protocol**, 5 repeats, with the order rotated every repeat:
+  - #2's 9 cases, #8 and #1 at 2 processes × 3 values;
+  - #9 at 5 × 3.
+- **Run conditions:**
+  - 120 runs, 0 errors, all 4 blocks labelled **measured-window**.
+  - Peak run load 0.46–0.80. No run had `pre_gate.ok = False`. The per-run gate postponed for 1,285 s in total.
+  - W3's concurrent compute (`night-2026-11-22/CONCURRENCY.md`) ran at nice 19 on CPUs 0–1. The benchmark processes' affinity (2–5) comes from the protocol and was not re-verified per run.
+  - The `find /` mistake (15:45:30–15:47:25) fell between blocks s08 and s01 (s08 ended 15:43:31, s01 started 15:48:12), so it overlaps no run.
+  - The slow_share job (16:26:40–16:30:38) fell between s09's runs B2 and B3.
+  - **One overlap:** run s01 B repeat 0 (15:50:08–15:51:07) overlapped W3's 15:49–15:51 compute (unit tests, the exact recompute). That repeat has s01's largest ratio (1.56).
+    - Dropping it gives σ ≈ 0.23 and a floor of ≈ 1.69. The verdict is unchanged (1.245 < 1.69).
+- **Rule:** σ_rep = the SD of the 5 per-repeat A/A ratios; floor = 1 + 3σ_rep. A verdict survives iff its original ratio > floor. σ_boot is the sensitivity check.
+
+| Verdict | Original ratio | σ_rep | Floor 1 + 3σ_rep | Survives? | Floor (σ_boot) | A/A pooled verdict |
+|---|---|---|---|---|---|---|
+| #2 on target, 8 `multi_source_dijkstra` atlas cases | 1.81–1.90 | 0.025–0.109 | 1.08–1.33 | **yes, 8/8** | 1.15–1.31: yes, 8/8 | same (8/8) |
+| #2 off target, `NonNeighbors.time_complete(100)` | 1.140 | 0.076 | 1.228 | **no** | 1.194: no | same |
+| #8 on target, `ManyComponents...time_single_source_all_shortest_paths` | 1.116 | **0.393** | **2.18** | **no** | 1.52: no | **slower** (A/A pooled ratio 1.129) |
+| #1 off target, `connected_components('ER (100, 0.1)')` | 1.245 | 0.271 | 1.81 | **no** | 1.61: no | same |
+| #9 profile-completeness flag, `louvain('ER (100, 0.9)')` | 1.130 | 0.047 | **1.140** | **no** (narrowly) | 1.22: no | same |
+
+**What changes (pre-registered rule, now applicable to every flagged verdict):**
+- **Only #2's 8 on-target verdicts clear the noise floor.** Counting slowdowns, with the 10 frozen slowdowns as the denominator, FULL detects on target and above 1 + 3σ **1 of 10 (#2)**. The Wilson 95 % CI is 1.8–40.4 %, treating the slowdowns as independent.
+  - #2 counts once, although it survives on 8 cases. Those 8 atlas cases share one code path.
+  - For #8 and #1 the floors (2.18 and 1.81) mean those cases **cannot detect** a slowdown of the size seen. That is "not detectable at this noise", not "not a regression".
+  - It was 2 of 10 by the asv rule alone. The asv-rule figures stay reported for continuity.
+- **#8's original verdict (1.116×) is indistinguishable from A/A behaviour.** Its own A/A pooled test also says "slower", with an A/A pooled ratio of 1.129, which is above the original 1.116. The noise comes from 2 of the 5 repeats (1.34 and 1.96).
+  - This is 1 false verdict among the 12 pooled A/A tests here, against 0 of 46 earlier.
+  - **No false-positive rate is estimated from these 12**: 9 of them share one code path, and the cases were chosen because they were flagged.
+- **#1, #2's `NonNeighbors` and #9 fall within the noise floor.** That matches the earlier reading of #1 and NonNeighbors as noise (off target). #9's 1.130 is just below its floor of 1.140.
+  - So the **C11 flag for #9 does not survive its floor.** The profile-completeness check reads: **1 of 50 asv-rule flags, and it does not survive its floor (1.130 vs 1.140).** The other 49 cases were not asv-slower, so the floor was not applied to them.
+  - The post-hoc re-check (0.97–1.01) is a separate measurement and also did not reproduce the flag.
+  - This is still **not** a safety claim: the check has the power limits stated in its section.
+- **Deviation N8 is closed for the 12 flagged cases only.** The other 159 cases still have no σ.
+- **Stated deviation from §5:** the A/A ran at the verdicts' own states, not at S0 (plan).
+- **Caveat, for every row:** σ_rep rests on 5 ratios (4 df), so its 95 % CI is roughly 0.6–2.9× the estimate, and every floor is uncertain.
+  - #2's 8 survivals are robust: they also pass under σ_boot, and the lowest floor is 1.075 against ratios ≥ 1.81.
+  - For #9 the margin (1.130 vs 1.140) is far smaller than that uncertainty. The verdict follows the frozen rule, but #9 should be read as "at the noise floor".
+- **Order:** the order was rotated per repeat, so A ran first in repeats 0, 2 and 4. An order effect is therefore not excluded for the noisy cases (#8, #1).
+
 ### Exact-test recompute of every performance verdict (PM 15:46, after W1 read the asv source; compute only, 15:50)
 
 - **Why:**
@@ -678,6 +725,31 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
   - The exact test gives slightly **more** power: at 1.2×, **0.93** overall (was 0.905), **0.415** for the 3 `benchmark_algorithms` cases (was 0.345), 0.94 for the others.
   - At 1.12× the values are 0.515 / 0.335; at 2× they are 1.0 / 0.975.
   - The reading is unchanged: the heavy-module cases need ≈ 2× for reliable detection.
+
+### Power at the verdict design (18 v 18, exact test + 1 + 3σ floor) (PM 16:55 for W6; compute only)
+
+- **Method:** the same bootstrap as `aa_power_exact.json`: A/A re-run samples from the 23-case A/A, seed 20261122, 200 draws per case and shift, with B scaled by the shift.
+  - Resamples are **18 v 18**: the slowdown-oracle design of 2 processes × 3 values × 3 repeats, pooled.
+  - Test: exact two-sided MWU, p < 0.002, ratio > 1.1, **and** ratio > 1 + 3σ(b).
+  - σ(b) comes from `aa/sigma_noise.json` (σ_rep from only 2 repeats, which is rough; σ_boot as a sensitivity check).
+  - Script `scripts/aa_power_design.py`, output `raw/stats_exact/aa_power_design18.json`.
+- **Result** (median detection probability over cases; 23 cases, 3 of them `benchmark_algorithms`):
+
+| Shift | All cases: no floor | All: + floor σ_rep | All: + floor σ_boot | `benchmark_algorithms`: no floor | Alg: + floor σ_rep | Alg: + floor σ_boot |
+|---|---|---|---|---|---|---|
+| 1.1× | 0.37 | 0.25 | 0.25 | 0.28 | **0.00** | 0.03 |
+| 1.2× | 0.97 | 0.96 | 0.96 | 0.49 | **0.035** | 0.13 |
+| 1.5× | 1.00 | 1.00 | 1.00 | 0.865 | 0.84 | 0.845 |
+| 2× | 1.00 | 1.00 | 1.00 | 0.985 | 0.985 | 0.985 |
+
+- **Reading:**
+  - For the cheap modules, the verdict design detects a 1.2× slowdown almost surely (0.96–0.97), with or without the floor.
+  - For the sampled `benchmark_algorithms` cases, the floor removes almost all power at 1.2× (0.035–0.13), and only ≈ 1.5× or more is reliably detected (0.84–0.99).
+  - At 1.1× nothing is reliable: a true 1.1× shift sits at the asv factor itself.
+- **Limitations:**
+  - Only 3 `benchmark_algorithms` cases; σ_rep from 2 repeats.
+  - The bootstrap resamples pooled samples and so ignores between-process and between-repeat structure, which makes it optimistic.
+  - (b)'s 5-repeat floors for the flagged cases (1.08–2.18) show that per-case floors vary widely.
 
 ### Mining precision by agent labelling (D26, PM 15:55; computed 15:52 by `scripts/labels_b1.py` → `results/labelling/precision_b1.json`)
 
@@ -715,6 +787,72 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
 
   Step 6 is unreached under both measures, so dropping it lowers both counts by one. **The B1 reading does not change:** "many, not most" (the CI spans 50 %), on networkx only.
 - **Codebook v2** (`frozen/labelling/codebook-v2.md`, frozen 15:53) adopts the adjudicator's four rules for the replication sheet: bug fix plus speed-up, opt-in backends, output order, and link fields. It also requires full source diffs in the sheet.
+
+### W6 hostile-review checks (PM 16:25; compute only, nice 19 on CPUs 0–1, concurrent with night item (b) and logged)
+
+**1. B1 construct check: is any edit unreached by construction?** (`scripts/b1_construct.py` → `results/q3/b1_construct.json`; git and AST only)
+- **Method:** each changed function (module-level lines excluded) was looked up by qualname at S0 and at the step's parent state in the replayed sequence.
+- **Result:** **no agent-OPT edit is unreached by construction.** Every one of the 14 has at least one changed function that exists at S0. All changed functions exist at their parent.
+  - Only partial absence: step 2's nested `bidirectional_dijkstra.<locals>.path` is new in that edit. Its outer function exists at S0 and is not in the S0 profile either.
+- **B1 stays 8/14** (S0 profile), so there is nothing to split out.
+- **Not done:** profiling at each edit's parent. Reach is still from S0. That is a stated limitation, and the replication protocol (a) profiles at each parent.
+
+**2. Dilution: the time share of the slowed function in each profile-reaching case** (`scripts/slow_share.py` → `raw/networkx/slowdowns/share.json`)
+- **Method:** cProfile at the slowdown's own state, unpatched. Share = the slowed function's inclusive time ÷ the case's total profiled time.
+- **This is approximate, not a timing result:** cProfile overhead inflates call-heavy code.
+- For a `double_call` slowdown, the expected timing ratio is about **1 + share**.
+
+| Slowdown (kind) | Reaching cases (S0 profile) | Share | Expected ratio | Observed (oracle) |
+|---|---|---|---|---|
+| #2 `_dijkstra_multisource` (double_call) | 8 atlas multi-source cases | **0.84–0.86** | ≈ 1.84–1.86 | **1.81–1.90, slower** ✓ |
+| #3 `is_connected` (double_call) | 3 `time_eigenvector_centrality_numpy` cases | **0.004–0.005** | **≈ 1.005** | same |
+| #8 `_build_paths_from_predecessors` (list_membership) | 1 case | 0.57 | not 1 + share; the slowed operation is one membership test inside the function | 1.116, slower |
+| #1, #4 | none by S0 profile (static reach = all 171 cases, uninformative) | — | — | same (both on-target candidates unreached by profile) |
+
+- **#3 is a dilution miss, not a power miss.** The slowed function is ≈ 0.5 % of its reaching cases. A doubling would change them by ≈ 0.5 %, far below the 1.1 factor and any noise floor.
+- So the earlier wording "#3 may be a power miss" is **replaced:** #3 is reached, but the edit's effect on the benchmark is diluted to ≈ 1.005.
+- **Practical point for the coverage leg:** "executed by a benchmark" is not "visible to a benchmark". Here the share is the third factor, next to coverage and power.
+- **#2's on-target ratios match the share prediction.** That supports reading the share as the expected effect for double_call slowdowns.
+
+**2b. Per-edit time share of the changed functions, for the 14 agent-OPT edits** (advisor draft review via PM 16:44; `scripts/edit_share.py` → `raw/networkx/edit_share.json`)
+
+- **Method:** the same as 2: cProfile, approximate, not timing. Each edit is profiled at its **parent state**, the code it optimizes.
+  - Reaching cases are those whose S0 profile contains a changed function.
+  - The share is the largest inclusive time of any changed function ÷ the case total, taking the maximum over cases. Here the upper bound (sum over changed functions) equals it on every row.
+- **Expected ratio** if the changed functions were uniformly slower by a factor f: 1 + share·(f − 1).
+
+| Step | Changed functions | Executed (S0 profile) | Reaching cases | Max share | Expected ratio, f = 1.2 | Expected ratio, f = 2 |
+|---|---|---|---|---|---|---|
+| 1 | `global_parameters`, `intersection_array` | not executed | 0 | 0 | 1.000 | 1.000 |
+| 2 | `bidirectional_dijkstra` (+ nested `path`) | not executed | 0 | 0 | 1.000 | 1.000 |
+| 3 | `_dijkstra_multisource` | yes | 8 (atlas multi-source) | 0.864 | 1.173 | 1.864 |
+| 4 | `is_connected`, `number_connected_components` | yes | 3 (`eigenvector_centrality_numpy`) | **0.021** | **1.004** | **1.021** |
+| 5 | `_single_shortest_path` and 3 more | not executed | 0 | 0 | 1.000 | 1.000 |
+| 7 | `kruskal_mst_edges` | not executed | 0 | 0 | 1.000 | 1.000 |
+| 9 | `katz_centrality_numpy`, `_pagerank_scipy` | yes | 4 (`time_pagerank`) | 0.998 | 1.200 | 1.998 |
+| 10 | `_build_paths_from_predecessors` | yes | 1 (`ManyComponents`) | 0.502 | 1.100 | 1.502 |
+| 11 | `DiGMState.__init__`, `GMState.__init__` | not executed | 0 | 0 | 1.000 | 1.000 |
+| 12 | `edmonds_karp_impl`, `minimum_cut` | not executed | 0 | 0 | 1.000 | 1.000 |
+| 14 | `_build_paths_from_predecessors` | yes | 1 (`ManyComponents`) | 0.565 | 1.113 | 1.565 |
+| 15 | `lattice_reference`, `random_reference` | not executed | 0 | 0 | 1.000 | 1.000 |
+| 16 | `_triangles_and_degree_iter` | yes | 4 (`time_average_clustering`) | 0.999 | 1.200 | 1.999 |
+| 18 | `chain_decomposition` (+ 2 nested) | not executed | 0 | 0 | 1.000 | 1.000 |
+
+- **Summary:** of the 14 agent-OPT edits, **8 are not executed** by any benchmark (B1). **1 is executed but diluted**: step 4, ≈ 2 % share, so even a 2× slowdown moves its benchmarks by ≈ 2 %.
+  - **5 are executed with a large share** (0.50–1.00): steps 3, 9, 10, 14 and 16.
+  - At f = 1.2, the expected ratio of those 5 is 1.10–1.20. Step 10 is exactly at the asv factor (1.100, not above it), step 14 is just above it (1.113), and all are inside or near the A/A floors of 1.08–2.18 seen in (b).
+  - So **at a 1.2× slowdown of the changed code, at most 4 of the 14 edits (steps 3, 9, 14, 16) could clear the asv factor at all, before noise.** At 2×, 5 of 14 could.
+- **Limitations:**
+  - These are shares, not detections; power comes from the A/A floors.
+  - The profile is from S0 and the shares are from each parent state.
+  - Step 4's share (2 %) differs from slowdown #3's (0.5 %, `is_connected` alone at the slowdown's state), because step 4 has two functions and a different state.
+
+**3. The 890 vs 843 + 50 reconciliation** (slowdown oracle section above, L441 and L569)
+- **Within-oracle comparisons:** 5 reached slowdowns × 171 cases = 855. Minus the 12 on-target, profile-reached cases (#2: 8, #3: 3, #8: 1) leaves **843 off-target**.
+- **Spot check:** the 50 comparisons (6 v 6) **cannot produce a verdict**, since the minimum attainable p is 0.00216 > α.
+- **So the total is 893, not "≈ 890".** Only **843 off-target comparisons can produce a verdict.** At α = 0.002 that gives an expected ≈ 1.7 false non-"same" verdicts (two-sided).
+- **Observed: 3** — #1 slower `connected_components ER(100, 0.1)`, #1 one faster, #2 `NonNeighbors.time_complete(100)`. That is consistent with chance (Poisson(1.7): P(≥ 3) ≈ 0.24).
+- **Wording to use:** "843 off-target comparisons that can yield a verdict (plus 50 spot-check comparisons that cannot)".
 
 ### C7 finding — function-level dependency data is partly nondeterministic (networkx)
 

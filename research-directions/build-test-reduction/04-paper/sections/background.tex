@@ -1,0 +1,62 @@
+\section{Background and Related Work}
+\label{sec:related}
+
+\paragraph*{How optimizers validate a candidate}
+Table~\ref{tab:survey} summarizes how a sample of optimizers and optimization benchmarks validate one candidate edit, from their papers and source code \TODO{cite the W2 survey artifact or move the full table to the artifact}.
+Three patterns matter here.
+First, no system in the sample decides by rule what to rebuild for an edit; harnesses re-install the package for every patch, which is an isolation choice rather than an optimization.
+Second, test subsets are common, but they are almost always fixed per task by the dataset authors; PerfAgent is the exception, selecting tests per edit with pytest-testmon~\cite{deng2026perfagent}.
+Third, the performance oracle varies widely: some systems time a few unit tests that cover the patch (SWE-Perf~\cite{he2025sweperf}), others time workloads written by experts or by an LLM (SWE-fficiency~\cite{ma2025swefficiency}, GSO~\cite{gso2025}), and FormulaCode uses the project's own asv suite~\cite{sehgal2026formulacode}.
+SemOpt's acceptance rule requires a gain on at least one performance test and no loss beyond a small tolerance on the others~\cite{zhao2026semopt}; such two-sided gates are not new, and we do not claim one.
+
+\begin{table}[t]
+\caption{How a sample of code-optimization systems validate one candidate edit (from the systems' papers and source code; condensed from the practice survey).}
+\label{tab:survey}
+\centering\footnotesize
+\begin{tabularx}{\columnwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+System & Build & Tests & Performance oracle \\
+\midrule
+PerfAgent~\cite{deng2026perfagent} & rebuild script per patch & testmon, per edit & one workload, profiler \\
+SemOpt~\cite{zhao2026semopt} & compile or install per candidate & project unit tests & project perf tests, repeated runs, no test statistic \\
+SWE-Perf~\cite{he2025sweperf} & re-install per patch & fixed per task & unit tests that cover the patch, Mann-Whitney \\
+GSO~\cite{gso2025} & full installs per candidate & generated, fixed per task & generated perf scripts, mean speed-up \\
+SWE-fficiency~\cite{ma2025swefficiency} & install in every script & covering tests of the expert diff & one expert workload \\
+FormulaCode~\cite{sehgal2026formulacode} & none per edit (cached image) & tests mapped from file names & project asv workloads \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph*{Regression test selection and its overhead}
+RTS runs only the tests affected by a change~\cite{rothermel1997safe,YooHarman2012}.
+Ekstazi tracks file dependencies dynamically and reports end-to-end time including its own analysis~\cite{gligoric2015ekstazi}; STARTS selects statically from class dependencies~\cite{LegunsenShiMarinov2017,legunsen2016static}.
+For Python, pytest-testmon selects tests by checksums of the code blocks they executed~\cite{TestmonBlog}, Kauhanen et al.\ measure pytest-based RTS misses with mutants~\cite{KauhanenPytestRTS}, and NameRTS selects at the level of names~\cite{WangPradelLiu2026}.
+Selection decisions use dependency data from an earlier run; outdated coverage makes selection inaccurate~\cite{chittimalli2009recomputing}.
+Industrial CI combines per-change selection with periodic or batched full runs~\cite{memon2017taming,Elbaum2014}, and batching has been compared with selection at scale~\cite{fallahzadeh2025contrasting} and made risk-aware for performance tests~\cite{sayedsalehi2026riskaware}.
+We use testmon unchanged as the existing selector; our question is what it costs end to end in an optimization loop and what the remaining oracle can see.
+
+\paragraph*{Performance-test selection and benchmark coverage}
+Work on performance tests mostly selects or orders them per commit: Perphecy predicts which tests to run~\cite{deoliveira2017perphecy}, PerfRanker prioritizes them~\cite{mostafa2017perfranker}, and Laaber et al.\ prioritize microbenchmarks by coverage and search~\cite{laaber2021tcp,laaber2022searchbased}.
+Grambow et al.\ use a reduced microbenchmark suite to detect application performance changes and report misses, one of them apparently for lack of a covering microbenchmark~\cite{grambow2022microbenchmark}.
+Ding et al.\ study whether readily available functional tests can serve as performance tests~\cite{ding2020readily}.
+Earlier studies examine the practice of performance testing in open-source Java projects~\cite{leitner2017state,stefan2017unit}, and Laaber and Leitner evaluate how well open-source microbenchmark suites in Java and Go detect slowdowns injected into sampled API methods, a method counting as covered when some benchmark detects its slowdown~\cite{laaber2018evaluation}.
+We measure a weaker, necessary property, whether the suite executes the functions that real optimization commits change; detection additionally needs a large enough share of the benchmark's time and enough power (Section~\ref{sec:rq3}).
+On cost, $\mu$OpTime reduces microbenchmark execution time by configuring fewer repetitions from an earlier full run~\cite{japke2025uoptime}; on networkx, most benchmark time is setup outside the timing loops, which fewer repetitions of the loops would not remove.
+Peass splits missed injected regressions into uncovered ones and ones below the noise, for Java~\cite{reichelt2023peass}; Peass and Laaber and Leitner thus already separate uncovered changes from changes below the noise, and we add the changed function's share of the benchmark's time as a separate cause and measure all three per edit.
+The closest method precedent for RQ2 is Traini et al., who profile, for each refactoring commit of Java projects, which methods the JMH benchmarks execute before and after the commit, and use a benchmark only if it executes a method the refactoring touched~\cite{traini2021refactoring}; they study refactorings rather than performance-improving commits and do not report the share of commits that no benchmark executes.
+Per-commit profiling of benchmark reach is therefore not new; we apply it to performance-improving commits and report the unexecuted share.
+Shahedi et al.\ exclude commits whose changed methods no JMH benchmark targets, without reporting how many they excluded~\cite{shahedi2025method}; FormulaCode reports a workload coverage figure without defining it, and its tasks are selected to have a measurable workload speed-up~\cite{sehgal2026formulacode}; SWE-fficiency drops pull requests without a covering unit test~\cite{ma2025swefficiency}.
+What we did not find in our recorded searches is the rate at which performance-improving commits in a Python project with an asv suite change only functions that no benchmark of the project executes.
+Generating new performance-stressing inputs is a separate line of work~\cite{yang2025wedge}.
+
+\paragraph*{Measurement methodology}
+Rigorous performance comparison needs repetitions at the right levels and confidence intervals~\cite{georges2007rigorous,kalibera2013rigorous,kalibera2020effectsize}; measurement bias and layout effects can produce wrong conclusions~\cite{mytkowicz2009wrong,curtsinger2013stabilizer}; cloud and shared machines add variability that A/A experiments and interleaving expose~\cite{laaber2019cloud,bulej2020duet}.
+For asv in CI, an A/A experiment on identical code reported false-positive rates of several percent~\cite{rodriguezguerra2021quansight}, and day-of-week and time-of-day patterns have been measured for cloud application benchmarks~\cite{henning2025when}.
+asv flags a regression when the ratio of medians exceeds a factor and a Mann-Whitney test rejects equality~\cite{asvcommands}.
+We use these practices as method; the A/A control is not a contribution, only its result on this suite is.
+
+\paragraph*{Positioning}
+We do not propose a better selector, per-edit test selection in an optimization loop (PerfAgent does it~\cite{deng2026perfagent}), a two-sided performance gate, periodic full runs, or batching.
+What we add is a measurement, for replayed Python optimization edits, of where validation cost goes and of whether the benchmark oracle executes, and can detect changes in, the edited code.
+Our search for prior work comprised \SearchTargeted{} targeted web searches (November 2026), \SearchDBQueries{} database queries in ACM DL (\SearchACM) and IEEE Xplore (\SearchIEEE) screening \SearchScreened{} records, and, for benchmark reach of changes, \SearchReachWeb{} web searches, \SearchReachFetch{} page fetches and \SearchReachDownload{} direct downloads, followed by full reads of the closest works; all are logged in the artifact.
+It is a targeted, not a systematic, review.

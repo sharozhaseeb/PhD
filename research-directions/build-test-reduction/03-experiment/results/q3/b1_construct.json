@@ -1,0 +1,443 @@
+{
+ "summary": {
+  "agent_opt": 14,
+  "profile_unreached": 8,
+  "unreached_by_construction": [],
+  "excluding_construction": {
+   "k": 8,
+   "n": 14
+  },
+  "partial_absence": [
+   {
+    "step": 2,
+    "absent_at_S0": [
+     "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra.<locals>.path"
+    ]
+   }
+  ]
+ },
+ "steps": [
+  {
+   "step": 1,
+   "agents": "OPT",
+   "n_changed": 2,
+   "n_at_S0": 2,
+   "n_at_parent": 2,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/distance_regular.py::global_parameters",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/distance_regular.py::intersection_array",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 2,
+   "agents": "OPT",
+   "n_changed": 2,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra.<locals>.path",
+     "file_at_S0": true,
+     "at_S0": false,
+     "at_parent": false,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 3,
+   "agents": "OPT",
+   "n_changed": 1,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": false,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": true
+    }
+   ]
+  },
+  {
+   "step": 4,
+   "agents": "OPT",
+   "n_changed": 2,
+   "n_at_S0": 2,
+   "n_at_parent": 2,
+   "profile_unreached": false,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/components/connected.py::is_connected",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": true
+    },
+    {
+     "fn": "networkx/algorithms/components/connected.py::number_connected_components",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 5,
+   "agents": "OPT",
+   "n_changed": 4,
+   "n_at_S0": 4,
+   "n_at_parent": 4,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/shortest_paths/unweighted.py::_single_shortest_path",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/shortest_paths/unweighted.py::single_source_shortest_path",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/shortest_paths/unweighted.py::single_source_shortest_path.<locals>.join",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/shortest_paths/unweighted.py::single_target_shortest_path",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 6,
+   "agents": "NOT_OPT",
+   "n_changed": 1,
+   "n_at_S0": 0,
+   "n_at_parent": 0,
+   "profile_unreached": true,
+   "unreached_by_construction": true,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/shortest_paths/dense.py::floyd_warshall_tree",
+     "file_at_S0": true,
+     "at_S0": false,
+     "at_parent": false,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 7,
+   "agents": "OPT",
+   "n_changed": 1,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/tree/mst.py::kruskal_mst_edges",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 8,
+   "agents": "NOT_OPT",
+   "n_changed": 3,
+   "n_at_S0": 3,
+   "n_at_parent": 3,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/isomorphism/isomorph.py::could_be_isomorphic",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/isomorphism/isomorph.py::fast_could_be_isomorphic",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/isomorphism/isomorph.py::faster_could_be_isomorphic",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 9,
+   "agents": "OPT",
+   "n_changed": 2,
+   "n_at_S0": 2,
+   "n_at_parent": 2,
+   "profile_unreached": false,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/centrality/katz.py::katz_centrality_numpy",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/link_analysis/pagerank_alg.py::_pagerank_scipy",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": true
+    }
+   ]
+  },
+  {
+   "step": 10,
+   "agents": "OPT",
+   "n_changed": 1,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": false,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": true
+    }
+   ]
+  },
+  {
+   "step": 11,
+   "agents": "OPT",
+   "n_changed": 2,
+   "n_at_S0": 2,
+   "n_at_parent": 2,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/isomorphism/isomorphvf2.py::DiGMState.__init__",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/isomorphism/isomorphvf2.py::GMState.__init__",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 12,
+   "agents": "OPT",
+   "n_changed": 2,
+   "n_at_S0": 2,
+   "n_at_parent": 2,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/flow/edmondskarp.py::edmonds_karp_impl",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/flow/maxflow.py::minimum_cut",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 13,
+   "agents": "NOT_OPT",
+   "n_changed": 1,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/richclub.py::rich_club_coefficient",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 14,
+   "agents": "OPT",
+   "n_changed": 1,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": false,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": true
+    }
+   ]
+  },
+  {
+   "step": 15,
+   "agents": "OPT",
+   "n_changed": 2,
+   "n_at_S0": 2,
+   "n_at_parent": 2,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/smallworld.py::lattice_reference",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/smallworld.py::random_reference",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 16,
+   "agents": "OPT",
+   "n_changed": 1,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": false,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/cluster.py::_triangles_and_degree_iter",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": true
+    }
+   ]
+  },
+  {
+   "step": 17,
+   "agents": "NOT_OPT",
+   "n_changed": 1,
+   "n_at_S0": 1,
+   "n_at_parent": 1,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/structuralholes.py::effective_size",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  },
+  {
+   "step": 18,
+   "agents": "OPT",
+   "n_changed": 3,
+   "n_at_S0": 3,
+   "n_at_parent": 3,
+   "profile_unreached": true,
+   "unreached_by_construction": false,
+   "functions": [
+    {
+     "fn": "networkx/algorithms/chains.py::chain_decomposition",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/chains.py::chain_decomposition.<locals>._build_chain",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    },
+    {
+     "fn": "networkx/algorithms/chains.py::chain_decomposition.<locals>._dfs_cycle_forest",
+     "file_at_S0": true,
+     "at_S0": true,
+     "at_parent": true,
+     "in_S0_profile": false
+    }
+   ]
+  }
+ ]
+}

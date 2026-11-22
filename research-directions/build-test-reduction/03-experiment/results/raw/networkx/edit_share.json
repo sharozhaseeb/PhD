@@ -1,0 +1,398 @@
+{
+ "1": {
+  "step": 1,
+  "parent": "181f295117f7f7488644c87f04699290f8e49188",
+  "changed_functions": [
+   "networkx/algorithms/distance_regular.py::global_parameters",
+   "networkx/algorithms/distance_regular.py::intersection_array"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ },
+ "2": {
+  "step": 2,
+  "parent": "345a46c08544fa3f50f439fefe5d7afb3b7915a1",
+  "changed_functions": [
+   "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra",
+   "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra.<locals>.path"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ },
+ "3": {
+  "step": 3,
+  "parent": "867fda8df9a3d7bf381ce3c7955ada4bace9f079",
+  "changed_functions": [
+   "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource"
+  ],
+  "executed_S0_profile": true,
+  "cases": {
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')": {
+    "calls": 27,
+    "total_s": 0.5151938079999997,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.439911633
+    },
+    "share": 0.8538760097054588,
+    "share_sum": 0.8538760097054588
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')": {
+    "calls": 27,
+    "total_s": 0.5153393700000002,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.44093897600000004
+    },
+    "share": 0.8556283522448516,
+    "share_sum": 0.8556283522448516
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')": {
+    "calls": 25,
+    "total_s": 0.524700799,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.448358472
+    },
+    "share": 0.8545031241700092,
+    "share_sum": 0.8545031241700092
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')": {
+    "calls": 25,
+    "total_s": 0.5065047410000001,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.437519105
+    },
+    "share": 0.8638006114931902,
+    "share_sum": 0.8638006114931902
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')": {
+    "calls": 32,
+    "total_s": 0.508627717,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.42755558400000004
+    },
+    "share": 0.840606144159462,
+    "share_sum": 0.840606144159462
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')": {
+    "calls": 30,
+    "total_s": 0.5035440910000001,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.42181082000000003
+    },
+    "share": 0.8376839834667029,
+    "share_sum": 0.8376839834667029
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')": {
+    "calls": 26,
+    "total_s": 0.5102602850000002,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.431761382
+    },
+    "share": 0.8461590970184949,
+    "share_sum": 0.8461590970184949
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')": {
+    "calls": 33,
+    "total_s": 0.506992938,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/weighted.py::_dijkstra_multisource": 0.42468897600000005
+    },
+    "share": 0.8376625080328043,
+    "share_sum": 0.8376625080328043
+   }
+  },
+  "max_share": 0.8638006114931902,
+  "max_share_sum": 0.8638006114931902,
+  "expected_ratio_at_1.2x": 1.1727601222986381,
+  "expected_ratio_at_2x": 1.8638006114931902
+ },
+ "4": {
+  "step": 4,
+  "parent": "d3d79cc8f0b6f708cc9f35277a8b170b61064959",
+  "changed_functions": [
+   "networkx/algorithms/components/connected.py::is_connected",
+   "networkx/algorithms/components/connected.py::number_connected_components"
+  ],
+  "executed_S0_profile": true,
+  "cases": {
+   "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')": {
+    "calls": 108,
+    "total_s": 0.5002599320000001,
+    "fn_cum_s": {
+     "networkx/algorithms/components/connected.py::is_connected": 0.010437521,
+     "networkx/algorithms/components/connected.py::number_connected_components": 0.0
+    },
+    "share": 0.020864195455893512,
+    "share_sum": 0.020864195455893512
+   },
+   "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')": {
+    "calls": 118,
+    "total_s": 0.5186486270000001,
+    "fn_cum_s": {
+     "networkx/algorithms/components/connected.py::is_connected": 0.009353935,
+     "networkx/algorithms/components/connected.py::number_connected_components": 0.0
+    },
+    "share": 0.01803520632861908,
+    "share_sum": 0.01803520632861908
+   },
+   "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')": {
+    "calls": 87,
+    "total_s": 0.501674261,
+    "fn_cum_s": {
+     "networkx/algorithms/components/connected.py::is_connected": 0.005930594,
+     "networkx/algorithms/components/connected.py::number_connected_components": 0.0
+    },
+    "share": 0.011821603101937892,
+    "share_sum": 0.011821603101937892
+   }
+  },
+  "max_share": 0.020864195455893512,
+  "max_share_sum": 0.020864195455893512,
+  "expected_ratio_at_1.2x": 1.0041728390911786,
+  "expected_ratio_at_2x": 1.0208641954558935
+ },
+ "5": {
+  "step": 5,
+  "parent": "e773a6af2363440e319f68be10bfed9d89e098c9",
+  "changed_functions": [
+   "networkx/algorithms/shortest_paths/unweighted.py::_single_shortest_path",
+   "networkx/algorithms/shortest_paths/unweighted.py::single_source_shortest_path",
+   "networkx/algorithms/shortest_paths/unweighted.py::single_source_shortest_path.<locals>.join",
+   "networkx/algorithms/shortest_paths/unweighted.py::single_target_shortest_path"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ },
+ "7": {
+  "step": 7,
+  "parent": "2aa848c0455253e09d6f7c3a44419c1b964f7895",
+  "changed_functions": [
+   "networkx/algorithms/tree/mst.py::kruskal_mst_edges"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ },
+ "9": {
+  "step": 9,
+  "parent": "447e59dfa786764b4f574b8dac15fd1b247dfc0f",
+  "changed_functions": [
+   "networkx/algorithms/centrality/katz.py::katz_centrality_numpy",
+   "networkx/algorithms/link_analysis/pagerank_alg.py::_pagerank_scipy"
+  ],
+  "executed_S0_profile": true,
+  "cases": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')": {
+    "calls": 199,
+    "total_s": 0.500528057,
+    "fn_cum_s": {
+     "networkx/algorithms/centrality/katz.py::katz_centrality_numpy": 0.0,
+     "networkx/algorithms/link_analysis/pagerank_alg.py::_pagerank_scipy": 0.49793054600000003
+    },
+    "share": 0.9948104587471707,
+    "share_sum": 0.9948104587471707
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.5)')": {
+    "calls": 136,
+    "total_s": 0.5010512700000002,
+    "fn_cum_s": {
+     "networkx/algorithms/centrality/katz.py::katz_centrality_numpy": 0.0,
+     "networkx/algorithms/link_analysis/pagerank_alg.py::_pagerank_scipy": 0.49935048000000004
+    },
+    "share": 0.9966055569522853,
+    "share_sum": 0.9966055569522853
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.9)')": {
+    "calls": 85,
+    "total_s": 0.5016342950000001,
+    "fn_cum_s": {
+     "networkx/algorithms/centrality/katz.py::katz_centrality_numpy": 0.0,
+     "networkx/algorithms/link_analysis/pagerank_alg.py::_pagerank_scipy": 0.500393097
+    },
+    "share": 0.9975256915000197,
+    "share_sum": 0.9975256915000197
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Drug Interaction network')": {
+    "calls": 7,
+    "total_s": 0.5226279250000001,
+    "fn_cum_s": {
+     "networkx/algorithms/centrality/katz.py::katz_centrality_numpy": 0.0,
+     "networkx/algorithms/link_analysis/pagerank_alg.py::_pagerank_scipy": 0.521781151
+    },
+    "share": 0.9983797765877127,
+    "share_sum": 0.9983797765877127
+   }
+  },
+  "max_share": 0.9983797765877127,
+  "max_share_sum": 0.9983797765877127,
+  "expected_ratio_at_1.2x": 1.1996759553175425,
+  "expected_ratio_at_2x": 1.9983797765877127
+ },
+ "10": {
+  "step": 10,
+  "parent": "eaa48be236267a4a802754a3724c7238042f1b56",
+  "changed_functions": [
+   "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors"
+  ],
+  "executed_S0_profile": true,
+  "cases": {
+   "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths": {
+    "calls": 10826,
+    "total_s": 0.49420767900000007,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors": 0.24785477300000003
+    },
+    "share": 0.5015194695103068,
+    "share_sum": 0.5015194695103068
+   }
+  },
+  "max_share": 0.5015194695103068,
+  "max_share_sum": 0.5015194695103068,
+  "expected_ratio_at_1.2x": 1.1003038939020613,
+  "expected_ratio_at_2x": 1.5015194695103067
+ },
+ "11": {
+  "step": 11,
+  "parent": "52b7255afe5d291d019230f32f9662c01926377f",
+  "changed_functions": [
+   "networkx/algorithms/isomorphism/isomorphvf2.py::DiGMState.__init__",
+   "networkx/algorithms/isomorphism/isomorphvf2.py::GMState.__init__"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ },
+ "12": {
+  "step": 12,
+  "parent": "b85a99864d2dad36e20a2dcc1a56f162e3dbb122",
+  "changed_functions": [
+   "networkx/algorithms/flow/edmondskarp.py::edmonds_karp_impl",
+   "networkx/algorithms/flow/maxflow.py::minimum_cut"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ },
+ "14": {
+  "step": 14,
+  "parent": "2bfab2161957bba212a2522989e2e1649b778aca",
+  "changed_functions": [
+   "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors"
+  ],
+  "executed_S0_profile": true,
+  "cases": {
+   "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths": {
+    "calls": 10838,
+    "total_s": 0.494708408,
+    "fn_cum_s": {
+     "networkx/algorithms/shortest_paths/generic.py::_build_paths_from_predecessors": 0.27954554400000003
+    },
+    "share": 0.565071341985358,
+    "share_sum": 0.565071341985358
+   }
+  },
+  "max_share": 0.565071341985358,
+  "max_share_sum": 0.565071341985358,
+  "expected_ratio_at_1.2x": 1.1130142683970716,
+  "expected_ratio_at_2x": 1.565071341985358
+ },
+ "15": {
+  "step": 15,
+  "parent": "8a87573791356a96d3a8846fd8b41a5c69409100",
+  "changed_functions": [
+   "networkx/algorithms/smallworld.py::lattice_reference",
+   "networkx/algorithms/smallworld.py::random_reference"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ },
+ "16": {
+  "step": 16,
+  "parent": "20d0487dd0a87e9ab056f9d4a5a8859660541652",
+  "changed_functions": [
+   "networkx/algorithms/cluster.py::_triangles_and_degree_iter"
+  ],
+  "executed_S0_profile": true,
+  "cases": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Erdos Renyi (100, 0.1)')": {
+    "calls": 173,
+    "total_s": 0.501701525,
+    "fn_cum_s": {
+     "networkx/algorithms/cluster.py::_triangles_and_degree_iter": 0.492796718
+    },
+    "share": 0.982250787457742,
+    "share_sum": 0.982250787457742
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Erdos Renyi (100, 0.5)')": {
+    "calls": 22,
+    "total_s": 0.5157643350000001,
+    "fn_cum_s": {
+     "networkx/algorithms/cluster.py::_triangles_and_degree_iter": 0.5134104620000001
+    },
+    "share": 0.995436146239154,
+    "share_sum": 0.995436146239154
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Erdos Renyi (100, 0.9)')": {
+    "calls": 11,
+    "total_s": 0.541072207,
+    "fn_cum_s": {
+     "networkx/algorithms/cluster.py::_triangles_and_degree_iter": 0.539505184
+    },
+    "share": 0.9971038560478122,
+    "share_sum": 0.9971038560478122
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')": {
+    "calls": 3,
+    "total_s": 3.6026330960000004,
+    "fn_cum_s": {
+     "networkx/algorithms/cluster.py::_triangles_and_degree_iter": 3.5974582390000003
+    },
+    "share": 0.9985635903345956,
+    "share_sum": 0.9985635903345956
+   }
+  },
+  "max_share": 0.9985635903345956,
+  "max_share_sum": 0.9985635903345956,
+  "expected_ratio_at_1.2x": 1.1997127180669191,
+  "expected_ratio_at_2x": 1.9985635903345957
+ },
+ "18": {
+  "step": 18,
+  "parent": "a9910480b2959eaad6e3bfdb458d708b49bebd39",
+  "changed_functions": [
+   "networkx/algorithms/chains.py::chain_decomposition",
+   "networkx/algorithms/chains.py::chain_decomposition.<locals>._build_chain",
+   "networkx/algorithms/chains.py::chain_decomposition.<locals>._dfs_cycle_forest"
+  ],
+  "executed_S0_profile": false,
+  "cases": {},
+  "max_share": 0.0,
+  "note": "not executed by any S0-profiled case",
+  "expected_ratio_at_1.2x": 1.0,
+  "expected_ratio_at_2x": 1.0
+ }
+}

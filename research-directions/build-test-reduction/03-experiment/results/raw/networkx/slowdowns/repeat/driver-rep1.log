@@ -1,0 +1,54 @@
+2026-11-22T16:44:52+05:00 block rep1-02 start: 9 cases at state d3d79cc8, 2 x 3, 4 repeats
+2026-11-22T16:44:52+05:00 block rep1-02 start: 9 cases at state d3d79cc8, 2 x 3, 4 repeats
+2026-11-22T16:45:30+0500 gate: run postponed load1=0.24 wincpu=22.5 waited=0s
+2026-11-22T16:45:50+0500 gate: run postponed load1=0.3 wincpu=20.6 waited=20s
+2026-11-22T16:46:20+0500 gate: run postponed load1=0.5 wincpu=31.9 waited=0s
+2026-11-22T16:46:40+0500 gate: run postponed load1=0.36 wincpu=27.5 waited=20s
+2026-11-22T16:47:00+0500 gate: run postponed load1=0.25 wincpu=27.6 waited=40s
+2026-11-22T16:47:21+0500 gate: run postponed load1=0.33 wincpu=27.9 waited=60s
+2026-11-22T16:47:41+0500 gate: run postponed load1=0.36 wincpu=25.6 waited=80s
+2026-11-22T16:48:01+0500 gate: run postponed load1=0.41 wincpu=24.9 waited=100s
+2026-11-22T16:48:30+0500 gate: run postponed load1=0.74 wincpu=32.1 waited=0s
+2026-11-22T16:48:50+0500 gate: run postponed load1=1.35 wincpu=33.5 waited=20s
+2026-11-22T16:49:21+0500 gate: run postponed load1=1.31 wincpu=40.2 waited=0s
+2026-11-22T16:49:41+0500 gate: run postponed load1=1.7 wincpu=16.9 waited=20s
+interleave: 72 entries -> /tmp/tmpbvs0xo1x/i.json
+2026-11-22T16:50:15+05:00 block rep1-02 done in 323s; agree 8/9
+2026-11-22T16:50:15+05:00 block rep1-02 done in 323s; agree 8/9
+2026-11-22T16:50:15+05:00 block rep1-08 start: 1 cases at state 52b7255a, 2 x 3, 4 repeats
+2026-11-22T16:50:15+05:00 block rep1-08 start: 1 cases at state 52b7255a, 2 x 3, 4 repeats
+2026-11-22T16:50:30+0500 gate: run postponed load1=1.17 wincpu=25 waited=0s
+2026-11-22T16:50:52+0500 gate: run postponed load1=1.06 wincpu=21.6 waited=0s
+2026-11-22T16:51:22+0500 gate: run postponed load1=0.94 wincpu=34.2 waited=0s
+interleave: 8 entries -> /tmp/tmph1_53fh_/i.json
+2026-11-22T16:51:49+05:00 block rep1-08 done in 95s; agree 1/1
+2026-11-22T16:51:49+05:00 block rep1-08 done in 95s; agree 1/1
+2026-11-22T16:51:50+05:00 block rep1-03 start: 3 cases at state e773a6af, 2 x 3, 4 repeats
+2026-11-22T16:51:50+05:00 block rep1-03 start: 3 cases at state e773a6af, 2 x 3, 4 repeats
+2026-11-22T16:52:24+0500 gate: run postponed load1=0.53 wincpu=34.4 waited=0s
+2026-11-22T16:55:31+0500 gate: run postponed load1=0.55 wincpu=23.5 waited=0s
+2026-11-22T16:55:51+0500 gate: run postponed load1=1.0 wincpu=21.2 waited=20s
+2026-11-22T16:58:40+0500 gate: run postponed load1=0.31 wincpu=30.8 waited=0s
+2026-11-22T16:59:00+0500 gate: run postponed load1=0.29 wincpu=20.7 waited=20s
+2026-11-22T17:00:01+0500 gate: run postponed load1=0.56 wincpu=36.8 waited=0s
+2026-11-22T17:00:21+0500 gate: run postponed load1=0.4 wincpu=26.7 waited=20s
+2026-11-22T17:00:41+0500 gate: run postponed load1=0.35 wincpu=25.4 waited=40s
+2026-11-22T17:01:01+0500 gate: run postponed load1=0.25 wincpu=25.8 waited=60s
+2026-11-22T17:02:52+0500 gate: run postponed load1=0.34 wincpu=26.3 waited=0s
+2026-11-22T17:03:12+0500 gate: run postponed load1=0.24 wincpu=25.6 waited=20s
+2026-11-22T17:04:29+0500 gate: run postponed load1=0.19 wincpu=31.3 waited=0s
+2026-11-22T17:07:37+0500 gate: run postponed load1=0.13 wincpu=25.2 waited=0s
+2026-11-22T17:07:57+0500 gate: run postponed load1=0.15 wincpu=25.1 waited=20s
+2026-11-22T17:08:17+0500 gate: run postponed load1=0.11 wincpu=64.5 waited=40s
+2026-11-22T17:08:37+0500 gate: run postponed load1=0.22 wincpu=26.7 waited=60s
+2026-11-22T17:08:58+0500 gate: run postponed load1=0.35 wincpu=22.9 waited=80s
+2026-11-22T17:09:18+0500 gate: run postponed load1=0.25 wincpu=25.7 waited=100s
+2026-11-22T17:09:38+0500 gate: run postponed load1=0.26 wincpu=22.8 waited=121s
+2026-11-22T17:10:51+0500 gate: run postponed load1=0.17 wincpu=29.8 waited=0s
+2026-11-22T17:12:46+0500 gate: run postponed load1=0.45 wincpu=37.1 waited=0s
+2026-11-22T17:13:06+0500 gate: run postponed load1=0.72 wincpu=31 waited=20s
+2026-11-22T17:13:26+0500 gate: run postponed load1=0.51 wincpu=44.7 waited=40s
+2026-11-22T17:13:46+0500 gate: run postponed load1=0.78 wincpu=53.6 waited=60s
+2026-11-22T17:14:06+0500 gate: run postponed load1=0.68 wincpu=45.6 waited=80s
+2026-11-22T17:14:26+0500 gate: run postponed load1=0.85 wincpu=47 waited=100s
+2026-11-22T17:14:46+0500 gate: run postponed load1=1.1 wincpu=45 waited=120s

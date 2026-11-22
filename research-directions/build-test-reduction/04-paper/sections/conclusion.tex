@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+We set out to make per-edit validation of code optimizations cheaper with reduced builds and reduced test and benchmark selection, using deterministic rules.
+On networkx, the expensive part of validation is the benchmarks, at about \NxBenchRatioMedian\x{} the build plus tests for the median pass, mostly outside the timing loops; existing test selection saves \TestmonRatioLo--\TestmonRatioHi\x{} of the rest end to end, and our accumulated-change policy adds nothing measurable.
+In the base-state profiles, the same benchmarks execute none of the changed functions for \BOneAgentUnreached{} of \NxAgentOpt{} optimization edits, and they detect \FloorDetect{} of \NumSlowdowns{} injected slowdowns on target above the pre-registered noise floor (\SlowDetOnTarget{} by asv's rule alone); where they do execute an edit, the changed code's share of their time means that at most \EditsClearMid{} of the \NxAgentOpt{} edits could show a \PowFactorMid\x{} slowdown at all.
+On this project, the limiting part of per-edit validation was the performance oracle, not build or test cost.
+\TODO{Final sentence after E1: whether this holds across the replication projects, and the per-project range.}

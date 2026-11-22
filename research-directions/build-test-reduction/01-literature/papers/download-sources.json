@@ -1070,5 +1070,13 @@
     "bytes": 1906578,
     "sha256": "f4ac08d6f578a4a1f35b68584d00d4778f1efc5cc587eb32323a5da361968e15",
     "downloaded_on": "2026-11-22"
+  },
+  {
+    "filename": "2018-Laaber-Leitner-Microbenchmark-Suites-MSR.pdf",
+    "title": "An Evaluation of Open-Source Software Microbenchmark Suites for Continuous Performance Assessment (author version)",
+    "source_url": "http://www.ifi.uzh.ch/dam/jcr:ccf1399a-2d57-4ff9-a3b0-59d69616d5d3/msr18-author-version.pdf",
+    "bytes": 1538492,
+    "sha256": "3956e6b752eee21b37e52984e1a62f3c23964fa56821ad9b03c43383a5af1a9a",
+    "downloaded_on": "2026-11-22"
   }
 ]

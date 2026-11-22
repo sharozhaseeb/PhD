@@ -49,3 +49,7 @@ Chosen: 25 mutants, 10 slowdowns (round-robin over steps).
 - `scripts/labels_b1.py` sha256 `ad080e3944eda95395648d3359f7eb7e96d18b60fed4297c845fcebb2dcfad01`
 - `results/labelling/precision_b1.json` sha256 `bb54159064a7ac53ec434bc24fa08ea90fc21db68e7b71d208626a685765d14b`
 - codebook v2 frozen 15:53, before any v2 labelling; v1 unchanged.
+
+## E5 setup-cached pass plan (PM 16:44; frozen 16:52 PKT, before implementation or measurement; for the night of 23→24 Nov)
+- `results/raw/networkx/bench/setup_cached/plan.md` sha256 `58f95a566618a486f24c9761c949d14cc3eb7c64be11bf6be7cd68a303d5e22a`
+- Also recorded: `scripts/edit_share.py` `de64545bd5eb7039af9afff3ba0de73b6ee3ca8f219556110319df02f6420cb6`, `results/raw/networkx/edit_share.json` `ddb6753b024f366b12c1234ec8d32178906e77390675058900a854cd0a217b52`
