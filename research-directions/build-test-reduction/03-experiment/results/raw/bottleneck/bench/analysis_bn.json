@@ -1,0 +1,46 @@
+{
+ "pass0": {
+  "n_runs": 840,
+  "sum_run_wall_s": 544.2298842179662,
+  "wall_s": 1128.9783418178558,
+  "per_module_s": {
+   "move": 182.8,
+   "nonreduce": 3.4,
+   "nonreduce_axis": 102.1,
+   "reduce": 255.9
+  },
+  "m5_label": "noisy",
+  "per_case_s": null,
+  "telemetry": {
+   "n_win": 113,
+   "win_cpu_mean": 18.8,
+   "win_cpu_max": 41,
+   "perf_mean": 155.5,
+   "perf_min": 75.4,
+   "load1_mean": 0.9,
+   "load1_max": 1.9
+  }
+ },
+ "pass1": {
+  "n_runs": 840,
+  "sum_run_wall_s": 546.9129393149778,
+  "wall_s": 1191.5721151828766,
+  "per_module_s": {
+   "move": 175.8,
+   "nonreduce": 3.5,
+   "nonreduce_axis": 106.7,
+   "reduce": 261.0
+  },
+  "m5_label": "noisy",
+  "per_case_s": null,
+  "telemetry": {
+   "n_win": 119,
+   "win_cpu_mean": 17.7,
+   "win_cpu_max": 33.4,
+   "perf_mean": 153.1,
+   "perf_min": 68.5,
+   "load1_mean": 1.0,
+   "load1_max": 2.3
+  }
+ }
+}

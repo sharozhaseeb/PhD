@@ -8,10 +8,12 @@ Over the base and the \NxReplayed{} replayed edits, serial tests alone took abou
 
 \paragraph*{Benchmarks}
 One full benchmark pass (\NxBenchCases{} cases; our runner's cost protocol of two processes with three values each) took \NxBenchPassMin--\NxBenchPassMax\,s over \NxBenchPasses{} measured passes, with a median of about \NxBenchPassMedian\,s.
-These are single passes, not repeats of one state: one dedicated pass at $S_0$ and five unpatched sides of slowdown-oracle runs at later states, all with the same benchmark code and protocol; several were labelled noisy or concurrent.
-Four of the six passes took \NxBenchPassMin--\NxBenchPassTypicalHi\,s; the other two are the dedicated $S_0$ pass (\NxBenchPassSZero\,s), labelled noisy by the load gate, and the base side of slowdown \#1 (\NxBenchPassMax\,s), measured during the unexplained drift described below.
-Against about \NxBuildTests\,s for build plus serial tests, a benchmark pass therefore costs about \NxBenchRatioMedian\x{} the rest of full validation at the median pass, and up to \NxBenchRatioHi\x{} under drift (Fig.~\ref{fig:cost}).
-Counting benchmarks, the build is about \NxBuildShareBench\pct{} of a full validation at the median pass.
+They are a dedicated pass at $S_0$, five unpatched sides of slowdown-oracle runs at later states, and three repeated passes at $S_0$ in one evening with machine telemetry, all with the same benchmark code and protocol; several were labelled noisy or concurrent.
+Against about \NxBuildTests\,s for build plus serial tests, a benchmark pass costs at least about \NxBenchRatioTypical\x{} the rest of full validation even on the four fastest passes (\NxBenchPassMin--\NxBenchPassTypicalHi\,s), about \NxBenchRatioMedian\x{} at the median, and up to \NxBenchRatioHi\x{} (\NxBenchPassMax\,s) under drift, with the same code and protocol (Fig.~\ref{fig:cost}).
+We lead with the lower bound because the claim is that benchmarks dominate, and because most passes were measured under load: by one uniform rule (a pass is noisy if any run exceeds the load gate or started without a passing gate), \PassesNoisy{} of the \NxBenchPasses{} passes are noisy, and the \PassesMeasured{} that is not is the unpatched side of an interleaved oracle run, so no pass is both clean and a dedicated full pass.
+Pass times are run time only, excluding waits for the load gate.
+The three repeated passes alone fell from \DriftEveningHi{} to \DriftEveningLo\,s (\DriftEveningRatio\x) within one evening, while their timing loops stayed at \DriftLoopsLo--\DriftLoopsHi\,s; almost all of the change was in one module's time outside the loops, and telemetry showed no covariate that moved with it.
+Counting benchmarks, the build is below a fifth of a percent of a full validation at every measured pass.
 
 \begin{figure}[t]
 \centering
@@ -28,15 +30,16 @@ If the setup were built once and reused, a pass would cost roughly its timing lo
 This is an estimate and a lower bound (it omits process start-up and warm-up), not a measurement.
 \TODO{E5 (setup-cached pass): replace the estimate with a measured pass in which \texttt{benchmark\_algorithms}' graph construction moves into asv \texttt{setup\_cache} (or a cached fixture) in a patched copy of the suite; report loops, setup and total over at least three passes.}
 
-The per-process setup cost of that module drifted during the day at low load (about \DriftWithinLo--\DriftWithinHi\x{} within one protocol) while the timed samples stayed stable, so pass cost varies but verdicts on interleaved samples are shielded from slow drift (Appendix~\ref{app:drift}).
-\TODO{Drift passes (E6, overnight 22--23 Nov): report R1 as the median and range over all same-protocol passes (the existing ones plus the three repeated passes at $S_0$ with telemetry), and the canary runs between passes.}
+Because the drift sits outside the timing loops, pass cost varies while verdicts on interleaved timed samples are shielded from slow drift (Appendix~\ref{app:drift}); it also means the setup, not the timing, is what a cached pass would remove.
 
 \paragraph*{Contrast: a C extension}
 On bottleneck, a clean build takes \BnBuildLo--\BnBuildHi\,s and the full suite (\BnNumTests{} tests) about \BnTests\,s, so the build is about \BnBuildShareLo--\BnBuildShareHi\pct{} of build plus tests.
-Its benchmark cost has not been measured yet, so this contrast covers the build share only; all bottleneck runs were labelled noisy.
-\TODO{Bottleneck R1 (overnight): add the full benchmark pass at base \texttt{f51ed86} (two passes) and state the benchmark-to-build-plus-tests ratio as a range.}
+Two full benchmark passes (\BnBenchCases{} cases, the same protocol, one state) took \BnBenchPassLo{} and \BnBenchPassHi\,s, so benchmarks cost about \BnBenchRatioLo--\BnBenchRatioHi\x{} build plus tests here too, and the build falls to about \BnBuildShareBenchLo--\BnBuildShareBenchHi\pct{} of a full validation.
+Unlike networkx, the two passes agree closely, and about \BnLoopsShare\pct{} of the benchmark time is in the timing loops; we did not decompose the rest.
+All bottleneck runs were labelled noisy, and the result covers one state.
 \TODO{E4: R1 on one replication project with a cheap build and an asv suite (build, full tests, full benchmarks at 3--5 states, three passes each).}
 
 \paragraph*{Answer to RQ1}
-On networkx, benchmarks dominate per-edit validation cost, at about \NxBenchRatioMedian\x{} build plus tests for the median pass, and most of their time lies outside the timing loops in one module, largely import-time setup by inspection; with that setup cached, the estimate drops to \NxSetupCachedLo--\NxSetupCachedHi\x, still the largest part but not by an order of magnitude.
+On networkx, benchmarks dominate per-edit validation cost, at least about \NxBenchRatioTypical\x{} build plus tests even on the fastest passes (about \NxBenchRatioMedian\x{} at the median), and most of their time lies outside the timing loops in one module, largely import-time setup by inspection; with that setup cached, the estimate drops to \NxSetupCachedLo--\NxSetupCachedHi\x, still the largest part but not by an order of magnitude.
 Reducing the build saves almost nothing for this pure-Python project; reducing tests saves at most the test time of about a minute and a half per edit.
+On bottleneck, a C-extension project with a non-trivial build, benchmarks also dominate, at about \BnBenchRatioLo--\BnBenchRatioHi\x{} build plus tests at one state.

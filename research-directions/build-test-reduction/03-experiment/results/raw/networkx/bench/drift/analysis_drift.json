@@ -1,0 +1,176 @@
+{
+ "canary0": {
+  "n_runs": 3,
+  "sum_run_wall_s": 99.25182424500235,
+  "wall_s": 185.02150058746338,
+  "per_module_s": {
+   "benchmark_algorithms": 98.2,
+   "benchmark_classes": 1.1
+  },
+  "m5_label": "measured-window",
+  "per_case_s": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": 98.17,
+   "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')": 0.56,
+   "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')": 0.53
+  },
+  "telemetry": {
+   "n_win": 12,
+   "win_cpu_mean": 20.1,
+   "win_cpu_max": 29.2,
+   "perf_mean": 150.5,
+   "perf_min": 133.3,
+   "load1_mean": 0.8,
+   "load1_max": 1.0
+  }
+ },
+ "pass0": {
+  "n_runs": 171,
+  "sum_run_wall_s": 2984.2240900169054,
+  "wall_s": 4290.125473737717,
+  "per_module_s": {
+   "benchmark_algorithms": 2888.3,
+   "benchmark_classes": 21.1,
+   "benchmark_harmonic_centrality": 12.7,
+   "benchmark_many_components": 2.3,
+   "benchmark_neighbors": 17.6,
+   "benchmark_regular": 33.0,
+   "benchmark_shortest_path": 4.9,
+   "benchmark_to_networkx_graph": 4.1
+  },
+  "m5_label": "noisy",
+  "per_case_s": null,
+  "telemetry": {
+   "n_win": 1219,
+   "win_cpu_mean": 21.7,
+   "win_cpu_max": 75.2,
+   "perf_mean": 151.0,
+   "perf_min": 0,
+   "load1_mean": 0.5,
+   "load1_max": 2.1
+  }
+ },
+ "canary1": {
+  "n_runs": 3,
+  "sum_run_wall_s": 39.17683142200258,
+  "wall_s": 89.27304315567017,
+  "per_module_s": {
+   "benchmark_algorithms": 38.1,
+   "benchmark_classes": 1.0
+  },
+  "m5_label": "measured-window",
+  "per_case_s": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": 38.15,
+   "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')": 0.56,
+   "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')": 0.47
+  },
+  "telemetry": {
+   "n_win": 4,
+   "win_cpu_mean": 18.5,
+   "win_cpu_max": 22.2,
+   "perf_mean": 149.6,
+   "perf_min": 125.2,
+   "load1_mean": 0.4,
+   "load1_max": 0.5
+  }
+ },
+ "pass1": {
+  "n_runs": 171,
+  "sum_run_wall_s": 1693.7085758260582,
+  "wall_s": 2335.6453473567963,
+  "per_module_s": {
+   "benchmark_algorithms": 1601.1,
+   "benchmark_classes": 19.7,
+   "benchmark_harmonic_centrality": 11.6,
+   "benchmark_many_components": 2.1,
+   "benchmark_neighbors": 17.2,
+   "benchmark_regular": 33.2,
+   "benchmark_shortest_path": 4.8,
+   "benchmark_to_networkx_graph": 4.1
+  },
+  "m5_label": "noisy",
+  "per_case_s": null,
+  "telemetry": {
+   "n_win": 215,
+   "win_cpu_mean": 21.0,
+   "win_cpu_max": 93.6,
+   "perf_mean": 156.0,
+   "perf_min": 0,
+   "load1_mean": 0.6,
+   "load1_max": 1.7
+  }
+ },
+ "canary2": {
+  "n_runs": 3,
+  "sum_run_wall_s": 27.816300514998147,
+  "wall_s": 41.883339643478394,
+  "per_module_s": {
+   "benchmark_algorithms": 26.8,
+   "benchmark_classes": 1.0
+  },
+  "m5_label": "measured-window",
+  "per_case_s": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": 26.77,
+   "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')": 0.52,
+   "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')": 0.53
+  },
+  "telemetry": {
+   "n_win": 2,
+   "win_cpu_mean": 14.2,
+   "win_cpu_max": 16.3,
+   "perf_mean": 138.6,
+   "perf_min": 129.3,
+   "load1_mean": 0.7,
+   "load1_max": 0.7
+  }
+ },
+ "pass2": {
+  "n_runs": 171,
+  "sum_run_wall_s": 1217.467233498006,
+  "wall_s": 1584.7012751102448,
+  "per_module_s": {
+   "benchmark_algorithms": 1124.6,
+   "benchmark_classes": 20.2,
+   "benchmark_harmonic_centrality": 12.5,
+   "benchmark_many_components": 2.0,
+   "benchmark_neighbors": 17.7,
+   "benchmark_regular": 31.9,
+   "benchmark_shortest_path": 4.5,
+   "benchmark_to_networkx_graph": 3.9
+  },
+  "m5_label": "noisy",
+  "per_case_s": null,
+  "telemetry": {
+   "n_win": 158,
+   "win_cpu_mean": 17.6,
+   "win_cpu_max": 37,
+   "perf_mean": 158.8,
+   "perf_min": 0,
+   "load1_mean": 0.7,
+   "load1_max": 1.4
+  }
+ },
+ "canary3": {
+  "n_runs": 3,
+  "sum_run_wall_s": 10.704503952991217,
+  "wall_s": 28.602169513702393,
+  "per_module_s": {
+   "benchmark_algorithms": 9.6,
+   "benchmark_classes": 1.1
+  },
+  "m5_label": "measured-window",
+  "per_case_s": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": 9.65,
+   "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')": 0.6,
+   "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')": 0.45
+  },
+  "telemetry": {
+   "n_win": 1,
+   "win_cpu_mean": 16.2,
+   "win_cpu_max": 16.2,
+   "perf_mean": 163.6,
+   "perf_min": 163.6,
+   "load1_mean": 0.5,
+   "load1_max": 0.5
+  }
+ }
+}

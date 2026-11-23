@@ -1,0 +1,911 @@
+{
+ "plan": "results/raw/networkx/slowdowns/repeat/plan.md",
+ "slowdown": 3,
+ "tier": 1,
+ "state_sha": "e773a6af2363440e319f68be10bfed9d89e098c9",
+ "function": "networkx/algorithms/components/connected.py::is_connected",
+ "protocol": {
+  "processes": 2,
+  "values": 3,
+  "repeats": 4,
+  "order": "rotated per repeat: base-first, slow-first, ..."
+ },
+ "wall_s": 3105.883697271347,
+ "n_runs": 24,
+ "n_errors": 0,
+ "peak_run_load": 0.72,
+ "n_pre_gate_not_ok": 0,
+ "pre_gate_waited_s": 1265.4,
+ "m5_label": "measured-window",
+ "t_first": "2026-11-22T16:52:44+0500",
+ "t_last": "2026-11-22T17:43:35+0500",
+ "cases": {
+  "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')": {
+   "rep0": {
+    "ratio": 1.8807435333040299,
+    "p": 0.0021645021645021645,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.8385887233522608,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 0.8739277289948524,
+    "p": 0.48484848484848486,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.3280641565509843,
+    "p": 0.025974025974025976,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pair0": {
+    "ratio": 1.3597148825811445,
+    "p": 0.0303828219765775,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pair1": {
+    "ratio": 1.0859705552757184,
+    "p": 0.3123214216762161,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pooled": {
+    "ratio": 1.2407683210517715,
+    "p": 0.011539988490258973,
+    "status": "same",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "original": {
+    "ratio": 0.9529829920851951,
+    "p": 0.6692911266180891,
+    "status": "same"
+   },
+   "agree": true
+  },
+  "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')": {
+   "rep0": {
+    "ratio": 0.8895067989194189,
+    "p": 0.6991341991341992,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9869512470362625,
+    "p": 0.48484848484848486,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 0.988236304313216,
+    "p": 0.5887445887445888,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.1694342241850681,
+    "p": 0.5887445887445888,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pair0": {
+    "ratio": 0.9864837874995172,
+    "p": 0.5833604667027033,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pair1": {
+    "ratio": 0.9940924425301727,
+    "p": 0.9769702553219757,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pooled": {
+    "ratio": 0.9818200155333258,
+    "p": 0.8608698044170195,
+    "status": "same",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "original": {
+    "ratio": 0.9738382950300182,
+    "p": 0.22319125752825608,
+    "status": "same"
+   },
+   "agree": true
+  },
+  "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')": {
+   "rep0": {
+    "ratio": 1.1940895126159976,
+    "p": 0.6991341991341992,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.9380183179163654,
+    "p": 0.48484848484848486,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.1638157533593763,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 0.8906757556608533,
+    "p": 0.8181818181818182,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pair0": {
+    "ratio": 0.9684592456149161,
+    "p": 0.7508318840891169,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pair1": {
+    "ratio": 0.9297645793545072,
+    "p": 0.9769702553219757,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pooled": {
+    "ratio": 0.9696366833780059,
+    "p": 0.8125590397647926,
+    "status": "same",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "original": {
+    "ratio": 1.009087980982491,
+    "p": 0.537265926636113,
+    "status": "same"
+   },
+   "agree": true
+  }
+ },
+ "raw_runs": [
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0009626320024835877,
+    0.001058300997101469,
+    0.0010614749990054406,
+    0.0011035459974664263,
+    0.0009767160008777864,
+    0.001068587000190746
+   ],
+   "number": 1,
+   "wall_s": 46.8802565219994,
+   "loadavg_before": 0.38,
+   "loadavg_after": 0.22,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T16:52:44+0500",
+   "t_end": "2026-11-22T16:53:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.38,
+    "wincpu": 14.9,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0029558070018538274,
+    0.0021531980019062757,
+    0.0020102399976167362,
+    0.0019765149991144426,
+    0.0012679120009124745,
+    0.0011628530010057148
+   ],
+   "number": 1,
+   "wall_s": 39.120458801000495,
+   "loadavg_before": 0.22,
+   "loadavg_after": 0.42,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T16:53:31+0500",
+   "t_end": "2026-11-22T16:54:10+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.22,
+    "wincpu": 19.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.002486448000126984,
+    0.0022116990003269166,
+    0.002810051002597902,
+    0.0018005749989242759,
+    0.0016230969995376654,
+    0.0015562150001642294
+   ],
+   "number": 1,
+   "wall_s": 80.72975934600254,
+   "loadavg_before": 0.42,
+   "loadavg_after": 0.55,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T16:54:10+0500",
+   "t_end": "2026-11-22T16:55:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.42,
+    "wincpu": 19.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.001698453001154121,
+    0.0015315280033973977,
+    0.0017946340012713335,
+    0.003165194000757765,
+    0.002027552000072319,
+    0.0017743110001902096
+   ],
+   "number": 1,
+   "wall_s": 70.03166156999941,
+   "loadavg_before": 0.72,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T16:56:11+0500",
+   "t_end": "2026-11-22T16:57:22+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.72,
+    "wincpu": 18.4,
+    "waited_s": 40.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.0025766750004549976,
+    0.0027117719982925337,
+    0.0023653969983570278,
+    0.0047125370001595,
+    0.003676897998957429,
+    0.003295785998489009
+   ],
+   "number": 1,
+   "wall_s": 77.66840541000056,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.31,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T16:57:22+0500",
+   "t_end": "2026-11-22T16:58:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 10.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.002738571998634143,
+    0.0025529619997541886,
+    0.0022880690012243576,
+    0.00539719399966998,
+    0.0064907080013654195,
+    0.004434990001755068
+   ],
+   "number": 1,
+   "wall_s": 40.65481909600203,
+   "loadavg_before": 0.35,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T16:59:20+0500",
+   "t_end": "2026-11-22T17:00:01+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.35,
+    "wincpu": 18.7,
+    "waited_s": 40.2
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0014954319995013066,
+    0.0010887819989875425,
+    0.0018276590017194394,
+    0.001400845001626294,
+    0.0013428630009002518,
+    0.0013338800017663743
+   ],
+   "number": 1,
+   "wall_s": 90.51493252599903,
+   "loadavg_before": 0.26,
+   "loadavg_after": 0.34,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:01:21+0500",
+   "t_end": "2026-11-22T17:02:52+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.26,
+    "wincpu": 19.4,
+    "waited_s": 80.4
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.001151632000983227,
+    0.0009800449988688342,
+    0.0010104259999934584,
+    0.002475682002113899,
+    0.002157999002520228,
+    0.0021201839990681037
+   ],
+   "number": 1,
+   "wall_s": 56.12860754400026,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.19,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:03:32+0500",
+   "t_end": "2026-11-22T17:04:29+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 14.4,
+    "waited_s": 40.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0017221500020241365,
+    0.001579527001013048,
+    0.0017577120015630499,
+    0.0017812619989854284,
+    0.0016983219975372776,
+    0.0015851279968046583
+   ],
+   "number": 1,
+   "wall_s": 95.28287492600066,
+   "loadavg_before": 0.13,
+   "loadavg_after": 0.21,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:04:49+0500",
+   "t_end": "2026-11-22T17:06:24+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.13,
+    "wincpu": 13.6,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0017586709982424509,
+    0.0016280489980999846,
+    0.0016151920026459266,
+    0.0020222340026521124,
+    0.0017070239991880953,
+    0.0017688699990685564
+   ],
+   "number": 1,
+   "wall_s": 72.4594813420008,
+   "loadavg_before": 0.21,
+   "loadavg_after": 0.13,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:06:24+0500",
+   "t_end": "2026-11-22T17:07:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.21,
+    "wincpu": 13.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.002570748998550698,
+    0.0023872899982961826,
+    0.00231394500224269,
+    0.0030134440021356568,
+    0.0026925199999823235,
+    0.0024262650003947783
+   ],
+   "number": 1,
+   "wall_s": 52.511274057000264,
+   "loadavg_before": 0.39,
+   "loadavg_after": 0.17,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:09:58+0500",
+   "t_end": "2026-11-22T17:10:51+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.39,
+    "wincpu": 10.7,
+    "waited_s": 140.8
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.002863094003259903,
+    0.0026042919998872094,
+    0.0025378320024174172,
+    0.0027229110019106884,
+    0.002318795999599388,
+    0.0029945450005470775
+   ],
+   "number": 1,
+   "wall_s": 95.06710660299723,
+   "loadavg_before": 0.55,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:11:11+0500",
+   "t_end": "2026-11-22T17:12:46+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.55,
+    "wincpu": 18,
+    "waited_s": 20.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.001368709999951534,
+    0.0016069450030045118,
+    0.0018602070013002958,
+    0.0013192799997341353,
+    0.001005597001494607,
+    0.0009631169996282551
+   ],
+   "number": 1,
+   "wall_s": 87.69942911600083,
+   "loadavg_before": 0.29,
+   "loadavg_after": 0.09,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:19:08+0500",
+   "t_end": "2026-11-22T17:20:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.29,
+    "wincpu": 19.3,
+    "waited_s": 381.5
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.001084603998606326,
+    0.0009938729999703355,
+    0.0012072089994035196,
+    0.0011418999965826515,
+    0.0012340659995970782,
+    0.0015150670005823486
+   ],
+   "number": 1,
+   "wall_s": 55.371528133997344,
+   "loadavg_before": 0.07,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:21:56+0500",
+   "t_end": "2026-11-22T17:22:52+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.07,
+    "wincpu": 7.7,
+    "waited_s": 80.4
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0016579039984208066,
+    0.0015867520014580805,
+    0.001651713999308413,
+    0.0017252699981327169,
+    0.001668857003096491,
+    0.0020466399982979055
+   ],
+   "number": 1,
+   "wall_s": 49.03110821100199,
+   "loadavg_before": 0.16,
+   "loadavg_after": 0.15,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:23:32+0500",
+   "t_end": "2026-11-22T17:24:21+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.16,
+    "wincpu": 19.8,
+    "waited_s": 40.2
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0016834140005812515,
+    0.0016616539978713263,
+    0.0015925819971016608,
+    0.001953662998857908,
+    0.001625971999601461,
+    0.00155776099927607
+   ],
+   "number": 1,
+   "wall_s": 76.77639854699737,
+   "loadavg_before": 0.15,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:24:21+0500",
+   "t_end": "2026-11-22T17:25:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.15,
+    "wincpu": 11,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.003721932996995747,
+    0.0032430339997517876,
+    0.0023497370020777453,
+    0.0035655059982673265,
+    0.002653614999871934,
+    0.0026499690029595513
+   ],
+   "number": 1,
+   "wall_s": 82.29994246699789,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.22,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:25:38+0500",
+   "t_end": "2026-11-22T17:27:01+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 18.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.002738568997301627,
+    0.0042052489989146125,
+    0.003393588998733321,
+    0.004236845998093486,
+    0.003469023999059573,
+    0.002377552002144512
+   ],
+   "number": 1,
+   "wall_s": 72.45317993299977,
+   "loadavg_before": 0.22,
+   "loadavg_after": 0.12,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:27:01+0500",
+   "t_end": "2026-11-22T17:28:13+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.22,
+    "wincpu": 16.7,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.001236664000316523,
+    0.0015660069984733127,
+    0.001562452998769004,
+    0.0016458499994769227,
+    0.001221067999722436,
+    0.0010113970020029228
+   ],
+   "number": 1,
+   "wall_s": 116.996681042001,
+   "loadavg_before": 0.16,
+   "loadavg_after": 0.27,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:28:33+0500",
+   "t_end": "2026-11-22T17:30:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.16,
+    "wincpu": 11.3,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.001172034000774147,
+    0.0010887400021601934,
+    0.0010189269996772055,
+    0.001179095997940749,
+    0.0009821950006880797,
+    0.0009950879975804128
+   ],
+   "number": 1,
+   "wall_s": 92.32640775799882,
+   "loadavg_before": 0.27,
+   "loadavg_after": 0.5,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:30:31+0500",
+   "t_end": "2026-11-22T17:32:03+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.27,
+    "wincpu": 15.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0016906620003283024,
+    0.0016515370007255115,
+    0.0020429379983397666,
+    0.0028787939991161693,
+    0.002605534999020165,
+    0.002094400999339996
+   ],
+   "number": 1,
+   "wall_s": 94.912050379,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.31,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:37:05+0500",
+   "t_end": "2026-11-22T17:38:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 19.4,
+    "waited_s": 301.3
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.002310789997864049,
+    0.0016673520003678277,
+    0.0015719170005468186,
+    0.0026241209998261184,
+    0.0017603919986868277,
+    0.001777505996869877
+   ],
+   "number": 1,
+   "wall_s": 85.02240545300083,
+   "loadavg_before": 0.31,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:38:40+0500",
+   "t_end": "2026-11-22T17:40:05+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.31,
+    "wincpu": 16.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.0023296450017369352,
+    0.002305666999745881,
+    0.0022770840005250648,
+    0.00308566799867549,
+    0.00247309599944856,
+    0.0025771479995455593
+   ],
+   "number": 1,
+   "wall_s": 86.65499571500186,
+   "loadavg_before": 0.36,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:40:05+0500",
+   "t_end": "2026-11-22T17:41:32+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.36,
+    "wincpu": 15.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.0022993990023678634,
+    0.002328587001102278,
+    0.00224180300210719,
+    0.0032617520009807777,
+    0.004508215999521781,
+    0.003063657000893727
+   ],
+   "number": 1,
+   "wall_s": 82.52449968600195,
+   "loadavg_before": 0.46,
+   "loadavg_after": 0.46,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:42:12+0500",
+   "t_end": "2026-11-22T17:43:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.46,
+    "wincpu": 17,
+    "waited_s": 40.1
+   }
+  }
+ ]
+}

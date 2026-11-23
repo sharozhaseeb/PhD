@@ -1,0 +1,298 @@
+{
+ "blocks": {
+  "3": {
+   "n_cases": 168,
+   "m5_label": "noisy",
+   "n_runs": 672,
+   "peak": 1.65,
+   "runs_gt_1_5": 3,
+   "cases_with_a_run_gt_1_5": 2,
+   "flips": 6,
+   "flips_in_cases_with_run_gt_1_5": 1,
+   "median_case_max_load_flips": 0.77,
+   "median_case_max_load_all": 0.87,
+   "transitions": {
+    "same->faster": 4,
+    "same->slower": 2
+   }
+  },
+  "4": {
+   "n_cases": 171,
+   "m5_label": "noisy",
+   "n_runs": 684,
+   "peak": 1.61,
+   "runs_gt_1_5": 2,
+   "cases_with_a_run_gt_1_5": 2,
+   "flips": 1,
+   "flips_in_cases_with_run_gt_1_5": 0,
+   "median_case_max_load_flips": 1.05,
+   "median_case_max_load_all": 1.14,
+   "transitions": {
+    "same->slower": 1
+   }
+  },
+  "2": {
+   "n_cases": 162,
+   "m5_label": "measured-window",
+   "n_runs": 648,
+   "peak": 1.49,
+   "runs_gt_1_5": 0,
+   "cases_with_a_run_gt_1_5": 0,
+   "flips": 4,
+   "flips_in_cases_with_run_gt_1_5": 0,
+   "median_case_max_load_flips": 0.96,
+   "median_case_max_load_all": 1.02,
+   "transitions": {
+    "same->slower": 4
+   }
+  }
+ },
+ "flips": [
+  {
+   "slowdown": 3,
+   "case": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Drug Interaction network')",
+   "original": "same",
+   "now_exact": "faster",
+   "ratio": 0.8454967407515966,
+   "p_exact": 0.0011145806676833734,
+   "pairs": [
+    "same"
+   ],
+   "case_run_loads": [
+    0.77,
+    1.34,
+    1.52,
+    1.43
+   ],
+   "case_max_load": 1.52,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 3,
+   "case": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_k_core('Erdos Renyi (100, 0.1)')",
+   "original": "same",
+   "now_exact": "slower",
+   "ratio": 1.4297088177391628,
+   "p_exact": 1.40524437199629e-05,
+   "pairs": [
+    "slower"
+   ],
+   "case_run_loads": [
+    1.03,
+    0.94,
+    0.46,
+    0.43
+   ],
+   "case_max_load": 1.03,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 3,
+   "case": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+   "original": "same",
+   "now_exact": "faster",
+   "ratio": 0.8288563548490551,
+   "p_exact": 0.0006560272410319523,
+   "pairs": [
+    "faster"
+   ],
+   "case_run_loads": [
+    0.77,
+    0.73,
+    0.53,
+    0.67
+   ],
+   "case_max_load": 0.77,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 3,
+   "case": "benchmark_classes.GraphBenchmark.time_to_undirected('MultiDiGraph')",
+   "original": "same",
+   "now_exact": "faster",
+   "ratio": 0.8732173477535873,
+   "p_exact": 0.00010280471984604439,
+   "pairs": [
+    "faster"
+   ],
+   "case_run_loads": [
+    0.73,
+    0.73,
+    0.75,
+    0.75
+   ],
+   "case_max_load": 0.75,
+   "case_gate_not_ok": 0,
+   "sigma_source": "aa/sigma_noise.json (S0, 2 repeats)",
+   "floor_rep": 1.028650458029013,
+   "floor_boot": 1.054349679826465,
+   "clears_floor_rep": true,
+   "clears_floor_boot": true
+  },
+  {
+   "slowdown": 3,
+   "case": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+   "original": "same",
+   "now_exact": "slower",
+   "ratio": 1.211278195706348,
+   "p_exact": 0.00020117182588578472,
+   "pairs": [
+    "slower"
+   ],
+   "case_run_loads": [
+    0.67,
+    0.67,
+    0.77,
+    0.77
+   ],
+   "case_max_load": 0.77,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 3,
+   "case": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(10, 0.7)', 4)",
+   "original": "same",
+   "now_exact": "faster",
+   "ratio": 0.8589294718202334,
+   "p_exact": 2.2188069031520366e-05,
+   "pairs": [
+    "faster"
+   ],
+   "case_run_loads": [
+    0.68,
+    0.68,
+    0.44,
+    0.44
+   ],
+   "case_max_load": 0.68,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 4,
+   "case": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (100, 0.1)')",
+   "original": "same",
+   "now_exact": "slower",
+   "ratio": 1.2000323972988725,
+   "p_exact": 3.328210354728055e-05,
+   "pairs": [
+    "slower"
+   ],
+   "case_run_loads": [
+    1.05,
+    1.05,
+    0.5,
+    0.5
+   ],
+   "case_max_load": 1.05,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 2,
+   "case": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.05)')",
+   "original": "same",
+   "now_exact": "slower",
+   "ratio": 1.170868870330726,
+   "p_exact": 0.0003712803551274409,
+   "pairs": [
+    "slower"
+   ],
+   "case_run_loads": [
+    0.2,
+    0.5,
+    0.68,
+    0.84
+   ],
+   "case_max_load": 0.84,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 2,
+   "case": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')",
+   "original": "same",
+   "now_exact": "slower",
+   "ratio": 1.2878336508307195,
+   "p_exact": 7.39602301050679e-07,
+   "pairs": [
+    "slower"
+   ],
+   "case_run_loads": [
+    1.08,
+    0.91,
+    0.8,
+    0.59
+   ],
+   "case_max_load": 1.08,
+   "case_gate_not_ok": 0,
+   "sigma_source": "aa/sigma_noise.json (S0, 2 repeats)",
+   "floor_rep": 1.2779708941617933,
+   "floor_boot": 1.2172730408286183,
+   "clears_floor_rep": true,
+   "clears_floor_boot": true
+  },
+  {
+   "slowdown": 2,
+   "case": "benchmark_classes.GraphBenchmark.time_subgraph_large('MultiGraph')",
+   "original": "same",
+   "now_exact": "slower",
+   "ratio": 1.173257669041304,
+   "p_exact": 0.00182977609279938,
+   "pairs": [
+    "same"
+   ],
+   "case_run_loads": [
+    0.76,
+    0.76,
+    1.27,
+    1.27
+   ],
+   "case_max_load": 1.27,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  },
+  {
+   "slowdown": 2,
+   "case": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct_multi_instance(<class 'networkx.classes.digraph.DiGraph'>)",
+   "original": "same",
+   "now_exact": "slower",
+   "ratio": 1.170225393791075,
+   "p_exact": 8.875227612608148e-06,
+   "pairs": [
+    "slower"
+   ],
+   "case_run_loads": [
+    0.79,
+    0.79,
+    0.79,
+    0.79
+   ],
+   "case_max_load": 0.79,
+   "case_gate_not_ok": 0,
+   "sigma_source": null,
+   "floor_rep": null,
+   "floor_boot": null
+  }
+ ]
+}

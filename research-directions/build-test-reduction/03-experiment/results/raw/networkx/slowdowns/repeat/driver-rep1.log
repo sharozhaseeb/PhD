@@ -52,3 +52,74 @@ interleave: 8 entries -> /tmp/tmph1_53fh_/i.json
 2026-11-22T17:14:06+0500 gate: run postponed load1=0.68 wincpu=45.6 waited=80s
 2026-11-22T17:14:26+0500 gate: run postponed load1=0.85 wincpu=47 waited=100s
 2026-11-22T17:14:46+0500 gate: run postponed load1=1.1 wincpu=45 waited=120s
+2026-11-22T17:15:07+0500 gate: run postponed load1=1.06 wincpu=66 waited=141s
+2026-11-22T17:15:27+0500 gate: run postponed load1=0.99 wincpu=62.6 waited=161s
+2026-11-22T17:15:47+0500 gate: run postponed load1=0.77 wincpu=63.7 waited=181s
+2026-11-22T17:16:07+0500 gate: run postponed load1=0.55 wincpu=52.7 waited=201s
+2026-11-22T17:16:27+0500 gate: run postponed load1=0.4 wincpu=42.2 waited=221s
+2026-11-22T17:16:47+0500 gate: run postponed load1=0.65 wincpu=47.3 waited=241s
+2026-11-22T17:17:07+0500 gate: run postponed load1=0.46 wincpu=52.3 waited=261s
+2026-11-22T17:17:27+0500 gate: run postponed load1=0.4 wincpu=33.8 waited=281s
+2026-11-22T17:17:47+0500 gate: run postponed load1=0.43 wincpu=40.2 waited=301s
+2026-11-22T17:18:07+0500 gate: run postponed load1=0.5 wincpu=38.2 waited=321s
+2026-11-22T17:18:27+0500 gate: run postponed load1=0.43 wincpu=94.2 waited=341s
+2026-11-22T17:18:47+0500 gate: run postponed load1=0.31 wincpu=100 waited=361s
+2026-11-22T17:20:36+0500 gate: run postponed load1=0.09 wincpu=24.9 waited=0s
+2026-11-22T17:20:56+0500 gate: run postponed load1=0.21 wincpu=21.2 waited=20s
+2026-11-22T17:21:16+0500 gate: run postponed load1=0.15 wincpu=36 waited=40s
+2026-11-22T17:21:36+0500 gate: run postponed load1=0.1 wincpu=21 waited=60s
+2026-11-22T17:22:52+0500 gate: run postponed load1=0.23 wincpu=26.9 waited=0s
+2026-11-22T17:23:12+0500 gate: run postponed load1=0.23 wincpu=20.2 waited=20s
+2026-11-22T17:28:13+0500 gate: run postponed load1=0.12 wincpu=91.7 waited=0s
+2026-11-22T17:32:03+0500 gate: run postponed load1=0.5 wincpu=21.5 waited=0s
+2026-11-22T17:32:24+0500 gate: run postponed load1=0.43 wincpu=25 waited=20s
+2026-11-22T17:32:44+0500 gate: run postponed load1=0.31 wincpu=25 waited=40s
+2026-11-22T17:33:04+0500 gate: run postponed load1=0.64 wincpu=23.7 waited=60s
+2026-11-22T17:33:24+0500 gate: run postponed load1=0.6 wincpu=37.4 waited=80s
+2026-11-22T17:33:44+0500 gate: run postponed load1=0.43 wincpu=87.3 waited=100s
+2026-11-22T17:34:04+0500 gate: run postponed load1=0.52 wincpu=39.7 waited=121s
+2026-11-22T17:34:24+0500 gate: run postponed load1=0.51 wincpu=26.7 waited=141s
+2026-11-22T17:34:44+0500 gate: run postponed load1=0.43 wincpu=49.1 waited=161s
+2026-11-22T17:35:04+0500 gate: run postponed load1=0.52 wincpu=74.2 waited=181s
+2026-11-22T17:35:24+0500 gate: run postponed load1=0.6 wincpu=52.1 waited=201s
+2026-11-22T17:35:44+0500 gate: run postponed load1=0.72 wincpu=34.4 waited=221s
+2026-11-22T17:36:05+0500 gate: run postponed load1=1.63 wincpu=99.4 waited=241s
+2026-11-22T17:36:25+0500 gate: run postponed load1=1.17 wincpu=75.4 waited=261s
+2026-11-22T17:36:45+0500 gate: run postponed load1=0.9 wincpu=26.9 waited=281s
+2026-11-22T17:41:32+0500 gate: run postponed load1=0.18 wincpu=26.7 waited=0s
+2026-11-22T17:41:52+0500 gate: run postponed load1=0.13 wincpu=22 waited=20s
+interleave: 24 entries -> /tmp/tmpek408a1a/i.json
+2026-11-22T17:43:35+05:00 block rep1-03 done in 3106s; agree 3/3
+2026-11-22T17:43:35+05:00 block rep1-03 done in 3106s; agree 3/3
+2026-11-22T17:43:36+05:00 block rep1-01 start: 1 cases at state 867fda8d, 2 x 3, 4 repeats
+2026-11-22T17:43:36+05:00 block rep1-01 start: 1 cases at state 867fda8d, 2 x 3, 4 repeats
+2026-11-22T17:44:35+0500 gate: run postponed load1=0.47 wincpu=100 waited=0s
+2026-11-22T17:44:55+0500 gate: run postponed load1=0.34 wincpu=23.9 waited=20s
+2026-11-22T17:47:48+0500 gate: run postponed load1=0.46 wincpu=31.7 waited=0s
+2026-11-22T17:48:08+0500 gate: run postponed load1=0.83 wincpu=23.9 waited=20s
+2026-11-22T17:48:28+0500 gate: run postponed load1=0.75 wincpu=25.6 waited=40s
+2026-11-22T17:48:48+0500 gate: run postponed load1=0.53 wincpu=31.6 waited=60s
+2026-11-22T17:49:09+0500 gate: run postponed load1=0.38 wincpu=26.7 waited=80s
+2026-11-22T17:49:29+0500 gate: run postponed load1=0.33 wincpu=26 waited=100s
+2026-11-22T17:49:49+0500 gate: run postponed load1=0.63 wincpu=53.8 waited=121s
+2026-11-22T17:50:09+0500 gate: run postponed load1=0.76 wincpu=100 waited=141s
+2026-11-22T17:50:29+0500 gate: run postponed load1=0.54 wincpu=87.5 waited=161s
+2026-11-22T17:50:49+0500 gate: run postponed load1=0.96 wincpu=30.6 waited=181s
+2026-11-22T17:51:09+0500 gate: run postponed load1=0.83 wincpu=21.7 waited=201s
+2026-11-22T17:51:29+0500 gate: run postponed load1=0.75 wincpu=22.7 waited=221s
+2026-11-22T17:51:49+0500 gate: run postponed load1=0.53 wincpu=20.5 waited=241s
+2026-11-22T17:55:21+0500 gate: run postponed load1=0.29 wincpu=21.5 waited=0s
+2026-11-22T17:57:45+0500 gate: run postponed load1=0.08 wincpu=22.3 waited=0s
+2026-11-22T17:59:01+0500 gate: run postponed load1=0.36 wincpu=29.5 waited=0s
+2026-11-22T17:59:21+0500 gate: run postponed load1=0.88 wincpu=20.4 waited=20s
+2026-11-22T17:59:41+0500 gate: run postponed load1=1.26 wincpu=25.2 waited=40s
+2026-11-22T18:00:08+05:00 driver exit 124 (rep1; 124 = cap 4500s hit)
+2026-11-22T21:09:42+05:00 block rep1-01 start: 1 cases at state 867fda8d, 2 x 3, 4 repeats
+2026-11-22T21:09:42+05:00 block rep1-01 start: 1 cases at state 867fda8d, 2 x 3, 4 repeats
+2026-11-22T21:09:52+0500 gate: run postponed load1=0.55 wincpu=20.4 waited=0s top_win=btweb(2.6s/min)
+interleave: 8 entries -> /tmp/tmpdkkqu0qx/i.json
+2026-11-22T21:12:56+05:00 block rep1-01 done in 194s; agree 0/1
+2026-11-22T21:12:56+05:00 block rep1-01 done in 194s; agree 0/1
+2026-11-22T21:12:56+05:00 rep1 finished
+2026-11-22T21:12:56+05:00 rep1 finished
+2026-11-22T21:12:56+05:00 driver exit 0 (rep1; 124 = cap 4500s hit)

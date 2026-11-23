@@ -141,6 +141,10 @@ def D():
     d["b1c"] = jload(RES / "q3" / "b1_construct.json")  # W3 16:30, B1 construct check (git + AST)
     d["eshare"] = jload(RES / "raw/networkx/edit_share.json")  # W3 2b, per-edit share (cProfile at parent)
     d["pow18"] = jload(RES / "raw/stats_exact/aa_power_design18.json")  # W3, power at the verdict design (18 v 18 + floor)
+    d["rep"] = jload(RES / "raw/networkx/slowdowns/repeat/analysis_rep.json")  # W3 E3 tier 1
+    d["drift"] = [jload(RES / ("raw/networkx/bench/drift/pass%d.json" % j)) for j in range(3)]  # W3 (d)
+    d["plabels"] = jload(RES / "raw/networkx/bench/pass_labels.json")  # W3 uniform pass labels (supersedes LABELS.md 5/9)
+    d["bnbench"] = jload(RES / "raw/bottleneck/bench/analysis_bn.json")  # W3 (c) bottleneck FULL passes
     d["aaflag"] = jload(RES / "raw/networkx/bench/aa_flagged/analysis_aa.json")  # W3 (b), sigma for the 12 flagged verdicts
     d["recomp"] = jload(RES / "raw/stats_exact/recompute.json")
     d["aa"] = jload(RES / "raw/networkx/bench/aa/aa_result.json")
@@ -149,7 +153,7 @@ def D():
 
 
 def passes(d):
-    """The 6 measured FULL benchmark passes: S0 + base side of slowdowns 01,02,03,04,08.
+    """The 9 measured FULL benchmark passes: S0 + base side of slowdowns 01,02,03,04,08 + 3 drift passes.
     Wall = sum of wall_s over the 171 cases of a pass; loops = sum(samples)*number; mean over the
     3 interleaved base passes of a slowdown file (as results.md 'RQ1 headline')."""
     out = []
@@ -171,6 +175,12 @@ def passes(d):
         out.append({"name": "#%d" % i, "wall": sum(w[k] for k in reps) / len(reps),
                     "loops": sum(l[k] for k in reps) / len(reps),
                     "algo": sum(a[k] for k in reps) / len(reps)})
+    # (d) three repeated FULL passes at S0 with telemetry (W3, night 22 Nov; all labelled noisy)
+    for j in range(3):
+        r = d["drift"][j]["raw_runs"]
+        out.append({"name": "drift%d" % j, "wall": sum(x["wall_s"] for x in r),
+                    "loops": sum(sum(x["samples"]) * x["number"] for x in r if x["samples"] and x["number"]),
+                    "algo": sum(x["wall_s"] for x in r if x["id"].startswith("benchmark_algorithms."))})
     return out
 
 
@@ -229,6 +239,34 @@ def compute(d):
     v["NxTestsMedianClean"] = rnd(tests_med, 1)
     v["NxTestsSession"] = rint(round(sum(float(r["tests_wall_s"]) for r in q) / 100) * 100)
     v["NxPassSpread"] = rnd(walls[-1] / walls[0], 1)
+    v["NxBenchPasses"] = str(len(pa))
+    v["NxBenchPassTypicalHi"] = rint(sorted(walls)[3])  # the four lowest passes, 659-751 s
+    v["NxBenchRatioMedian"] = rint(statistics.median(walls) / bt)
+    v["NxBenchRatioTypical"] = rint(walls[0] / bt)
+    v["NxLoopsLo"] = rint(min(p["loops"] for p in pa))
+    v["NxLoopsHi"] = rint(max(p["loops"] for p in pa))
+    v["NxOutsideLoopsLo"] = rnd(100 * min(1 - p["loops"] / p["wall"] for p in pa), 1)
+    v["NxOutsideLoopsHi"] = rnd(100 * max(1 - p["loops"] / p["wall"] for p in pa), 1)
+    v["NxAlgoShareLo"] = rnd(100 * min(p["algo"] / p["wall"] for p in pa), 1)
+    v["NxAlgoShareHi"] = rnd(100 * max(p["algo"] / p["wall"] for p in pa), 1)
+    # noise labels of the 9 passes: uniform rule from pass_labels.json (W3, critic-checked 00:25)
+    pl = d["plabels"]["passes"]
+    if len(pl) != len(pa):
+        fail_hard("pass_labels.json has %d passes, R1 uses %d" % (len(pl), len(pa)))
+    v["PassesNoisy"] = str(sum(1 for x in pl if x["rule_label"] == "noisy"))
+    v["PassesMeasured"] = str(sum(1 for x in pl if x["rule_label"] == "measured-window"))
+    # bottleneck R1 (c)
+    bw = [d["bnbench"][k]["sum_run_wall_s"] for k in ("pass0", "pass1")]
+    v["BnBenchPassLo"] = rint(min(bw))
+    v["BnBenchPassHi"] = rint(max(bw))
+    v["BnBenchCases"] = str(d["bnbench"]["pass0"]["n_runs"])
+    dw = [p["wall"] for p in pa if p["name"].startswith("drift")]
+    v["DriftEveningHi"] = "{:,}".format(int(round(dw[0])))
+    v["DriftEveningLo"] = "{:,}".format(int(round(dw[2])))
+    v["DriftEveningRatio"] = rnd(dw[0] / dw[2], 2)
+    dl = [p["loops"] for p in pa if p["name"].startswith("drift")]
+    v["DriftLoopsLo"] = rint(min(dl))
+    v["DriftLoopsHi"] = rint(max(dl))
     v["BnBuildLo"] = rnd(min(d["bnclean"]), 1)
     v["BnBuildHi"] = rnd(max(d["bnclean"]), 1)
     # B1 reach
@@ -374,6 +412,31 @@ def compute(d):
     v["PowDesignAlgoOneFive"] = g(P["sigma_rep"]["median_algorithms"]["1.5"])
     v["PowDesignAlgoTwo"] = g(P["sigma_rep"]["median_algorithms"]["2.0"])
     v["PowDesignAlgoMidNoFloor"] = g(P["none"]["median_algorithms"]["1.2"])
+    # E3 tier 1 (repeated slowdown oracle)
+    R = d["rep"]
+    R1 = {k: b for k, b in R.items() if k.startswith("t1_")}
+    v["RepAgree"] = str(sum(b["agree_exact_PRIMARY"] for b in R1.values()))
+    v["RepTotal"] = str(sum(b["n_complete"] for b in R1.values()))
+    # E3 tier 2 (remaining cases of #2, #3, #4; #8 partial and #1 not run)
+    R2 = {k: b for k, b in R.items() if k.startswith("t2_")}
+    n2 = sum(b["n_complete"] for b in R2.values())
+    a2 = sum(b["agree_exact_PRIMARY"] for b in R2.values())
+    f2 = n2 - a2
+    lo, hi = wilson(f2, n2)
+    v["TwoAgree"] = str(a2)
+    v["TwoTotal"] = str(n2)
+    v["TwoFlips"] = str(f2)
+    v["TwoFlipPct"] = "%.1f" % (100 * f2 / n2)
+    v["TwoFlipLo"] = "%.1f" % (100 * lo)
+    v["TwoFlipHi"] = "%.1f" % (100 * hi)
+    v["TwoFaster"] = str(sum(b["transitions_exact"].get("same->faster", 0) for b in R2.values()))
+    on2 = {c for c, _ in sc[2]["on"]}
+    r2 = [x["ratio"] for c, x in R["t1_02"]["slower_now"].items() if c in on2]
+    if len(r2) != len(on2):
+        fail_hard("E3: not every #2 on-target case is still slower")
+    v["RepTwoLo"] = "%.2f" % min(r2)
+    v["RepTwoHi"] = "%.2f" % max(r2)
+    v["RepEightRatio"] = "%.3f" % list(R["t1_08"]["slower_now"].values())[0]["ratio"]
     v["SlowUndetected"] = str(sum(1 for i in sc if sc[i]["cat"] != "on_target"))
     return v
 

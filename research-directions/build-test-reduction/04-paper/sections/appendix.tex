@@ -27,7 +27,8 @@ These are the reasons the replication uses measured profiles at each edit's pare
 
 \section{Cost drift on one machine}
 \label{app:drift}
-The per-process setup cost of \texttt{benchmark\_algorithms} varied by about \DriftWithinLo--\DriftWithinHi\x{} within one protocol during a day at low load, and more across protocols, while the timed samples of the same cases stayed stable and the serial test timings did not move.
+Three repeated full passes at $S_0$ in one evening, with machine telemetry, fell from \DriftEveningHi{} to \DriftEveningLo\,s (\DriftEveningRatio\x), while their timing loops stayed at \DriftLoopsLo--\DriftLoopsHi\,s; nearly all of the change was in \texttt{benchmark\_algorithms}' time outside the loops, and Windows CPU load, processor-performance readings and WSL load did not move with it.
+Earlier, the per-process setup cost of \texttt{benchmark\_algorithms} varied by about \DriftWithinLo--\DriftWithinHi\x{} within one protocol during a day at low load, and more across protocols, while the timed samples of the same cases stayed stable and the serial test timings did not move.
 The cause is unknown; host memory pressure, the power or boost state after a restart, and a cold page cache are candidates that we did not verify.
 Longer-term drift of performance measurements is documented for bare-metal and cloud machines~\cite{henning2025when}; we report this observation only as a reason to give benchmark cost as a range.
 

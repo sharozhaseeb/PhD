@@ -161,6 +161,23 @@ def _last_jsonl(path, max_age_s):
         return None
 
 
+def top_process(path, max_age_s=180):
+    """Name (only) of the top Windows CPU process in the newest telemetry line that has one, or None. Logging only."""
+    try:
+        with open(path, "rb") as f:
+            f.seek(0, 2)
+            f.seek(max(0, f.tell() - 16384))
+            lines = [ln for ln in f.read().decode("utf-8", "replace").splitlines() if "top_cpu_s_last_min" in ln]
+        for ln in reversed(lines):
+            rec = json.loads(ln)
+            top = rec.get("top_cpu_s_last_min") or []
+            if top and time.time() - float(rec.get("epoch", 0)) <= max_age_s:
+                return f"{top[0].get('n')}({top[0].get('s')}s/min)"
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass
+    return None
+
+
 def make_gate(max_load=1.5, max_wincpu=20.0, win_telemetry=None, max_wait_s=600.0, poll_s=20.0, log=None,
               _load=None, _sleep=time.sleep, _now=time.time):
     """Per-run gate that POSTPONES (night plan 2026-11-22): before a run, wait until WSL loadavg(1m) <= max_load
@@ -180,8 +197,9 @@ def make_gate(max_load=1.5, max_wincpu=20.0, win_telemetry=None, max_wait_s=600.
                 return {"ok": ok, "load1": l, "wincpu": wc, "waited_s": round(waited, 1)}
             if log:
                 with open(log, "a", encoding="utf-8") as f:
+                    top = top_process(win_telemetry) if win_telemetry else None
                     f.write(f"{time.strftime('%Y-%m-%dT%H:%M:%S%z')} gate: run postponed load1={l} wincpu={wc} "
-                            f"waited={waited:.0f}s\n")
+                            f"waited={waited:.0f}s top_win={top}\n")
             _sleep(poll_s)
     return gate
 
@@ -379,9 +397,103 @@ def _w_profile(a):
     _emit({"funcs": sorted(funcs)})
 
 
+def _w_measure_group(a):
+    """E5 CACHED mode (plan raw/networkx/bench/setup_cached/plan.md): import the module ONCE, then per case a fresh
+    instance + setup, asv-style number calibration, warm-up, `values` samples, teardown. Times every phase."""
+    import gc
+    pc = time.perf_counter
+    cases = a["cases"]
+    t0 = pc()
+    _import_module(cases[0]["module"], a["state"], _bench_dir_abs(a["state"], cases[0]["bench_dir"]))
+    import_s = pc() - t0
+    out = []
+    for c in cases:
+        r = {"id": c["id"], "samples": [], "number": None, "error": None, "skipped": False}
+        tc = pc()
+        try:
+            prep = _prepare({"state": a["state"], "case": c})
+            r["setup_s"] = pc() - tc
+            if prep is None:
+                r["skipped"] = True
+            else:
+                call, teardown = prep
+
+                def timed(n):
+                    gc_was = gc.isenabled(); gc.disable()
+                    try:
+                        t = pc()
+                        for _ in range(n):
+                            call()
+                        return pc() - t
+                    finally:
+                        if gc_was:
+                            gc.enable()
+                t1 = pc(); number = 1
+                for mult in itertools.cycle((2, 2.5, 2)):
+                    if timed(number) >= a["min_value_time"]:
+                        break
+                    number = int(round(number * mult))
+                r["calib_s"] = pc() - t1
+                t2 = pc()
+                for _ in range(a["warmup"]):
+                    timed(number)
+                r["warmup_s"] = pc() - t2
+                r["samples"] = [timed(number) / number for _ in range(a["values"])]
+                r["number"] = number
+                r["loop_s"] = sum(r["samples"]) * number
+                teardown()
+        except Exception as exc:  # one failing case must not lose the module
+            r["error"] = f"{type(exc).__name__}: {exc}"
+        r["wall_s"] = pc() - tc
+        out.append(r)
+    _emit({"import_s": import_s, "results": out, "group_wall_s": pc() - t0})
+
+
+def measure_cached(cases, state_dir, python, values=6, warmup_values=1, min_value_time=0.01, cpus=None,
+                   checkpoint=None, pre_run=None, label="cached", timeout_cap=1800.0) -> list:
+    """One worker per benchmark module (import once). Returns one record per case, each with the module's import_s
+    and group info. checkpoint: JSONL, one line per finished MODULE; modules already in it are reused (resume)."""
+    state_dir = Path(state_dir).resolve()
+    cases = [c if isinstance(c, BenchCase) else BenchCase.from_dict(c) for c in cases]
+    groups = {}
+    for c in cases:
+        groups.setdefault(c.module, []).append(c)
+    done = {}
+    if checkpoint is not None and Path(checkpoint).exists():
+        for line in Path(checkpoint).read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                rec = json.loads(line); done[(rec["module"], rec["label"])] = rec
+    out = []
+    for mod, cs in groups.items():
+        if (mod, label) in done:
+            out.extend(done[(mod, label)]["results"]); continue
+        pg = pre_run() if pre_run is not None else None
+        t_start = time.strftime("%Y-%m-%dT%H:%M:%S%z"); l0 = _loadavg(); t0 = time.perf_counter()
+        payload = {"state": str(state_dir), "cases": [c.to_dict() for c in cs], "values": values,
+                   "warmup": warmup_values, "min_value_time": min_value_time}
+        res = _run_worker(python, "measure_group", payload, state_dir,
+                          min(timeout_cap, sum(c.timeout for c in cs)), cpus)
+        wall = time.perf_counter() - t0
+        rows = res.get("results") or [{"id": c.id, "samples": [], "error": res.get("error") or "no result"} for c in cs]
+        for r in rows:
+            r.update({"module": mod, "label": label, "state_dir": str(state_dir), "module_import_s": res.get("import_s"),
+                      "module_wall_s": wall, "t_start": t_start, "loadavg_before": l0, "loadavg_after": _loadavg()})
+            if pg is not None:
+                r["pre_gate"] = pg
+        rec = {"module": mod, "label": label, "import_s": res.get("import_s"), "module_wall_s": wall,
+               "error": res.get("error"), "t_start": t_start, "t_end": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+               "results": rows}
+        if checkpoint is not None:
+            with open(checkpoint, "a", encoding="utf-8") as f:
+                f.write(json.dumps(rec) + "\n"); f.flush()
+        out.extend(rows)
+    return out
+
+
 def _worker(op, payload):
     try:
-        {"discover": _w_discover, "measure": _w_measure, "profile": _w_profile}[op](json.loads(payload))
+        {"discover": _w_discover, "measure": _w_measure, "profile": _w_profile,
+         "measure_group": _w_measure_group}[op](json.loads(payload))
     except BaseException as exc:  # report, never hang the parent
         _emit({"error": f"{type(exc).__name__}: {exc}"})
 
@@ -403,7 +515,7 @@ def main(argv=None) -> int:
         _worker(argv[1], argv[2])
         return 0
     ap = argparse.ArgumentParser(prog="bth.benchrun")
-    ap.add_argument("op", choices=["discover", "measure", "profile", "interleave"])
+    ap.add_argument("op", choices=["discover", "measure", "profile", "interleave", "measure-cached"])
     ap.add_argument("--state", action="append", required=True,
                     help="state dir; for interleave repeat as LABEL=DIR")
     ap.add_argument("--python", default=sys.executable)
@@ -444,6 +556,12 @@ def main(argv=None) -> int:
         res = [measure(c, first, a.python, **mkw) for c in cases]
     elif a.op == "profile":
         res = {c.id: sorted(profile(c, first, a.python, a.root, a.native_prefix)) for c in cases}
+    elif a.op == "measure-cached":
+        gate = (make_gate(a.gate_max_load, a.gate_max_wincpu, a.gate_win_telemetry, a.gate_max_wait, log=a.gate_log)
+                if a.run_gate else None)
+        res = measure_cached(cases, first, a.python, values=a.values, warmup_values=a.warmup_values,
+                             min_value_time=a.min_value_time, cpus=a.cpus, checkpoint=a.checkpoint, pre_run=gate,
+                             label=states[0][0])
     else:
         gate = (make_gate(a.gate_max_load, a.gate_max_wincpu, a.gate_win_telemetry, a.gate_max_wait, log=a.gate_log)
                 if a.run_gate else None)

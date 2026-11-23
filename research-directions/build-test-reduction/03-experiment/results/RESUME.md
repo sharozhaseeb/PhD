@@ -64,3 +64,33 @@ cd $E && PYTHONPATH=$E/harness python3 scripts/q3_count.py mine && python3 scrip
 ## 12:58 update
 - **#9 re-check (post hoc):** capped at 12:57 after 5 of 6 runs. Every comparison came back "same", so it **fails to confirm** the original verdict; the C11 flag stands. Written up.
 - **Nothing is running.**
+
+## 17:35 update — night queue 2026-11-22 (results/raw/night-2026-11-22/PLAN.md)
+- **(b)** done 15:37–16:42 and written up (results.md).
+- **E3 tier 1 (rep1)** is running. It may hit its 75-min cap at 17:59 because of external host load (the owner's `paras` project; CONCURRENCY.md). Finished blocks: t1_02, t1_08. #3 and #1 are checkpointed in `raw/networkx/slowdowns/repeat/t1_{03,01}.partial.jsonl`.
+- **Resume later** (after the queue ends or on another night; the gate runs first):
+  `cd $E && PYTHONPATH=$E/harness timeout 4500 ~/bt-lab/exp/venvs/nx/bin/python scripts/night_nx.py rep1`
+  It skips finished blocks and resumes the runs in progress.
+- **Then the queue continues:** drift (d) → bn (c) → rep2, hard stop 06:25. Rerunning `scripts/wsl/night_queue.sh` resumes all items.
+- **18:00:** E3 tier 1 CAPPED (exit 124) as expected. Done: t1_02 (agree 8/9), t1_08 (1/1), t1_03 (3/3). **#1: 6 of 8 runs checkpointed** in t1_01.partial.jsonl; 2 runs remain (resume command above). The queue moved on to (d) drift at 18:00:28 (gate).
+- **19:50:** queue STOPPED (PM ruling A); `scripts/night_waiter.py` restarts it after 10 min idle (watch/night-gate.marker). Manual restart: `setsid nohup bash scripts/wsl/night_queue.sh &` (resumes everything).
+
+## 02:37 — morning to-do for the E3 tier-2 write-up (PM 02:37; KB N14, provisional)
+1. **Floor:** apply 1 + 3σ to the 5 new non-"same" verdicts of `t2_03`: `k_core ER(100, 0.1)` slower 1.43; `harmonic directed_wheel(10)` slower 1.21; `louvain ER(100, 0.9)` faster 0.83; `to_undirected MultiDiGraph` faster 0.87; `k_factor` faster 0.86. Use σ from `aa/sigma_noise.json` or `aa_flagged` where it exists, and say where it does not.
+2. **Machine state:** split the false-verdict rate, quiet A/A 0/46 against noisy block t2_03 5/168. Test whether the flips concentrate in high-load runs, using per-run load and pre_gate from `t2_03.partial.jsonl`.
+3. **Paper:** one line saying that the oracle's false-verdict rate depends on machine state.
+4. **Also:** the frozen analysis (`night_show_rep.py`) for all complete t2 blocks, a critic pass, then report to the PM and W6.
+
+## 06:30 — night queue 2026-11-22 → 23 finished (queue done 06:25:22)
+| Item | Outcome | results.md section |
+|---|---|---|
+| (b) A/A for the 12 flagged verdicts | complete; critic-checked | "(b) σ_noise for the 12 flagged verdicts" |
+| E3 tier 1 | complete (#1 finished after the restart); critic-checked | "E3 tier 1" |
+| (d) drift | 3 passes complete; critic-checked | "(d) Three repeated FULL networkx passes" |
+| (c) bottleneck | 2 passes complete; critic-checked | "(c) Two FULL asv benchmark passes" |
+| E3 tier 2 | #3, #4, #2 complete; **#8 partial** (cut at 06:25, `t2_08.partial.jsonl`), **#1 not started** | "E3 tier 2" (critic running) |
+
+- Telemetry stopped 06:26. The gate alarm and the waiter have exited.
+- **Resume E3 tier 2** on a later night: `PYTHONPATH=$E/harness timeout <cap> ~/bt-lab/exp/venvs/nx/bin/python scripts/night_nx.py rep2`. It skips #3, #4 and #2, resumes #8 from its checkpoint, then runs #1.
+- **E5 (setup-cached)** is planned for the night of 23 → 24; the `measure-cached` runner still has to be built and tested first.
+- **Next design question raised by tier 2:** swap clones between sides (11/499 direction-consistent off-target flips).

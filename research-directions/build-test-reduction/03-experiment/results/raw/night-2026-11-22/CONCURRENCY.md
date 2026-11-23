@@ -8,3 +8,5 @@
 - **Correction (16:51, critic):** the 15:43:50 sheet build and the 15:45–15:47 `find /` overlapped **no** run: s02 ended 15:41:43 and s08 ended 15:43:31, and s01 began 15:48:12. The 15:49–15:51 compute overlapped s01 run B rep 0 (15:50:08–15:51:07); handled in results.md.
 - 16:55:24 PKT: W3 ran scripts/aa_power_design.py (pure compute on saved samples; nice 19, CPUs 0,1) during night item 2.
   - ended 16:55:46.
+- **External host load (PM 17:35):** from ≈ 17:00 the owner's other project (`C:\Users\pc\work\paras`: a pytest run, PID 29532, dev servers, tsc, esbuild) loads Windows: CPU 25–87 %, available memory down to 831 MB at 17:34. Top Windows processes in telemetry: python, node, esbuild, claude, chrome. Not stopped (owner's work). The per-run gate postpones while Windows CPU > 20 %. Every postponement is logged in the item's driver log as "gate: run postponed …" and recorded per run as `pre_gate.waited_s`/`ok` in the raw files. A run that waited the full 10 min and ran anyway has `pre_gate.ok = False` and makes its block "noisy".
+- **19:50 PM ruling A:** queue stopped by PID, checkpoints kept, auto-restart waiter armed (amendment 4). See PLAN.md.

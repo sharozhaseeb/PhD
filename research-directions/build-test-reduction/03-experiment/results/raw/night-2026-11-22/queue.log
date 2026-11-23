@@ -14,3 +14,235 @@
 2026-11-22T16:43:49+05:00 gate: loadavg=0.29 wincpu=17.733333333333334 ok=2/3
 2026-11-22T16:44:49+05:00 gate: loadavg=0.22 wincpu=14.933333333333332 ok=3/3
 2026-11-22T16:44:51+05:00 rep1: start, cap 4500s (planned 4500s), stall 450s
+2026-11-22T18:00:08+05:00 rep1: driver exit 124
+2026-11-22T18:00:28+05:00 drift: gate
+2026-11-22T18:00:29+05:00 gate: loadavg=0.9 wincpu=24.766666666666666 ok=0/3
+2026-11-22T18:01:29+05:00 gate: loadavg=0.51 wincpu=26.400000000000002 ok=0/3
+2026-11-22T18:02:29+05:00 gate: loadavg=0.58 wincpu=18.566666666666666 ok=1/3
+2026-11-22T18:03:30+05:00 gate: loadavg=0.53 wincpu=24.5 ok=0/3
+2026-11-22T18:04:30+05:00 gate: loadavg=0.25 wincpu=23.599999999999998 ok=0/3
+2026-11-22T18:05:30+05:00 gate: loadavg=0.54 wincpu=28.400000000000002 ok=0/3
+2026-11-22T18:06:30+05:00 gate: loadavg=0.5 wincpu=23.266666666666666 ok=0/3
+2026-11-22T18:07:31+05:00 gate: loadavg=0.25 wincpu=13.966666666666667 ok=1/3
+2026-11-22T18:08:31+05:00 gate: loadavg=0.29 wincpu=32.4 ok=0/3
+2026-11-22T18:09:31+05:00 gate: loadavg=0.71 wincpu=25.066666666666666 ok=0/3
+2026-11-22T18:10:32+05:00 gate: loadavg=0.66 wincpu=20.96666666666667 ok=0/3
+2026-11-22T18:11:32+05:00 gate: loadavg=0.6 wincpu=20.099999999999998 ok=0/3
+2026-11-22T18:12:32+05:00 gate: loadavg=0.33 wincpu=18.733333333333334 ok=1/3
+2026-11-22T18:13:32+05:00 gate: loadavg=0.48 wincpu=18.366666666666664 ok=2/3
+2026-11-22T18:14:33+05:00 gate: loadavg=0.27 wincpu=20.599999999999998 ok=0/3
+2026-11-22T18:15:33+05:00 gate: loadavg=0.24 wincpu=20.566666666666666 ok=0/3
+2026-11-22T18:16:33+05:00 gate: loadavg=0.34 wincpu=18.566666666666666 ok=1/3
+2026-11-22T18:17:33+05:00 gate: loadavg=0.33 wincpu=19.666666666666668 ok=2/3
+2026-11-22T18:18:33+05:00 gate: loadavg=0.44 wincpu=41.333333333333336 ok=0/3
+2026-11-22T18:19:33+05:00 gate: loadavg=0.69 wincpu=71.9 ok=0/3
+2026-11-22T18:20:34+05:00 gate: loadavg=0.3 wincpu=15.6 ok=1/3
+2026-11-22T18:21:34+05:00 gate: loadavg=0.22 wincpu=22.133333333333336 ok=0/3
+2026-11-22T18:22:34+05:00 gate: loadavg=0.16 wincpu=21.133333333333333 ok=0/3
+2026-11-22T18:23:34+05:00 gate: loadavg=0.32 wincpu=26.599999999999998 ok=0/3
+2026-11-22T18:24:35+05:00 gate: loadavg=0.11 wincpu=23.766666666666666 ok=0/3
+2026-11-22T18:25:35+05:00 gate: loadavg=0.55 wincpu=29.96666666666667 ok=0/3
+2026-11-22T18:26:35+05:00 gate: loadavg=0.51 wincpu=34.13333333333333 ok=0/3
+2026-11-22T18:27:35+05:00 gate: loadavg=0.75 wincpu=21.933333333333334 ok=0/3
+2026-11-22T18:28:35+05:00 gate: loadavg=0.68 wincpu=21.8 ok=0/3
+2026-11-22T18:29:36+05:00 gate: loadavg=0.52 wincpu=21.96666666666667 ok=0/3
+2026-11-22T18:30:36+05:00 gate: loadavg=1.25 wincpu=26.066666666666666 ok=0/3
+2026-11-22T18:31:36+05:00 gate: loadavg=0.95 wincpu=19.400000000000002 ok=1/3
+2026-11-22T18:32:36+05:00 gate: loadavg=0.6 wincpu=14.6 ok=2/3
+2026-11-22T18:33:37+05:00 gate: loadavg=0.74 wincpu=22.3 ok=0/3
+2026-11-22T18:34:37+05:00 gate: loadavg=0.45 wincpu=24.26666666666667 ok=0/3
+2026-11-22T18:35:37+05:00 gate: loadavg=0.36 wincpu=33.93333333333334 ok=0/3
+2026-11-22T18:36:37+05:00 gate: loadavg=0.56 wincpu=26.133333333333336 ok=0/3
+2026-11-22T18:37:37+05:00 gate: loadavg=0.93 wincpu=24.266666666666666 ok=0/3
+2026-11-22T18:38:38+05:00 gate: loadavg=0.76 wincpu=26.766666666666666 ok=0/3
+2026-11-22T18:39:38+05:00 gate: loadavg=0.65 wincpu=27.96666666666667 ok=0/3
+2026-11-22T18:40:38+05:00 gate: loadavg=0.91 wincpu=30.366666666666664 ok=0/3
+2026-11-22T18:41:38+05:00 gate: loadavg=1.12 wincpu=32.266666666666666 ok=0/3
+2026-11-22T18:42:39+05:00 gate: loadavg=0.73 wincpu=32.23333333333333 ok=0/3
+2026-11-22T18:43:39+05:00 gate: loadavg=0.8 wincpu=30.966666666666665 ok=0/3
+2026-11-22T18:44:39+05:00 gate: loadavg=1.0 wincpu=38.96666666666667 ok=0/3
+2026-11-22T18:45:39+05:00 gate: loadavg=0.92 wincpu=38.96666666666667 ok=0/3
+2026-11-22T18:46:39+05:00 gate: loadavg=1.03 wincpu=37.6 ok=0/3
+2026-11-22T18:47:39+05:00 gate: loadavg=1.28 wincpu=45.6 ok=0/3
+2026-11-22T18:47:53+05:00 gate-watch: alarm watcher pid 16717 started (45 min threshold, repeat 60 min)
+2026-11-22T18:47:53+05:00 gate-watch: no run for 48 min; top_win=python(42.9s/min)
+2026-11-22T18:48:39+05:00 gate: loadavg=1.67 wincpu=51.76666666666667 ok=0/3
+2026-11-22T18:48:54+05:00 gate-watch: no run for 49 min; top_win=python(41.8s/min)
+2026-11-22T18:49:40+05:00 gate: loadavg=1.79 wincpu=34.43333333333333 ok=0/3
+2026-11-22T18:49:54+05:00 gate-watch: no run for 50 min; top_win=python(40.4s/min)
+2026-11-22T18:50:40+05:00 gate: loadavg=1.18 wincpu=36.13333333333333 ok=0/3
+2026-11-22T18:50:54+05:00 gate-watch: no run for 51 min; top_win=python(41.3s/min)
+2026-11-22T18:51:40+05:00 gate: loadavg=0.8 wincpu=50.1 ok=0/3
+2026-11-22T18:51:54+05:00 gate-watch: no run for 52 min; top_win=python(45.8s/min)
+2026-11-22T18:52:40+05:00 gate: loadavg=1.22 wincpu=43.63333333333333 ok=0/3
+2026-11-22T18:52:54+05:00 gate-watch: no run for 53 min; top_win=python(44.1s/min)
+2026-11-22T18:53:40+05:00 gate: loadavg=1.6 wincpu=36.36666666666667 ok=0/3
+2026-11-22T18:53:55+05:00 gate-watch: no run for 54 min; top_win=python(35.4s/min)
+2026-11-22T18:54:40+05:00 gate: loadavg=1.72 wincpu=41.699999999999996 ok=0/3
+2026-11-22T18:54:55+05:00 gate-watch: no run for 55 min; top_win=python(37.6s/min)
+2026-11-22T18:55:40+05:00 gate: loadavg=1.46 wincpu=51.4 ok=0/3
+2026-11-22T18:55:55+05:00 gate-watch: no run for 56 min; top_win=python(40.4s/min)
+2026-11-22T18:56:41+05:00 gate: loadavg=1.58 wincpu=39.03333333333333 ok=0/3
+2026-11-22T18:56:55+05:00 gate-watch: no run for 57 min; top_win=python(39s/min)
+2026-11-22T18:57:41+05:00 gate: loadavg=2.17 wincpu=48.0 ok=0/3
+2026-11-22T18:57:55+05:00 gate-watch: no run for 58 min; top_win=python(43.1s/min)
+2026-11-22T18:58:41+05:00 gate: loadavg=1.7 wincpu=41.73333333333333 ok=0/3
+2026-11-22T18:58:56+05:00 gate-watch: no run for 59 min; top_win=python(49.6s/min)
+2026-11-22T18:59:41+05:00 gate: loadavg=1.3 wincpu=44.26666666666667 ok=0/3
+2026-11-22T18:59:56+05:00 gate-watch: no run for 60 min; top_win=python(24.7s/min)
+2026-11-22T19:00:41+05:00 gate: loadavg=0.74 wincpu=13.200000000000001 ok=1/3
+2026-11-22T19:00:56+05:00 gate-watch: no run for 61 min; top_win=python(6.9s/min)
+2026-11-22T19:01:41+05:00 gate: loadavg=0.44 wincpu=16.7 ok=2/3
+2026-11-22T19:01:56+05:00 gate-watch: no run for 62 min; top_win=python(11.4s/min)
+2026-11-22T19:02:42+05:00 gate: loadavg=0.56 wincpu=24.166666666666668 ok=0/3
+2026-11-22T19:02:56+05:00 gate-watch: no run for 63 min; top_win=python(47.8s/min)
+2026-11-22T19:03:42+05:00 gate: loadavg=0.34 wincpu=20.7 ok=0/3
+2026-11-22T19:03:57+05:00 gate-watch: no run for 64 min; top_win=python(41.9s/min)
+2026-11-22T19:04:42+05:00 gate: loadavg=0.68 wincpu=19.900000000000002 ok=1/3
+2026-11-22T19:04:57+05:00 gate-watch: no run for 65 min; top_win=python(46.7s/min)
+2026-11-22T19:05:42+05:00 gate: loadavg=0.94 wincpu=13.733333333333334 ok=2/3
+2026-11-22T19:05:57+05:00 gate-watch: no run for 66 min; top_win=python(20.4s/min)
+2026-11-22T19:06:42+05:00 gate: loadavg=0.57 wincpu=19.8 ok=3/3
+2026-11-22T19:06:45+05:00 drift: start, cap 9000s (planned 9000s), stall 450s
+2026-11-22T19:50:01+05:00 W3 stop (PM 19:50 ruling A): killing recorded PIDs 1177 17660 17641 17661 17662 17970; benchrun children:   22043 
+2026-11-22T19:50:03+05:00 W3 stop: still alive after SIGTERM: none
+   3 /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/bench/drift/canary0.partial.jsonl
+   7 /mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experiment/results/raw/networkx/bench/drift/pass0.partial.jsonl
+  10 total
+2026-11-22T19:50:03+05:00 waiter: started (amendment 4): needs 10 consecutive passes of load1<=1.0 and wincpu<=20; hard stop 2026-11-23T06:25
+2026-11-22T19:50:03+05:00 waiter: check load1=0.57 wincpu=17.5 ok=1/10
+2026-11-22T19:51:03+05:00 waiter: check load1=0.24 wincpu=17.3 ok=2/10
+2026-11-22T19:52:03+05:00 waiter: check load1=0.22 wincpu=10.7 ok=3/10
+2026-11-22T19:53:03+05:00 waiter: check load1=0.45 wincpu=20.2 ok=0/10
+2026-11-22T19:54:04+05:00 waiter: check load1=0.47 wincpu=15.7 ok=1/10
+2026-11-22T19:55:04+05:00 waiter: check load1=0.32 wincpu=19.9 ok=2/10
+2026-11-22T19:56:04+05:00 waiter: check load1=0.2 wincpu=15.2 ok=3/10
+2026-11-22T19:57:04+05:00 waiter: check load1=0.51 wincpu=16.9 ok=4/10
+2026-11-22T19:58:04+05:00 waiter: check load1=0.48 wincpu=24.0 ok=0/10
+2026-11-22T19:59:04+05:00 waiter: check load1=0.47 wincpu=20.0 ok=1/10
+2026-11-22T20:00:05+05:00 waiter: check load1=0.59 wincpu=24.6 ok=0/10
+2026-11-22T20:01:05+05:00 waiter: check load1=0.3 wincpu=24.7 ok=0/10
+2026-11-22T20:02:05+05:00 waiter: check load1=0.9 wincpu=21.9 ok=0/10
+2026-11-22T20:03:05+05:00 waiter: check load1=0.81 wincpu=18.6 ok=1/10
+2026-11-22T20:04:05+05:00 waiter: check load1=0.65 wincpu=19.0 ok=2/10
+2026-11-22T20:05:06+05:00 waiter: check load1=0.61 wincpu=21.3 ok=0/10
+2026-11-22T20:06:06+05:00 waiter: check load1=0.33 wincpu=20.2 ok=0/10
+2026-11-22T20:07:06+05:00 waiter: check load1=0.37 wincpu=17.7 ok=1/10
+2026-11-22T20:08:06+05:00 waiter: check load1=0.52 wincpu=17.4 ok=2/10
+2026-11-22T20:09:06+05:00 waiter: check load1=0.4 wincpu=18.4 ok=3/10
+2026-11-22T20:10:06+05:00 waiter: check load1=0.42 wincpu=23.6 ok=0/10
+2026-11-22T20:11:06+05:00 waiter: check load1=0.51 wincpu=29.1 ok=0/10
+2026-11-22T20:12:06+05:00 waiter: check load1=0.56 wincpu=25.1 ok=0/10
+2026-11-22T20:13:06+05:00 waiter: check load1=0.33 wincpu=22.1 ok=0/10
+2026-11-22T20:14:07+05:00 waiter: check load1=1.77 wincpu=18.5 ok=0/10
+2026-11-22T20:15:07+05:00 waiter: check load1=1.52 wincpu=16.6 ok=0/10
+2026-11-22T20:16:07+05:00 waiter: check load1=1.27 wincpu=18.0 ok=0/10
+2026-11-22T20:17:07+05:00 waiter: check load1=0.68 wincpu=23.3 ok=0/10
+2026-11-22T20:18:07+05:00 waiter: check load1=0.64 wincpu=23.5 ok=0/10
+2026-11-22T20:19:07+05:00 waiter: check load1=0.41 wincpu=26.7 ok=0/10
+2026-11-22T20:20:07+05:00 waiter: check load1=0.68 wincpu=36.0 ok=0/10
+2026-11-22T20:21:08+05:00 waiter: check load1=0.44 wincpu=19.5 ok=1/10
+2026-11-22T20:22:08+05:00 waiter: check load1=0.48 wincpu=20.6 ok=0/10
+2026-11-22T20:23:08+05:00 waiter: check load1=0.33 wincpu=15.8 ok=1/10
+2026-11-22T20:24:08+05:00 waiter: check load1=0.44 wincpu=16.7 ok=2/10
+2026-11-22T20:25:08+05:00 waiter: check load1=0.16 wincpu=12.0 ok=3/10
+2026-11-22T20:26:08+05:00 waiter: check load1=0.17 wincpu=12.1 ok=4/10
+2026-11-22T20:27:09+05:00 waiter: check load1=0.2 wincpu=11.6 ok=5/10
+2026-11-22T20:28:09+05:00 waiter: check load1=0.4 wincpu=10.5 ok=6/10
+2026-11-22T20:29:09+05:00 waiter: check load1=0.14 wincpu=11.9 ok=7/10
+2026-11-22T20:30:09+05:00 waiter: check load1=0.1 wincpu=12.7 ok=8/10
+2026-11-22T20:31:09+05:00 waiter: check load1=0.03 wincpu=17.9 ok=9/10
+2026-11-22T20:32:09+05:00 waiter: check load1=1.37 wincpu=13.3 ok=0/10
+2026-11-22T20:33:09+05:00 waiter: check load1=0.68 wincpu=12.9 ok=1/10
+2026-11-22T20:34:10+05:00 waiter: check load1=0.67 wincpu=10.1 ok=2/10
+2026-11-22T20:35:10+05:00 waiter: check load1=0.25 wincpu=12.6 ok=3/10
+2026-11-22T20:36:10+05:00 waiter: check load1=0.2 wincpu=30.8 ok=0/10
+2026-11-22T20:37:10+05:00 waiter: check load1=0.12 wincpu=19.9 ok=1/10
+2026-11-22T20:38:10+05:00 waiter: check load1=0.83 wincpu=20.6 ok=0/10
+2026-11-22T20:39:10+05:00 waiter: check load1=0.56 wincpu=19.5 ok=1/10
+2026-11-22T20:40:10+05:00 waiter: check load1=0.61 wincpu=28.4 ok=0/10
+2026-11-22T20:41:10+05:00 waiter: check load1=0.59 wincpu=21.2 ok=0/10
+2026-11-22T20:42:10+05:00 waiter: check load1=0.48 wincpu=14.6 ok=1/10
+2026-11-22T20:43:11+05:00 waiter: check load1=0.44 wincpu=20.4 ok=0/10
+2026-11-22T20:44:11+05:00 waiter: check load1=0.48 wincpu=12.3 ok=1/10
+2026-11-22T20:45:11+05:00 waiter: check load1=0.31 wincpu=9.4 ok=2/10
+2026-11-22T20:46:11+05:00 waiter: check load1=0.46 wincpu=13.4 ok=3/10
+2026-11-22T20:47:11+05:00 waiter: check load1=0.2 wincpu=10.3 ok=4/10
+2026-11-22T20:48:12+05:00 waiter: check load1=0.34 wincpu=10.6 ok=5/10
+2026-11-22T20:49:12+05:00 waiter: check load1=0.43 wincpu=10.9 ok=6/10
+2026-11-22T20:50:12+05:00 waiter: check load1=0.27 wincpu=25.0 ok=0/10
+2026-11-22T20:51:12+05:00 waiter: check load1=0.22 wincpu=14.1 ok=1/10
+2026-11-22T20:52:12+05:00 waiter: check load1=0.32 wincpu=21.0 ok=0/10
+2026-11-22T20:53:12+05:00 waiter: check load1=0.53 wincpu=20.2 ok=0/10
+2026-11-22T20:54:12+05:00 waiter: check load1=0.33 wincpu=15.9 ok=1/10
+2026-11-22T20:55:12+05:00 waiter: check load1=0.24 wincpu=12.7 ok=2/10
+2026-11-22T20:56:12+05:00 waiter: check load1=0.13 wincpu=13.3 ok=3/10
+2026-11-22T20:57:12+05:00 waiter: check load1=0.09 wincpu=13.7 ok=4/10
+2026-11-22T20:58:13+05:00 waiter: check load1=0.31 wincpu=9.4 ok=5/10
+2026-11-22T20:59:13+05:00 waiter: check load1=0.11 wincpu=9.6 ok=6/10
+2026-11-22T21:00:13+05:00 waiter: check load1=0.55 wincpu=14.1 ok=7/10
+2026-11-22T21:01:13+05:00 waiter: check load1=0.33 wincpu=11.2 ok=8/10
+2026-11-22T21:02:13+05:00 waiter: check load1=0.19 wincpu=14.1 ok=9/10
+2026-11-22T21:03:13+05:00 waiter: check load1=0.14 wincpu=10.2 ok=10/10
+2026-11-22T21:03:13+05:00 waiter: queue restarted
+2026-11-22T21:03:13+05:00 queue start pid 25366; hard stop 2026-11-23T06:25:00+05:00
+2026-11-22T21:03:13+05:00 aa: gate
+2026-11-22T21:03:14+05:00 gate: loadavg=0.14 wincpu=10.200000000000001 ok=1/3 top_win=claude(4.3s/min)
+2026-11-22T21:03:19+05:00 gate-watch: no run for 74 min; top_win=claude(4.3s/min)
+2026-11-22T21:04:15+05:00 gate: loadavg=0.19 wincpu=33.03333333333333 ok=0/3 top_win=claude(3.6s/min)
+2026-11-22T21:04:19+05:00 gate-watch: no run for 75 min; top_win=claude(3.6s/min)
+2026-11-22T21:05:15+05:00 gate: loadavg=0.3 wincpu=14.033333333333331 ok=1/3 top_win=claude(6.5s/min)
+2026-11-22T21:05:19+05:00 gate-watch: no run for 76 min; top_win=claude(6.5s/min)
+2026-11-22T21:06:15+05:00 gate: loadavg=0.17 wincpu=12.566666666666668 ok=2/3 top_win=claude(5.6s/min)
+2026-11-22T21:06:19+05:00 gate-watch: no run for 77 min; top_win=claude(5.6s/min)
+2026-11-22T21:07:15+05:00 gate: loadavg=0.06 wincpu=8.200000000000001 ok=3/3 top_win=claude(2.7s/min)
+2026-11-22T21:07:17+05:00 aa: start, cap 7200s (planned 7200s), stall 700s
+2026-11-22T21:07:18+05:00 aa: driver exit 0
+2026-11-22T21:07:38+05:00 rep1: gate
+2026-11-22T21:07:39+05:00 gate: loadavg=0.1 wincpu=11.966666666666667 ok=1/3 top_win=claude(2.7s/min)
+2026-11-22T21:08:20+05:00 gate-watch: no run for 79 min; top_win=claude(4.2s/min)
+2026-11-22T21:08:39+05:00 gate: loadavg=0.2 wincpu=11.033333333333333 ok=2/3 top_win=claude(4.2s/min)
+2026-11-22T21:09:20+05:00 gate-watch: no run for 80 min; top_win=btweb(2.6s/min)
+2026-11-22T21:09:39+05:00 gate: loadavg=0.23 wincpu=9.6 ok=3/3 top_win=btweb(2.6s/min)
+2026-11-22T21:09:41+05:00 rep1: start, cap 4500s (planned 4500s), stall 450s
+2026-11-22T21:12:56+05:00 rep1: driver exit 0
+2026-11-22T21:13:16+05:00 drift: gate
+2026-11-22T21:13:17+05:00 gate: loadavg=0.07 wincpu=18.066666666666666 ok=1/3 top_win=python(7s/min)
+2026-11-22T21:13:20+05:00 gate-watch: no run for 0 min; top_win=python(7s/min)
+2026-11-22T21:14:17+05:00 gate: loadavg=0.21 wincpu=14.733333333333334 ok=2/3 top_win=python(19.9s/min)
+2026-11-22T21:14:21+05:00 gate-watch: no run for 1 min; top_win=python(19.9s/min)
+2026-11-22T21:15:17+05:00 gate: loadavg=0.6 wincpu=24.599999999999998 ok=0/3 top_win=python(29.8s/min)
+2026-11-22T21:15:21+05:00 gate-watch: no run for 2 min; top_win=python(29.8s/min)
+2026-11-22T21:16:17+05:00 gate: loadavg=0.38 wincpu=28.23333333333333 ok=0/3 top_win=claude(4.6s/min)
+2026-11-22T21:16:21+05:00 gate-watch: no run for 3 min; top_win=claude(4.6s/min)
+2026-11-22T21:17:17+05:00 gate: loadavg=0.25 wincpu=21.9 ok=0/3 top_win=python(8.5s/min)
+2026-11-22T21:17:21+05:00 gate-watch: no run for 4 min; top_win=python(8.5s/min)
+2026-11-22T21:18:17+05:00 gate: loadavg=0.2 wincpu=25.0 ok=0/3 top_win=python(25.2s/min)
+2026-11-22T21:18:21+05:00 gate-watch: no run for 5 min; top_win=python(25.2s/min)
+2026-11-22T21:19:18+05:00 gate: loadavg=0.47 wincpu=25.266666666666666 ok=0/3 top_win=python(33s/min)
+2026-11-22T21:19:21+05:00 gate-watch: no run for 6 min; top_win=python(33s/min)
+2026-11-22T21:20:18+05:00 gate: loadavg=0.39 wincpu=19.666666666666668 ok=1/3 top_win=python(16.3s/min)
+2026-11-22T21:20:21+05:00 gate-watch: no run for 7 min; top_win=python(16.3s/min)
+2026-11-22T21:21:18+05:00 gate: loadavg=0.39 wincpu=17.333333333333332 ok=2/3 top_win=python(36.2s/min)
+2026-11-22T21:21:21+05:00 gate-watch: no run for 8 min; top_win=python(36.2s/min)
+2026-11-22T21:22:18+05:00 gate: loadavg=0.6 wincpu=18.666666666666668 ok=3/3 top_win=python(34.4s/min)
+2026-11-22T21:22:20+05:00 drift: start, cap 9000s (planned 9000s), stall 450s
+2026-11-22T23:41:52+05:00 drift: driver exit 0
+2026-11-22T23:42:12+05:00 bn: gate
+2026-11-22T23:42:13+05:00 gate: loadavg=0.5 wincpu=14.766666666666667 ok=1/3 top_win=python(41.2s/min)
+2026-11-22T23:42:39+05:00 gate-watch: no run for 0 min; top_win=python(39.9s/min)
+2026-11-22T23:43:13+05:00 gate: loadavg=0.62 wincpu=13.299999999999999 ok=2/3 top_win=python(39.9s/min)
+2026-11-22T23:43:39+05:00 gate-watch: no run for 1 min; top_win=python(23.1s/min)
+2026-11-22T23:44:13+05:00 gate: loadavg=0.23 wincpu=10.4 ok=3/3 top_win=python(23.1s/min)
+2026-11-22T23:44:15+05:00 bn: start, cap 2400s (planned 2400s), stall 300s
+2026-11-23T00:22:56+05:00 bn: driver exit 0
+2026-11-23T00:23:16+05:00 rep2: gate
+2026-11-23T00:23:18+05:00 gate: loadavg=0.71 wincpu=11.699999999999998 ok=1/3 top_win=dllhost(3.4s/min)
+2026-11-23T00:23:45+05:00 gate-watch: no run for 0 min; top_win=bash(6.1s/min)
+2026-11-23T00:24:18+05:00 gate: loadavg=0.3 wincpu=13.799999999999999 ok=2/3 top_win=bash(6.1s/min)
+2026-11-23T00:24:45+05:00 gate-watch: no run for 1 min; top_win=python(13.6s/min)
+2026-11-23T00:25:18+05:00 gate: loadavg=0.16 wincpu=19.933333333333334 ok=3/3 top_win=python(13.6s/min)
+2026-11-23T00:25:20+05:00 rep2: start, cap 21582s (planned 21600s), stall 450s
+2026-11-23T06:25:02+05:00 rep2: driver exit 124
+2026-11-23T06:25:22+05:00 queue done
+2026-11-23T06:26:13+05:00 gate-watch: night.marker present, alarm watcher exits

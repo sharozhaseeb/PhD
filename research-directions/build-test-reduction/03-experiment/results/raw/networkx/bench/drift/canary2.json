@@ -1,0 +1,106 @@
+{
+ "plan": "results/raw/networkx/bench/drift/plan.md",
+ "state_sha": "181f295117f7f7488644c87f04699290f8e49188",
+ "kind": "canary",
+ "index": 2,
+ "protocol": {
+  "processes": 2,
+  "values": 3
+ },
+ "wall_s": 41.883339643478394,
+ "n_runs": 3,
+ "n_errors": 0,
+ "peak_run_load": 0.8,
+ "n_pre_gate_not_ok": 0,
+ "pre_gate_waited_s": 0,
+ "m5_label": "measured-window",
+ "t_first": "2026-11-22T23:14:30+0500",
+ "t_last": "2026-11-22T23:14:58+0500",
+ "sum_run_wall_s": 27.816300514998147,
+ "raw_runs": [
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    6.974084499233868e-06,
+    7.136658998206258e-06,
+    7.2241710004163904e-06,
+    8.447573000012199e-06,
+    8.483921999868471e-06,
+    8.403731997532305e-06
+   ],
+   "number": 2000,
+   "wall_s": 26.769467703001283,
+   "loadavg_before": 0.8,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "canary2",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T23:14:30+0500",
+   "t_end": "2026-11-22T23:14:57+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.8,
+    "wincpu": 10.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')",
+   "samples": [
+    2.321035900240531e-07,
+    1.8467415997292846e-07,
+    1.7860257998108863e-07,
+    1.9396671996219083e-07,
+    1.6669893004291226e-07,
+    1.7064621002646163e-07
+   ],
+   "number": 100000,
+   "wall_s": 0.521760338000604,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "canary2",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T23:14:57+0500",
+   "t_end": "2026-11-22T23:14:57+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')",
+   "samples": [
+    2.0278438998502678e-06,
+    1.8198056997789535e-06,
+    2.015828600269742e-06,
+    1.9288018003862816e-06,
+    1.848367799539119e-06,
+    1.797866999550024e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5250724739962607,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.63,
+   "skipped": false,
+   "error": null,
+   "label": "canary2",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T23:14:57+0500",
+   "t_end": "2026-11-22T23:14:58+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  }
+ ]
+}

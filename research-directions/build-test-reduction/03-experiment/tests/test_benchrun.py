@@ -201,3 +201,37 @@ def test_run_interleaved_records_pre_gate(monkeypatch):
     res = benchrun.run_interleaved([SimpleNamespace(id="c")], [("A", "a", "py"), ("B", "b", "py")], 2,
                                    pre_run=lambda: {"ok": True, "load1": 0.3})
     assert len(res) == 4 and all(r["pre_gate"]["ok"] for r in res)
+
+
+def test_measure_cached_one_worker_per_module_and_samples(state, cases, tmp_path, monkeypatch):
+    """E5 CACHED mode: one worker (one import) per module, `values` samples per case, phase timings recorded."""
+    calls = []
+    real = benchrun._run_worker
+
+    def spy(python, op, payload, sd, timeout, cpus=None):
+        calls.append((op, len(payload.get("cases", []))))
+        return real(python, op, payload, sd, timeout, cpus)
+
+    monkeypatch.setattr(benchrun, "_run_worker", spy)
+    cs = [c for c in cases.values() if c.kind == "time"]
+    res = benchrun.measure_cached(cs, state, sys.executable, values=4, min_value_time=0.0005)
+    mods = {c.module for c in cs}
+    assert len(calls) == len(mods) and all(op == "measure_group" for op, _ in calls)
+    assert len(res) == len(cs)
+    ok = [r for r in res if not r.get("error") and not r.get("skipped")]
+    assert ok and all(len(r["samples"]) == 4 and r["number"] >= 1 for r in ok)
+    assert all(r["module_import_s"] is not None and "setup_s" in r and "loop_s" in r for r in ok)
+
+
+def test_measure_cached_checkpoint_resume(state, cases, tmp_path, monkeypatch):
+    cs = [c for c in cases.values() if c.kind == "time"]
+    ck = tmp_path / "cached.jsonl"
+    full = benchrun.measure_cached(cs, state, sys.executable, values=2, min_value_time=0.0005, checkpoint=ck)
+    lines = ck.read_text().splitlines()
+    assert len(lines) == len({c.module for c in cs})
+    ck.write_text(lines[0] + "\n")                       # keep only the first module, as after a kill
+    calls = []
+    real = benchrun._run_worker
+    monkeypatch.setattr(benchrun, "_run_worker", lambda *a, **k: (calls.append(1), real(*a, **k))[1])
+    res = benchrun.measure_cached(cs, state, sys.executable, values=2, min_value_time=0.0005, checkpoint=ck)
+    assert len(calls) == len({c.module for c in cs}) - 1 and len(res) == len(full)

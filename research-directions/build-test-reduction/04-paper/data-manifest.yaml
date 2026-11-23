@@ -28,6 +28,9 @@ inputs:
   - path: "03-experiment/results/q3/b1_construct.json"
     size: 9898
     sha256: "3b9dddc908fd8eaf184df84201269b90e4ed8fdaf784508d410adfc5abdf5529"
+  - path: "03-experiment/results/raw/bottleneck/bench/analysis_bn.json"
+    size: 866
+    sha256: "f89ea810cc780b0083ebb6ce4fb6b77c56aef900cb5da792d8263986c0be6243"
   - path: "03-experiment/results/raw/bottleneck/retime-idle/repeat1.json"
     size: 135
     sha256: "5284746ed8a98eac5cd169b16235c045860e5c2eea1f46f83c026fe084884a69"
@@ -46,6 +49,18 @@ inputs:
   - path: "03-experiment/results/raw/networkx/bench/aa_flagged/analysis_aa.json"
     size: 8756
     sha256: "64acbb4680c22bf6a8040edcab8d7fa097cd5f62f563a55c3f97d99347609f0d"
+  - path: "03-experiment/results/raw/networkx/bench/drift/pass0.json"
+    size: 120886
+    sha256: "88378188f8b29d1be272b81f17e19d5989c5cb6f74aee54b0aed00f83e54e783"
+  - path: "03-experiment/results/raw/networkx/bench/drift/pass1.json"
+    size: 120988
+    sha256: "d08fd140dfadb4cc23c52fdb32c5c2eeedacdfea2772d1f6c3d34a1bf803677f"
+  - path: "03-experiment/results/raw/networkx/bench/drift/pass2.json"
+    size: 121062
+    sha256: "1fb0dc5628f6027e64d2b450c804ac0524d024460be0c8d2253f3fab05c0b288"
+  - path: "03-experiment/results/raw/networkx/bench/pass_labels.json"
+    size: 4526
+    sha256: "ba9d3462b71c760507bff66a4b85a4df001c4565f831206ee1ad1fcfd0655aa3"
   - path: "03-experiment/results/raw/networkx/edit_share.json"
     size: 14217
     sha256: "ddb6753b024f366b12c1234ec8d32178906e77390675058900a854cd0a217b52"
@@ -91,6 +106,9 @@ inputs:
   - path: "03-experiment/results/raw/networkx/slowdowns/09.json"
     size: 21479
     sha256: "bb8bfdcacc1efb74e604201327a0064b5b9fe4925f4f8739acdcb9dd0f1edea1"
+  - path: "03-experiment/results/raw/networkx/slowdowns/repeat/analysis_rep.json"
+    size: 6105
+    sha256: "a09703601a34af049ec6d445b02dd3c53d4ae8967e0832b102a5ca6b3370a795"
   - path: "03-experiment/results/raw/networkx/slowdowns/share.json"
     size: 4107
     sha256: "9e08a6bc92457cff14f73ad5bde1e9751bccaa2e396fa9b07ea3323a72df1d92"
@@ -104,8 +122,8 @@ inputs:
     size: 423798
     sha256: "2f65db264fdbe941ee1fcff1fa7c58bb5ea4d8d1f4c2deecd54719abb2f9baa9"
   - path: "03-experiment/results/results.md"
-    size: 101976
-    sha256: "1dd6b101008029eadcf70e29d4cf9cf0a97f1ccad2d4c7627f0b7a3797924f2a"
+    size: 121652
+    sha256: "1f80756c129cabf7e36685fad7e6f7e1c0f3b23f48cf905584797d55d4643f5e"
   - path: "03-experiment/results/rq1_networkx.csv"
     size: 4149
     sha256: "0e370d219938a96eb19df8b919b9100f1dd7c312d25b469be47745f9bcf280cc"
@@ -113,5 +131,5 @@ inputs:
     size: 1844
     sha256: "aab6368ee30ef63369b1f716c6b1b5e52f4faed914ea938932aeb126d31c05bf"
   - path: "knowledge-base/findings.md"
-    size: 24852
-    sha256: "d2fe3778d4fdc4ea0c9e6f0a931166fb9b3b63285f6c5c18e0d84d4ae258b004"
+    size: 28433
+    sha256: "5d559e6a4440854b4703a7ee7aacfcf2f42c62b5371e90d1989f76d64d35618e"

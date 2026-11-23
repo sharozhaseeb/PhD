@@ -1,0 +1,321 @@
+{
+ "plan": "results/raw/networkx/slowdowns/repeat/plan.md",
+ "slowdown": 1,
+ "tier": 1,
+ "state_sha": "867fda8df9a3d7bf381ce3c7955ada4bace9f079",
+ "function": "networkx/algorithms/shortest_paths/weighted.py::bidirectional_dijkstra",
+ "protocol": {
+  "processes": 2,
+  "values": 3,
+  "repeats": 4,
+  "order": "rotated per repeat: base-first, slow-first, ..."
+ },
+ "wall_s": 194.2605640888214,
+ "n_runs": 8,
+ "n_errors": 0,
+ "peak_run_load": 0.55,
+ "n_pre_gate_not_ok": 0,
+ "pre_gate_waited_s": 361.8,
+ "m5_label": "measured-window",
+ "t_first": "2026-11-22T17:45:15+0500",
+ "t_last": "2026-11-22T21:12:56+0500",
+ "cases": {
+  "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')": {
+   "rep0": {
+    "ratio": 1.0601640785411297,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep1": {
+    "ratio": 0.7845141585410348,
+    "p": 0.3939393939393939,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep2": {
+    "ratio": 1.0293661953343158,
+    "p": 0.9372294372294373,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "rep3": {
+    "ratio": 1.0466787123202625,
+    "p": 0.48484848484848486,
+    "status": "same",
+    "n": [
+     6,
+     6
+    ]
+   },
+   "pair0": {
+    "ratio": 0.9696011201830264,
+    "p": 0.6650055421020291,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pair1": {
+    "ratio": 0.9653903624898652,
+    "p": 0.623604884395689,
+    "status": "same",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "pooled": {
+    "ratio": 0.9658054075010237,
+    "p": 0.42727890617197617,
+    "status": "same",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "original": {
+    "ratio": 1.2445636573788232,
+    "p": 0.0018307246496942306,
+    "status": "slower"
+   },
+   "agree": false
+  }
+ },
+ "raw_runs": [
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    1.3439189999189694e-05,
+    1.3935843999206554e-05,
+    1.4410880001378246e-05,
+    1.599574399733683e-05,
+    1.541499099766952e-05,
+    1.5204947998427087e-05
+   ],
+   "number": 1000,
+   "wall_s": 62.55253602999801,
+   "loadavg_before": 0.24,
+   "loadavg_after": 0.37,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:45:15+0500",
+   "t_end": "2026-11-22T17:46:18+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.24,
+    "wincpu": 15.1,
+    "waited_s": 40.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    1.567070500095724e-05,
+    2.4132041002303595e-05,
+    1.8095072999130936e-05,
+    1.5726932000688974e-05,
+    1.3839559000189183e-05,
+    1.3858622001862387e-05
+   ],
+   "number": 1000,
+   "wall_s": 90.38202642399847,
+   "loadavg_before": 0.37,
+   "loadavg_after": 0.46,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:46:18+0500",
+   "t_end": "2026-11-22T17:47:48+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.37,
+    "wincpu": 17.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    1.489031999881263e-05,
+    1.3584345997514902e-05,
+    1.4856918001896703e-05,
+    1.2119890998292249e-05,
+    1.2943294997967314e-05,
+    1.2195884999528062e-05
+   ],
+   "number": 1000,
+   "wall_s": 107.33338551100314,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.25,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:52:09+0500",
+   "t_end": "2026-11-22T17:53:57+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 16.9,
+    "waited_s": 261.3
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    2.127987300264067e-05,
+    2.3555710999062286e-05,
+    2.130575199771556e-05,
+    1.2534228000731673e-05,
+    1.2343194997811225e-05,
+    1.2299860001803609e-05
+   ],
+   "number": 1000,
+   "wall_s": 83.27210799900058,
+   "loadavg_before": 0.25,
+   "loadavg_after": 0.29,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 1,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:53:57+0500",
+   "t_end": "2026-11-22T17:55:21+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.25,
+    "wincpu": 19.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    1.715667600001325e-05,
+    1.3907815999118611e-05,
+    1.548925199676887e-05,
+    1.6126374997838867e-05,
+    1.598192600067705e-05,
+    1.5924216000712476e-05
+   ],
+   "number": 1000,
+   "wall_s": 124.06625842199719,
+   "loadavg_before": 0.21,
+   "loadavg_after": 0.08,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T17:55:41+0500",
+   "t_end": "2026-11-22T17:57:45+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.21,
+    "wincpu": 16.4,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    1.4957164999941596e-05,
+    1.3178171997424216e-05,
+    1.325138999891351e-05,
+    1.7885938999825156e-05,
+    1.8593086999317167e-05,
+    1.8553472000348847e-05
+   ],
+   "number": 1000,
+   "wall_s": 55.755053855998995,
+   "loadavg_before": 0.2,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 2,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T17:58:05+0500",
+   "t_end": "2026-11-22T17:59:01+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.2,
+    "wincpu": 15.9,
+    "waited_s": 20.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    1.1700003997248131e-05,
+    1.1888057000760454e-05,
+    1.5407358994707466e-05,
+    1.539452299766708e-05,
+    1.6709155002899932e-05,
+    1.5494259001570754e-05
+   ],
+   "number": 1000,
+   "wall_s": 77.62563986999885,
+   "loadavg_before": 0.55,
+   "loadavg_after": 0.25,
+   "skipped": false,
+   "error": null,
+   "label": "slow",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-B",
+   "t_start": "2026-11-22T21:10:12+0500",
+   "t_end": "2026-11-22T21:11:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.55,
+    "wincpu": 16.3,
+    "waited_s": 20.2
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    1.7672134999884294e-05,
+    2.027063300192822e-05,
+    1.6084253002190962e-05,
+    1.2680421998084057e-05,
+    1.3343957994948141e-05,
+    1.270835899777012e-05
+   ],
+   "number": 1000,
+   "wall_s": 86.09835287999886,
+   "loadavg_before": 0.25,
+   "loadavg_after": 0.1,
+   "skipped": false,
+   "error": null,
+   "label": "base",
+   "repeat": 3,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-22T21:11:30+0500",
+   "t_end": "2026-11-22T21:12:56+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.25,
+    "wincpu": 9.2,
+    "waited_s": 0.0
+   }
+  }
+ ]
+}

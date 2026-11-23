@@ -23,7 +23,7 @@
 On networkx, **one FULL benchmark pass (all 171 cases, asv's default 2 processes × 3 values) cost 659–2444 s across 6 measured passes on the night of 21–22 Nov.** The median is ≈ 730 s (≈ 12 min). Build + serial tests take **≈ 87 s**, so benchmarks are about **8–28×** the rest of FULL validation (≈ 8× at the median). **Benchmark cost, not build or test cost, is the dominant per-edit cost** on this project.
 
 **Most of the benchmark cost is setup (advisor review, 07:50):**
-- **86.9–95.5 % of a pass is spent in one module's 49 cases (`benchmark_algorithms`)**, over the 6 passes (Σ run wall of its cases ÷ Σ run wall of the pass: item 4 94.1 %, `bench/S0_181f2951.idle.json`; base side of `slowdowns/0{1,2,3,4,8}.json` 95.5 / 88.5 / 86.9 / 86.9 / 87.6 %; recomputed 16:20 after W6, earlier text said 87–96 %). Their time includes their timing loops, but 80–94 % of a pass lies outside the timing loops, mostly per-process start-up and import-time setup: they rebuild all their graphs at module import, once per process.
+- **86.9–95.5 % of a pass is spent in one module's 49 cases (`benchmark_algorithms`)**, over the 6 passes (Σ run wall of its cases ÷ Σ run wall of the pass: item 4 94.1 %, `bench/S0_181f2951.idle.json`; base side of `slowdowns/0{1,2,3,4,8}.json` 95.5 / 88.5 / 86.9 / 86.9 / 87.6 %; recomputed 16:20 after W6, earlier text said 87–96 %). Their time includes their timing loops, but **79.9–94.8 % of a pass lies outside the timing loops over all 9 passes** (1 − Σ samples × number ÷ Σ run wall; 6 earlier passes 79.9–94.1 %: item 4 89.8 %, base sides of slowdowns 01/02/03/04/08 94.1 / 82.4 / 79.9 / 80.1 / 81.3 %; tonight's (d) passes 94.8 / 91.4 / 88.2 %; recomputed 23:50 from the same raw files; earlier text said 80–94 % over 6 passes), mostly per-process start-up and import-time setup: they rebuild all their graphs at module import, once per process.
 - **The benchmarks' timing loops take only 132–171 s per pass** (Σ samples × number). Measured: 171 s in item 4; 132–144 s on the base side of the slowdown-oracle passes (`raw/networkx/slowdowns/0{1,2,3,4,8}.json`).
 - **Estimate, not measured — "setup cached":** if the import-time setup were built once and reused, a FULL pass would cost roughly its timing loops, **≈ 130–170 s, about 1.5–2× build + tests (≈ 87 s)** instead of 8–28×.
   - This is a lower bound. It leaves out per-process start-up and warm-up values.
@@ -34,8 +34,8 @@ On networkx, **one FULL benchmark pass (all 171 cases, asv's default 2 processes
 **The 6 passes (all noisy-labelled or concurrent; single passes):**
 - **Dedicated S0 pass (overnight item 4):** 1668 s, `raw/networkx/bench/S0_181f2951.idle.json`. 171/171 cases, 0 errors. Labelled **noisy** (M5: load 1.63 at start; 1 of 171 cases > 1.5).
 - **Slowdown-oracle base side, per pass:** the mean over its 3 interleaved passes of the unpatched clone, from `raw/networkx/slowdowns/0{1,2,3,4,8}.json`.
-  - #3: 659 s; #4: 665 s; #8: 708 s, all runs at load ≤ 1.45; #2: 751 s.
-  - #1: 2444 s, with 177/1026 runs > 1.5.
+  - #3: 659 s; #4: 665 s; #8: 708 s (all its base-side runs at load ≤ 1.45); #2: 751 s. Base-side runs with load > 1.5, of 513 each: #2 6, #3 81, #4 15, #8 0.
+  - #1: 2444 s, with 88/513 base-side runs > 1.5 (177/1026 over both sides).
   - These are at states S2–S10 rather than S0, but with the same benchmark code.
 - **Finding (benchmark-cost noise): the spread is ≈ 3.7× under one protocol on one machine in one night.** So a single FULL benchmark pass is a noisy cost unit. Per-edit benchmark cost should be reported as a range, and any cost-matched arm comparison (RQ3) has to use per-case cost weights from one pass, not wall time from separate passes. WSL load does not explain it: item 4 had only 1 case > 1.5 yet took 1668 s. The cause is **unknown**. The later per-run data (machine-state finding) show the variation sits in one module's per-process setup, not in the timed samples. Host-side load is one candidate, but it was not measured, and at 10:42 Windows CPU read 11 %. M5 should also gate on Windows CPU, as the overnight start gate did.
 - **Where the time goes:** `benchmark_algorithms` (49 cases) is 1570 s of the 1668 s pass and ≈ 620 s of the 708 s pass (#8). Its per-case median is 8.7–8.8 s in the fast passes and 27 s in item 4, which is roughly 4–13 s per import for 2 processes. Timing loops are only ≈ 171 s per pass. The rest is process start-up and import-time graph construction.
@@ -437,7 +437,7 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
 **Detection by FULL.**
 - **As classified by the script:** FULL detects **3 of 10** (30 %; 95 % Wilson CI **10.8–60.3 %**). These are #1, #2 and #8.
 - **On target:** **2 of 10** (Wilson **5.7–51.0 %**), #2 and #8.
-- **#1 is judged an oracle false positive.** Its only "slower" case never executes `bidirectional_dijkstra` in its S0 profile, and the patch only touches that function's body. Its p = 0.0018 sits just under the 0.002 threshold. The same run also produced an off-target "faster" verdict. 177 of its 1026 runs had a 1-minute load above 1.5.
+- **#1 is judged an oracle false positive.** Its only "slower" case never executes `bidirectional_dijkstra` in its S0 profile, and the patch only touches that function's body. Its p = 0.0018 sits just under the 0.002 threshold. The same run also produced an off-target "faster" verdict. 177 of its 1026 runs (88 of 513 on the base side) had a 1-minute load above 1.5.
   - Across the whole oracle there are **843 off-target comparisons that can yield a verdict**, plus 50 spot-check comparisons (6 v 6) that cannot: 893 in all (earlier text said "about 890"; reconciled in "W6 hostile-review checks"). Three of them gave a non-"same" verdict. That is in line with chance at α = 0.002 with many comparisons, especially since samples from one process are not independent, which makes Mann-Whitney p optimistic.
   - This is a reading, not a re-measurement. Oracle repeatability (readiness §5) would settle it.
 - **The 7 slowdowns FULL misses:** 5 (#0, 5, 6, 7, 9) are reached by **no** benchmark case, by profile or by static reach. The other 2 are reached in different ways. **#3** (`is_connected`) is reached by 3 profiled cases; its ratios are 0.95–1.01. **#4** (`_single_shortest_path`) is reached **only by static reach** (profile reach 0), so it is a coverage miss. *Wording note (16:35, PM):* static reach covers **all 171 cases** for #1, #2, #3, #4 and #8 alike (the S0 static call graph over-approximates), so "reached" for #1 and #4 means statically reachable only, and is uninformative; by measured S0 profile, #1 and #4 are **not reached**. "The 5 reached slowdowns" (E3) means profile ∪ static. Double-calling either function moves no case past the asv rule.
@@ -693,6 +693,192 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
   - #2's 8 survivals are robust: they also pass under σ_boot, and the lowest floor is 1.075 against ratios ≥ 1.81.
   - For #9 the margin (1.130 vs 1.140) is far smaller than that uncertainty. The verdict follows the frozen rule, but #9 should be read as "at the noise floor".
 - **Order:** the order was rotated per repeat, so A ran first in repeats 0, 2 and 4. An order effect is therefore not excluded for the noisy cases (#8, #1).
+
+### E3 tier 1: slowdown-oracle repeatability on the 14 verdict-relevant cases (night item 2; 16:45–17:59 and 21:10–21:13)
+
+- **Plan** (frozen 15:33): `raw/networkx/slowdowns/repeat/plan.md`.
+- **Raw data:** `repeat/t1_{02,08,03,01}.json`. The frozen analysis output is `repeat/analysis_rep.json` (exact test primary; the old test gives identical statuses here).
+- **Design:** each slowdown at its own state, base vs base + patch, 2 × 3, **4 repeats** in the order base-first, slow-first, base-first, slow-first. The pooled sample is 24 v 24, against the original 18 v 18.
+- **Run conditions:**
+  - 112 runs, all 4 blocks **measured-window**, no run with `pre_gate.ok = False`. Peak run load 0.55–1.41. The per-run gate waited 1,928 s in total.
+  - **#1's block spans the cap and the restart:** 6 runs at 17:45–17:59, then the item's 75-min cap expired (≈ 18:00).
+    - The 17:59–21:10 gap was block-gate starvation (Windows CPU > 20 %, from the owner's other project; queue.log), then the 19:50 stop (amendment 4).
+    - The last 2 runs (repeat 3) ran at 21:10–21:13, after the automatic restart.
+    - Its second order-balanced pair (repeats 2 + 3) therefore mixes runs 3 hours apart. That pair's ratio (0.965) matches pair 0's, so there is no visible effect. The gap does not touch any other block.
+
+| Slowdown: case(s) | Original verdict | Now, pooled 24 v 24 (exact) | The two order-balanced pairs | Agree |
+|---|---|---|---|---|
+| #2 on target, 8 atlas `multi_source_dijkstra` cases | slower, 1.81–1.90× | **slower, 1.76–1.90×**, p ≈ 3e-9 | slower, slower (8/8) | **8/8** |
+| #2 off target, `NonNeighbors.time_complete(100)` | slower, 1.14× | **same, 0.977×** | same, same | no |
+| #8 on target, `ManyComponents...all_shortest_paths` | slower, 1.116× | **slower, 1.202×**, p = 1.3e-3 | same, same (p = 0.004 and 0.078) | same status, but uninformative (see below) |
+| #3 on target, 3 `eigenvector_centrality_numpy` cases | same | **same** (0.97–1.24×; the 1.24× case has p = 0.012) | same, same | **3/3** |
+| #1 off target, `connected_components('ER (100, 0.1)')` | slower, 1.245× | **same, 0.966×** | same, same | no |
+
+**Reading** (the pre-registered E3 questions):
+- **#2's on-target detection repeats** at the same size (8/8). It also clears its (b) floors (1.08–1.33).
+- **#1's and NonNeighbors' off-target "slower" verdicts do not repeat.** Both are now "same", at ≈ 0.97×. That is consistent with their being noise, as judged before and as their (b) floors already showed.
+- **#8's repeated "slower" is no evidence of a real effect.** The (b) A/A at the same state, with no patch, also gave "slower" (1.129×), so agreement is uninformative here.
+  - Each order-balanced 12 v 12 pair is "same", and the ratio (1.20×) is far below its (b) floor of 2.18.
+  - **It does not clear the noise floor**, the same reading as (b).
+- **#3: no evidence of a detectable effect at this protocol** (3/3 same at 24 v 24). This fits the dilution finding: ≈ 0.5 % share, so ≈ 1.005× expected.
+  - A null on the heavy `benchmark_algorithms` module is weak evidence: the A/A power at 1.2× is only ≈ 0.4 (15 v 15, exact).
+  - On `ER (100, 0.1)`, pair 0 gave 1.36× (p = 0.03) and the pooled 1.24× has p = 0.012, so a 1.2× effect there is not excluded. No σ exists for these 3 cases.
+- **Overall:** 12 of 14 verdicts agree with the original. The 2 disagreements are the two off-target flags, which turn into "same". Transition counts per block are in `analysis_rep.json`.
+  - The "1 of 10 above the noise floor (#2)" result from (b) is **unchanged by this repeat**. The repeat covered only #1, #2, #3 and #8; #4 has no case in tier 1, and #0, #5, #6, #7 and #9 were not repeated.
+- **Not done yet:** tier 2 (the other cases, 2 repeats) runs later tonight, if time allows.
+
+### (d) Three repeated FULL networkx passes with machine telemetry (night item 3; 19:07–23:42, with the 19:50–21:22 stop)
+
+- **Plan** (frozen 15:33): `raw/networkx/bench/drift/plan.md`.
+- **Raw data:** `drift/{canary0..3,pass0..2}.json`. The frozen analysis output is `drift/analysis_drift.json`; telemetry is in `raw/telemetry/{win,wsl}-20261122.jsonl`.
+- **Protocol:** state S0, 171 cases, 2 processes × 3 values, CPUs 2–5, a 3-case canary before, between and after the passes.
+- **Descriptive only (no root-cause hunting, per plan).**
+
+| Block | Time | Σ run wall | `benchmark_algorithms` (49 cases) | Other 7 modules (122 cases) | Timed loops (Σ samples × number) | Median `benchmark_algorithms` run | M5 label |
+|---|---|---|---|---|---|---|---|
+| pass 0 | 19:10–22:34 ¹ | **2,984 s** | 2,888 s | 96 s | 155 s | 58.8 s | noisy ² |
+| pass 1 | 22:38–23:14 | **1,694 s** | 1,601 s | 93 s | 146 s | 27.6 s | noisy ² |
+| pass 2 | 23:15–23:41 | **1,217 s** | 1,125 s | 93 s | 144 s | 20.6 s | noisy ² |
+
+¹ Pass 0 spans the stop: its first 7 runs (19:10–19:49) mostly ran after full 10-min gate waits, and the remaining 164 ran 21:22–22:34. The Σ run wall excludes the gate waits and the stop.
+
+² Each pass has 1 run with load > 1.5 (1.61, 1.68 and 1.56). Pass 0 also has 3 runs with `pre_gate.ok = False`, each started after the full 601 s wait with gate Windows CPU at 26–28 %: runs 1 and 2 (19:21 and 19:32, in the 19:10–19:49 starvation) and run 14 (21:40, after the restart). These are reported, not dropped.
+
+| Canary (the same 3 cases) | Time | `connected_components('ER (100, 0.9)')` run | 2 cheap `GraphBenchmark` cases |
+|---|---|---|---|
+| canary 0 | 19:07 | 98.2 s | 0.53 + 0.56 s |
+| canary 1 | 22:35 | 38.1 s | 0.47 + 0.56 s |
+| canary 2 | 23:14 | 26.8 s | 0.53 + 0.52 s |
+| canary 3 | 23:41 | 9.6 s | 0.45 + 0.60 s |
+
+**Reading** (descriptive):
+- **The FULL-pass cost moved 2.5× in one evening** (2,984 → 1,217 s, 2.45×). **1,763 s of the 1,767 s drop is in `benchmark_algorithms`'s per-run cost** (median run 58.8 → 20.6 s; the canary's algorithm case went 98 → 10 s).
+  - The other 122 cases stayed at 93–96 s per pass (95.9, 92.6, 92.8).
+  - The **timed loops stayed at 144–155 s**, and the cheap canary cases stayed at ≈ 0.5 s.
+  - This repeats, within one night and with telemetry, the earlier machine-state finding. **The movement is in wall time outside the timed loops** (that module's setup and other per-run overhead), not in the loops. Which part of that overhead moved was not measured.
+- **Telemetry shows no obvious covariate that moves with the drift; no test was run:**
+  - Mean Windows CPU per block was 14–22 %. The per-run gate held run starts to ≤ 20 % except for the 3 `ok = False` runs, with excursions up to 94 % during runs.
+  - **`% Processor Performance`:** pass means 151 / 156 / 159, so it rose slightly as the cost fell; canary means 139–164. Its minimum reads 0 one to three times per pass (2 of pass 0's zeros fall inside the stop), which looks like a counter glitch and is not interpreted.
+  - WSL load averaged 0.4–0.8.
+  - **Pass 0's telemetry window (19:10–22:34) spans the 19:50–21:22 stop**, which is 45 % of its samples. Split: before the stop 31 % CPU, perf 158; during the stop 17.6 %, 144; after it 21.5 %, 156. So pass 0's means are not comparable with passes 1 and 2. The canary windows hold only 1–12 samples.
+  - **The cause stays unknown**, as the plan allows.
+- **R1 update (a range over passes, never one pass):**
+  - The 9 measured FULL networkx passes (6 earlier + 3 tonight) give a Σ run wall of **659–2,984 s**.
+  - The timed loops give **132–171 s** across all of them.
+  - `benchmark_algorithms` share tonight: 92.4–96.8 %. Together with the earlier 86.9–95.5 %, the range is 86.9–96.8 %.
+  - So benchmarks are ≈ **8–34×** build + tests (≈ 87 s). Most of the spread is wall time outside the timed loops in one module.
+- **What E5 (setup-cached, next night) must answer:** what is left when that setup is paid once. The timed loops (144–155 s tonight) are the lower bound.
+
+### Pass labels for the 9 FULL networkx passes: single source of truth (PM 23:52; `scripts/pass_labels.py` → `raw/networkx/bench/pass_labels.json`)
+
+- **One uniform rule** (the M5 run-level rule, as frozen for the night queue): a pass is **noisy** if any of its runs has load > 1.5 (max of before and after) or `pre_gate.ok = False`.
+- Recorded labels are shown next to it. **Cite the rule label.** This supersedes the "5 of 9" count given at 23:50 and the corrected LABELS.md line.
+
+| Pass | Kind | Runs | Max run load | Runs > 1.5 | Gate not ok | Wall (s) | Rule label | Recorded label (source) |
+|---|---|---|---|---|---|---|---|---|
+| item4-S0 | dedicated FULL pass, S0 | 171 | 1.58 | 1 | 0 | 1668 | **noisy** | noisy (LABELS.md: load 1.63 at start) |
+| oracle01-base | base side of the #1 oracle ¹ | 513 | 1.99 | 88 | 0 | 2444 | **noisy** | noisy (results.md RQ1) |
+| oracle02-base | base side of the #2 oracle ¹ | 513 | 2.10 | 6 | 0 | 751 | **noisy** | none recorded |
+| oracle03-base | base side of the #3 oracle ¹ | 513 | 2.20 | 81 | 0 | 659 | **noisy** | none recorded |
+| oracle04-base | base side of the #4 oracle ¹ | 513 | 1.62 | 15 | 0 | 665 | **noisy** | none recorded |
+| oracle08-base | base side of the #8 oracle ¹ | 513 | 1.45 | 0 | 0 | 708 | **measured-window** | none recorded |
+| drift-pass0 | dedicated FULL pass, S0 | 171 | 1.61 | 1 | 3 | 2984 | **noisy** | noisy (driver) |
+| drift-pass1 | dedicated FULL pass, S0 | 171 | 1.68 | 1 | 0 | 1694 | **noisy** | noisy (driver) |
+| drift-pass2 | dedicated FULL pass, S0 | 171 | 1.56 | 1 | 0 | 1218 | **noisy** | noisy (driver) |
+
+¹ 3 interleaved A/B passes of the unpatched clone. Runs are counted over all 3; wall is per pass (Σ / 3).
+
+- **The gate column can be measured only for the drift passes.** The S0 and oracle runs recorded no `pre_gate`, so their 0 means "not recorded". Their rule labels rest on load alone.
+- **Wall is run time only**, excluding gate waits: drift pass 0's total wall was 4,290 s against a run sum of 2,984 s.
+
+- **By the uniform rule, 8 of 9 passes are noisy.** The only measured-window pass is the #8 base side, which is one side of an interleaved A/B oracle, not a dedicated FULL pass.
+- Item 4 and drift passes 1–2 are noisy because of a single run. Item 4 also had a start load of 1.63, and drift pass 0 has 3 gate failures besides. The R1 cost range (659–2,984 s, run time only, excluding gate waits) is therefore a range over noisy-labelled passes. The paper must say so.
+
+### (c) Two FULL asv benchmark passes for bottleneck (night item 4; 23:44–00:23)
+
+- **Plan** (frozen 15:33): `raw/bottleneck/bench/plan.md`.
+- **Raw data:** `raw/bottleneck/bench/pass{0,1}.json`. The frozen analysis output is `analysis_bn.json`.
+- **Protocol:** state `f51ed862`, 840 time cases, 2 processes × 3 values, CPUs 2–5, the `bn38` venv.
+
+| Pass | Time | Σ run wall | move | reduce | nonreduce_axis | nonreduce | Timed loops | Runs > 1.5 / gate not ok | Label |
+|---|---|---|---|---|---|---|---|---|---|
+| 0 | 23:44–00:03 | **544 s** | 183 s | 256 s | 102 s | 3.4 s | 146 s | 1 / 0 | noisy (1 run) |
+| 1 | 00:03–00:23 | **547 s** | 176 s | 261 s | 107 s | 3.5 s | 149 s | 1 / 0 | noisy (1 run) |
+
+- 0 errors. The per-run gate waited 580 s and 641 s per pass. Mean Windows CPU was 18.8 % and 17.7 %.
+- **The two passes agree within 0.5 %** (544 vs 547 s), unlike networkx's `benchmark_algorithms`-dominated passes.
+  - Per-run wall is 0.65 s on average, 27 % of it in timed loops.
+  - The setup content was not examined.
+- **R1 second-project row (C extension):**
+  - benchmarks ≈ 545 s;
+  - clean build 4.7–5.4 s and full tests ≈ 24 s (results.md RQ1; noisy-labelled);
+  - so **benchmarks ≈ 18.5–19× build + tests** (545 / 28.7–29.4 s; one state, two passes, both labelled noisy).
+  - About 27 % of the benchmark wall is in timed loops (146–149 s). The non-loop time was not decomposed.
+- **Reading:** on this C-extension project too, benchmarks dominate per-edit validation cost. The observed ratio is ≈ 18.5–19×: 840 cases at ≈ 0.65 s each. What drives the non-loop time was not measured.
+- **Not claimed:** anything beyond one state. The build share for this project stays ≈ 16–18 % of build + tests, and is ≈ 0.8–0.9 % once benchmarks count.
+
+### E3 tier 2: slowdown-oracle repeat on the remaining cases (night item 5; 00:25–06:25, hard stop)
+
+- **Plan** (frozen 15:33): `raw/networkx/slowdowns/repeat/plan.md`, tier 2. Two repeats (base-first, slow-first), 2 × 3, pooled 12 v 12.
+- **Raw data:** `repeat/t2_{03,04,02}.json`.
+  - Frozen analysis: `repeat/analysis_rep.json`, exact test primary.
+  - Post-hoc analysis (PM 02:37): `scripts/tier2_flips.py` → `repeat/flips_tier2.json`.
+- **Coverage:**
+  - **Complete:** #3 (168 cases, 166 complete), #4 (171) and #2 (162).
+  - **#8 was cut by the 06:25 hard stop** (partial, not reported).
+  - **#1 never started.**
+- **#3's 2 incomplete cases:** one `time_pagerank('ER (100, 0.5)')` run timed out (120 s), and one `time_pagerank('ER (100, 0.9)')` run failed with `URLError: Connection reset by peer` (see the note at the end).
+- **M5 labels:** #3 noisy (3 runs > 1.5) and #4 noisy (2 runs) by load. **#2 is measured-window** (peak 1.49).
+- **The frozen metric "pairs agree with each other"** reads 0 for tier 2 because tier 2 has only one order-balanced pair. It is not meaningful here.
+
+**Result: 488 of 499 complete off-target verdicts agree with the original ("same"). 11 are new non-"same" verdicts (exact test).**
+
+| Slowdown | Case | Now | Ratio | Exact p | Repeat 0 / repeat 1 ratio | Max run load (case) | σ (S0 A/A, 2 repeats) |
+|---|---|---|---|---|---|---|---|
+| #3 | `greedy_modularity_communities('Drug Interaction network')` | faster | 0.845 | 1.1e-3 | 0.910 / 0.786 | 1.52 | none |
+| #3 | `k_core('ER (100, 0.1)')` | slower | 1.430 | 1.4e-5 | 1.413 / 1.372 | 1.03 | none |
+| #3 | `louvain_communities('ER (100, 0.9)')` | faster | 0.829 | 6.6e-4 | 0.853 / 0.797 | 0.77 | none |
+| #3 | `GraphBenchmark.time_to_undirected('MultiDiGraph')` | faster | 0.873 | 1.0e-4 | 0.892 / 0.822 | 0.75 | floor 1.029: **clears** |
+| #3 | `harmonic_centrality('directed_wheel(10)')` | slower | 1.211 | 2.0e-4 | 1.245 / 1.162 | 0.77 | none |
+| #3 | `k_factor(…, 4)` | faster | 0.859 | 2.2e-5 | 0.866 / 0.860 | 0.68 | none |
+| #4 | `kosaraju_scc('ER (100, 0.1)')` | slower | 1.200 | 3.3e-5 | 1.184 / 1.231 | 1.05 | none |
+| #2 | `tarjan_scc('ER (1000, 0.05)')` | slower | 1.171 | 3.7e-4 | 1.126 / 1.266 | 0.84 | none |
+| #2 | `connected_components('ER (100, 0.9)')` | slower | 1.288 | 7.4e-7 | 1.222 / 1.316 | 1.08 | floor 1.278: **clears (narrowly)** |
+| #2 | `GraphBenchmark.time_subgraph_large('MultiGraph')` | slower | 1.173 | 1.8e-3 | 1.163 / 1.163 | 1.27 | none |
+| #2 | `…time_multi_instance(DiGraph)` | slower | 1.170 | 8.9e-6 | 1.142 / 1.203 | 0.79 | none |
+
+- **Rate:** 11 / 499 = **2.2 %**, against ≈ 0.2 % nominal at α = 0.002 (≈ 1 expected). Under the old normal-approximation test it is 9.
+  - That is **about 11× the nominal rate of the test as applied**. The nominal α assumes exchangeable samples, but the 12 per side come from 2 processes × 2 repeats, so they are correlated, which makes the test anti-conservative.
+  - The Wilson interval (1.2–3.9 %) treats cases as independent, although they share runs and blocks, so it is too narrow.
+  - No correction for 499 tests was applied. The 11 still clearly exceed the ≈ 1 expected.
+  - Two flips are borderline: p = 1.1e-3, and p = 1.8e-3, which is 2.9e-3 under the old test.
+- **The earlier A/A results do not contradict a ≈ 2 % rate:**
+  - 0 of 46 per-repeat verdicts in the quiet S0 A/A, and 0 of its 69 verdicts overall, are consistent with 2.2 % (P(0 of 46) ≈ 0.36).
+  - The (b) A/A's "1 of 12" comes from a preselected set of flagged cases, not a sample.
+- **The noise floor (PM item 1):** σ exists for only 2 of the 11 cases, from the 2-repeat S0 A/A, so it is rough.
+  - `to_undirected('MultiDiGraph')` (faster) clears its floor: 0.873 < 0.972, which is 1/(1 + 3σ) = 1/1.029.
+  - `connected_components('ER (100, 0.9)')` clears narrowly (1.288 vs 1.278).
+  - The other 9 have no σ.
+- **Machine state (PM item 2): this data cannot test it.**
+  - Only 5 of the 1,356 runs in the noisy blocks exceeded load 1.5, and only 1 of the 11 flips is in a case with such a run.
+  - The measured-window block (#2) has 4 flips in 162; the noisy blocks have 6 in 166 and 1 in 171.
+  - WSL load (1 min) is also a weak proxy for interference.
+- **Interpretation. The edit and the clone directory are fully confounded:** in all 1,332 runs, base ran in `nx-slow-A` and slow ran in `nx-slow-B`.
+  - All 11 flips have the same sign in both repeats. That is expected for any pooled result with p < 0.002, so it is weak evidence by itself: 262 of the 488 non-flips are same-sign too. Order-balancing rules out only a run-order artefact.
+  - **(i) An effect of the patch on these cases** (via paths the S0 profile did not record) **cannot explain the 4 "faster" flips**, because the patch only adds work.
+    - The #3 patch touches only `is_connected`. No call path from it to `to_undirected`, `k_factor` or `harmonic_centrality` has been shown.
+    - Each patch renames the original function and adds a wrapper; for #1 and #3 this also moves the `@nx._dispatchable` decorator.
+  - **(ii) Directory, layout, import or setup differences between the two clones** (measurement bias) can produce both signs.
+    - The S0 A/A used the same two directories, with identical code, and showed no case beyond ±10 % in both repeats. That is a real control, but it covers only 2 of the 11 flipped cases, and 4 of its 23 cases exceeded ±10 % in one repeat.
+    - In the (b) A/A, 3 of 12 cases have all 5 repeat ratios on one side (P(≥ 3) ≈ 0.04 if independent), but the atlas cases share a setup, so the effective n is smaller.
+  - **Not separable with this design.** Swapping the directories between sides was not done.
+- **Implication for the paper** (PM item 3, reworded to fit the data):
+  - An A/B benchmark oracle that runs each side in one fixed clone directory gave **direction-consistent off-target "changes" on ≈ 2 % of cases**. That is well above the test's nominal rate, but the nominal rate itself assumes exchangeable samples.
+  - The "faster" flips show that at least part of this is not caused by the edit.
+  - Oracle designs should **swap or rotate clone directories between sides** (or use several clones per side) and test at the process level.
+  - This weakens any reading of single off-target flags, including the profile-completeness flag (#9), which is consistent with noise.
+- **N14 (KB, provisional)** should say "off-target false verdicts ≈ 2 % in a fixed-directory A/B design; source unresolved (clone or layout confound vs unprofiled effects; the faster flips favour the former); load could not be tested", not "depends on machine state".
+- **#3's incomplete cases:** the URLError hit `time_pagerank('ER (100, 0.9)')`. A network dependency in its setup is likely but not verified from the raw files.
 
 ### Exact-test recompute of every performance verdict (PM 15:46, after W1 read the asv source; compute only, 15:50)
 

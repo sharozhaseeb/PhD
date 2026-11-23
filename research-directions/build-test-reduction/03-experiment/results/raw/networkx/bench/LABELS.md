@@ -65,3 +65,16 @@ Rule (PM, 18:52): this run is re-run on an idle machine before any regression de
 - **Result (13:28):** the isolated re-profile at S0 (`S0_181f2951.part1.reprofile.json`, meta `181f2951`, 24/24 cases, 0 errors) is **identical** to part 1 for **all 24 cases**: the same executed-function sets.
   - **The shared-tree overlap did not change any profile content**, so the B1, #1, #3 and #9 reach claims are unaffected.
   - **Only the provenance metadata was wrong:** part 1's and the merged file's `meta.state_sha` say S6. The merged file is left as written, and the re-profile file is the clean evidence.
+
+## Night 2026-11-22 (d): three FULL passes at S0 (`drift/pass{0,1,2}.json`), label: **noisy** (rule applied by the driver, recorded 23:50)
+- **Rule:** frozen night plan. A block is noisy if any run has peak load > 1.5 or `pre_gate.ok = False`.
+- **Pass 0:** 1 run > 1.5 (1.61) and 3 runs with `ok = False`. Pass 1: 1 run > 1.5 (1.68). Pass 2: 1 run > 1.5 (1.56). All are reported, none dropped.
+- **Count over the 9 FULL networkx passes in R1:**
+  - noisy-labelled: **5**, namely item 4 (above), the #1 base side (177 of 1026 runs > 1.5; results.md RQ1) and the 3 passes here;
+  - **Not labelled noisy at pass level:** the #2, #3, #4 and #8 base sides. They were interleaved A/B passes, not dedicated FULL passes.
+    - **But #2, #3 and #4 contain noisy runs.** Base-side runs with max(loadavg before, after) > 1.5, of 513 each: #2 6, #3 81, #4 15, #8 0. **Only #8's base side is free of runs above the gate.**
+    - *Corrected 23:53 after W6; the first version wrongly said "all runs ≤ 1.45" for all four.*
+  - **No pass is M5-clean and dedicated.**
+
+- **Superseded (00:25, critic):** the count above ("noisy-labelled: 5", and "#1 base side 177 of 1026") is superseded by results.md "Pass labels for the 9 FULL networkx passes" and `pass_labels.json`.
+  - Under the uniform rule, **8 of 9 are noisy**; the #1 base side has **88/513** runs > 1.5 (177/1026 is both sides); #2 6, #3 81, #4 15 and #8 0.

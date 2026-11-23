@@ -101,8 +101,7 @@ Under asv's rule the full suite flags \SlowDetClassified{} slowdowns (Wilson \ci
 \#2 (\texttt{\_dijkstra\_multisource}) is flagged by all \SlowTwoCases{} profiled cases at \SlowTwoRatioLo--\SlowTwoRatioHi\x, far above their floors; \#8 (\texttt{\_build\_paths\_from\_predecessors}) is flagged by its one profiled case at \SlowEightRatio\x, below that case's floor of \FloorEight.
 \#1's only flag (\SlowOneRatio\x, exact $p=\SlowOneExactP$) is on a case that never executes \texttt{bidirectional\_dijkstra}, whose body is the only code the patch changes; we classify it as an off-target flag, and it does not pass its floor either.
 Across the oracle, \OffTargetVerdictable{} off-target comparisons could yield a verdict (plus fifty spot-check comparisons that cannot, \OffTargetComparisons{} in all); \OffTargetObserved{} of them gave a non-``same'' verdict.
-At the nominal $\alpha=\AsvAlpha$ about \OffTargetExpected{} would be expected, but the null rate of the joint rule is not calibrated here (samples within a process are correlated, the comparisons share cases, and the ratio condition and the discreteness of the exact test pull the other way), so we report the off-target flags descriptively rather than as consistent with chance.
-\TODO{E3: whether the \#2 and \#1 flags reproduce on a repeated oracle run.}
+At the nominal $\alpha=\AsvAlpha$ about \OffTargetExpected{} would be expected, but the null rate of the joint rule is not calibrated here (samples within a process are correlated, the comparisons share cases, and the ratio condition and the discreteness of the exact test pull the other way), so we report the off-target flags descriptively rather than as consistent with chance; the repeat below found off-target flips on about \TwoFlipPct\pct{} of cases in this fixed-directory design.
 
 \begin{figure}[t]
 \centering
@@ -120,7 +119,22 @@ Under the pre-registered floor, \#8 is missed as well, and it is the one power m
 \textbf{What this says about selection.} On this protocol, no selection among these benchmark cases can detect a slowdown that running all of them misses; with the same time budget, a selected subset could be run with more repetitions and gain power, which we did not test.
 A check of the profiles' completeness (Appendix~\ref{app:completeness}) found one flag outside the measured reach, which neither passes its noise floor nor reproduced in a post-hoc re-check.
 
-\TODO{E3 (repeated slowdown oracle, tonight): re-run \#1, \#2, \#3, \#4 and \#8 with ABBA, five processes and at least two repeats; report verdict agreement.}
+\textbf{Repeatability.} We repeated the oracle on the verdict-relevant cases of \#1, \#2, \#3 and \#8 at each slowdown's own state, with four repeats in alternating order (\RepSamples{} pooled samples per side, \RepRuns{} runs).
+\RepAgree{} of \RepTotal{} verdicts agree with the original.
+\#2's on-target verdicts repeat on all \SlowTwoCases{} cases at \RepTwoLo--\RepTwoHi\x.
+The two off-target flags (\#1, and \#2's off-target case) do not repeat and are now ``same'', consistent with noise.
+\#8 is again ``slower'' pooled (\RepEightRatio\x), but each order-balanced pair is ``same'', the ratio is far below its floor, and the same case's A/A also returned ``slower'', so the agreement carries no evidence of a real effect.
+\#3 is ``same'' on all three cases, which is no evidence of an effect at this protocol; on one case a moderate effect is not excluded.
+Detection above the floor therefore stays at \FloorDetect{} of \NumSlowdowns, a result the repeat checks only for \#1, \#2, \#3 and \#8.
+\#1's block was interrupted by a time cap and resumed hours later, so its second order-balanced pair mixes runs from two sessions; its ratio matches the first pair.
+A second tier repeated the remaining cases of \#2, \#3 and \#4 with two order-balanced repeats (\#8 was cut short and \#1 not run).
+Of \TwoTotal{} off-target verdicts, \TwoAgree{} again read ``same'' and \TwoFlips{} (\TwoFlipPct\pct, Wilson \ci{\TwoFlipLo}{\TwoFlipHi}, too narrow because cases share runs) became non-``same'', against about \TwoExpected{} expected at the nominal level; that nominal level assumes exchangeable samples, which pooled runs from few processes are not.
+\TwoFaster{} of these flips are ``faster'', which a patch that only adds work cannot cause.
+In every A/B run, including the original oracle, the unpatched side ran in one clone directory and the patched side in another, so the edit and the clone directory are fully confounded; directory, layout or import differences between the clones can produce shifts of either sign.
+With this design the source of these roughly \TwoFlipPct\pct{} off-target non-``same'' verdicts is unresolved: we cannot separate such measurement bias from effects of the patch outside the measured profiles, and we could not test whether machine load plays a role.
+\#2's on-target ratios are far beyond any shift of this size; \#8's (\SlowEightRatio--\RepEightRatio\x) and the off-target flags are not, which is a further reason not to count \#8.
+\TODO{Directory A/A (tonight): the same code in both clone directories, with the directories swapped between repeats, to measure the directory bias directly.}
+Single off-target flags in this oracle, including the profile-completeness flag, should therefore be read as consistent with noise.
 
 \paragraph*{Answers to RQ2 and RQ3}
 On networkx, the project's own benchmarks execute none of the changed functions for many optimization edits (\BOneAgentUnreached{} of \NxAgentOpt{}, CI \ci{\BOneAgentLo}{\BOneAgentHi}); for those, full benchmarking cannot confirm the speed-up or see a slowdown in the changed functions, as far as one profile shows (RQ2).

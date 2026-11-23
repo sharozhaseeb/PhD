@@ -1,0 +1,271 @@
+{
+ "t1_01": {
+  "slowdown": 1,
+  "tier": 1,
+  "m5_label": "measured-window",
+  "n_cases": 1,
+  "n_complete": 1,
+  "transitions": {
+   "slower->same": 1
+  },
+  "agree": 0,
+  "agree_exact_PRIMARY": 0,
+  "transitions_exact": {
+   "slower->same": 1
+  },
+  "pairs_agree_with_each_other": 1,
+  "slower_now": {}
+ },
+ "t1_02": {
+  "slowdown": 2,
+  "tier": 1,
+  "m5_label": "measured-window",
+  "n_cases": 9,
+  "n_complete": 9,
+  "transitions": {
+   "slower->same": 1,
+   "slower->slower": 8
+  },
+  "agree": 8,
+  "agree_exact_PRIMARY": 8,
+  "transitions_exact": {
+   "slower->same": 1,
+   "slower->slower": 8
+  },
+  "pairs_agree_with_each_other": 9,
+  "slower_now": {
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')": {
+    "ratio": 1.833459572058274,
+    "p": 3.06366423367317e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')": {
+    "ratio": 1.7829832104729508,
+    "p": 3.06366423367317e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')": {
+    "ratio": 1.8541470551117816,
+    "p": 3.06366423367317e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')": {
+    "ratio": 1.8750745915299267,
+    "p": 3.06366423367317e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')": {
+    "ratio": 1.757276414998837,
+    "p": 3.06366423367317e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')": {
+    "ratio": 1.8968060507270657,
+    "p": 3.06366423367317e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')": {
+    "ratio": 1.769200769809351,
+    "p": 3.06366423367317e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')": {
+    "ratio": 1.803399047638444,
+    "p": 9.324854009646488e-09,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   }
+  }
+ },
+ "t1_03": {
+  "slowdown": 3,
+  "tier": 1,
+  "m5_label": "measured-window",
+  "n_cases": 3,
+  "n_complete": 3,
+  "transitions": {
+   "same->same": 3
+  },
+  "agree": 3,
+  "agree_exact_PRIMARY": 3,
+  "transitions_exact": {
+   "same->same": 3
+  },
+  "pairs_agree_with_each_other": 3,
+  "slower_now": {}
+ },
+ "t1_08": {
+  "slowdown": 8,
+  "tier": 1,
+  "m5_label": "measured-window",
+  "n_cases": 1,
+  "n_complete": 1,
+  "transitions": {
+   "slower->slower": 1
+  },
+  "agree": 1,
+  "agree_exact_PRIMARY": 1,
+  "transitions_exact": {
+   "slower->slower": 1
+  },
+  "pairs_agree_with_each_other": 1,
+  "slower_now": {
+   "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths": {
+    "ratio": 1.2020925416833965,
+    "p": 0.0012510612291407744,
+    "status": "slower",
+    "n": [
+     24,
+     24
+    ]
+   }
+  }
+ },
+ "t2_02": {
+  "slowdown": 2,
+  "tier": 2,
+  "m5_label": "measured-window",
+  "n_cases": 162,
+  "n_complete": 162,
+  "transitions": {
+   "same->same": 159,
+   "same->slower": 3
+  },
+  "agree": 159,
+  "agree_exact_PRIMARY": 158,
+  "transitions_exact": {
+   "same->slower": 4,
+   "same->same": 158
+  },
+  "pairs_agree_with_each_other": 0,
+  "slower_now": {
+   "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.05)')": {
+    "ratio": 1.170868870330726,
+    "p": 0.0009009355963600168,
+    "status": "slower",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": {
+    "ratio": 1.2878336508307195,
+    "p": 3.6584553538971e-05,
+    "status": "slower",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct_multi_instance(<class 'networkx.classes.digraph.DiGraph'>)": {
+    "ratio": 1.170225393791075,
+    "p": 9.734567564713263e-05,
+    "status": "slower",
+    "n": [
+     12,
+     12
+    ]
+   }
+  }
+ },
+ "t2_03": {
+  "slowdown": 3,
+  "tier": 2,
+  "m5_label": "noisy",
+  "n_cases": 168,
+  "n_complete": 166,
+  "transitions": {
+   "same->same": 161,
+   "same->slower": 2,
+   "same->faster": 3
+  },
+  "agree": 161,
+  "agree_exact_PRIMARY": 160,
+  "transitions_exact": {
+   "same->slower": 2,
+   "same->same": 160,
+   "same->faster": 4
+  },
+  "pairs_agree_with_each_other": 0,
+  "slower_now": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_k_core('Erdos Renyi (100, 0.1)')": {
+    "ratio": 1.4297088177391628,
+    "p": 0.00012334575440397442,
+    "status": "slower",
+    "n": [
+     12,
+     12
+    ]
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')": {
+    "ratio": 1.211278195706348,
+    "p": 0.0005920421458944265,
+    "status": "slower",
+    "n": [
+     12,
+     12
+    ]
+   }
+  }
+ },
+ "t2_04": {
+  "slowdown": 4,
+  "tier": 2,
+  "m5_label": "noisy",
+  "n_cases": 171,
+  "n_complete": 171,
+  "transitions": {
+   "same->same": 170,
+   "same->slower": 1
+  },
+  "agree": 170,
+  "agree_exact_PRIMARY": 170,
+  "transitions_exact": {
+   "same->slower": 1,
+   "same->same": 170
+  },
+  "pairs_agree_with_each_other": 0,
+  "slower_now": {
+   "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (100, 0.1)')": {
+    "ratio": 1.2000323972988725,
+    "p": 0.0001961614737065427,
+    "status": "slower",
+    "n": [
+     12,
+     12
+    ]
+   }
+  }
+ }
+}

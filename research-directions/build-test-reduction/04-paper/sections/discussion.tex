@@ -8,10 +8,11 @@ Reducing build and test work, which existing tools already do, leaves this untou
 \TODO{Restate with the pooled replication share (E1); if replication fails, restate as ``depends on suite design'' and keep networkx and bottleneck as the two cases.}
 
 \paragraph*{Recommendations}
-For optimization pipelines and benchmark harnesses that use a project's benchmarks as the performance oracle, the results suggest three practices.
+For optimization pipelines and benchmark harnesses that use a project's benchmarks as the performance oracle, the results suggest four practices.
 (1)~Report, for every accepted edit, whether any benchmark executes a changed function and what share of that benchmark's time the function takes, so that ``not slower'' is read only where it means something.
 (2)~Where no benchmark reaches the edit, time the unit tests that do reach it, as SWE-Perf does for its tasks~\cite{he2025sweperf}, as a deterministic fallback oracle, with a measured noise floor.
 (3)~Look at time outside the timing loops before selecting benchmarks: on networkx it is the largest single cost, and by inspection it is mostly import-time setup that caching could remove, whereas selection only scales it down; how much caching saves is not yet measured.
+(4)~In A/B comparisons, swap or rotate the clone directories between the two sides, or use several clones per side, and test at the level of processes: with one fixed directory per side, our oracle flagged about \TwoFlipPct\pct{} of unaffected cases on a repeat, some of them as faster.
 \TODO{Unit-test fallback (no new run): count how many of the unreached optimizations are executed by at least one unit test, from the existing networkx dependency map; this is the deterministic baseline that generated workloads must beat.}
 
 \paragraph*{Suite design as a hypothesis}

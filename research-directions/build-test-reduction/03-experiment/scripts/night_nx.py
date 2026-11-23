@@ -216,6 +216,10 @@ if __name__ == "__main__":
             xs = [r["cpu"] for r in last if "cpu" in r and now - r["epoch"] <= 60]
         return sum(xs) / len(xs) if xs else 100.0
     SP.wincpu = _wincpu_tel
+    # Logging only (PM 18:47): every block-gate line also names the top Windows CPU process (telemetry; name only).
+    from bth.benchrun import top_process
+    _log = SP.log
+    SP.log = lambda m: _log(m + (f" top_win={top_process(win_telemetry())}" if m.startswith("gate:") and win_telemetry() else ""))
     if item == "gate":
         SP.LOG = RAW / "night-2026-11-22/queue.log"
         SP.gate(); sys.exit(0)
