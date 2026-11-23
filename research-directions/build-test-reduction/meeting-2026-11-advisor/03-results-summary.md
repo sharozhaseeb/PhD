@@ -1,97 +1,78 @@
 # W3 results summary (PRELIMINARY)
 
-**Status:** updated 2026-11-22 13:29 PKT against W3's final results.md, with W3's completed queue (A/A noise floor, profile-completeness check 5/5, Q3, edit-set reconciliation; [findings.md](../knowledge-base/findings.md) N6, N7, P5, B3). Story order follows the advisor-persona review of the near-final results ([review-final-results.md](../pm/advisor/review-final-results.md), AI-SIM). Sources of truth: [results.md](../03-experiment/results/results.md), [build-hazard-iterators-h.md](../03-experiment/results/build-hazard-iterators-h.md) and [LABELS.md](../03-experiment/results/raw/networkx/bench/LABELS.md). Every number is copied from the W3 file cited next to it, with W3's labels kept: **PRELIMINARY**, **measured**, **estimate**, **noisy**, **concurrent**, **simulated**, **post-hoc**, **provisional**, **optimistic**. Nothing here is new analysis. Story and asks revised after the advisor-persona review of these new results ([review-new-results](../pm/advisor/review-new-results.md)).
+**Status:** updated 2026-11-23 about 06:40 PKT for the advisor meeting. Sources of truth: [results.md](../03-experiment/results/results.md), [findings.md](../knowledge-base/findings.md) (rows N9–N14, V1, V2, R5, B4 are new since the last refresh), [build-hazard-iterators-h.md](../03-experiment/results/build-hazard-iterators-h.md), the paper draft [main.pdf](../04-paper/build/main.pdf) with its numbers file [numbers.tex](../04-paper/generated/numbers.tex), and the advisor-persona review [review-paper-draft-1.md](../pm/advisor/review-paper-draft-1.md) (AI-SIM). Every number is copied from the file cited next to it, with W3's labels kept: **PRELIMINARY**, **measured**, **computed**, **estimate**, **noisy**, **simulated**, **post-hoc**, **provisional**, **optimistic**. Nothing here is new analysis.
 
-**Evidence boundary.** A **pilot** on one machine: networkx with 18 replayed edits, of which **15 are optimizations** and 3 are not (steps 8, 13, 17, matched by the subject rule; [results.md](../03-experiment/results/results.md) "networkx edit sets"); bottleneck main window = states 1–8 of the amended window (base `f51ed86`), states 9–13 held out. Single runs; WSL2 Ubuntu 24.04, i5-12400F, 7 GB. A benchmark A/A noise floor now exists (0/46 false verdicts), but the noise sits close to the threshold, the oracle reliably catches only about 2× slowdowns on 2 of the 3 sampled `benchmark_algorithms` cases (3 of 49), and one module's per-process benchmark setup drifts about 1.7–3× within a protocol (about 10× only across protocols) for unknown reasons, so benchmark verdicts stay **provisional**.
+**Evidence boundary.** A **pilot** on one machine (WSL2 Ubuntu 24.04, i5-12400F, 7 GB): networkx with 18 replayed edits, of which **14 are optimizations by agent labels** (two agent raters plus an agent adjudicator; no human rater); bottleneck main window = states 1–8 of the amended window. Benchmark verdicts are now judged against the pre-registered 1 + 3σ noise floor where σ exists, but per-pass benchmark cost drifts for unknown reasons, 8 of the 9 networkx FULL passes are labelled noisy, and a directory confound in the A/B oracle is not yet resolved (S7).
 
-**Superseded figures, do not use:** "at least 0.9–4.5 h" per benchmark pass, "40–180×", the bottleneck "about 22%" build share, and any "A4 beats batching" wording ([results.md](../03-experiment/results/results.md) "Correction" and "RQ3 — C5 batching comparators").
+**Superseded figures, do not use:** "at least 0.9–4.5 h" per pass; "40–180×"; the bottleneck "about 22%" build share; "8–28×" as the cost range (now 9 passes, see S1); B1 "9/15" as the primary figure (now 8/14 on agent labels); "FULL detects 2 or 3 of 10" (now 1/10 above the floor); "the 1 + 3σ floor could not be applied" (now applied to the 12 flagged verdicts); the #9 profile-completeness flag (does not survive the floor); "#3 may be a power miss" (now a dilution miss); any "A4 beats batching" wording ([findings.md](../knowledge-base/findings.md) N9, V1, B4, N12 and "Corrections").
 
 ## What may be shown (TPM go/no-go and PM rulings)
 
-The TPM rule: no W3 number without the A/A noise floor and the injection-based miss counts ([TPM log, go/no-go](../pm/tpm-log.md)). Both inputs now exist: the A/A run (0/46, with the limits in S7) and the miss counts. Rulings applied:
-- **PM, 2026-11-21:** functional miss counts may be shown as k/N with the Wilson CI, labelled "frozen mutants filtered by FULL; not a safety guarantee", with the construction bias (M2).
+The TPM rule: no W3 number without the A/A noise floor and the injection-based miss counts ([TPM log, go/no-go](../pm/tpm-log.md)). **Both now exist:** σ_noise has been measured for the 12 flagged verdicts (120 runs, 5 repeats, ABBA) and the 1 + 3σ floor is applied to them ([findings.md](../knowledge-base/findings.md) N9). Rulings still applied:
+- **PM, 2026-11-21:** functional miss counts as k/N with the Wilson CI, labelled "frozen mutants filtered by FULL; not a safety guarantee", with the construction bias (M2).
 - **PM, 2026-11-21:** no speed-up claim from benchmarks; benchmark seconds are **cost**.
-- **PM, 2026-11-22:** the slowdown oracle is reported with W3's labels; its pre-registered result is "regression safety not measurable on networkx with the frozen set"; #2 and #8 only as labelled post-hoc analysis.
+- **PM, 2026-11-22:** the slowdown oracle is reported with W3's labels; its pre-registered result is "regression safety not measurable on networkx with the frozen set".
 
-Also not to be claimed ([TPM log, "Must not be claimed"](../pm/tpm-log.md)): "safe" or "no misses" as a general property; generalisation beyond the 1–2 repos, the edit sample or this machine; perf-regression detection below the measured noise floor; confirmation of the historical commits' speed-ups unless re-measured; build-time savings for Python unless measured as non-negligible; novelty before W1's recorded search; an iterative-session effect from replay of non-adjacent commits; anything about AI-based selection.
+Also not to be claimed ([TPM log, "Must not be claimed"](../pm/tpm-log.md)): "safe" or "no misses" as a general property; generalisation beyond the projects, the edit sample or this machine; perf-regression detection below the measured noise floor; confirmation of the historical commits' speed-ups unless re-measured; build-time savings for Python unless measured as non-negligible; novelty before W1's recorded search (B1 is now narrowed by Traini et al. 2021, S2); an iterative-session effect from replay of non-adjacent commits; anything about AI-based selection.
 
 ## The story in four steps
 
-1. **Where the cost is (R1).** On networkx, benchmarks, not build or tests, dominate per-edit validation cost. The stable parts: timing loops 132–171 s per pass and tests 71–89 s per edit. On top comes setup, which is large, volatile and cacheable: whole passes took 659–2444 s (the 659–751 s passes came from the fastest machine state seen), about 8–28× build plus tests. 87–96% of a pass is the 49 `benchmark_algorithms` cases, including their loops; 80–94% of a pass is outside the timing loops. Caching the setup would cut a pass to about 1.5–2× build plus tests (estimate, not measured).
-2. **The oracle gap: coverage and power (B1, S2).** On networkx, the suite executes none of the changed functions for **9 of 15 true optimizations** (measured S0 profile; about 60%, Wilson 36–80%; 4 of 15 by static call graph). 6 of the 9 slowdowns in true-optimization functions are unreached, FULL detects at most 3, and where slowdowns are reached the A/A power suggests moderate ones in the heavy module can still be missed. Pre-registered result: regression safety of reduced selection is **not measurable** on networkx with the frozen set. **B1 is a networkx-only finding; it was not validly tested elsewhere** (W3 Q3: geopandas, pvlib, bottleneck).
-3. **Functional selection is a solved, modest win (T1).** testmon is 3.5–4× cheaper than FULL end to end (tests plus build), about 6× on the worked edit, and misses 0/20 frozen mutants (95% Wilson 0–16.1%; frozen mutants filtered by FULL; not a safety guarantee; simulated; caught almost by construction, M2). PerfAgent already uses it per edit.
-4. **A deterministic policy on top does not help on this data (A4).** Two separate statements: the fault model **cannot tell selection rules apart** (a design limitation), and **A4 as implemented costs more** than testmon and, once benchmarks count, about 2× batching, which depends on finding B2.
+1. **Where the cost is (R1), now on two projects.** Benchmarks, not build or tests, dominate per-edit validation cost. networkx: at least about 8× build plus tests, median about 14× over 9 passes, up to 34× under unexplained drift; bottleneck: about 18.5–19×. On networkx 80–95% of a pass is outside the timing loops in one module's setup, which caching, not selection, would reduce; the setup-cached pass (E5) is not yet measured.
+2. **The benchmark oracle often cannot see the edit: executed, visible, detectable.** On networkx, **8 of 14 agent-labelled optimizations are executed by no benchmark** (57%, Wilson 33–79%). Of the edits that are executed, the changed function's share of case time limits what a slowdown can show: at a 1.2× function slowdown **at most 4 of 14 edits can even clear asv's 1.1 ratio** (5 of 14 at 2×). Above the pre-registered noise floor, **FULL detects 1 of 10** frozen slowdowns (2 by asv's rule alone). B1 is a networkx-only finding; Traini et al. 2021 is the closest method precedent, so novelty is narrowed to the uncovered-edit rate.
+3. **Functional selection is a solved, modest win (T1).** testmon is 3.5–4× cheaper than FULL end to end and misses 0/20 frozen mutants (simulated; caught almost by construction). PerfAgent already uses it per edit.
+4. **A deterministic policy on top does not help on this data (A4).** The fault model cannot tell selection rules apart (a design limitation), and A4 as implemented costs more than testmon and, once benchmarks count, about 2× batching (finding B2).
 
-## S1. Where the cost is (RQ1)
+## S1. Where the cost is (RQ1), two projects
 
-**networkx, FULL** ([results.md](../03-experiment/results/results.md) "RQ1 headline", "RQ1", "idle re-timing"; [rq1_networkx.csv](../03-experiment/results/rq1_networkx.csv)):
+**networkx, FULL** ([results.md](../03-experiment/results/results.md) "RQ1 headline", "(d) Three repeated FULL networkx passes", "Pass labels"; [findings.md](../knowledge-base/findings.md) R1, N12, N13; [numbers.tex](../04-paper/generated/numbers.tex) `NxBenchPassMedian`):
 
 | Component | Value | Label |
 |---|---|---|
-| Benchmarks (171 asv cases, 2 processes × 3 values) | **659–2444 s per pass, median about 730 s**, 6 passes; about **8–28×** build plus serial tests | measured; all noisy-labelled or concurrent; single passes |
-| of which the `benchmark_algorithms` module | **87–96%** of a pass (80–94% of a pass is outside the timing loops): 49 cases that rebuild their graphs at import, once per process; this share includes their own timing loops and process start-up | measured |
-| of which timing loops | 132–171 s per pass | measured |
-| "Setup cached" pass | about 130–170 s, about **1.5–2×** build plus tests, instead of 8–28× | **estimate, not measured** (lower bound: excludes process start-up and warm-up); a measured setup-cached pass is not yet scheduled |
-| Tests (6771, serial) | about 71–89 s per edit across first runs and re-runs, excluding the S16/S17 first runs (first-run median 85.7 s over clean states) | measured; re-runs all noisy-labelled |
-| Build (`pip install -e`) | median 1.19 s: 1.19–2.11% of serial test time; **about 0.15%** of build plus tests plus a median benchmark pass | measured |
+| Benchmarks (171 asv cases, 2 processes × 3 values) | **659–2,984 s per pass over 9 passes; median about 1,220 s**, i.e. at least about 8×, median about 14×, up to about 34× build plus serial tests (about 87 s) | measured; **8 of 9 passes noisy** by the uniform rule (any run above load 1.5 or gate not ok) |
+| of which timing loops | 132–171 s per pass, stable across all 9 passes | measured |
+| of which outside the timing loops | 79.9–94.8% of a pass, mostly per-process setup in one module (`benchmark_algorithms`, 49 cases, 86.9–96.8% of a pass) | measured |
+| "Setup cached" pass (E5) | about 130–170 s, about 1.5–2× build plus tests | **estimate, not measured**; E5 is planned for the night of 23→24 |
+| Tests (6771, serial) | about 71–89 s per edit, excluding the S16/S17 first runs | measured; re-runs noisy |
+| Build (`pip install -e`) | median 1.19 s; about 0.09% of build plus tests plus the median pass of about 1,220 s (0.04–0.16% over the 9 passes) | measured |
 
-- **Cost noise is itself a finding (R4):** the 6 passes spread about 3.7× under one protocol on one machine in one night; **cause unknown** (host load is one unverified candidate).
-- **Machine drift (N7):** one module's per-process setup (`benchmark_algorithms`) drifted about 1.7–3× within a protocol during the day (about 10× only across protocols), while timing loops, timed samples and tests stayed stable; cause unknown. The A/A run took 2483 s against 753 s expected, all of the excess in `benchmark_algorithms`. The 659–751 s passes are the fastest machine state seen. It inflates benchmark **cost**, not the timing samples the verdicts use ([results.md](../03-experiment/results/results.md) "Finding (machine state" and A/A section).
-- **Reading (advisor-persona review, AI-SIM):** on this suite, most benchmark cost is setup, and setup is reducible by caching, not by selection. Benchmarks would still be the largest single part if cached, but not by an order of magnitude.
+- **Drift (N12):** three repeated passes at S0 in one evening took 2,984, 1,694 and 1,217 s (a 2.45× drop); 1,763 of the 1,767 s drop was in `benchmark_algorithms`, while the timed loops stayed at 144–155 s. No telemetry covariate tracks it; **cause unknown**. Earlier within-protocol drift was about 1.7× and 3× (N7).
+- **Reading:** the direction holds on every pass; the magnitude is a range, not one number.
 
-**bottleneck (C extension), amended base** ([results.md](../03-experiment/results/results.md) "Bottleneck"): clean build 4.7–5.4 s against about 24 s of tests (191), about **16–18% of clean build plus full tests, before benchmarks** (noisy). With benchmarks counted, build is a small share in both projects, so **reduced build is a minor lever** in the Python projects studied ([review-final-results.md](../pm/advisor/review-final-results.md), R2, AI-SIM).
+**bottleneck (C extension)** ([results.md](../03-experiment/results/results.md) "(c) Two FULL asv benchmark passes for bottleneck"; [findings.md](../knowledge-base/findings.md) R5, R2):
+- Two FULL benchmark passes at **544 and 547 s** (0.5% apart), about **18.5–19× build plus tests**; one state, both passes labelled noisy.
+- Build is about 16–18% of build plus tests, but only **0.8–0.9% of total per-edit validation** once benchmarks count. So **reduced build is a minor lever** in both projects.
+- About 27% of bottleneck's benchmark wall is in timed loops; the non-loop time was not decomposed.
 
-**Open:** the scikit-learn cost-only measurement (heavy build) planned in readiness §1.2 was **not run or reported**, so the heavy-build question stays open.
+**Open:** the scikit-learn heavy-build measurement was not run; E5 (setup-cached pass) decides how robust "expensive" is ([review-paper-draft-1.md](../pm/advisor/review-paper-draft-1.md) §2 RQ1, AI-SIM).
 
-Answers [P01](02-predicted-questions-and-answers.md), [P03](02-predicted-questions-and-answers.md), predicted first question 2.
+Answers [P01](02-predicted-questions-and-answers.md), [P03](02-predicted-questions-and-answers.md), M6, M7.
 
-## S2. The oracle gap: coverage and power (B1, slowdown oracle, A/A)
+## S2. The oracle gap: executed, visible, detectable (networkx)
 
-**B1** (counts; not a timing; [results.md](../03-experiment/results/results.md) "Finding B1", "networkx edit sets"). A post-hoc reading of the subjects (one reader; diffs not classified) found that 3 of the 18 replayed networkx edits are not optimizations, each by a different route: step 13 (`bf130bfe`) matched through "coefficient"; step 8 (`519e819f`, MAINT) through `fast_`/`faster_` names; step 17 (`9f6079c0`, a bug fix) through `vectoriz`. The 2 edits dropped on apply conflicts were optimizations.
+**Executed (B1, coverage).** Edit labels now come from two blind agent raters plus an agent adjudicator against a frozen codebook (decision D26; κ 0.948, likely inflated because the raters are the same model) ([findings.md](../knowledge-base/findings.md) B4; [precision_b1.json](../03-experiment/results/labelling/precision_b1.json)).
 
-| Reach measure (networkx, S0) | All 18 replayed edits | 15 true optimizations |
+| Reach measure (networkx, S0) | 14 agent-labelled optimizations | Earlier figures (superseded as primary) |
 |---|---|---|
-| Measured profile | 12/18 unreached, 67% [44–84%] | **9/15, 60% [36–80%]** |
-| Static call graph | 7/18, 39% [20–61%] | **4/15, 27% [11–52%]** |
+| Measured profile | **8/14 unreached, 57% [33–79%]** | 9/15 by subject-only reading; 12/18 over all replayed edits |
+| Static call graph | 3/14, 21% [8–48%] | 4/15 |
 
-So for about 60% of the true optimizations the project's own suite cannot confirm the claimed speed-up. **Profile provenance:** part of the S0 profile (24 cases) was recorded in a shared work tree that had moved to S6; an isolated S0 re-profile gave identical executed-function sets, so no reach claim changes ([results.md](../03-experiment/results/results.md) provenance note). **One project only** (171 cases; networkx is not a performance-focused library, per the AI-SIM review).
+- **Mining precision** of the keyword rule: networkx 15/20, bottleneck 15/16, geopandas 17/20, pvlib 3/14; **pooled 50/70 = 71% [60–81%]**, labelled by agents only.
+- **Construct check:** 0 of 14 edits are unreached by construction (every changed function exists at S0 and at the parent); profiles from S0 only remain a limitation (V1).
+- **Elsewhere:** B1 was **not validly tested** outside networkx (Q3: static reach from old bases, pvlib without an asv suite, bottleneck template code). A pre-registered replication (E1) is planned after the meeting.
+- **Novelty, narrowed:** Traini et al. (TOSEM 2021) already profile per commit which methods JMH benchmarks execute (refactoring commits, 31 Java projects) but report no uncovered-commit rate. Per-commit profiling of benchmark reach is therefore not new; the measured uncovered-edit rate for optimization commits is the open part ([beyond-literature-claims.md](../01-literature/beyond-literature-claims.md) row B1).
+- **Open disagreement on labels:** the advisor-persona review will not accept agent-only labels for E1 and asks for at least a blind human-labelled subset with human-agent κ; the owner decided labels stay agent-only (D26; [WORKLOG](../knowledge-base/WORKLOG.md) 16:38). See ask A14.
 
-**Q3: B1 was not validly tested outside networkx** (neither "replicated" nor "did not replicate") (static reach from one old base, as frozen; [results.md](../03-experiment/results/results.md) "Q3"; [findings.md](../knowledge-base/findings.md) B3):
-- **geopandas:** 18/20 unreached as frozen, but the 2017 base biases the count; a post-hoc name heuristic gives 7/20; neither is a bound. Consistent with B1 under a heuristic, **not established**.
-- **pvlib-python:** 14/14, **invalid** (the 2014 base has no asv suite; about 4 of 14 mined edits are optimizations).
-- **bottleneck, states 1–8:** 4/8 as frozen [22–78%]; 0/8 under the post-hoc template interpretation.
-- Replicating B1 would need measured profiles at each edit's parent and a mining rule with better precision, set before mining; counts only, no timing. Bottleneck's suite benchmarks functions by name, which suggests B1 depends on suite design.
+**Visible (share).** A slowed function's share of a benchmark case's time bounds the ratio the case can show (about 1 + share × (f − 1)) ([findings.md](../knowledge-base/findings.md) V1, V2; [edit_share.json](../03-experiment/results/raw/networkx/edit_share.json)):
+- Per edit (14 agent-labelled optimizations, S0 profile share): 8 not executed; step 4 executed but diluted (share 0.021: ×1.004 at a 1.2× function slowdown, ×1.021 at 2×); steps 3, 9, 10, 14, 16 have shares 0.86, 1.00, 0.50, 0.57, 1.00.
+- **At a 1.2× function slowdown at most 4 of 14 edits can clear asv's 1.1 ratio; at 2×, 5 of 14** (computed, no timing).
+- Slowdowns: #2 share about 0.85 → expected about 1.85×, observed 1.81–1.90×; **#3 share about 0.005 → a dilution miss**, not a power miss (earlier wording superseded). #4 is a coverage miss (static reach only).
 
-**Slowdown oracle, FULL only** ([results.md](../03-experiment/results/results.md) "Slowdown oracle"). 10 frozen synthetic slowdowns, each in a function changed at its step; asv rule (ratio above 1.1, Mann-Whitney p below 0.002); one oracle run. #6 sits on step 8, a non-optimization edit; without it FULL still detects at most 3 of 9.
+**Detectable (power and noise floor).**
+- **Noise floor applied (N9):** with σ measured for the 12 flagged verdicts (120 runs, 5 repeats, ABBA), **FULL detects 1 of 10 slowdowns above the floor (Wilson 1.8–40.4%)**, down from 2 by asv's rule alone. Only #2's 8 on-target cases survive (floors 1.08–1.33 against ratios 1.81–1.90). #8 (floor 2.18), #1, NonNeighbors and #9 do not survive. **The #9 profile-completeness flag does not survive the floor.**
+- **Power at the verdict design (N10, computed):** 18 v 18 with the exact test and the floor, all cases: 0.96 at 1.2×; the heavy module (3 cases): 0.035–0.13 at 1.2×, **0.84 at 1.5×**, 0.985 at 2×. So the heavy module reliably resolves only about 1.5× and above (σ from 2 repeats, 3 algorithm cases, optimistic bootstrap).
+- **Pre-registered primary result (unchanged):** regression safety of reduced selection is **not measurable** on networkx with the frozen set.
 
-| Result | Count | Label |
-|---|---|---|
-| Detected by FULL, as classified | 3 of 10 (#1, #2, #8), Wilson 10.8–60.3% | measured, single run, provisional |
-| Detected on target | 2 of 10 (#2, #8), Wilson 5.7–51.0% | measured, single run, provisional |
-| Detected within the pre-set bands (≥ 2×, or 1.2–1.5×) | 0 | pre-registered: the regression set is empty |
-| #1 | judged an oracle false positive by reading (off target, p = 0.0018) | label only; the A/A floor (0/46) cannot separate a 0.3% false rate from zero |
-| Missed by FULL | 7: five (#0, 5, 6, 7, 9) reached by no benchmark (profile or static); #4 reached only statically, so a **coverage** miss; #3 reached by 3 profiled cases (ratios 0.95–1.01), so possibly a **power** miss of a small effect (< ≈1.1×) | measured |
-| Slowed functions executed by no benchmark (S0 profile) | 7 of 10 | counts |
-
-- **Pre-registered primary result:** regression safety of reduced selection is **not measurable** on networkx with the frozen set. What limits regression detection is **coverage and oracle power**, not the selection rule. On true-optimization functions: 6 of 9 slowdowns unreached.
-- **Post-hoc, not pre-registered** ([LABELS.md](../03-experiment/results/raw/networkx/bench/LABELS.md)): #2 (1.90×, 8/8 profiled cases) and #8 (1.12×, 1/1) are on-target FULL detections outside the bands; both lie inside profile and static reach; the changed-module benchmark rule (0 cases) would miss both.
-
-**Profile-completeness check** (the powered out-of-reach spot check, relabelled; **complete, 5 of 5 slowdowns**; [results.md](../03-experiment/results/results.md); [findings.md](../knowledge-base/findings.md) P5):
-- **What it tests:** whether anything outside the measured reach slows down, i.e. whether the S0 profiles are **complete**. **It is not safety evidence.**
-- **Result: 1 "slower" in 50 out-of-reach comparisons** (15 vs 15 samples). #9 (`DiGMState.__init__`) on `time_louvain_communities('Erdos Renyi (100, 0.9)')`: 1.13×, p = 0.0019. By the pre-registered C11 rule this **flags reach-based selection as unsafe for #9, and the flag stands.**
-- **Re-check not confirmed:** a post-hoc partial re-check with a base-vs-base control (5 of 6 runs; no comparison was order-balanced) gave 0.97–1.01×. The function is in neither the static nor the profile reach of louvain, and the result sits just past both thresholds. With 50 null comparisons, the chance of at least one false "slower" is about 5%: noise is plausible, but neither direction is proven.
-- Labels: #0 concurrent, #7 noisy (peak load 1.62).
-- **#5 "faster" verdict** (0.628×, p = 3.4e-6, first case of its block, base first): the A/A order arm found no order effect but has low power, so its cause is **unresolved**.
-
-**Benchmark A/A noise floor** (S0 against S0 in two clones, 23 frozen cases, 5 processes × 3 values, fixed and reversed order; measured 11:05–11:53 PKT, peak load 1.06; [results.md](../03-experiment/results/results.md) "Benchmark A/A noise floor"; [findings.md](../knowledge-base/findings.md) N6):
-- **0 false verdicts in 46 per-repeat comparisons** (95% Wilson upper bound 7.7%; optimistic, because it is the same 23 cases twice).
-- **The noise sits close to the threshold:** two A/A cases passed p < 0.002 and stayed "same" only on the ratio condition, and ratios up to 1.77 were "same" under the fixed order.
-- **Order effect:** none detected (median 0.99, 10 of 23 first-slower, sign test p = 0.68), but power is low, so the #5 "faster" verdict stays **unresolved**.
-- **Power from measured noise** (bootstrap, optimistic): 0.91 at 1.2× over all 23 cases, but for **2 of the 3** sampled `benchmark_algorithms` cases (3 of the module's 49) only about **2× slowdowns are reliably caught**. So FULL missing a small slowdown there can be a power failure of the oracle: #3 may be one; #4 is a coverage miss (W3). This does not change the B1 counts, which are about reach.
-- **1 + 3σ noise floor:** the pre-registered ratio > 1 + 3·σ_noise condition has now been computed ([results.md](../03-experiment/results/results.md) "Pre-registered noise floor"), but σ exists only for the 23 A/A cases (2 repeats, not 5), and **none of the flagged "slower" verdicts is among them, so the rule cannot be applied to any reported verdict**; a deviation is recorded. A labelled post-hoc proxy (floors of same-class A/A cases) suggests #2's on-target verdict (about 1.85×) survives, while #1, #8 and #9 are ambiguous (#1 1.245×, #8 1.116×, #9 1.13×). The C11 flag for #9 stands.
-- **State caveat** (from the AI-SIM review, not in results.md): the A/A ran 11:05–11:53, in the slow late-morning machine state, while #1, #2 and #8 were measured overnight.
-
-Answers [P04](02-predicted-questions-and-answers.md), [P07](02-predicted-questions-and-answers.md), predicted first questions 1 and 4.
+Answers [P04](02-predicted-questions-and-answers.md), [P07](02-predicted-questions-and-answers.md), M1–M5.
 
 ## S3. Functional selection is a solved, modest win (T1)
 
@@ -106,7 +87,7 @@ Answers [P04](02-predicted-questions-and-answers.md), [P07](02-predicted-questio
 
 *Frozen mutants filtered by FULL; not a safety guarantee; simulated; caught almost by construction (M2); N = 20* ([rq2_steps.csv.faults.csv](../03-experiment/results/sim/networkx/rq2_steps.csv.faults.csv); [summary](../03-experiment/results/sim/networkx/rq2_steps.csv.summary.csv)).
 - **testmon is 3.5–4× cheaper** than FULL end to end (mixed load), not the 15× that test-seconds suggest; startup and testmon's own analysis dominate its cost (first DB build 279.7 s against 88.0 s plain).
-- **A3's two misses:** test-file names do not match the module (`isomorph.py`, `katz.py`); any periodic full check catches both. On the 15 true-optimization steps N = 18 and A3 misses 1/18 (`katz`); every other arm misses 0/18; conclusions unchanged ([results.md](../03-experiment/results/results.md) "networkx edit sets").
+- **A3's two misses:** test-file names do not match the module (`isomorph.py`, `katz.py`); any periodic full check catches both. On the 15 true-optimization steps by the earlier subject-only reading (not the 14 agent labels), N = 18 and A3 misses 1/18 (`katz`); every other arm misses 0/18; conclusions unchanged ([results.md](../03-experiment/results/results.md) "networkx edit sets").
 
 Answers [P13](02-predicted-questions-and-answers.md).
 
@@ -134,7 +115,7 @@ Other negatives, as measured:
 - **Accumulation:** 0 of 5 FULL-surviving mutants become detectable later, so the pre-registered null stands; caller faults were not generated.
 - **C7:** 62 of 2589 functions (2.4%) get different test sets in repeat runs of the same code.
 
-Answers [P11](02-predicted-questions-and-answers.md), [P14](02-predicted-questions-and-answers.md), [P15](02-predicted-questions-and-answers.md), [P16](02-predicted-questions-and-answers.md), predicted first questions 3 and 5.
+Answers [P11](02-predicted-questions-and-answers.md), [P14](02-predicted-questions-and-answers.md), [P15](02-predicted-questions-and-answers.md), [P16](02-predicted-questions-and-answers.md), M8.
 
 ## S5. Build reduction on bottleneck (harness lessons)
 
@@ -161,11 +142,19 @@ Source: [worked-edit.md](../03-experiment/results/worked-edit.md) (PRELIMINARY, 
 
 Answers [P05](02-predicted-questions-and-answers.md).
 
-## S7. Noise floor and oracle repeatability (measured, with limits)
+## S7. Noise floor and oracle repeatability
 
-- **Benchmark A/A noise floor:** 0 false verdicts in 46 per-repeat comparisons (Wilson upper bound 7.7%, optimistic); noise close to the threshold; no order effect detected at low power; only about 2× slowdowns reliably caught on 2 of the 3 sampled `benchmark_algorithms` cases (3 of the module's 49; optimistic bootstrap); the 1 + 3σ condition cannot be applied to any reported verdict (no σ for those cases; deviation recorded). Details in S2. It cannot separate a 0.3% false rate from zero, so #1, #2, #8, the #5 "faster" verdict, the #9 flag and the `a638b282` outlier stay provisional.
-- **Machine drift:** one module's per-process setup (`benchmark_algorithms`) drifted about 1.7–3× within a protocol during the day (about 10× only across protocols), while timing loops, timed samples and tests stayed stable; cause unknown (S1).
-- **Also:** the 3.7× cost spread across 6 passes; M5 load labels (410 of 5330 slowdown-oracle runs above load 1.5); the post-hoc test `timing_label` rule (S16 noisy, S17 borderline; both normal on re-run); C7.
+- **A/A noise floor (N6):** 0 false verdicts in 46 per-repeat comparisons on 23 cases (Wilson upper bound 7.7%, optimistic); noise close to the threshold.
+- **σ and the 1 + 3σ floor for the 12 flagged verdicts (N9):** measured (120 runs, 5 repeats, ABBA); applied in S2.
+- **Oracle repeatability, E3 tier 1 (N11):** **12 of 14 verdict-relevant cases repeat.** #2's 8 on-target cases are slower again (1.76–1.90×). The two off-target flags (#1, NonNeighbors) do not repeat, which supports reading them as noise. #8 is slower pooled (1.20×) but "same" in both order-balanced pairs and far below its 2.18 floor: fragile. #3 is "same" 3/3, consistent with dilution.
+- **E3 tier 2 and a directory confound (N14):** 488 of 499 verdicts agree; **11 new off-target non-"same" verdicts (2.2%, about 11× the nominal rate)**, 7 slower and 4 faster. In every run the base side used one clone directory and the slowed side the other, so **edit and directory are fully confounded**; a slowdown patch cannot make code faster, so the 4 "faster" flips point to a clone or layout bias. #2's 1.8× is far beyond that bias; #8's 1.12–1.20× and the off-target flags are not. **Fix:** a directory A/A and directory rotation between sides, starting tonight (decision D28). Load could not be tested (5 of 1,356 runs above 1.5).
+- **Pass labels (N13):** one uniform rule; 8 of 9 networkx FULL passes are noisy.
 - Context (not a W3 result): full-benchmark verdicts do not repeat across machines in the literature (W2 headline 5; arXiv 2607.01211; [W2 README](../02-practice-survey/README.md)).
 
-Answers [P20](02-predicted-questions-and-answers.md), predicted first question 4.
+Answers [P20](02-predicted-questions-and-answers.md), M4.
+
+## S8. The paper draft
+
+- **[main.pdf](../04-paper/build/main.pdf)**, 14 pages, title "Can the Benchmarks See the Edit? Cost and Visibility of Per-Edit Validation for Python Optimization Commits — A Case Study on networkx". Every number comes from [numbers.tex](../04-paper/generated/numbers.tex), computed from the raw files ([04-paper README](../04-paper/README.md)).
+- **Advisor-persona verdict on draft 1** ([review-paper-draft-1.md](../pm/advisor/review-paper-draft-1.md), AI-SIM): right story, wrong size (PM's summary, [WORKLOG](../knowledge-base/WORKLOG.md) 16:52). Until the replication (E1) lands it is a short paper; E1 should reach **at least 4–5 projects and 50–60 true optimizations**, with profiles at each edit's parent and a human-labelled subset. Draft 2 applied the text changes (merged oracle section framed executed/visible/detectable, per-edit table, claims C1–C12) ([WORKLOG](../knowledge-base/WORKLOG.md) 16:58).
+- **Still open before submission:** E1 (after the meeting), E5 setup-cached pass (night of 23→24), the directory A/A (tonight), the human-label question (A14), venue and timeline (A10).

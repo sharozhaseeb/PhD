@@ -852,7 +852,7 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
   - The Wilson interval (1.2–3.9 %) treats cases as independent, although they share runs and blocks, so it is too narrow.
   - No correction for 499 tests was applied. The 11 still clearly exceed the ≈ 1 expected.
   - Two flips are borderline: p = 1.1e-3, and p = 1.8e-3, which is 2.9e-3 under the old test.
-- **The earlier A/A results do not contradict a ≈ 2 % rate:**
+- **The earlier A/A results do not contradict a ≈ 2 % rate.** The 23-case S0 A/A did run in the same two directories (A in `nx-slow-A`, B in `nx-slow-B`). Its 0 of 46 is consistent with 2.2 % (P ≈ 0.36). It covered only 2 of the 11 flipped cases, and it ran at S0 only, not at #3's, #4's or #2's states. Tonight's directory A/A at #3's state is the decisive test (night-2 PLAN).
   - 0 of 46 per-repeat verdicts in the quiet S0 A/A, and 0 of its 69 verdicts overall, are consistent with 2.2 % (P(0 of 46) ≈ 0.36).
   - The (b) A/A's "1 of 12" comes from a preselected set of flagged cases, not a sample.
 - **The noise floor (PM item 1):** σ exists for only 2 of the 11 cases, from the 2-repeat S0 A/A, so it is rough.

@@ -1,13 +1,14 @@
 # Advisor meeting pack, about 2026-11-23/24
 
-**Status:** 2026-11-21, updated 2026-11-22 13:29 PKT against W3's final results.md (completed queue: A/A, profile-completeness 5/5, Q3). `03-results-summary.md` holds W3's PRELIMINARY pilot results, ordered cost → oracle gap (B1) → testmon → A4 negatives. The latest edits are not committed.
+**Status:** 2026-11-21, updated 2026-11-23 about 06:45 PKT against W3's results.md, the knowledge-base findings (N9–N14, V1, V2, R5, B4), the current paper draft and the advisor-persona review of draft 1. `03-results-summary.md` is ordered cost → oracle gap (executed, visible, detectable) → testmon → A4 negatives. The pack was last committed in `aabd03d`; this refresh is not committed.
 
 **Left to do:**
-- A measured setup-cached benchmark pass is not scheduled (the pack uses W3's estimate).
+- After tonight's directory A/A (D28) and E5 setup-cached pass: refresh S1, S7 and M4, M6, M7.
+- The human-label question (ask A14) is open between the owner and the advisor-persona review.
 
 **Evidence boundary.** Every statement in this pack is condensed from a file in this repository and links to it. Where evidence does not exist, the text says so (pending, not measured, not validly tested). Predicted questions come from an AI model of the advisor ([persona](../pm/advisor/persona.md)); they are rehearsal, not the advisor's views.
 
-## Changes from the advisor-persona review of the new results
+## Changes from the advisor-persona review of the new results (2026-11-22, kept for history)
 
 Applied from [review-new-results](../pm/advisor/review-new-results.md) section (c) (AI-SIM), 2026-11-22.
 
@@ -34,13 +35,15 @@ Applied from [review-new-results](../pm/advisor/review-new-results.md) section (
 |---|---|---|
 | 0 | [00-one-page-study-statement.md](00-one-page-study-statement.md) | Hand-out: problem, three RQs, scope, definitions, no AI |
 | 1 | [01-agenda-and-asks.md](01-agenda-and-asks.md) | About 40-minute agenda and the decisions we need |
-| 2 | [02-predicted-questions-and-answers.md](02-predicted-questions-and-answers.md) | N1–N5 (new results), Q1–Q5 (first five), P01–P20; each with a short answer, evidence links and a status |
-| 3 | [03-results-summary.md](03-results-summary.md) | W3 PRELIMINARY draft results with W3 labels, the PM ruling on what may be shown, and what is still open |
+| 2 | [02-predicted-questions-and-answers.md](02-predicted-questions-and-answers.md) | M1–M8 (most likely meeting questions) and P01–P20; each with a short answer, evidence links and a status |
+| 3 | [03-results-summary.md](03-results-summary.md) | W3 PRELIMINARY results with W3 labels (S1 cost, S2 oracle gap, S3 testmon, S4 A4, S5 build, S6 worked edit, S7 noise, S8 paper), what may be shown and what is superseded |
+| 4 | [Paper draft (PDF, built 2026-11-23 06:34)](../04-paper/build/main.pdf) | 14 pages, "Can the Benchmarks See the Edit?"; every number from [numbers.tex](../04-paper/generated/numbers.tex); advisor-persona review: [review-paper-draft-1](../pm/advisor/review-paper-draft-1.md) (AI-SIM) |
 
 ## Background to bring
 
 - [W1 one-pager](../01-literature/literature-in-one-page.md) and [closest works](../01-literature/closest-works.md)
 - [W2 at-a-glance table](../02-practice-survey/README.md)
-- [W3 readiness](../03-experiment/readiness.md)
+- [W3 readiness](../03-experiment/readiness.md) and [W3 results](../03-experiment/results/results.md)
+- [Knowledge-base findings](../knowledge-base/findings.md)
 - [Study 1 README](../README.md)
 - [Advisor-meeting checklist](../pm/advisor/review-charter.md) (section 5) and the [TPM go/no-go rule](../pm/tpm-log.md)

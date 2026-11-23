@@ -1,6 +1,6 @@
 # Study 1: one-page statement
 
-**Status:** 2026-11-21, updated 2026-11-22 with W3's PRELIMINARY pilot results ([results summary](03-results-summary.md)). **No AI is used in the method.**
+**Status:** 2026-11-21, updated 2026-11-23 with W3's PRELIMINARY pilot results ([results summary](03-results-summary.md)). **No AI is used in the method.**
 
 ## Problem
 
@@ -26,7 +26,7 @@ How optimizers validate candidates (W2) and what reduction techniques exist (W1)
 ## What "valid" and "optimized" mean
 
 - **Valid (functionally):** FULL validation is the oracle at every state ([readiness](../03-experiment/readiness.md) section 3). A reduced arm is judged by whether it catches what FULL catches. Safety is counted as **k of N frozen injected faults detected**, with a Wilson 95% interval, never as a general guarantee ([CHARTER](../pm/CHARTER.md) definitions; [readiness](../03-experiment/readiness.md) section 4.4).
-- **Optimized (performance):** a regression is a slowdown beyond a stated threshold relative to the **original** code and to the previous accepted state, above the measured noise floor. The decision rule is the asv rule (ratio above 1.1 and Mann-Whitney p below 0.002, and above 1 + 3 sigma of the noise floor), fixed before runs; the 1 + 3 sigma part could not be applied to any reported verdict, because sigma exists for only 23 of 171 cases (deviation recorded) ([readiness](../03-experiment/readiness.md) sections 4.2, 5; asv defaults still to be verified by file and commit).
+- **Optimized (performance):** a regression is a slowdown beyond a stated threshold relative to the **original** code and to the previous accepted state, above the measured noise floor. The decision rule is the asv rule (ratio above 1.1 and Mann-Whitney p below 0.002, and above 1 + 3 sigma of the noise floor), fixed before runs; the 1 + 3 sigma part is now applied to the 12 flagged verdicts, where sigma was measured (σ exists only for those 12 and the 23 S0 A/A cases) ([readiness](../03-experiment/readiness.md) sections 4.2, 5; the asv source was read on 2026-11-22, see [results.md](../03-experiment/results/results.md) "Exact-test recompute").
 
 ## What the study contributes (as measurements)
 
@@ -36,12 +36,13 @@ Where existing deterministic reduction becomes unsafe for performance-motivated,
 
 ## Preliminary results (pilot; details and labels in the [results summary](03-results-summary.md))
 
-- **Benchmarks dominate cost:** the stable parts are timing loops of 132–171 s per pass and tests of 71–89 s per edit; on top comes setup that is large, volatile and cacheable. Whole passes took 659–2444 s (the 659–751 s passes are the fastest machine state seen), about 8–28× build plus serial tests; 87–96% of a pass is one module's 49 cases (including their loops; 80–94% of a pass is outside the timing loops), mostly setup, which caching, not selection, would reduce (cached estimate about 1.5–2×, not measured). Build is 1.19–2.11% of test time on networkx and about 16–18% of clean build plus full tests on bottleneck (noisy).
-- **The oracle gap, coverage and power, not the selection rule, limits regression detection on networkx:** for 9 of 15 true optimizations (about 60%, Wilson 36–80%; 4 of 15 by static call graph; 3 of the 18 replayed edits are not optimizations) and 7 of 10 frozen slowdowns are executed by no benchmark (S0 profiles); FULL detects at most 3 of 10 slowdowns (2 on target, 0 in the pre-set bands). Pre-registered result: regression safety is not measurable with the frozen set. B1 is a networkx-only finding; it was not validly tested elsewhere (W3 Q3). A pre-registered replication is proposed as the first step after the meeting.
-- **Functional selection:** testmon is 3.5–4× cheaper than FULL end to end (mixed load) and misses 0/20 frozen mutants (95% Wilson 0–16.1%; frozen mutants filtered by FULL; simulated; caught almost by construction; not a safety guarantee). 
-- **Policy (A4):** the functional fault model cannot tell selection rules apart (design limitation); A4 as implemented costs more than testmon and, with benchmarks counted, about 2× batching (depends on unfinished checkpoint re-profiling, B2). Latent fault class empty (0/5); the pre-registered null for accumulation stands.
-- **Build:** reduced build is a minor lever here. Harness lesson: an incremental tree hid a failed compile on one replayed state (a replay artefact); rule B0 (a failed build is a reject) is kept.
-- **Noise:** the benchmark A/A floor gives 0 false verdicts in 46 A/A comparisons (Wilson upper bound 7.7%, optimistic), noise close to the threshold, only about 2× slowdowns reliably caught on 2 of the 3 sampled `benchmark_algorithms` cases (3 of the module's 49; optimistic bootstrap), and one module's per-process setup (`benchmark_algorithms`) drifted about 1.7–3× within a protocol during the day (about 10× only across protocols), while timing loops, timed samples and tests stayed stable; cause unknown, so benchmark verdicts stay provisional. The profile-completeness check flags 1 of 50 out-of-reach comparisons (#9); a re-check did not confirm it, and the flag stands.
+- **Benchmarks dominate per-edit cost on two projects.** networkx: 659–2,984 s per FULL benchmark pass over 9 passes, at least about 8×, median about 14×, up to about 34× build plus serial tests (8 of 9 passes noisy). The timing loops (132–171 s) are stable; most of a pass is per-process setup in one module, which caching, not selection, would reduce (setup-cached estimate about 1.5–2×, not measured; E5 runs the night of 23→24). bottleneck: about 18.5–19× (two passes, 0.5% apart). Build is a minor lever: 0.8–0.9% of bottleneck's total once benchmarks count.
+- **The benchmark oracle often cannot see the edit (networkx): executed, visible, detectable.** 8 of 14 agent-labelled optimizations are executed by no benchmark (57%, Wilson 33–79%). At a 1.2× slowdown of the changed function at most 4 of 14 edits can even clear asv's 1.1 ratio (share of case time). Above the pre-registered noise floor FULL detects 1 of 10 frozen slowdowns (2 by asv's rule alone). Pre-registered result: regression safety of reduced selection is not measurable with the frozen set. B1 is a networkx-only finding; Traini et al. (2021) is the closest method precedent.
+- **Functional selection:** testmon is 3.5–4× cheaper than FULL end to end (mixed load) and misses 0/20 frozen mutants (95% Wilson 0–16.1%; frozen mutants filtered by FULL; simulated; caught almost by construction; not a safety guarantee).
+- **Policy (A4):** the fault model cannot tell selection rules apart (design limitation); A4 as implemented costs more than testmon and, with benchmarks counted, about 2× batching (finding B2).
+- **Noise and repeatability:** σ measured for the 12 flagged verdicts; 12 of 14 verdicts repeat; a second repeat found 2.2% off-target flips with edit and clone directory confounded, so a directory A/A and directory rotation start tonight. Per-pass cost drifts for unknown reasons.
+- **Labels:** the 14 optimization labels come from agents only (two raters plus an adjudicator; mining precision 71% pooled). Whether a human-labelled subset is needed is an open question for the meeting (ask A14).
+- **Paper draft:** [main.pdf](../04-paper/build/main.pdf), 14 pages; advisor-persona verdict (AI-SIM): right story, wrong size (PM's summary, [WORKLOG](../knowledge-base/WORKLOG.md) 16:52) until the replication E1 reaches at least 4–5 projects and 50–60 true optimizations.
 
 ## What Study 1 hands to Study 2
 
@@ -49,4 +50,4 @@ Where existing deterministic reduction becomes unsafe for performance-motivated,
 
 ## Status
 
-W1 final, W2 final draft, W3 PRELIMINARY pilot results. A benchmark A/A noise floor exists, with limits; what is shown follows the [TPM go/no-go rule](../pm/tpm-log.md) and the PM rulings recorded in the [results summary](03-results-summary.md).
+W1 final, W2 final draft, W3 PRELIMINARY pilot results (2026-11-23); paper draft built 2026-11-23. The noise floor is applied to the flagged verdicts; what is shown follows the [TPM go/no-go rule](../pm/tpm-log.md) and the PM rulings recorded in the [results summary](03-results-summary.md).

@@ -10,3 +10,7 @@
   - ended 16:55:46.
 - **External host load (PM 17:35):** from ≈ 17:00 the owner's other project (`C:\Users\pc\work\paras`: a pytest run, PID 29532, dev servers, tsc, esbuild) loads Windows: CPU 25–87 %, available memory down to 831 MB at 17:34. Top Windows processes in telemetry: python, node, esbuild, claude, chrome. Not stopped (owner's work). The per-run gate postpones while Windows CPU > 20 %. Every postponement is logged in the item's driver log as "gate: run postponed …" and recorded per run as `pre_gate.waited_s`/`ok` in the raw files. A run that waited the full 10 min and ran anyway has `pre_gate.ok = False` and makes its block "noisy".
 - **19:50 PM ruling A:** queue stopped by PID, checkpoints kept, auto-restart waiter armed (amendment 4). See PLAN.md.
+- **Stray file (found by the PM at 06:37 on 23 Nov):** `03-experiment/=2026-11-23T01:21` (22 KB, a copy of the rep2 driver log) was created at 02:22.
+  - **Cause:** a W3 ad-hoc status command run from PowerShell, `wsl ... bash -c 'awk "\$1>=\"2026-11-23T01:21\"" …'`. The nested quoting broke, so `>=…` became a shell redirect into that file name.
+  - It was committed in 8886d60. It is now moved with `git mv` to `results/raw/night-2026-11-22/rep2-block-log-copy.txt` (staged, not committed).
+  - **Fix:** W3 no longer passes comparison or redirect characters inside `wsl -c` strings from PowerShell. Every non-trivial WSL command goes in a script file under `scripts/wsl/` and runs as `wsl -d Ubuntu-24.04 -e bash <file>`, as the night drivers already do.
