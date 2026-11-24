@@ -26,11 +26,13 @@ Counting benchmarks, the build is below a fifth of a percent of a full validatio
 \NxAlgoShareLo--\NxAlgoShareHi\pct{} of a pass is spent in one module's \NxAlgoCases{} cases (\texttt{benchmark\_algorithms}), and \NxOutsideLoopsLo--\NxOutsideLoopsHi\pct{} of a pass lies outside the timing loops.
 That module builds all its input graphs at import time, and asv's process isolation repeats the import for every case and process.
 The timing loops themselves take only \NxLoopsLo--\NxLoopsHi\,s per pass.
-If the setup were built once and reused, a pass would cost roughly its timing loops, about \NxSetupCachedLo--\NxSetupCachedHi\x{} build plus tests.
-This is an estimate and a lower bound (it omits process start-up and warm-up), not a measurement.
-\TODO{E5 (setup-cached pass): replace the estimate with a measured pass in which \texttt{benchmark\_algorithms}' graph construction moves into asv \texttt{setup\_cache} (or a cached fixture) in a patched copy of the suite; report loops, setup and total over at least three passes.}
+\textbf{A setup-cached pass, measured.} To see how much of this is the suite's design, we ran each module in one process, importing it once and then measuring every case with the same six samples, and alternated this cached pass with the standard protocol three times each on one night, in one directory.
+The median standard pass took \EStdMedian\,s and the median cached pass \ECachedMedian\,s, a factor of \EStdOverCached: with setup reused, a full benchmark pass costs about \ECachedRatioLo--\ECachedRatioHi\x{} build plus tests, against \EStdRatioLo--\EStdRatioHi\x{} for the standard protocol on the same night.
+About \ECachedLoop\pct{} of the cached pass is timing loops; the difference to the standard pass is, by inference, per-process start-up and re-import (the standard runner has no phase timers).
+The cached pass measures the same thing: median samples agree within a quarter on all but \EShifted{} of \EShiftN{} cases.
+It is a lower bound on what module-level setup caching, as asv's \texttt{setup\_cache} would allow, can achieve, not a replacement for asv's process isolation, and that night's standard passes were at the fast end of those measured, so the ratio on slower nights is not measured.
 
-Because the drift sits outside the timing loops, pass cost varies while verdicts on interleaved timed samples are shielded from slow drift (Appendix~\ref{app:drift}); it also means the setup, not the timing, is what a cached pass would remove.
+Because the drift sits outside the timing loops, pass cost varies while verdicts on interleaved timed samples are shielded from slow drift (Appendix~\ref{app:drift}); it also means the setup, not the timing, is what the cached pass removes.
 
 \paragraph*{Contrast: a C extension}
 On bottleneck, a clean build takes \BnBuildLo--\BnBuildHi\,s and the full suite (\BnNumTests{} tests) about \BnTests\,s, so the build is about \BnBuildShareLo--\BnBuildShareHi\pct{} of build plus tests.
@@ -40,6 +42,7 @@ All bottleneck runs were labelled noisy, and the result covers one state.
 \TODO{E4: R1 on one replication project with a cheap build and an asv suite (build, full tests, full benchmarks at 3--5 states, three passes each).}
 
 \paragraph*{Answer to RQ1}
-On networkx, benchmarks dominate per-edit validation cost, at least about \NxBenchRatioTypical\x{} build plus tests even on the fastest passes (about \NxBenchRatioMedian\x{} at the median), and most of their time lies outside the timing loops in one module, largely import-time setup by inspection; with that setup cached, the estimate drops to \NxSetupCachedLo--\NxSetupCachedHi\x, still the largest part but not by an order of magnitude.
+On networkx, benchmarks dominate per-edit validation cost, at least about \NxBenchRatioTypical\x{} build plus tests even on the fastest passes (about \NxBenchRatioMedian\x{} at the median), and most of their time lies outside the timing loops in one module, by inference per-process start-up and re-import; with setup reused, a measured pass costs \ECachedRatioLo--\ECachedRatioHi\x{} build plus tests, still the largest part but not by an order of magnitude.
+So the suite's design is a large part of the cost: about \EStdOverCached\x{} of a standard pass is overhead that caching removes.
 Reducing the build saves almost nothing for this pure-Python project; reducing tests saves at most the test time of about a minute and a half per edit.
 On bottleneck, a C-extension project with a non-trivial build, benchmarks also dominate, at about \BnBenchRatioLo--\BnBenchRatioHi\x{} build plus tests at one state.

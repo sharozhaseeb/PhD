@@ -145,6 +145,8 @@ def D():
     d["drift"] = [jload(RES / ("raw/networkx/bench/drift/pass%d.json" % j)) for j in range(3)]  # W3 (d)
     d["plabels"] = jload(RES / "raw/networkx/bench/pass_labels.json")  # W3 uniform pass labels (supersedes LABELS.md 5/9)
     d["bnbench"] = jload(RES / "raw/bottleneck/bench/analysis_bn.json")  # W3 (c) bottleneck FULL passes
+    d["night2"] = jload(RES / "raw/night-2026-11-23/analysis.json")  # W3 night 2 (directory A/A used; e5 not yet)
+    d["e5"] = jload(RES / "raw/networkx/bench/setup_cached/analysis_e5.json")  # W3 E5 measured setup-cached pass
     d["aaflag"] = jload(RES / "raw/networkx/bench/aa_flagged/analysis_aa.json")  # W3 (b), sigma for the 12 flagged verdicts
     d["recomp"] = jload(RES / "raw/stats_exact/recompute.json")
     d["aa"] = jload(RES / "raw/networkx/bench/aa/aa_result.json")
@@ -437,6 +439,33 @@ def compute(d):
     v["RepTwoLo"] = "%.2f" % min(r2)
     v["RepTwoHi"] = "%.2f" % max(r2)
     v["RepEightRatio"] = "%.3f" % list(R["t1_08"]["slower_now"].values())[0]["ratio"]
+    # directory A/A (identical code in both clone directories), night 2
+    da = d["night2"]["diraa"]
+    v["DirAANonSame"] = str(da["non_same"])
+    v["DirAATotal"] = str(da["n_complete"])
+    v["DirAAPct"] = "%.1f" % (100 * da["rate"])
+    v["DirAALo"] = "%.1f" % (100 * da["wilson95"][0])
+    v["DirAAHi"] = "%.1f" % (100 * da["wilson95"][1])
+    rec = da["t2_03_flips_recurrence"]
+    v["DirAARecur"] = str(sum(1 for x in rec.values() if x["recurs"]))
+    v["DirAARecurN"] = str(len(rec))
+    # E5 measured setup-cached pass (night 2): STD vs CACHED, same night, same directory
+    E = d["e5"]; S = E["summary"]
+    v["EStdMedian"] = rint(S["std_median_s"])
+    v["ECachedMedian"] = rint(S["cached_median_s"])
+    v["EStdOverCached"] = "%.2f" % S["std_over_cached"]
+    cl = [E[k]["loop_s"] / E[k]["total_s"] for k in ("cached0", "cached1", "cached2")]
+    v["ECachedLoop"] = rint(100 * statistics.median(cl))  # 70.9-71.2 %, so "about 71 %"
+    v["EShifted"] = str(S["n_sample_shifted"])
+    v["EShiftN"] = str(S["n_shift_cases"])
+    # directory-swapped tier 2 for #8 and #1 (night 2): new off-target non-same verdicts
+    RS = d["night2"]["rep2s"]
+    ns = sum(b["n_complete"] for b in RS.values())
+    nf = sum(1 for b in RS.values() for x in b["non_same"].values() if x["original"] == "same")
+    v["SwapTotal"] = str(ns)
+    v["SwapFlips"] = str(nf)
+    v["SwapPct"] = "%.1f" % (100 * nf / ns)
+    v["SwapMaxRatio"] = "%.2f" % max(max(x["ratio"], 1 / x["ratio"]) for b in RS.values() for x in b["non_same"].values() if x["original"] == "same")
     v["SlowUndetected"] = str(sum(1 for i in sc if sc[i]["cat"] != "on_target"))
     return v
 

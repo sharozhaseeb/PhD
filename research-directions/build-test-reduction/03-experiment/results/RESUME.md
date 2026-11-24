@@ -94,3 +94,32 @@ cd $E && PYTHONPATH=$E/harness python3 scripts/q3_count.py mine && python3 scrip
 - **Resume E3 tier 2** on a later night: `PYTHONPATH=$E/harness timeout <cap> ~/bt-lab/exp/venvs/nx/bin/python scripts/night_nx.py rep2`. It skips #3, #4 and #2, resumes #8 from its checkpoint, then runs #1.
 - **E5 (setup-cached)** is planned for the night of 23 → 24; the `measure-cached` runner still has to be built and tested first.
 - **Next design question raised by tier 2:** swap clones between sides (11/499 direction-consistent off-target flips).
+
+## 02:40 on 24 Nov — PM's questions on the #8 directory-swap flips (for the queue-end write-up; computed at 02:39)
+- **(a) Independence of the repeats:** each repeat is a separate benchrun invocation with fresh processes, run ≈ 20 min apart.
+  - `number` is calibrated per run in its first process and reused by the run's second process. It is not shared across repeats, but it often comes out identical (e.g. 5/5/5/5 for `square_clustering`).
+  - The repeats share only the machine and the night, so they are not independent of slow machine-state drift.
+- **(b) Noise baseline for sign consistency:** all 4 identical-code directory-A/A flips kept their sign in both repeats (0.922/0.903, 1.252/1.363, 0.818/0.696, 1.122/1.258).
+  - Sign consistency is expected for any case selected on pooled p < 0.002 (critic, 06:30: 262 of 488 non-flips are same-sign as well).
+  - So **5 of 5 consistent signs does not discriminate** between noise and a real effect. The p ≈ 1/32 argument does not apply after that selection.
+- **(c) Overlap with night 1:** the night-1 fixed-directory t2_08 partial (repeat 0 only, 41 cases) covers 4 of the 5:
+
+  | Case | Night 1 | Tonight |
+  |---|---|---|
+  | `square_clustering` | 0.929 | 1.129 |
+  | `betweenness` | 1.002 | 1.178 |
+  | `connected_components ER(100, 0.9)` | 1.251 | 1.175 |
+  | `connected_components Drug` | 1.175 | 0.901 |
+
+  - Only `connected_components ER(100, 0.9)` agrees. That case is also a t2_02 flip (1.288), and in the original #8 oracle it was "same" (0.955).
+  - So for 3 of 4 cases the effect does not reproduce across nights, which argues against a stable effect of the #8 patch on them.
+  - `connected_components ER(100, 0.9)` is the one case that keeps showing up in "slower" across slowdowns (#2, #8), and it has a floor of 1.278 from the S0 A/A. Worth flagging as a noisy or sensitive case.
+- **Write-up stance:** cause unresolved. Neither directory bias nor a test false-verdict rate is established. (b) only removes sign consistency as evidence either way.
+
+## 03:30 on 24 Nov — night 2 finished (queue done 03:22:39)
+- **All 3 items are complete and critic-checked in results.md:** "Directory A/A", "E5: measured setup-cached pass", "E3 tier 2 resumed with DIRECTORY SWAP".
+- **E3 tier 2** is now complete for all 5 reached slowdowns.
+- Telemetry stopped at 03:23; the gate alarm exited with the night2 marker. **Nothing is running.**
+- **Open:**
+  - Cause of the ≈ 2 % off-target flips (next test: a process-level analysis, or more processes per side).
+  - The flag on `connected_components ER(100, 0.9)` as a noisy case.

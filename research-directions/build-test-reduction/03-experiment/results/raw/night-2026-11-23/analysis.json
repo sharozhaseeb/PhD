@@ -1,0 +1,232 @@
+{
+ "diraa": {
+  "m5_label": "noisy",
+  "n_complete": 168,
+  "non_same": 4,
+  "rate": 0.023809523809523808,
+  "wilson95": [
+   0.009296969097757674,
+   0.05961300380752253
+  ],
+  "non_same_cases": {
+   "benchmark_classes.GraphBenchmark.time_subgraph_large('DiGraph')": {
+    "status": "faster",
+    "ratio": 0.9042318978853646,
+    "p": 8.875227612608148e-06,
+    "rep_ratios": [
+     0.9220342558718467,
+     0.9025714817451469
+    ]
+   },
+   "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(10)": {
+    "status": "slower",
+    "ratio": 1.3082003063692722,
+    "p": 2.958409204202716e-06,
+    "rep_ratios": [
+     1.251967334256544,
+     1.3631199437671497
+    ]
+   },
+   "benchmark_neighbors.NonNeighbors.time_complete(100)": {
+    "status": "faster",
+    "ratio": 0.7251521426494749,
+    "p": 0.0011145806676833734,
+    "rep_ratios": [
+     0.8184295229952095,
+     0.6961617830809023
+    ]
+   },
+   "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')": {
+    "status": "slower",
+    "ratio": 1.1764196052734834,
+    "p": 0.00182977609279938,
+    "rep_ratios": [
+     1.1224576143324763,
+     1.2582894720084596
+    ]
+   }
+  },
+  "t2_03_flips_recurrence": {
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Drug Interaction network')": {
+    "t2_ratio": 0.8454967407515966,
+    "diraa_ratio": 1.0077838844883193,
+    "diraa_status": "same",
+    "recurs": false
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_k_core('Erdos Renyi (100, 0.1)')": {
+    "t2_ratio": 1.4297088177391628,
+    "diraa_ratio": 0.9500864591980139,
+    "diraa_status": "same",
+    "recurs": false
+   },
+   "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')": {
+    "t2_ratio": 0.8288563548490551,
+    "diraa_ratio": 1.1243756571776393,
+    "diraa_status": "same",
+    "recurs": false
+   },
+   "benchmark_classes.GraphBenchmark.time_to_undirected('MultiDiGraph')": {
+    "t2_ratio": 0.8732173477535873,
+    "diraa_ratio": 0.8745797334500044,
+    "diraa_status": "same",
+    "recurs": true
+   },
+   "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')": {
+    "t2_ratio": 1.211278195706348,
+    "diraa_ratio": 0.8463739308861105,
+    "diraa_status": "same",
+    "recurs": false
+   },
+   "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(10, 0.7)', 4)": {
+    "t2_ratio": 0.8589294718202334,
+    "diraa_ratio": 0.9834817824496394,
+    "diraa_status": "same",
+    "recurs": false
+   }
+  },
+  "n_recur": 1,
+  "decision": "bias SUPPORTED"
+ },
+ "e5": {
+  "std0": {
+   "m5_label": "noisy",
+   "n": 171,
+   "total_s": 705.0474304739619
+  },
+  "cached0": {
+   "m5_label": "measured-window",
+   "n": 171,
+   "total_s": 200.6658538240008,
+   "import_s": 4.659817601059331,
+   "setup_s": 2.6878777512174565,
+   "calib_s": 25.265813385747606,
+   "warmup_s": 24.426581807929324,
+   "loop_s": 142.2979515719344,
+   "other_s": 1.3278117061126977
+  },
+  "std1": {
+   "m5_label": "measured-window",
+   "n": 171,
+   "total_s": 690.9504954613512
+  },
+  "cached1": {
+   "m5_label": "measured-window",
+   "n": 171,
+   "total_s": 188.52136471198173,
+   "import_s": 4.88871829296113,
+   "setup_s": 2.5827486286871135,
+   "calib_s": 24.085436639841646,
+   "warmup_s": 21.944614363863366,
+   "loop_s": 133.8140891889052,
+   "other_s": 1.2057575977232773
+  },
+  "std2": {
+   "m5_label": "noisy",
+   "n": 171,
+   "total_s": 678.6067095979815
+  },
+  "cached2": {
+   "m5_label": "noisy",
+   "n": 171,
+   "total_s": 194.9529249430052,
+   "import_s": 4.479716920031933,
+   "setup_s": 2.6468717162206303,
+   "calib_s": 25.686409690824803,
+   "warmup_s": 22.156568151258398,
+   "loop_s": 138.72875769707025,
+   "other_s": 1.254600767599186
+  },
+  "summary": {
+   "std_median_s": 690.9504954613512,
+   "cached_median_s": 194.9529249430052,
+   "std_over_cached": 3.544191479370477,
+   "n_shift_cases": 171,
+   "n_sample_shifted": 1,
+   "sample_shifted": {
+    "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (1000, 0.01)')": 1.2841795211956282
+   }
+  }
+ },
+ "rep2s": {
+  "8": {
+   "m5_label": "measured-window",
+   "n_complete": 170,
+   "agree": 165,
+   "non_same": {
+    "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_square_clustering('Erdos Renyi (100, 0.1)')": {
+     "status": "slower",
+     "ratio": 1.1287389890205464,
+     "p": 5.177216107354753e-06,
+     "rep_ratios": [
+      1.1097224139639976,
+      1.1630738591785204
+     ],
+     "original": "same",
+     "dir_inconsistent": false
+    },
+    "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_betweenness_centrality('Erdos Renyi (100, 0.5)')": {
+     "status": "slower",
+     "ratio": 1.1780717413545616,
+     "p": 5.177216107354753e-06,
+     "rep_ratios": [
+      1.2001762110777465,
+      1.0843043944619855
+     ],
+     "original": "same",
+     "dir_inconsistent": false
+    },
+    "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')": {
+     "status": "slower",
+     "ratio": 1.1747103599538482,
+     "p": 0.0003712803551274409,
+     "rep_ratios": [
+      1.1280748774301885,
+      1.1697065980624444
+     ],
+     "original": "same",
+     "dir_inconsistent": false
+    },
+    "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Drug Interaction network')": {
+     "status": "faster",
+     "ratio": 0.9009996086806609,
+     "p": 0.000495533541703955,
+     "rep_ratios": [
+      0.943732141255196,
+      0.8825390815388173
+     ],
+     "original": "same",
+     "dir_inconsistent": false
+    },
+    "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('wheel_graph(1000)')": {
+     "status": "slower",
+     "ratio": 1.1107005309658418,
+     "p": 0.00182977609279938,
+     "rep_ratios": [
+      1.1107005309658418,
+      1.2228808632209924
+     ],
+     "original": "same",
+     "dir_inconsistent": false
+    }
+   }
+  },
+  "1": {
+   "m5_label": "noisy",
+   "n_complete": 170,
+   "agree": 168,
+   "non_same": {
+    "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.5)')": {
+     "status": "faster",
+     "ratio": 0.8843988178825787,
+     "p": 0.000495533541703955,
+     "rep_ratios": [
+      0.8672627541462927,
+      0.8863841803479979
+     ],
+     "original": "same",
+     "dir_inconsistent": false
+    }
+   }
+  }
+ }
+}

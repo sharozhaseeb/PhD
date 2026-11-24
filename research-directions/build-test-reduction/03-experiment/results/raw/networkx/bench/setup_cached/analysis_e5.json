@@ -1,0 +1,60 @@
+{
+ "std0": {
+  "m5_label": "noisy",
+  "n": 171,
+  "total_s": 705.0474304739619
+ },
+ "cached0": {
+  "m5_label": "measured-window",
+  "n": 171,
+  "total_s": 200.6658538240008,
+  "import_s": 4.659817601059331,
+  "setup_s": 2.6878777512174565,
+  "calib_s": 25.265813385747606,
+  "warmup_s": 24.426581807929324,
+  "loop_s": 142.2979515719344,
+  "other_s": 1.3278117061126977
+ },
+ "std1": {
+  "m5_label": "measured-window",
+  "n": 171,
+  "total_s": 690.9504954613512
+ },
+ "cached1": {
+  "m5_label": "measured-window",
+  "n": 171,
+  "total_s": 188.52136471198173,
+  "import_s": 4.88871829296113,
+  "setup_s": 2.5827486286871135,
+  "calib_s": 24.085436639841646,
+  "warmup_s": 21.944614363863366,
+  "loop_s": 133.8140891889052,
+  "other_s": 1.2057575977232773
+ },
+ "std2": {
+  "m5_label": "noisy",
+  "n": 171,
+  "total_s": 678.6067095979815
+ },
+ "cached2": {
+  "m5_label": "noisy",
+  "n": 171,
+  "total_s": 194.9529249430052,
+  "import_s": 4.479716920031933,
+  "setup_s": 2.6468717162206303,
+  "calib_s": 25.686409690824803,
+  "warmup_s": 22.156568151258398,
+  "loop_s": 138.72875769707025,
+  "other_s": 1.254600767599186
+ },
+ "summary": {
+  "std_median_s": 690.9504954613512,
+  "cached_median_s": 194.9529249430052,
+  "std_over_cached": 3.544191479370477,
+  "n_shift_cases": 171,
+  "n_sample_shifted": 1,
+  "sample_shifted": {
+   "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (1000, 0.01)')": 1.2841795211956282
+  }
+ }
+}

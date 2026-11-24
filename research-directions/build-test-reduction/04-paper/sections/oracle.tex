@@ -127,14 +127,22 @@ The two off-target flags (\#1, and \#2's off-target case) do not repeat and are 
 \#3 is ``same'' on all three cases, which is no evidence of an effect at this protocol; on one case a moderate effect is not excluded.
 Detection above the floor therefore stays at \FloorDetect{} of \NumSlowdowns, a result the repeat checks only for \#1, \#2, \#3 and \#8.
 \#1's block was interrupted by a time cap and resumed hours later, so its second order-balanced pair mixes runs from two sessions; its ratio matches the first pair.
-A second tier repeated the remaining cases of \#2, \#3 and \#4 with two order-balanced repeats (\#8 was cut short and \#1 not run).
+A second tier repeated the off-target cases of all five reached slowdowns with two order-balanced repeats; for \#2, \#3 and \#4 each side kept one clone directory, as in the original oracle.
 Of \TwoTotal{} off-target verdicts, \TwoAgree{} again read ``same'' and \TwoFlips{} (\TwoFlipPct\pct, Wilson \ci{\TwoFlipLo}{\TwoFlipHi}, too narrow because cases share runs) became non-``same'', against about \TwoExpected{} expected at the nominal level; that nominal level assumes exchangeable samples, which pooled runs from few processes are not.
 \TwoFaster{} of these flips are ``faster'', which a patch that only adds work cannot cause.
-In every A/B run, including the original oracle, the unpatched side ran in one clone directory and the patched side in another, so the edit and the clone directory are fully confounded; directory, layout or import differences between the clones can produce shifts of either sign.
-With this design the source of these roughly \TwoFlipPct\pct{} off-target non-``same'' verdicts is unresolved: we cannot separate such measurement bias from effects of the patch outside the measured profiles, and we could not test whether machine load plays a role.
-\#2's on-target ratios are far beyond any shift of this size; \#8's (\SlowEightRatio--\RepEightRatio\x) and the off-target flags are not, which is a further reason not to count \#8.
-\TODO{Directory A/A (tonight): the same code in both clone directories, with the directories swapped between repeats, to measure the directory bias directly.}
-Single off-target flags in this oracle, including the profile-completeness flag, should therefore be read as consistent with noise.
+In every A/B run, including the original oracle, the unpatched side ran in one clone directory and the patched side in another, so the edit and the clone directory are confounded.
+
+\textbf{Identical code.} To test whether such flips need an edit at all, we ran the same tier-2 cases and design with identical, unpatched code in the two clone directories.
+\DirAANonSame{} of \DirAATotal{} cases still returned a non-``same'' verdict (\DirAAPct\pct, Wilson \ci{\DirAALo}{\DirAAHi}), a rate the intervals cannot distinguish from the \TwoFlipPct\pct{} with the patches, and only \DirAARecur{} of the \DirAARecurN{} earlier flips at that state recurred.
+So the off-target flips need no effect of the edit.
+This control also kept one directory per side, so for \#8 and \#1 we swapped the directories between the two repeats, balancing the edit across directories (and, with it, run order).
+The swap did not remove the flips: \SwapFlips{} of \SwapTotal{} off-target verdicts (\SwapPct\pct) became non-``same'', and none reversed its sign when the directories swapped, so a directory effect alone does not produce them.
+Nor do they show a stable effect of the edit: of the \CrossNightN{} \#8 cases that could be compared with an earlier night under the same setup, only \CrossNightAgree{} reproduced, and sign consistency across repeats is expected after selecting on a small pooled $p$ (the identical-code flips kept their sign too).
+Their cause, per-night variation, an anti-conservative test on correlated samples, or an effect specific to a few sensitive cases (one \texttt{connected\_components} case flags under two unrelated slowdowns), is unresolved, and we could not test machine load.
+In this design, then, single A/B verdicts up to about \DirAAMaxDev\x{} in either direction, the largest deviation seen with identical code, are not evidence of an edit effect; at the tier-2 sample size, about \DirAAFalsePerComp{} false changes (\DirAAFalseLo--\DirAAFalseHi) are expected per comparison of all \NxBenchCases{} cases, assuming independent cases.
+This covers \#8 (\SlowEightRatio--\RepEightRatio\x), all off-target flags and the profile-completeness flag.
+\#2's on-target ratios (\RepTwoLo--\RepTwoHi\x) lie well above it, cleared their own noise floors and repeated, so \#2 stands as the one detection.
+The swapped run repeated only off-target cases, so \#8's on-target verdict was not re-tested with swapped directories.
 
 \paragraph*{Answers to RQ2 and RQ3}
 On networkx, the project's own benchmarks execute none of the changed functions for many optimization edits (\BOneAgentUnreached{} of \NxAgentOpt{}, CI \ci{\BOneAgentLo}{\BOneAgentHi}); for those, full benchmarking cannot confirm the speed-up or see a slowdown in the changed functions, as far as one profile shows (RQ2).

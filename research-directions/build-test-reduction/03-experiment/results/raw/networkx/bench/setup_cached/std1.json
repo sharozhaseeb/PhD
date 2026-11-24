@@ -1,0 +1,4806 @@
+{
+ "plan": "results/raw/networkx/bench/setup_cached/plan.md",
+ "state_sha": "181f295117f7f7488644c87f04699290f8e49188",
+ "arm": "std",
+ "index": 1,
+ "wall_s": 1024.677057504654,
+ "n_runs": 171,
+ "n_errors": 0,
+ "peak_run_load": 1.05,
+ "n_pre_gate_not_ok": 0,
+ "pre_gate_waited_s": 348.7,
+ "m5_label": "measured-window",
+ "t_first": "2026-11-24T01:13:18+0500",
+ "t_last": "2026-11-24T01:29:21+0500",
+ "sum_run_wall_s": 690.9504954613512,
+ "raw_runs": [
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0010530949803069234,
+    0.0010863070201594383,
+    0.0011759810149669647,
+    0.0014472669863607734,
+    0.0010382189939264208,
+    0.0010852850100491196
+   ],
+   "number": 1,
+   "wall_s": 9.145169839001028,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:13:18+0500",
+   "t_end": "2026-11-24T01:13:27+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 15.7,
+    "waited_s": 58.3
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.002570992015535012,
+    0.0019980630022473633,
+    0.0018265839898958802,
+    0.0023168260231614113,
+    0.0018672729784157127,
+    0.0018269029969815165
+   ],
+   "number": 1,
+   "wall_s": 9.30860007298179,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.44,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:13:27+0500",
+   "t_end": "2026-11-24T01:13:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 11.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_eigenvector_centrality_numpy('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.002488012018147856,
+    0.00248895600088872,
+    0.002725238009588793,
+    0.0029250959923956543,
+    0.0024745069968048483,
+    0.0026183250010944903
+   ],
+   "number": 1,
+   "wall_s": 8.71935224198387,
+   "loadavg_before": 0.46,
+   "loadavg_after": 0.46,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:13:56+0500",
+   "t_end": "2026-11-24T01:14:04+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.46,
+    "wincpu": 14.6,
+    "waited_s": 19.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_square_clustering('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0021448699990287423,
+    0.0021970011992380025,
+    0.002250208397163078,
+    0.0023035544028971342,
+    0.0022909204009920357,
+    0.0022288499982096254
+   ],
+   "number": 5,
+   "wall_s": 8.950038519978989,
+   "loadavg_before": 0.46,
+   "loadavg_after": 0.39,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:14:04+0500",
+   "t_end": "2026-11-24T01:14:13+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.46,
+    "wincpu": 12.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_square_clustering('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.01825876600923948,
+    0.018698525993386284,
+    0.01810212800046429,
+    0.01787942400551401,
+    0.018582670018076897,
+    0.017375950003042817
+   ],
+   "number": 1,
+   "wall_s": 8.614796246984042,
+   "loadavg_before": 0.39,
+   "loadavg_after": 0.44,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:14:13+0500",
+   "t_end": "2026-11-24T01:14:21+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.39,
+    "wincpu": 14.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.AlgorithmBenchmarksConnectedGraphsOnly.time_square_clustering('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.02032780699664727,
+    0.022941853007068858,
+    0.02015348299755715,
+    0.021012943994719535,
+    0.020104807015741244,
+    0.02015168097568676
+   ],
+   "number": 1,
+   "wall_s": 8.861311140004545,
+   "loadavg_before": 0.44,
+   "loadavg_after": 0.37,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:14:21+0500",
+   "t_end": "2026-11-24T01:14:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.44,
+    "wincpu": 12.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.00015736376022687182,
+    0.00015313916985178365,
+    0.00015179953014012425,
+    0.00017124498001066968,
+    0.000159430869971402,
+    0.00017158355010906233
+   ],
+   "number": 100,
+   "wall_s": 8.949763916025404,
+   "loadavg_before": 0.37,
+   "loadavg_after": 0.31,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:14:30+0500",
+   "t_end": "2026-11-24T01:14:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.37,
+    "wincpu": 17.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0004712313995696604,
+    0.00046758079988649113,
+    0.0005131919009727426,
+    0.0008893300997442566,
+    0.0006498789007309824,
+    0.0005174756006454118
+   ],
+   "number": 20,
+   "wall_s": 8.83019504501135,
+   "loadavg_before": 0.31,
+   "loadavg_after": 0.26,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:14:39+0500",
+   "t_end": "2026-11-24T01:14:47+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.31,
+    "wincpu": 13,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.000784438599657733,
+    0.0008137996002915316,
+    0.0007894279988249764,
+    0.0012266073492355645,
+    0.001036788099736441,
+    0.0010059629494207911
+   ],
+   "number": 20,
+   "wall_s": 8.906402430002345,
+   "loadavg_before": 0.13,
+   "loadavg_after": 0.2,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:15:26+0500",
+   "t_end": "2026-11-24T01:15:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.13,
+    "wincpu": 18,
+    "waited_s": 39.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (1000, 0.01)')",
+   "samples": [
+    0.0018965288996696471,
+    0.0020713903999421746,
+    0.0018868407001718878,
+    0.0017714110988890752,
+    0.0020229142013704405,
+    0.0016915476007852703
+   ],
+   "number": 10,
+   "wall_s": 9.113706839998486,
+   "loadavg_before": 0.2,
+   "loadavg_after": 0.32,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:15:35+0500",
+   "t_end": "2026-11-24T01:15:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.2,
+    "wincpu": 18,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (1000, 0.05)')",
+   "samples": [
+    0.004917569502140395,
+    0.005833681003423408,
+    0.005707957490812987,
+    0.005265151005005464,
+    0.005152218000148423,
+    0.005675578009686433
+   ],
+   "number": 2,
+   "wall_s": 9.09152619697852,
+   "loadavg_before": 0.26,
+   "loadavg_after": 0.22,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:16:22+0500",
+   "t_end": "2026-11-24T01:16:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.26,
+    "wincpu": 14.6,
+    "waited_s": 39.2
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_kosaraju_scc('Erdos Renyi (1000, 0.09)')",
+   "samples": [
+    0.009626662998925894,
+    0.009243099018931389,
+    0.010024256014730781,
+    0.012741167010972276,
+    0.010301698988769203,
+    0.0104004520107992
+   ],
+   "number": 1,
+   "wall_s": 8.385830354993232,
+   "loadavg_before": 0.22,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:16:31+0500",
+   "t_end": "2026-11-24T01:16:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.22,
+    "wincpu": 11.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0001743905001785606,
+    0.0001747405299101956,
+    0.00018730065989075228,
+    0.00019428332016104832,
+    0.00023484181001549588,
+    0.00027151075017172843
+   ],
+   "number": 100,
+   "wall_s": 8.70257866900647,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.23,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:16:39+0500",
+   "t_end": "2026-11-24T01:16:48+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.0006063829001504928,
+    0.0006130235502496362,
+    0.0006307528499746695,
+    0.000656344300659839,
+    0.0006671050505246967,
+    0.0008359233004739508
+   ],
+   "number": 20,
+   "wall_s": 8.535507602995494,
+   "loadavg_before": 0.17,
+   "loadavg_after": 0.15,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:17:08+0500",
+   "t_end": "2026-11-24T01:17:15+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.17,
+    "wincpu": 10.7,
+    "waited_s": 20.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.0011018463992513716,
+    0.0010815196990733966,
+    0.0011304768995614722,
+    0.0011371372995199636,
+    0.0010601132002193482,
+    0.0013071194989606738
+   ],
+   "number": 10,
+   "wall_s": 8.489830193022499,
+   "loadavg_before": 0.15,
+   "loadavg_after": 0.13,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:17:15+0500",
+   "t_end": "2026-11-24T01:17:24+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.15,
+    "wincpu": 10.7,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.01)')",
+   "samples": [
+    0.0022096165019320326,
+    0.0025259723013732584,
+    0.002114304798305966,
+    0.0019515232008416206,
+    0.001920286801760085,
+    0.0019345717009855434
+   ],
+   "number": 10,
+   "wall_s": 8.85860356100602,
+   "loadavg_before": 0.13,
+   "loadavg_after": 0.11,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:17:24+0500",
+   "t_end": "2026-11-24T01:17:33+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.13,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.05)')",
+   "samples": [
+    0.007043879493721761,
+    0.007087362508173101,
+    0.00700332599808462,
+    0.007670922001125291,
+    0.006854159510112368,
+    0.007317506999243051
+   ],
+   "number": 2,
+   "wall_s": 8.795987632998731,
+   "loadavg_before": 0.11,
+   "loadavg_after": 0.18,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:17:33+0500",
+   "t_end": "2026-11-24T01:17:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.11,
+    "wincpu": 12.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.DirectedAlgorithmBenchmarks.time_tarjan_scc('Erdos Renyi (1000, 0.09)')",
+   "samples": [
+    0.015579894999973476,
+    0.015092488989466801,
+    0.014670451986603439,
+    0.01237096800468862,
+    0.013648159016156569,
+    0.012772274989401922
+   ],
+   "number": 1,
+   "wall_s": 8.891790541994851,
+   "loadavg_before": 0.18,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:17:40+0500",
+   "t_end": "2026-11-24T01:17:49+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.18,
+    "wincpu": 10.7,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (10, seed=42)')",
+   "samples": [
+    2.1251442027278245e-05,
+    2.149991400074214e-05,
+    2.078352001262829e-05,
+    2.2746315982658416e-05,
+    2.3301292036194353e-05,
+    2.210626396117732e-05
+   ],
+   "number": 500,
+   "wall_s": 8.455181325000012,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.39,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:17:49+0500",
+   "t_end": "2026-11-24T01:17:58+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 14.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (100, seed=42)')",
+   "samples": [
+    0.002784152200911194,
+    0.0026637913018930704,
+    0.002661388600245118,
+    0.0030127070000162347,
+    0.0021070112998131663,
+    0.0020479243976296857
+   ],
+   "number": 10,
+   "wall_s": 8.995953310019104,
+   "loadavg_before": 0.39,
+   "loadavg_after": 0.33,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:17:58+0500",
+   "t_end": "2026-11-24T01:18:07+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.39,
+    "wincpu": 10.8,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.ReachabilityBenchmark.time_is_reachable('Tournament (1000, seed=42)')",
+   "samples": [
+    0.21031719000893645,
+    0.2532620719866827,
+    0.22895864097517915,
+    0.25550805899547413,
+    0.23929307798971422,
+    0.2606975199887529
+   ],
+   "number": 1,
+   "wall_s": 11.114020499982871,
+   "loadavg_before": 0.33,
+   "loadavg_after": 0.36,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:18:07+0500",
+   "t_end": "2026-11-24T01:18:17+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.33,
+    "wincpu": 14.7,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0017695165995974093,
+    0.001158307900186628,
+    0.0016063082992332056,
+    0.0014640468987636268,
+    0.0013603086001239717,
+    0.002048339499742724
+   ],
+   "number": 10,
+   "wall_s": 9.098454441002104,
+   "loadavg_before": 0.5,
+   "loadavg_after": 0.43,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:18:36+0500",
+   "t_end": "2026-11-24T01:18:45+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.5,
+    "wincpu": 15.6,
+    "waited_s": 19.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.017594753997400403,
+    0.017681744997389615,
+    0.01738831598777324,
+    0.01815275600529276,
+    0.018514928000513464,
+    0.01676820998545736
+   ],
+   "number": 1,
+   "wall_s": 9.030506123002851,
+   "loadavg_before": 0.43,
+   "loadavg_after": 0.44,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:18:45+0500",
+   "t_end": "2026-11-24T01:18:54+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.43,
+    "wincpu": 15.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.04389694400015287,
+    0.03953989298315719,
+    0.04365277601755224,
+    0.03358289698371664,
+    0.032589394017122686,
+    0.03436100299586542
+   ],
+   "number": 1,
+   "wall_s": 9.336658983986126,
+   "loadavg_before": 0.39,
+   "loadavg_after": 0.44,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:19:13+0500",
+   "t_end": "2026-11-24T01:19:23+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.39,
+    "wincpu": 17.7,
+    "waited_s": 19.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_average_clustering('Drug Interaction network')",
+   "samples": [
+    0.9462965879938565,
+    0.9695912369934376,
+    0.9736362240219023,
+    0.9601866099983454,
+    0.9492790910007898,
+    0.9747425710083917
+   ],
+   "number": 1,
+   "wall_s": 17.712069050001446,
+   "loadavg_before": 0.39,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:19:42+0500",
+   "t_end": "2026-11-24T01:20:00+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.39,
+    "wincpu": 13.4,
+    "waited_s": 19.2
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_betweenness_centrality('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.011093576991697773,
+    0.01098674300010316,
+    0.011338177981087938,
+    0.011884169012773782,
+    0.011338048992911354,
+    0.010873067018110305
+   ],
+   "number": 1,
+   "wall_s": 8.904453135997755,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:20:00+0500",
+   "t_end": "2026-11-24T01:20:08+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 13.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_betweenness_centrality('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.02808228600770235,
+    0.028177833009976894,
+    0.029096624988596886,
+    0.029702347004786134,
+    0.02937768801348284,
+    0.0293961770075839
+   ],
+   "number": 1,
+   "wall_s": 8.613960664020851,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.46,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:20:08+0500",
+   "t_end": "2026-11-24T01:20:16+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_betweenness_centrality('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.04061466598068364,
+    0.048870042024645954,
+    0.04071894398657605,
+    0.03958764401613735,
+    0.04286159900948405,
+    0.05132137698819861
+   ],
+   "number": 1,
+   "wall_s": 9.337668952997774,
+   "loadavg_before": 0.46,
+   "loadavg_after": 0.54,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:20:16+0500",
+   "t_end": "2026-11-24T01:20:26+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.46,
+    "wincpu": 11.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_betweenness_centrality('Drug Interaction network')",
+   "samples": [
+    11.825301078002667,
+    11.974709794012597,
+    11.771419848984806,
+    13.93030426799669,
+    13.660546988015994,
+    13.120147437992273
+   ],
+   "number": 1,
+   "wall_s": 121.91101056299522,
+   "loadavg_before": 0.54,
+   "loadavg_after": 1.05,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:20:26+0500",
+   "t_end": "2026-11-24T01:22:24+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.54,
+    "wincpu": 11.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    2.1712474001105874e-05,
+    2.394753397675231e-05,
+    2.3328689974732697e-05,
+    1.4849730010610073e-05,
+    1.6383199952542783e-05,
+    1.540758804185316e-05
+   ],
+   "number": 500,
+   "wall_s": 9.24114981200546,
+   "loadavg_before": 0.75,
+   "loadavg_after": 0.79,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:22:43+0500",
+   "t_end": "2026-11-24T01:22:52+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.75,
+    "wincpu": 19.8,
+    "waited_s": 19.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    9.839776990702376e-06,
+    1.018790598027408e-05,
+    9.993576008128002e-06,
+    1.0266746976412832e-05,
+    1.3540561019908637e-05,
+    1.0460196004714817e-05
+   ],
+   "number": 1000,
+   "wall_s": 8.768468377005775,
+   "loadavg_before": 0.73,
+   "loadavg_after": 0.75,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:23:11+0500",
+   "t_end": "2026-11-24T01:23:20+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.73,
+    "wincpu": 13.9,
+    "waited_s": 19.1
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    7.410684003843926e-06,
+    7.495719997677952e-06,
+    7.542097489931621e-06,
+    8.96082050167024e-06,
+    8.638867002446205e-06,
+    1.0405501001514495e-05
+   ],
+   "number": 2000,
+   "wall_s": 8.458403207012452,
+   "loadavg_before": 0.75,
+   "loadavg_after": 0.63,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:23:20+0500",
+   "t_end": "2026-11-24T01:23:28+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.75,
+    "wincpu": 13.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_connected_components('Drug Interaction network')",
+   "samples": [
+    0.002363234997028485,
+    0.0023650377988815308,
+    0.0026792555989231916,
+    0.0026280719961505384,
+    0.0022979437955655156,
+    0.002243491599801928
+   ],
+   "number": 5,
+   "wall_s": 8.729876775993034,
+   "loadavg_before": 0.63,
+   "loadavg_after": 0.54,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:23:28+0500",
+   "t_end": "2026-11-24T01:23:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.63,
+    "wincpu": 10.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.013693579006940126,
+    0.014086217997828498,
+    0.013122128002578393,
+    0.015863895998336375,
+    0.015006336994701996,
+    0.01521179502015002
+   ],
+   "number": 1,
+   "wall_s": 8.969962668023072,
+   "loadavg_before": 0.54,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:23:37+0500",
+   "t_end": "2026-11-24T01:23:46+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.54,
+    "wincpu": 10.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.03434195200679824,
+    0.035486911016050726,
+    0.03491703898180276,
+    0.03613255202071741,
+    0.0349032309895847,
+    0.03669153500231914
+   ],
+   "number": 1,
+   "wall_s": 8.70219079402159,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:23:46+0500",
+   "t_end": "2026-11-24T01:23:54+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 10.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.04945629899157211,
+    0.049196817009942606,
+    0.047743415023433045,
+    0.047508899006061256,
+    0.048777126998174936,
+    0.050992026983294636
+   ],
+   "number": 1,
+   "wall_s": 8.892959945020266,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.41,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:23:54+0500",
+   "t_end": "2026-11-24T01:24:03+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 15.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_greedy_modularity_communities('Drug Interaction network')",
+   "samples": [
+    4.3827283550053835,
+    4.245114983001258,
+    4.434699355973862,
+    4.496365097002126,
+    4.330242180003552,
+    4.7200720609980635
+   ],
+   "number": 1,
+   "wall_s": 48.0660075340129,
+   "loadavg_before": 0.41,
+   "loadavg_after": 0.85,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:24:03+0500",
+   "t_end": "2026-11-24T01:24:49+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.41,
+    "wincpu": 14.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_k_core('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0007264347994350828,
+    0.0007430280500557273,
+    0.0007550224006990902,
+    0.0008854415500536561,
+    0.0008595726991188713,
+    0.0008769528503762558
+   ],
+   "number": 20,
+   "wall_s": 9.14283751900075,
+   "loadavg_before": 0.85,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:24:49+0500",
+   "t_end": "2026-11-24T01:24:58+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.85,
+    "wincpu": 16.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_k_core('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.003512559796217829,
+    0.003994620201410726,
+    0.004278803599299863,
+    0.0038752875989302993,
+    0.003763671999331564,
+    0.0041836477990727875
+   ],
+   "number": 5,
+   "wall_s": 9.167331117001595,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.88,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:24:58+0500",
+   "t_end": "2026-11-24T01:25:07+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 10.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_k_core('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.006297080995864235,
+    0.006107484994572587,
+    0.006991460497374646,
+    0.006688266003038734,
+    0.007885701503255405,
+    0.0078105555003276095
+   ],
+   "number": 2,
+   "wall_s": 8.419981402985286,
+   "loadavg_before": 0.88,
+   "loadavg_after": 0.83,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:25:07+0500",
+   "t_end": "2026-11-24T01:25:15+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.88,
+    "wincpu": 9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_k_core('Drug Interaction network')",
+   "samples": [
+    0.05286754501867108,
+    0.05587695899885148,
+    0.05369373699068092,
+    0.052808668988291174,
+    0.05384244298329577,
+    0.05517559000873007
+   ],
+   "number": 1,
+   "wall_s": 9.06895915401401,
+   "loadavg_before": 0.83,
+   "loadavg_after": 0.7,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:25:15+0500",
+   "t_end": "2026-11-24T01:25:24+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.83,
+    "wincpu": 9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.003582077397732064,
+    0.003661499998997897,
+    0.0037639876012690366,
+    0.003946780803380534,
+    0.003914182598236948,
+    0.0038147050014231353
+   ],
+   "number": 5,
+   "wall_s": 8.839416928007267,
+   "loadavg_before": 0.7,
+   "loadavg_after": 0.67,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:25:24+0500",
+   "t_end": "2026-11-24T01:25:32+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.7,
+    "wincpu": 10.1,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.008948209986556321,
+    0.009660601994255558,
+    0.009363292017951608,
+    0.014113189012277871,
+    0.012624062015675008,
+    0.012995173980016261
+   ],
+   "number": 1,
+   "wall_s": 8.883325874019647,
+   "loadavg_before": 0.67,
+   "loadavg_after": 0.7,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:25:32+0500",
+   "t_end": "2026-11-24T01:25:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.67,
+    "wincpu": 7.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.014314689004095271,
+    0.014804837002884597,
+    0.012123334017815068,
+    0.012498450989369303,
+    0.014030919002834707,
+    0.014216096024028957
+   ],
+   "number": 1,
+   "wall_s": 8.788826295000035,
+   "loadavg_before": 0.7,
+   "loadavg_after": 0.59,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:25:41+0500",
+   "t_end": "2026-11-24T01:25:50+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.7,
+    "wincpu": 9.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_louvain_communities('Drug Interaction network')",
+   "samples": [
+    0.2127414449932985,
+    0.2183019190269988,
+    0.23163641800056212,
+    0.19602342098369263,
+    0.21871385900885798,
+    0.2384888449741993
+   ],
+   "number": 1,
+   "wall_s": 10.516334315005224,
+   "loadavg_before": 0.59,
+   "loadavg_after": 0.5,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:25:50+0500",
+   "t_end": "2026-11-24T01:26:00+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.59,
+    "wincpu": 12.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.1)')",
+   "samples": [
+    0.0006580089975614101,
+    0.0006496300047729164,
+    0.0005886260187253356,
+    0.0008966519962996244,
+    0.0006812899955548346,
+    0.0006080360035412014
+   ],
+   "number": 1,
+   "wall_s": 8.803564622998238,
+   "loadavg_before": 0.5,
+   "loadavg_after": 0.5,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:26:00+0500",
+   "t_end": "2026-11-24T01:26:09+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.5,
+    "wincpu": 9.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.5)')",
+   "samples": [
+    0.001336855988483876,
+    0.001424143003532663,
+    0.001350354024907574,
+    0.001565387996379286,
+    0.0012963560002390295,
+    0.001312120002694428
+   ],
+   "number": 1,
+   "wall_s": 8.661833682999713,
+   "loadavg_before": 0.5,
+   "loadavg_after": 0.5,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:26:09+0500",
+   "t_end": "2026-11-24T01:26:17+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.5,
+    "wincpu": 9.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Erdos Renyi (100, 0.9)')",
+   "samples": [
+    0.0021059449936728925,
+    0.0021355130011215806,
+    0.002293792989803478,
+    0.002698292984860018,
+    0.0022550009889528155,
+    0.0022526259999722242
+   ],
+   "number": 1,
+   "wall_s": 8.892557596002007,
+   "loadavg_before": 0.5,
+   "loadavg_after": 0.58,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:26:17+0500",
+   "t_end": "2026-11-24T01:26:25+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.5,
+    "wincpu": 16.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_algorithms.UndirectedAlgorithmBenchmarks.time_pagerank('Drug Interaction network')",
+   "samples": [
+    0.035476660006679595,
+    0.03695560299092904,
+    0.04617724599665962,
+    0.05319962199428119,
+    0.05161869901348837,
+    0.036600755993276834
+   ],
+   "number": 1,
+   "wall_s": 10.361753130011493,
+   "loadavg_before": 0.58,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:26:25+0500",
+   "t_end": "2026-11-24T01:26:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.58,
+    "wincpu": 16.5,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_edges_from('Graph')",
+   "samples": [
+    1.8664438015548512e-07,
+    1.7231797013664618e-07,
+    2.3828687000786886e-07,
+    3.3027124009095133e-07,
+    3.3361634006723764e-07,
+    1.9413612986681983e-07
+   ],
+   "number": 100000,
+   "wall_s": 0.6133721010119189,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:34+0500",
+   "t_end": "2026-11-24T01:27:34+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.4,
+    "waited_s": 58.3
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_edges_from('DiGraph')",
+   "samples": [
+    1.951749197905883e-07,
+    1.7586444038897754e-07,
+    2.2611096035689116e-07,
+    2.1877004008274525e-07,
+    1.888556603807956e-07,
+    2.2061214025598018e-07
+   ],
+   "number": 50000,
+   "wall_s": 0.5485013030120172,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:34+0500",
+   "t_end": "2026-11-24T01:27:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiGraph')",
+   "samples": [
+    1.9611430005170404e-07,
+    2.169149898691103e-07,
+    2.2798610007157548e-07,
+    2.742208499694243e-07,
+    1.7392904002917931e-07,
+    1.8064130010316148e-07
+   ],
+   "number": 100000,
+   "wall_s": 0.6216297220089473,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:35+0500",
+   "t_end": "2026-11-24T01:27:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_edges_from('MultiDiGraph')",
+   "samples": [
+    2.1615123958326877e-07,
+    1.9918087986297906e-07,
+    1.8562129989732057e-07,
+    1.978019200032577e-07,
+    1.8552754016127438e-07,
+    1.7956673982553185e-07
+   ],
+   "number": 50000,
+   "wall_s": 0.47659282601671293,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:36+0500",
+   "t_end": "2026-11-24T01:27:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_nodes_from('Graph')",
+   "samples": [
+    6.726206003804692e-05,
+    9.477568004513159e-05,
+    5.77606751176063e-05,
+    6.335871003102512e-05,
+    5.7890909956768156e-05,
+    6.188150990055875e-05
+   ],
+   "number": 200,
+   "wall_s": 0.5049393030058127,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:36+0500",
+   "t_end": "2026-11-24T01:27:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_nodes_from('DiGraph')",
+   "samples": [
+    9.882260987069458e-05,
+    6.20217400137335e-05,
+    6.383520987583324e-05,
+    6.532714003697038e-05,
+    6.0470380121842025e-05,
+    7.689675985602661e-05
+   ],
+   "number": 100,
+   "wall_s": 0.5136410499981139,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:37+0500",
+   "t_end": "2026-11-24T01:27:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_nodes_from('MultiGraph')",
+   "samples": [
+    6.691304501146079e-05,
+    7.399134497973136e-05,
+    6.891507000545971e-05,
+    7.267003500601277e-05,
+    6.688413501251489e-05,
+    9.438670487725176e-05
+   ],
+   "number": 200,
+   "wall_s": 0.6231193690036889,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:37+0500",
+   "t_end": "2026-11-24T01:27:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_add_nodes_from('MultiDiGraph')",
+   "samples": [
+    6.752668501576409e-05,
+    6.490534986369311e-05,
+    6.419461496989242e-05,
+    7.770534488372504e-05,
+    9.581887992681004e-05,
+    7.447080992278643e-05
+   ],
+   "number": 200,
+   "wall_s": 0.5699383050086908,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.47,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:38+0500",
+   "t_end": "2026-11-24T01:27:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_copy('Graph')",
+   "samples": [
+    1.4542307995725424e-06,
+    1.3483743998222052e-06,
+    1.3525888993171976e-06,
+    1.6928404016653076e-06,
+    1.33596739906352e-06,
+    1.411099699907936e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5205667359987274,
+   "loadavg_before": 0.47,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:38+0500",
+   "t_end": "2026-11-24T01:27:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.47,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_copy('DiGraph')",
+   "samples": [
+    1.682606601389125e-06,
+    2.055430400650948e-06,
+    1.8845400016289203e-06,
+    1.8845972022973e-06,
+    1.6746893990784884e-06,
+    1.7927117994986474e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.5079918949923012,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:39+0500",
+   "t_end": "2026-11-24T01:27:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_copy('MultiGraph')",
+   "samples": [
+    2.2141702997032553e-06,
+    1.900155100156553e-06,
+    1.7674322007223964e-06,
+    1.6934048995608464e-06,
+    1.5858872007811442e-06,
+    1.7604282998945563e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5908748780202586,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:39+0500",
+   "t_end": "2026-11-24T01:27:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_copy('MultiDiGraph')",
+   "samples": [
+    2.1359697973821313e-06,
+    1.7864888010080903e-06,
+    1.9626361958216878e-06,
+    2.035169000737369e-06,
+    1.7974788032006473e-06,
+    2.496347000123933e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.5301960750075523,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:40+0500",
+   "t_end": "2026-11-24T01:27:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_graph_create('Graph')",
+   "samples": [
+    6.208241495187395e-07,
+    9.065108999493532e-07,
+    6.812986990553327e-07,
+    6.226343495654873e-07,
+    6.259121510083787e-07,
+    7.624426507391036e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.5315638679894619,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:41+0500",
+   "t_end": "2026-11-24T01:27:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_graph_create('DiGraph')",
+   "samples": [
+    1.3266319001559168e-06,
+    1.1475911975139751e-06,
+    9.0674509992823e-07,
+    9.049703017808497e-07,
+    9.533996984828264e-07,
+    8.549677004339173e-07
+   ],
+   "number": 10000,
+   "wall_s": 0.5125812500191387,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:41+0500",
+   "t_end": "2026-11-24T01:27:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_graph_create('MultiGraph')",
+   "samples": [
+    8.059907500864938e-07,
+    7.554850992164574e-07,
+    8.184783000615426e-07,
+    8.095051001873799e-07,
+    8.029902499401942e-07,
+    7.274354997207411e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.5538805059914012,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:42+0500",
+   "t_end": "2026-11-24T01:27:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_graph_create('MultiDiGraph')",
+   "samples": [
+    1.1815154008218087e-06,
+    1.0096393001731484e-06,
+    9.699663991341368e-07,
+    1.0495075504877605e-06,
+    1.0287722994689829e-06,
+    1.017770598991774e-06
+   ],
+   "number": 20000,
+   "wall_s": 0.5708548709808383,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:42+0500",
+   "t_end": "2026-11-24T01:27:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_edges_from('Graph')",
+   "samples": [
+    1.9196929002646357e-07,
+    1.8391452002106234e-07,
+    1.7794087994843722e-07,
+    1.9006185990292578e-07,
+    1.7608102003578097e-07,
+    1.7448730010073633e-07
+   ],
+   "number": 100000,
+   "wall_s": 0.5279842400050256,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.52,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:43+0500",
+   "t_end": "2026-11-24T01:27:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_edges_from('DiGraph')",
+   "samples": [
+    1.6688725998392328e-07,
+    1.5946310013532637e-07,
+    1.5515808016061782e-07,
+    1.6619537986116483e-07,
+    1.7174771026475356e-07,
+    1.5976116003002972e-07
+   ],
+   "number": 100000,
+   "wall_s": 0.5101117040030658,
+   "loadavg_before": 0.52,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:43+0500",
+   "t_end": "2026-11-24T01:27:44+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.52,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_edges_from('MultiGraph')",
+   "samples": [
+    1.7192048020660877e-07,
+    1.6803876991616563e-07,
+    1.726729198708199e-07,
+    1.8100668996339665e-07,
+    1.6016834997572005e-07,
+    1.5189298981567844e-07
+   ],
+   "number": 100000,
+   "wall_s": 0.5200109389843419,
+   "loadavg_before": 0.56,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:44+0500",
+   "t_end": "2026-11-24T01:27:44+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.56,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_edges_from('MultiDiGraph')",
+   "samples": [
+    1.6961171990260483e-07,
+    1.5776354004628956e-07,
+    1.570954601629637e-07,
+    1.6609571990557014e-07,
+    1.6575134999584407e-07,
+    1.7328011977951974e-07
+   ],
+   "number": 100000,
+   "wall_s": 0.5088126869814005,
+   "loadavg_before": 0.56,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:44+0500",
+   "t_end": "2026-11-24T01:27:45+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.56,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('Graph')",
+   "samples": [
+    7.742294998024591e-05,
+    0.00010174179507885128,
+    8.975472010206432e-05,
+    0.00022758128499845043,
+    0.0001083201399887912,
+    8.864441493642516e-05
+   ],
+   "number": 200,
+   "wall_s": 0.7272347440011799,
+   "loadavg_before": 0.56,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:45+0500",
+   "t_end": "2026-11-24T01:27:46+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.56,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('DiGraph')",
+   "samples": [
+    7.96810450265184e-05,
+    7.851770002162084e-05,
+    7.987763994606212e-05,
+    9.393027488840744e-05,
+    9.798608502023854e-05,
+    0.00014158641002723016
+   ],
+   "number": 200,
+   "wall_s": 0.592946587014012,
+   "loadavg_before": 0.56,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:46+0500",
+   "t_end": "2026-11-24T01:27:46+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.56,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiGraph')",
+   "samples": [
+    8.212162996642292e-05,
+    8.237586996983736e-05,
+    9.509823998087086e-05,
+    8.956189994933084e-05,
+    7.965417491504922e-05,
+    7.800230509019457e-05
+   ],
+   "number": 200,
+   "wall_s": 0.565296416025376,
+   "loadavg_before": 0.56,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:46+0500",
+   "t_end": "2026-11-24T01:27:47+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.56,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_remove_nodes_from('MultiDiGraph')",
+   "samples": [
+    7.786325004417449e-05,
+    7.452958496287465e-05,
+    7.601243007229641e-05,
+    7.739696491626091e-05,
+    7.694521991652437e-05,
+    8.546020995709114e-05
+   ],
+   "number": 200,
+   "wall_s": 0.5065357229905203,
+   "loadavg_before": 0.56,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:47+0500",
+   "t_end": "2026-11-24T01:27:47+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.56,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph('Graph')",
+   "samples": [
+    6.556364503921941e-06,
+    6.394218493369408e-06,
+    5.749646996264346e-06,
+    6.132255497504957e-06,
+    5.951699509751051e-06,
+    5.745136993937195e-06
+   ],
+   "number": 2000,
+   "wall_s": 0.4644161280011758,
+   "loadavg_before": 0.56,
+   "loadavg_after": 0.56,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:27:47+0500",
+   "t_end": "2026-11-24T01:27:48+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.56,
+    "wincpu": 19.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph('DiGraph')",
+   "samples": [
+    7.182409492088482e-06,
+    6.688836991088465e-06,
+    6.674210002529435e-06,
+    6.818823996582068e-06,
+    6.552882492542267e-06,
+    6.708291999530047e-06
+   ],
+   "number": 2000,
+   "wall_s": 0.4711668819945771,
+   "loadavg_before": 0.4,
+   "loadavg_after": 0.4,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:07+0500",
+   "t_end": "2026-11-24T01:28:07+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.4,
+    "wincpu": 12.4,
+    "waited_s": 19.1
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph('MultiGraph')",
+   "samples": [
+    1.0379209998063743e-05,
+    9.669956983998417e-06,
+    9.36514901695773e-06,
+    1.1054072005208582e-05,
+    8.767680992605164e-06,
+    6.573746999492869e-06
+   ],
+   "number": 1000,
+   "wall_s": 0.46883099898695946,
+   "loadavg_before": 0.4,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:07+0500",
+   "t_end": "2026-11-24T01:28:08+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.4,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph('MultiDiGraph')",
+   "samples": [
+    7.7195610065246e-06,
+    8.414971991442143e-06,
+    8.0777810071595e-06,
+    6.965107007999905e-06,
+    7.1102090005297214e-06,
+    7.082689509843476e-06
+   ],
+   "number": 2000,
+   "wall_s": 0.5161538299871609,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:08+0500",
+   "t_end": "2026-11-24T01:28:08+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph_large('Graph')",
+   "samples": [
+    1.5414594003232196e-05,
+    1.5551302989479156e-05,
+    1.4760518999537453e-05,
+    1.4031936996616423e-05,
+    1.4089717995375394e-05,
+    1.5471204998902976e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.4913009589945432,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:08+0500",
+   "t_end": "2026-11-24T01:28:09+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph_large('DiGraph')",
+   "samples": [
+    1.4930413977708668e-05,
+    1.422283099964261e-05,
+    1.4711510011693463e-05,
+    1.454007500433363e-05,
+    1.41062350012362e-05,
+    1.4127468020888045e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.4710946840059478,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:09+0500",
+   "t_end": "2026-11-24T01:28:09+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph_large('MultiGraph')",
+   "samples": [
+    1.4588702993933111e-05,
+    1.7013867007335647e-05,
+    1.5981094009475783e-05,
+    1.4333858998725191e-05,
+    1.4324849005788565e-05,
+    1.4181048987666144e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.4917249910067767,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:09+0500",
+   "t_end": "2026-11-24T01:28:10+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_subgraph_large('MultiDiGraph')",
+   "samples": [
+    1.5137968002818525e-05,
+    1.5187854995019734e-05,
+    1.609831699170172e-05,
+    1.634773801197298e-05,
+    1.7850206000730397e-05,
+    1.6039153008023278e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.4904163180035539,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:10+0500",
+   "t_end": "2026-11-24T01:28:10+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_directed('Graph')",
+   "samples": [
+    2.664043795084581e-06,
+    2.232372999424115e-06,
+    2.1620070037897675e-06,
+    2.3472089960705487e-06,
+    2.341174002503976e-06,
+    2.2636081965174527e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4398690020025242,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:10+0500",
+   "t_end": "2026-11-24T01:28:11+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_directed('DiGraph')",
+   "samples": [
+    2.147674997104332e-06,
+    2.2863527992740273e-06,
+    2.321075199870393e-06,
+    2.298125595552847e-06,
+    2.2243031999096273e-06,
+    2.3287883959710597e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4533967450261116,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:11+0500",
+   "t_end": "2026-11-24T01:28:11+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_directed('MultiGraph')",
+   "samples": [
+    2.6630349981132897e-06,
+    2.5602212001103907e-06,
+    2.590597403468564e-06,
+    2.7238953975029288e-06,
+    2.689072402426973e-06,
+    3.281773201888427e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4581657670205459,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:11+0500",
+   "t_end": "2026-11-24T01:28:12+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_directed('MultiDiGraph')",
+   "samples": [
+    3.060149401426315e-06,
+    2.5385955988895147e-06,
+    2.567640400957316e-06,
+    2.605213399510831e-06,
+    2.6876551972236486e-06,
+    2.717686595860869e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4630925630044658,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:12+0500",
+   "t_end": "2026-11-24T01:28:12+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('Graph')",
+   "samples": [
+    2.434000396169722e-06,
+    2.3212399973999707e-06,
+    2.175601600902155e-06,
+    1.9082924001850186e-06,
+    1.9820080022327603e-06,
+    1.9667270011268556e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4718987930100411,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.45,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:12+0500",
+   "t_end": "2026-11-24T01:28:13+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('DiGraph')",
+   "samples": [
+    2.0168486982584e-06,
+    2.03222339914646e-06,
+    2.015599398873746e-06,
+    2.1179364994168283e-06,
+    1.988658297341317e-06,
+    1.988791499752551e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5770646820019465,
+   "loadavg_before": 0.45,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:13+0500",
+   "t_end": "2026-11-24T01:28:13+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.45,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('MultiGraph')",
+   "samples": [
+    2.1580588014330715e-06,
+    2.089445001911372e-06,
+    2.1014257974456996e-06,
+    2.1134584036190063e-06,
+    2.0379564026370643e-06,
+    2.0465550012886525e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.47408524199272506,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:13+0500",
+   "t_end": "2026-11-24T01:28:14+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_classes.GraphBenchmark.time_to_undirected('MultiDiGraph')",
+   "samples": [
+    2.0941213995683936e-06,
+    2.0521616039332e-06,
+    2.0907139987684786e-06,
+    2.4287965963594616e-06,
+    2.4360592011362313e-06,
+    2.35955539974384e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.494124491000548,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:14+0500",
+   "t_end": "2026-11-24T01:28:14+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('wheel_graph(10)')",
+   "samples": [
+    3.0145627970341593e-05,
+    3.0278725957032292e-05,
+    3.032012196490541e-05,
+    3.206303395563737e-05,
+    3.233197994995862e-05,
+    3.191958396928385e-05
+   ],
+   "number": 500,
+   "wall_s": 0.5436468010011595,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:14+0500",
+   "t_end": "2026-11-24T01:28:15+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('wheel_graph(100)')",
+   "samples": [
+    0.0014314158994238823,
+    0.0014040995010873303,
+    0.0014220291981473566,
+    0.0014252866996685043,
+    0.0013581114006228745,
+    0.0014369926997460426
+   ],
+   "number": 10,
+   "wall_s": 0.560159691987792,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:15+0500",
+   "t_end": "2026-11-24T01:28:15+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('wheel_graph(1000)')",
+   "samples": [
+    0.11215818399796262,
+    0.12514578699483536,
+    0.12346656998852268,
+    0.11722188201383688,
+    0.11011893302202225,
+    0.11843433999456465
+   ],
+   "number": 1,
+   "wall_s": 1.4667789280065335,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:15+0500",
+   "t_end": "2026-11-24T01:28:17+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(10)')",
+   "samples": [
+    3.368499403586611e-05,
+    3.510095400270074e-05,
+    4.460170201491564e-05,
+    3.514332399936393e-05,
+    3.884983796160668e-05,
+    3.6027544003445656e-05
+   ],
+   "number": 500,
+   "wall_s": 0.542530677979812,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.49,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:17+0500",
+   "t_end": "2026-11-24T01:28:17+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(100)')",
+   "samples": [
+    0.002193744800752029,
+    0.002109726401977241,
+    0.002061486401362345,
+    0.00239887919742614,
+    0.0022394364001229405,
+    0.0022170928015839307
+   ],
+   "number": 5,
+   "wall_s": 0.4596027410007082,
+   "loadavg_before": 0.49,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:17+0500",
+   "t_end": "2026-11-24T01:28:18+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.49,
+    "wincpu": 11.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality('directed_wheel(1000)')",
+   "samples": [
+    0.20273856597486883,
+    0.21596785000292584,
+    0.22285546400235035,
+    0.2082613240054343,
+    0.24263813102152199,
+    0.21684556000400335
+   ],
+   "number": 1,
+   "wall_s": 2.2809621630003676,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:18+0500",
+   "t_end": "2026-11-24T01:28:19+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('wheel_graph(10)')",
+   "samples": [
+    1.265837499522604e-05,
+    1.3002249004784972e-05,
+    1.3424331991700455e-05,
+    1.30145370203536e-05,
+    1.2941110995598138e-05,
+    1.6802753001684324e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.4784460660011973,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:19+0500",
+   "t_end": "2026-11-24T01:28:20+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('wheel_graph(100)')",
+   "samples": [
+    5.844689003424719e-05,
+    6.049310002708808e-05,
+    5.7655130076454954e-05,
+    7.494707489968277e-05,
+    5.926523997914046e-05,
+    5.64442751056049e-05
+   ],
+   "number": 200,
+   "wall_s": 0.4793261090235319,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:20+0500",
+   "t_end": "2026-11-24T01:28:20+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('wheel_graph(1000)')",
+   "samples": [
+    0.0004439275397453457,
+    0.0004625999601557851,
+    0.00044816911977250127,
+    0.0004794829001184553,
+    0.00044355540012475103,
+    0.00043849479989148675
+   ],
+   "number": 50,
+   "wall_s": 0.5726134169963188,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:20+0500",
+   "t_end": "2026-11-24T01:28:21+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('directed_wheel(10)')",
+   "samples": [
+    1.644552600919269e-05,
+    1.6423710010712965e-05,
+    1.6620172013062983e-05,
+    2.187027200125158e-05,
+    1.8738948012469337e-05,
+    1.7002320004394278e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.5301743909949437,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:21+0500",
+   "t_end": "2026-11-24T01:28:21+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('directed_wheel(100)')",
+   "samples": [
+    8.141521990182809e-05,
+    8.532595005817711e-05,
+    8.585423493059351e-05,
+    7.698428991716355e-05,
+    7.86639800935518e-05,
+    7.751293000183069e-05
+   ],
+   "number": 200,
+   "wall_s": 0.5074889859824907,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.53,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:21+0500",
+   "t_end": "2026-11-24T01:28:22+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_node_subset('directed_wheel(1000)')",
+   "samples": [
+    0.0007319291500607506,
+    0.000697380700148642,
+    0.0007070606996421702,
+    0.0006854262494016439,
+    0.0007042340002954006,
+    0.00066963194985874
+   ],
+   "number": 20,
+   "wall_s": 0.47417247199337,
+   "loadavg_before": 0.53,
+   "loadavg_after": 0.57,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:22+0500",
+   "t_end": "2026-11-24T01:28:22+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.53,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('wheel_graph(10)')",
+   "samples": [
+    4.394605994457379e-06,
+    5.612083402229473e-06,
+    4.8746971995569765e-06,
+    4.3385605968069285e-06,
+    4.318336397409439e-06,
+    4.309839400229976e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.5653752590005752,
+   "loadavg_before": 0.57,
+   "loadavg_after": 0.57,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:22+0500",
+   "t_end": "2026-11-24T01:28:23+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.57,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('wheel_graph(100)')",
+   "samples": [
+    1.5626584005076438e-05,
+    1.5853940014494584e-05,
+    1.84355579840485e-05,
+    1.5848798997467385e-05,
+    1.5688120998675004e-05,
+    1.553688198328018e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.49606098802178167,
+   "loadavg_before": 0.57,
+   "loadavg_after": 0.57,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:23+0500",
+   "t_end": "2026-11-24T01:28:23+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.57,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('wheel_graph(1000)')",
+   "samples": [
+    0.00012405415007378905,
+    0.00012669074989389627,
+    0.00011871469003381207,
+    0.00012249170016730203,
+    0.00012261236988706515,
+    0.00011768936004955322
+   ],
+   "number": 100,
+   "wall_s": 0.46696024501579814,
+   "loadavg_before": 0.57,
+   "loadavg_after": 0.57,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:23+0500",
+   "t_end": "2026-11-24T01:28:24+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.57,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('directed_wheel(10)')",
+   "samples": [
+    6.374032993335277e-06,
+    6.409697511116974e-06,
+    6.661273495410569e-06,
+    6.191617489093914e-06,
+    6.328670002403669e-06,
+    6.344569512293674e-06
+   ],
+   "number": 2000,
+   "wall_s": 0.5147726660070475,
+   "loadavg_before": 0.57,
+   "loadavg_after": 0.57,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:24+0500",
+   "t_end": "2026-11-24T01:28:24+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.57,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('directed_wheel(100)')",
+   "samples": [
+    8.303738504764623e-06,
+    7.679834496229887e-06,
+    7.548744499217719e-06,
+    7.27746200573165e-06,
+    7.303788501303643e-06,
+    7.208815994090401e-06
+   ],
+   "number": 2000,
+   "wall_s": 0.5079682299983688,
+   "loadavg_before": 0.57,
+   "loadavg_after": 0.57,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:24+0500",
+   "t_end": "2026-11-24T01:28:25+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.57,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_harmonic_centrality.HarmonicCentralityBenchmarks.time_harmonic_centrality_single_node('directed_wheel(1000)')",
+   "samples": [
+    1.3818086008541286e-05,
+    1.3904774998081848e-05,
+    1.3875353004550562e-05,
+    1.4147378999041393e-05,
+    1.4060332003282384e-05,
+    1.4194312010658905e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.47743492800509557,
+   "loadavg_before": 0.57,
+   "loadavg_after": 0.57,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:25+0500",
+   "t_end": "2026-11-24T01:28:25+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.57,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_many_components.ManyComponentsBenchmark.time_single_source_all_shortest_paths",
+   "samples": [
+    9.372031505336054e-06,
+    9.376809000968934e-06,
+    9.202111003105529e-06,
+    9.448996002902277e-06,
+    9.45363799110055e-06,
+    9.363997000036762e-06
+   ],
+   "number": 2000,
+   "wall_s": 2.100996016000863,
+   "loadavg_before": 0.57,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:25+0500",
+   "t_end": "2026-11-24T01:28:27+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.57,
+    "wincpu": 17.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_complete(10)",
+   "samples": [
+    8.338421495864168e-07,
+    7.965512500959448e-07,
+    7.778083498124033e-07,
+    7.616029994096607e-07,
+    7.585379993543029e-07,
+    7.570963498437777e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.48623453397885896,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:27+0500",
+   "t_end": "2026-11-24T01:28:28+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_complete(100)",
+   "samples": [
+    3.165735595393926e-06,
+    3.220056399004534e-06,
+    3.7871938024181875e-06,
+    3.1961265951395036e-06,
+    3.17125580040738e-06,
+    3.634072805289179e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.5139954659971409,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:28+0500",
+   "t_end": "2026-11-24T01:28:28+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_complete(1000)",
+   "samples": [
+    2.1699031989555807e-05,
+    2.1854339982382953e-05,
+    2.5914917991030962e-05,
+    2.05982539919205e-05,
+    1.99682519887574e-05,
+    2.0413238031324e-05
+   ],
+   "number": 500,
+   "wall_s": 0.8245221220131498,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:28+0500",
+   "t_end": "2026-11-24T01:28:29+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_star_center_rim(10)",
+   "samples": [
+    5.676329499692656e-07,
+    5.601793498499319e-07,
+    5.669956502970308e-07,
+    5.369493504986167e-07,
+    6.298711494309828e-07,
+    6.080457998905331e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.440557420020923,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:29+0500",
+   "t_end": "2026-11-24T01:28:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_star_center_rim(100)",
+   "samples": [
+    6.022809000569396e-07,
+    5.676764500094578e-07,
+    5.701049507479184e-07,
+    5.738275503972545e-07,
+    5.364510492654517e-07,
+    5.55459399765823e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.4546916489780415,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:30+0500",
+   "t_end": "2026-11-24T01:28:30+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_star_center_rim(1000)",
+   "samples": [
+    6.119552999734878e-07,
+    5.972409489913844e-07,
+    5.758951490861364e-07,
+    6.076558987842873e-07,
+    5.95746400358621e-07,
+    5.864920996828005e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.8064477840089239,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:30+0500",
+   "t_end": "2026-11-24T01:28:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(10)",
+   "samples": [
+    5.921264993958175e-07,
+    5.667331497534178e-07,
+    5.726703006075695e-07,
+    5.95780300500337e-07,
+    5.774629491497762e-07,
+    5.833383504068479e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.4583386589947622,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:31+0500",
+   "t_end": "2026-11-24T01:28:31+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(100)",
+   "samples": [
+    5.980963498586788e-07,
+    5.763332505011931e-07,
+    5.789267001091503e-07,
+    6.440688506700098e-07,
+    6.207530488609336e-07,
+    6.080967999878339e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.45488321597804315,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.6,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:31+0500",
+   "t_end": "2026-11-24T01:28:32+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.CommonNeighbors.time_star_rim_rim(1000)",
+   "samples": [
+    6.065167501219549e-07,
+    7.092557512805797e-07,
+    6.019000502419658e-07,
+    7.674333988688886e-07,
+    7.109414989827201e-07,
+    6.233684500330127e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.8214504969946574,
+   "loadavg_before": 0.6,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:32+0500",
+   "t_end": "2026-11-24T01:28:33+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.6,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(10)",
+   "samples": [
+    4.743087798124179e-07,
+    4.7436819993890824e-07,
+    4.811224195873365e-07,
+    4.721821198472753e-07,
+    4.900196800008416e-07,
+    4.7468347998801616e-07
+   ],
+   "number": 50000,
+   "wall_s": 0.5727462640206795,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:33+0500",
+   "t_end": "2026-11-24T01:28:33+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(100)",
+   "samples": [
+    1.6163437976501882e-06,
+    1.546804199460894e-06,
+    1.540332200238481e-06,
+    1.6999179002596064e-06,
+    1.687169200158678e-06,
+    1.620798697695136e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.4881220570241567,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:33+0500",
+   "t_end": "2026-11-24T01:28:34+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_complete(1000)",
+   "samples": [
+    1.2098312989110127e-05,
+    1.1836618999950587e-05,
+    1.1729322985047474e-05,
+    1.1997284018434584e-05,
+    1.2019727990264072e-05,
+    1.1553276010090486e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.8544597550062463,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:34+0500",
+   "t_end": "2026-11-24T01:28:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_center(10)",
+   "samples": [
+    5.149056494701653e-07,
+    5.224815497058444e-07,
+    5.202781496336684e-07,
+    5.283459497150034e-07,
+    5.178881488973275e-07,
+    5.580225493758917e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.43204713400336914,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:35+0500",
+   "t_end": "2026-11-24T01:28:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_center(100)",
+   "samples": [
+    1.603997900383547e-06,
+    1.6305877972627058e-06,
+    1.6415357007645071e-06,
+    1.6119061008794234e-06,
+    1.5748611011076718e-06,
+    1.5718343987828122e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5041572779882699,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:35+0500",
+   "t_end": "2026-11-24T01:28:35+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_center(1000)",
+   "samples": [
+    1.2210421991767363e-05,
+    1.3879912992706522e-05,
+    1.3389061001362278e-05,
+    1.176699998904951e-05,
+    1.1639447009656578e-05,
+    1.3045603001955896e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.8673210320121143,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:35+0500",
+   "t_end": "2026-11-24T01:28:36+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_first(10)",
+   "samples": [
+    5.231079005170614e-07,
+    5.108991492306813e-07,
+    5.316387498169206e-07,
+    5.566407489823178e-07,
+    5.384225500165484e-07,
+    5.497436999576166e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.4396142350160517,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.64,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:36+0500",
+   "t_end": "2026-11-24T01:28:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_first(100)",
+   "samples": [
+    1.693334599258378e-06,
+    1.6117894992930815e-06,
+    1.5985659003490583e-06,
+    1.6033226012950763e-06,
+    1.6294380999170244e-06,
+    1.6127712005982176e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.49493565698503517,
+   "loadavg_before": 0.64,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:37+0500",
+   "t_end": "2026-11-24T01:28:37+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.64,
+    "wincpu": 13.4,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_first(1000)",
+   "samples": [
+    1.1978427995927632e-05,
+    1.4608986995881424e-05,
+    1.5450087987119333e-05,
+    1.1815714999102056e-05,
+    1.2415470002451911e-05,
+    1.5276043995982036e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.9413111520116217,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:37+0500",
+   "t_end": "2026-11-24T01:28:38+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_last(10)",
+   "samples": [
+    5.285872495733202e-07,
+    5.172511999262497e-07,
+    5.310943990480154e-07,
+    5.034971007262357e-07,
+    5.237481498625129e-07,
+    5.207691501709633e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.441151261999039,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:38+0500",
+   "t_end": "2026-11-24T01:28:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_last(100)",
+   "samples": [
+    1.862069801427424e-06,
+    1.9314478035084905e-06,
+    2.3878242005594076e-06,
+    1.6205448016989976e-06,
+    1.60987259587273e-06,
+    1.6816471994388848e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.4416552650218364,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:39+0500",
+   "t_end": "2026-11-24T01:28:39+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_path_last(1000)",
+   "samples": [
+    1.164357500965707e-05,
+    1.3364223996177315e-05,
+    1.156464801169932e-05,
+    1.2136390985688194e-05,
+    1.190163500723429e-05,
+    1.1723437026375904e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.8285492429859005,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:39+0500",
+   "t_end": "2026-11-24T01:28:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_center(10)",
+   "samples": [
+    5.04793350410182e-07,
+    4.851910489378497e-07,
+    4.820984991965816e-07,
+    4.933073505526408e-07,
+    4.972000999259762e-07,
+    4.944842497934588e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.43418086401652545,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:40+0500",
+   "t_end": "2026-11-24T01:28:40+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_center(100)",
+   "samples": [
+    1.6361501009669156e-06,
+    1.6359781991923227e-06,
+    1.6666258015902714e-06,
+    1.647670698002912e-06,
+    1.625662500737235e-06,
+    1.826785900630057e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.49671631498495117,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:40+0500",
+   "t_end": "2026-11-24T01:28:41+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_center(1000)",
+   "samples": [
+    1.1768183001549915e-05,
+    1.1807946022599935e-05,
+    1.1868678993778304e-05,
+    1.1935185000766068e-05,
+    1.2092603981727733e-05,
+    1.1835068988148123e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.8288204749987926,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.66,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:41+0500",
+   "t_end": "2026-11-24T01:28:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_rim(10)",
+   "samples": [
+    5.106771001010202e-07,
+    7.290387497050687e-07,
+    5.822903505759313e-07,
+    5.241113496595063e-07,
+    5.188368493691086e-07,
+    5.13029401190579e-07
+   ],
+   "number": 20000,
+   "wall_s": 0.43713807899621315,
+   "loadavg_before": 0.66,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:42+0500",
+   "t_end": "2026-11-24T01:28:42+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.66,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_rim(100)",
+   "samples": [
+    1.6406242997618392e-06,
+    1.7157268011942506e-06,
+    1.6814036993309856e-06,
+    1.762564599630423e-06,
+    1.736220801831223e-06,
+    2.251182802137919e-06
+   ],
+   "number": 10000,
+   "wall_s": 0.5229399960080627,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:42+0500",
+   "t_end": "2026-11-24T01:28:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_neighbors.NonNeighbors.time_star_rim(1000)",
+   "samples": [
+    1.1383261997252702e-05,
+    1.1492924008052797e-05,
+    1.1221988999750466e-05,
+    1.2698948994511738e-05,
+    1.8612974003190175e-05,
+    1.3099703995976597e-05
+   ],
+   "number": 1000,
+   "wall_s": 0.8057975569972768,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:43+0500",
+   "t_end": "2026-11-24T01:28:43+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 1)",
+   "samples": [
+    0.001146607199916616,
+    0.0010710848000599071,
+    0.0010338380991015584,
+    0.001633661100640893,
+    0.0011406122997868807,
+    0.001089756897999905
+   ],
+   "number": 10,
+   "wall_s": 0.4621521730150562,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:43+0500",
+   "t_end": "2026-11-24T01:28:44+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 2)",
+   "samples": [
+    0.001398074100143276,
+    0.0013796404004096986,
+    0.0013930217013694347,
+    0.0015551545016933232,
+    0.001440715999342501,
+    0.0020997921004891396
+   ],
+   "number": 10,
+   "wall_s": 0.49483682101708837,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:44+0500",
+   "t_end": "2026-11-24T01:28:44+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 3)",
+   "samples": [
+    0.000555077550234273,
+    0.0005741122004110366,
+    0.0005774241493782028,
+    0.0005511078008566983,
+    0.0006350615003611892,
+    0.0005727227995521389
+   ],
+   "number": 20,
+   "wall_s": 0.45610177400521934,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:44+0500",
+   "t_end": "2026-11-24T01:28:45+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(6)', 4)",
+   "samples": [
+    0.00044388949987478554,
+    0.0005985832196893171,
+    0.0005748434405541047,
+    0.00047418707981705666,
+    0.0004506686999229714,
+    0.0005065502203069627
+   ],
+   "number": 50,
+   "wall_s": 0.6408573130029254,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:45+0500",
+   "t_end": "2026-11-24T01:28:46+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(20)', 1)",
+   "samples": [
+    0.06612792599480599,
+    0.06052654900122434,
+    0.06372407099115662,
+    0.08916431097895838,
+    0.06876121199456975,
+    0.06602206701063551
+   ],
+   "number": 1,
+   "wall_s": 0.9946357610169798,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.69,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:46+0500",
+   "t_end": "2026-11-24T01:28:47+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(20)', 2)",
+   "samples": [
+    0.07444063300499693,
+    0.07424073599395342,
+    0.07337492299848236,
+    0.0752203140000347,
+    0.07325024501187727,
+    0.08755288698012009
+   ],
+   "number": 1,
+   "wall_s": 1.0357012140157167,
+   "loadavg_before": 0.69,
+   "loadavg_after": 0.72,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:47+0500",
+   "t_end": "2026-11-24T01:28:48+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.69,
+    "wincpu": 12.9,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(20)', 3)",
+   "samples": [
+    0.09001650399295613,
+    0.08154676598496735,
+    0.08168656498310156,
+    0.08952342299744487,
+    0.0847134749928955,
+    0.08286913501797244
+   ],
+   "number": 1,
+   "wall_s": 1.157424950011773,
+   "loadavg_before": 0.72,
+   "loadavg_after": 0.72,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:48+0500",
+   "t_end": "2026-11-24T01:28:48+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.72,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.complete_graph(20)', 4)",
+   "samples": [
+    0.0737426970154047,
+    0.07315175200346857,
+    0.0753960250003729,
+    0.07942243601428345,
+    0.07288298298954032,
+    0.07175843400182202
+   ],
+   "number": 1,
+   "wall_s": 1.0264849129889626,
+   "loadavg_before": 0.72,
+   "loadavg_after": 0.72,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:48+0500",
+   "t_end": "2026-11-24T01:28:49+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.72,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 1)",
+   "samples": [
+    0.0997743170009926,
+    0.09842021300573833,
+    0.10036962601589039,
+    0.10970802899100818,
+    0.09941454898216762,
+    0.09912649801117368
+   ],
+   "number": 1,
+   "wall_s": 1.2473521909851115,
+   "loadavg_before": 0.72,
+   "loadavg_after": 0.72,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:49+0500",
+   "t_end": "2026-11-24T01:28:50+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.72,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 2)",
+   "samples": [
+    0.046619681001175195,
+    0.04528094900888391,
+    0.04398364099324681,
+    0.04336677401443012,
+    0.04317222800455056,
+    0.05350488002295606
+   ],
+   "number": 1,
+   "wall_s": 0.7498919600038789,
+   "loadavg_before": 0.72,
+   "loadavg_after": 0.72,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:50+0500",
+   "t_end": "2026-11-24T01:28:51+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.72,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 3)",
+   "samples": [
+    0.03151684100157581,
+    0.030344096012413502,
+    0.032123455981491134,
+    0.033095479011535645,
+    0.031012489984277636,
+    0.03433305199723691
+   ],
+   "number": 1,
+   "wall_s": 0.6233020490035415,
+   "loadavg_before": 0.72,
+   "loadavg_after": 0.74,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:51+0500",
+   "t_end": "2026-11-24T01:28:52+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.72,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.grid_graph([10, 10], periodic=True)', 4)",
+   "samples": [
+    0.02107433500350453,
+    0.019972709997091442,
+    0.020258495002053678,
+    0.019836358027532697,
+    0.019914327014703304,
+    0.020446269016247243
+   ],
+   "number": 1,
+   "wall_s": 0.524697702989215,
+   "loadavg_before": 0.74,
+   "loadavg_after": 0.74,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:52+0500",
+   "t_end": "2026-11-24T01:28:52+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.74,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(100, 0.1)', 1)",
+   "samples": [
+    0.4161632329924032,
+    0.41670787398470566,
+    0.4033184909785632,
+    0.3980652460013516,
+    0.4086449900059961,
+    0.4570426749996841
+   ],
+   "number": 1,
+   "wall_s": 4.100783800997306,
+   "loadavg_before": 0.74,
+   "loadavg_after": 0.84,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:52+0500",
+   "t_end": "2026-11-24T01:28:56+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.74,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(100, 0.1)', 2)",
+   "samples": [
+    0.461986242007697,
+    0.4728741940052714,
+    0.45387790602399036,
+    0.44998454800224863,
+    0.44155057801981457,
+    0.44145587098319083
+   ],
+   "number": 1,
+   "wall_s": 4.442871642007958,
+   "loadavg_before": 0.84,
+   "loadavg_after": 0.84,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:28:56+0500",
+   "t_end": "2026-11-24T01:29:01+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.84,
+    "wincpu": 16.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(100, 0.1)', 3)",
+   "samples": [
+    0.5506823619944043,
+    0.5425216190051287,
+    0.5799389529856853,
+    0.5436099549988285,
+    0.5437652410182636,
+    0.5419083639862947
+   ],
+   "number": 1,
+   "wall_s": 5.278020245983498,
+   "loadavg_before": 0.84,
+   "loadavg_after": 0.93,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:01+0500",
+   "t_end": "2026-11-24T01:29:06+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.84,
+    "wincpu": 13.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(100, 0.1)', 4)",
+   "samples": [
+    0.5263046709878836,
+    0.6116725439787842,
+    0.4960859759885352,
+    0.4843794589978643,
+    0.4962511350167915,
+    0.48864508300903253
+   ],
+   "number": 1,
+   "wall_s": 4.97540089400718,
+   "loadavg_before": 0.93,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:06+0500",
+   "t_end": "2026-11-24T01:29:11+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.93,
+    "wincpu": 13.6,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(10, 0.7)', 1)",
+   "samples": [
+    0.003339943796163425,
+    0.003042196203023195,
+    0.0029504924023058265,
+    0.003015195997431874,
+    0.0030597268021665515,
+    0.003082530002575368
+   ],
+   "number": 5,
+   "wall_s": 0.48901283898158,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:11+0500",
+   "t_end": "2026-11-24T01:29:11+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(10, 0.7)', 2)",
+   "samples": [
+    0.003601097600767389,
+    0.0037810709967743606,
+    0.0037518576020374892,
+    0.0036098572018090636,
+    0.0036455378052778543,
+    0.003593514795647934
+   ],
+   "number": 5,
+   "wall_s": 0.5344063789816573,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:11+0500",
+   "t_end": "2026-11-24T01:29:12+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(10, 0.7)', 3)",
+   "samples": [
+    0.0030500202032271773,
+    0.0029910883982665836,
+    0.002936483599478379,
+    0.003095763397868723,
+    0.003120250202482566,
+    0.0030245766043663024
+   ],
+   "number": 5,
+   "wall_s": 0.5119805819995236,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:12+0500",
+   "t_end": "2026-11-24T01:29:12+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_regular.RegularBenchmarks.time_k_factor('nx.erdos_renyi_graph(10, 0.7)', 4)",
+   "samples": [
+    0.0021433816000353545,
+    0.00219570099725388,
+    0.0022884147998411208,
+    0.002161925000837073,
+    0.0021895073994528504,
+    0.0021504941978491843
+   ],
+   "number": 5,
+   "wall_s": 0.44215670198900625,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:12+0500",
+   "t_end": "2026-11-24T01:29:13+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('unweighted')",
+   "samples": [
+    0.006424359005177393,
+    0.004792720603290945,
+    0.004710007202811539,
+    0.004824130400083959,
+    0.0045835637953132394,
+    0.004506828397279605
+   ],
+   "number": 5,
+   "wall_s": 0.6121364650025498,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:13+0500",
+   "t_end": "2026-11-24T01:29:13+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('uniform')",
+   "samples": [
+    0.004359990800730884,
+    0.006350765598472208,
+    0.004904568201163783,
+    0.004511245602043345,
+    0.004545803397195414,
+    0.00453923920285888
+   ],
+   "number": 5,
+   "wall_s": 0.6256950079987291,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:13+0500",
+   "t_end": "2026-11-24T01:29:14+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('increasing')",
+   "samples": [
+    0.004313390399329364,
+    0.004427531000692398,
+    0.004736879596021026,
+    0.004455604200484231,
+    0.0044936741993296895,
+    0.004422754800179974
+   ],
+   "number": 5,
+   "wall_s": 0.5983287720009685,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:14+0500",
+   "t_end": "2026-11-24T01:29:15+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas('random')",
+   "samples": [
+    0.004824071400798857,
+    0.004752025596098974,
+    0.004806843400001526,
+    0.005231918196659535,
+    0.00495698040467687,
+    0.004808611795306205
+   ],
+   "number": 5,
+   "wall_s": 0.6338389820011798,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:15+0500",
+   "t_end": "2026-11-24T01:29:15+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('unweighted')",
+   "samples": [
+    0.004029629594879225,
+    0.003720099601196125,
+    0.0036915870034135876,
+    0.0036297297978308053,
+    0.003832633199635893,
+    0.0036856290011201055
+   ],
+   "number": 5,
+   "wall_s": 0.5667425480205566,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.94,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:15+0500",
+   "t_end": "2026-11-24T01:29:16+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('uniform')",
+   "samples": [
+    0.005499624996446073,
+    0.005857946511241607,
+    0.003963540002587251,
+    0.0038079654914326966,
+    0.003744703994016163,
+    0.0036100455035921186
+   ],
+   "number": 2,
+   "wall_s": 0.47055276299943216,
+   "loadavg_before": 0.94,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:16+0500",
+   "t_end": "2026-11-24T01:29:16+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.94,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('increasing')",
+   "samples": [
+    0.0039149240008555354,
+    0.005419457203242928,
+    0.004159906599670649,
+    0.004969368997262791,
+    0.0041742952016647905,
+    0.004113623197190464
+   ],
+   "number": 5,
+   "wall_s": 0.6307890860189218,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:16+0500",
+   "t_end": "2026-11-24T01:29:16+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_shortest_path.UndirectedGraphAtlasSevenNodesConnected.time_multi_source_dijkstra_over_atlas_with_target('random')",
+   "samples": [
+    0.0036820587993133813,
+    0.0037990958022419362,
+    0.003675557399401441,
+    0.0036956112016923726,
+    0.0037810882029589267,
+    0.00376294840243645
+   ],
+   "number": 5,
+   "wall_s": 0.5898255130159669,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:16+0500",
+   "t_end": "2026-11-24T01:29:17+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 12.3,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct(<class 'networkx.classes.graph.Graph'>)",
+   "samples": [
+    4.366660001687705e-06,
+    4.669524397468194e-06,
+    5.061075201956555e-06,
+    4.5942058030050246e-06,
+    4.714074602816254e-06,
+    4.420512000797316e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.5838563489960507,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:17+0500",
+   "t_end": "2026-11-24T01:29:17+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct(<class 'networkx.classes.digraph.DiGraph'>)",
+   "samples": [
+    5.306095001287758e-06,
+    5.342818505596369e-06,
+    5.250280999462121e-06,
+    7.70273599482607e-06,
+    6.410324000171385e-06,
+    5.934390501352027e-06
+   ],
+   "number": 2000,
+   "wall_s": 0.4737325120077003,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:17+0500",
+   "t_end": "2026-11-24T01:29:18+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct_multi_instance(<class 'networkx.classes.graph.Graph'>)",
+   "samples": [
+    0.0021235910011455418,
+    0.002174909395398572,
+    0.002415091800503433,
+    0.0021947522007394584,
+    0.0024344886012841018,
+    0.0022079887974541636
+   ],
+   "number": 5,
+   "wall_s": 0.4710484659881331,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:18+0500",
+   "t_end": "2026-11-24T01:29:18+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_direct_multi_instance(<class 'networkx.classes.digraph.DiGraph'>)",
+   "samples": [
+    0.002456985600292683,
+    0.002844296599505469,
+    0.003064827201887965,
+    0.00247188700013794,
+    0.002847514598397538,
+    0.002530739799840376
+   ],
+   "number": 5,
+   "wall_s": 0.4643955980136525,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:18+0500",
+   "t_end": "2026-11-24T01:29:19+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_via_constructor(<class 'networkx.classes.graph.Graph'>)",
+   "samples": [
+    4.7889688052237036e-06,
+    5.265640397556126e-06,
+    6.068470200989395e-06,
+    5.042357201455161e-06,
+    4.811324999900535e-06,
+    4.7982266056351366e-06
+   ],
+   "number": 5000,
+   "wall_s": 0.5714266439899802,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:19+0500",
+   "t_end": "2026-11-24T01:29:19+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_via_constructor(<class 'networkx.classes.digraph.DiGraph'>)",
+   "samples": [
+    5.919003000599332e-06,
+    5.880788492504507e-06,
+    5.69702849315945e-06,
+    6.0012980102328585e-06,
+    5.9034504956798625e-06,
+    5.782107502454892e-06
+   ],
+   "number": 2000,
+   "wall_s": 0.45118463700055145,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.87,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:19+0500",
+   "t_end": "2026-11-24T01:29:20+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_via_constructor_multi_instance(<class 'networkx.classes.graph.Graph'>)",
+   "samples": [
+    0.002349144802428782,
+    0.002326470200205222,
+    0.0024069339968264105,
+    0.0024871056026313453,
+    0.002489655796671286,
+    0.002464817400323227
+   ],
+   "number": 5,
+   "wall_s": 0.4530884160194546,
+   "loadavg_before": 0.87,
+   "loadavg_after": 0.88,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:20+0500",
+   "t_end": "2026-11-24T01:29:20+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.87,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  },
+  {
+   "id": "benchmark_to_networkx_graph.ToNetworkXGraphBenchmark.time_to_networkx_graph_via_constructor_multi_instance(<class 'networkx.classes.digraph.DiGraph'>)",
+   "samples": [
+    0.002758729597553611,
+    0.002853540796786547,
+    0.0028897006006445734,
+    0.0028310718014836313,
+    0.0027136977994814517,
+    0.002658935799263418
+   ],
+   "number": 5,
+   "wall_s": 0.4648780339921359,
+   "loadavg_before": 0.88,
+   "loadavg_after": 0.88,
+   "skipped": false,
+   "error": null,
+   "label": "std1",
+   "repeat": 0,
+   "state_dir": "/home/sharoz/bt-lab/exp/work/nx-slow-A",
+   "t_start": "2026-11-24T01:29:20+0500",
+   "t_end": "2026-11-24T01:29:21+0500",
+   "pre_gate": {
+    "ok": true,
+    "load1": 0.88,
+    "wincpu": 14.2,
+    "waited_s": 0.0
+   }
+  }
+ ]
+}

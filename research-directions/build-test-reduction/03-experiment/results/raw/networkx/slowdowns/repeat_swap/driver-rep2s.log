@@ -1,0 +1,30 @@
+2026-11-24T01:49:46+05:00 block rep2s-08 start: 170 cases at 52b7255a, dir swap
+2026-11-24T01:49:46+05:00 block rep2s-08 start: 170 cases at 52b7255a, dir swap
+2026-11-24T01:50:36+0500 gate: run postponed load1=0.31 wincpu=21.7 waited=0s top_win=btweb(4.1s/min)
+2026-11-24T01:50:55+0500 gate: run postponed load1=0.43 wincpu=29.9 waited=19s top_win=btweb(4.1s/min)
+2026-11-24T01:51:14+0500 gate: run postponed load1=0.3 wincpu=26.3 waited=38s top_win=claude(5s/min)
+2026-11-24T01:51:42+0500 gate: run postponed load1=0.18 wincpu=20.8 waited=0s top_win=claude(5s/min)
+2026-11-24T01:52:51+0500 gate: run postponed load1=0.27 wincpu=23.3 waited=0s top_win=claude(3.4s/min)
+2026-11-24T01:54:36+0500 gate: run postponed load1=0.64 wincpu=21.8 waited=0s top_win=claude(3.5s/min)
+2026-11-24T01:56:58+0500 gate: run postponed load1=0.47 wincpu=23.2 waited=0s top_win=btweb(2.3s/min)
+interleave: 340 entries -> /tmp/tmpj7i8a4wf/o.json
+2026-11-24T02:27:00+0500 gate: run postponed load1=0.93 wincpu=25.8 waited=0s top_win=btweb(1.5s/min)
+interleave: 340 entries -> /tmp/tmp0822aafy/o.json
+2026-11-24T02:36:30+05:00 block rep2s-08 done in 2804s
+2026-11-24T02:36:30+05:00 block rep2s-08 done in 2804s
+2026-11-24T02:36:30+05:00 block rep2s-01 start: 170 cases at 867fda8d, dir swap
+2026-11-24T02:36:30+05:00 block rep2s-01 start: 170 cases at 867fda8d, dir swap
+2026-11-24T02:37:02+0500 gate: run postponed load1=1.04 wincpu=21.6 waited=0s top_win=dllhost(1.8s/min)
+2026-11-24T02:37:38+0500 gate: run postponed load1=0.82 wincpu=20.6 waited=0s top_win=btweb(1.9s/min)
+2026-11-24T02:47:25+0500 gate: run postponed load1=1.85 wincpu=13.6 waited=0s top_win=chrome(1.8s/min)
+2026-11-24T02:50:52+0500 gate: run postponed load1=1.98 wincpu=12.8 waited=0s top_win=btweb(2.2s/min)
+2026-11-24T02:56:55+0500 gate: run postponed load1=0.75 wincpu=34.2 waited=0s top_win=btweb(2.6s/min)
+interleave: 340 entries -> /tmp/tmpe_tku6ac/o.json
+2026-11-24T03:13:44+0500 gate: run postponed load1=1.51 wincpu=8.5 waited=0s top_win=btweb(2.2s/min)
+2026-11-24T03:19:46+0500 gate: run postponed load1=1.24 wincpu=20.5 waited=0s top_win=btweb(2.1s/min)
+interleave: 340 entries -> /tmp/tmpyg_ick89/o.json
+2026-11-24T03:22:20+05:00 block rep2s-01 done in 2750s
+2026-11-24T03:22:20+05:00 block rep2s-01 done in 2750s
+2026-11-24T03:22:20+05:00 rep2s finished
+2026-11-24T03:22:20+05:00 rep2s finished
+2026-11-24T03:22:20+05:00 driver exit 0 (rep2s; 124 = cap 16517s hit)

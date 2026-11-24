@@ -25,7 +25,7 @@ On networkx, **one FULL benchmark pass (all 171 cases, asv's default 2 processes
 **Most of the benchmark cost is setup (advisor review, 07:50):**
 - **86.9–95.5 % of a pass is spent in one module's 49 cases (`benchmark_algorithms`)**, over the 6 passes (Σ run wall of its cases ÷ Σ run wall of the pass: item 4 94.1 %, `bench/S0_181f2951.idle.json`; base side of `slowdowns/0{1,2,3,4,8}.json` 95.5 / 88.5 / 86.9 / 86.9 / 87.6 %; recomputed 16:20 after W6, earlier text said 87–96 %). Their time includes their timing loops, but **79.9–94.8 % of a pass lies outside the timing loops over all 9 passes** (1 − Σ samples × number ÷ Σ run wall; 6 earlier passes 79.9–94.1 %: item 4 89.8 %, base sides of slowdowns 01/02/03/04/08 94.1 / 82.4 / 79.9 / 80.1 / 81.3 %; tonight's (d) passes 94.8 / 91.4 / 88.2 %; recomputed 23:50 from the same raw files; earlier text said 80–94 % over 6 passes), mostly per-process start-up and import-time setup: they rebuild all their graphs at module import, once per process.
 - **The benchmarks' timing loops take only 132–171 s per pass** (Σ samples × number). Measured: 171 s in item 4; 132–144 s on the base side of the slowdown-oracle passes (`raw/networkx/slowdowns/0{1,2,3,4,8}.json`).
-- **Estimate, not measured — "setup cached":** if the import-time setup were built once and reused, a FULL pass would cost roughly its timing loops, **≈ 130–170 s, about 1.5–2× build + tests (≈ 87 s)** instead of 8–28×.
+- **Superseded by the E5 measurement (24 Nov, 01:47; section "E5: measured setup-cached pass"): a cached pass measured 189–201 s, ≈ 2.2–2.3× build + tests.** Earlier estimate, kept for the record: **Estimate, not measured — "setup cached":** if the import-time setup were built once and reused, a FULL pass would cost roughly its timing loops, **≈ 130–170 s, about 1.5–2× build + tests (≈ 87 s)** instead of 8–28×.
   - This is a lower bound. It leaves out per-process start-up and warm-up values.
   - So benchmarks would still be the largest single part, but no longer dominant by an order of magnitude.
   - Selection would still matter, at a much smaller scale.
@@ -871,14 +871,138 @@ Static reach leaves fewer edits unreached than the profile does, on both sets.
   - **(ii) Directory, layout, import or setup differences between the two clones** (measurement bias) can produce both signs.
     - The S0 A/A used the same two directories, with identical code, and showed no case beyond ±10 % in both repeats. That is a real control, but it covers only 2 of the 11 flipped cases, and 4 of its 23 cases exceeded ±10 % in one repeat.
     - In the (b) A/A, 3 of 12 cases have all 5 repeat ratios on one side (P(≥ 3) ≈ 0.04 if independent), but the atlas cases share a setup, so the effective n is smaller.
-  - **Not separable with this design.** Swapping the directories between sides was not done.
+  - **Not separable with this design.** Swapping the directories between sides was not done. **Update (24 Nov, 00:12):** see "Directory A/A". Identical code gives the same ≈ 2 % rate, so these flips need no edit effect; the cause (directory vs test) is still unresolved.
 - **Implication for the paper** (PM item 3, reworded to fit the data):
   - An A/B benchmark oracle that runs each side in one fixed clone directory gave **direction-consistent off-target "changes" on ≈ 2 % of cases**. That is well above the test's nominal rate, but the nominal rate itself assumes exchangeable samples.
   - The "faster" flips show that at least part of this is not caused by the edit.
-  - Oracle designs should **swap or rotate clone directories between sides** (or use several clones per side) and test at the process level.
+  - Oracle designs should **swap or rotate clone directories between sides** (or use several clones per side) and test at the process level. *(Update 24 Nov: the swap was tested on #8 and #1 and does not remove the flips; see "E3 tier 2 resumed with DIRECTORY SWAP".)*
   - This weakens any reading of single off-target flags, including the profile-completeness flag (#9), which is consistent with noise.
-- **N14 (KB, provisional)** should say "off-target false verdicts ≈ 2 % in a fixed-directory A/B design; source unresolved (clone or layout confound vs unprofiled effects; the faster flips favour the former); load could not be tested", not "depends on machine state".
+- **N14 (KB, provisional)** should say "off-target false verdicts ≈ 2 % in a fixed-directory A/B design; source unresolved (clone or layout confound vs unprofiled effects; the faster flips favour the former); load could not be tested", not "depends on machine state". *(Superseded: see the N14 wording in "Directory A/A" and the swap section; the "faster flips favour the clone/layout confound" reading is withdrawn, because identical code and the swapped design give the same rate.)*
 - **#3's incomplete cases:** the URLError hit `time_pagerank('ER (100, 0.9)')`. A network dependency in its setup is likely but not verified from the raw files.
+
+### E5: measured setup-cached networkx pass (night 2, item 2; 00:17–01:47)
+
+- **Plan** (frozen 16:52 on 22 Nov; cap amended to 3 h in the night-2 PLAN): `raw/networkx/bench/setup_cached/plan.md`.
+- **Raw data:** `setup_cached/{std,cached}{0,1,2}.json`. The frozen analysis (`scripts/night2_analyse.py`) output is `setup_cached/analysis_e5.json`.
+- **Design:** S0, all 171 cases, one directory (`nx-slow-A`) for both arms, alternated STD, CACHED ×3.
+  - **STD** = the asv protocol (2 processes × 3 values per case, one process per case-run).
+  - **CACHED** = `bth.benchrun measure-cached`: one process per module, imports once, then per case setup, calibration, 1 warm-up and 6 values. That is the same 6 samples per case.
+- **Run conditions:** 0 errors in all 6 passes. M5 labels: std0 noisy (3 runs > 1.5, 3 gate-not-ok), std1 measured-window, std2 noisy (1 run), cached0 and cached1 measured-window, cached2 noisy (one module run, `benchmark_shortest_path`, load 1.59 after; counted as 8 case rows).
+
+| Pass | Total ¹ | `benchmark_algorithms` ² | Timed loops | Imports (all modules, once) | Setup | Calibration | Warm-up | Other |
+|---|---|---|---|---|---|---|---|---|
+| std0 | **705 s** | 606 s | 152 s | (per process) | | | | |
+| cached0 | **201 s** | 159 s | 142 s | 4.7 s | 2.7 s | 25.3 s | 24.4 s | 1.3 s |
+| std1 | **691 s** | 601 s | 142 s | | | | | |
+| cached1 | **189 s** | 148 s | 134 s | 4.9 s | 2.6 s | 24.1 s | 21.9 s | 1.2 s |
+| std2 | **679 s** | 590 s | 134 s | | | | | |
+| cached2 | **195 s** | 154 s | 139 s | 4.5 s | 2.6 s | 25.7 s | 22.2 s | 1.3 s |
+
+¹ Total: STD is the sum of run walls (process start included); CACHED is the sum of module walls (`module_wall_s`; the raw `sum_run_wall_s` of CACHED sums case walls, 182.7–194.9 s, and leaves out imports). Gate waits are excluded from both (std0 waited 2,371 s).
+
+² STD: sum of the 49 cases' run walls. CACHED: the module wall, import included.
+
+**Primary result (frozen rule):**
+- Median STD pass **691 s**; median CACHED pass **195 s**. **STD / CACHED = 3.54×.**
+- **Against build + tests (≈ 87 s; RQ1): a setup-cached FULL benchmark pass costs ≈ 2.2–2.3× build + tests (188.5–200.7 s / 87 s; 2.1–2.8× over the 71–89 s range of build + tests), against ≈ 7.8–8.1× for STD on the same night.** This replaces the "≈ 1.5–2× (estimate)" in the RQ1 headline.
+- **Validity check: 1 of 171 cases is sample-shifted** outside [0.8, 1.25] (`kosaraju_scc('ER (1000, 0.01)')`, 1.28, where the calibrated `number` is 5 against 10).
+  - Median samples agree within ±25 % on 170 of 171 cases (median CACHED/STD ratio 0.987; 13 cases outside ±10 %).
+  - The calibrated `number` differs between arms in 73 of 513 case-passes. The tolerance is wide, so "what is timed" is similar, not identical.
+- **Where the cached pass's time goes:**
+  - timed loops 70–71 %;
+  - calibration and warm-up ≈ 24–25 % (STD calibrates once per case, but sets up and warms up in both of its processes);
+  - module imports ≈ 2.4 % (4.5–4.9 s for all modules);
+  - per-case setup ≈ 1.4 %.
+  - So in STD, **≈ 484–504 s of each pass (STD minus the paired CACHED) is, by inference, per-process start-up and re-import overhead** (342 processes per pass). STD has no phase timers.
+    - The arithmetic supports it: ≈ 452 s of that difference is in `benchmark_algorithms` (98 processes × ≈ 4.6 s), against a measured one-time import of ≈ 4 s for that module in CACHED.
+- **Machine state:** tonight's STD passes (679–705 s) sit at the fast end of the 9 earlier passes (659–2,984 s). `benchmark_algorithms` import cost was low tonight (4.5–4.9 s for all modules at once). So for slow-import states such as 22 Nov (STD up to 2,984 s) the ratio is expected to be typical or higher, but that is not measured. One earlier STD pass (659 s) was faster than tonight's, so 3.54× is not a strict lower bound.
+- **Not claimed:** CACHED is a cost lower bound for a suite with module-level setup caching (as asv's `setup_cache` would allow). It is not an asv replacement; the process isolation differs.
+- **Implication for RQ1 and K1:**
+  - On networkx, **benchmarks dominate per-edit validation cost (≈ 8× build + tests), by inference mostly because of per-process overhead** rather than the timed work.
+  - With module-level setup reuse they cost ≈ 2.2–2.3×: still the largest single part, but no longer dominant by an order of magnitude.
+  - So "your suite is just badly set up" is partly true, and the paper should say so with these numbers.
+
+### Directory A/A: the decisive test of the directory confound (night 2, item 1; 22:43–00:09)
+
+- **Plan** (frozen 06:36 on 23 Nov): `raw/night-2026-11-23/PLAN.md`; frozen analysis `scripts/night2_analyse.py` → `raw/night-2026-11-23/analysis.json`. Raw data: `raw/networkx/bench/dir_aa/s03.json`.
+- **Design:** identical code (#3's state `e773a6af`, unpatched) in `nx-slow-A` (label A) and `nx-slow-B` (label B). The case set and design are those of tier-2 block t2_03: 168 cases, 2 × 3, 2 repeats, order rotated.
+- **Run conditions:** 672 runs, 0 errors, no gate-not-ok run, 1,823 s of per-run gate waits. One run exceeds load 1.5 (1.58, a loadavg-after value; the before-load maximum is 1.45), so the block is labelled **noisy** under the run-level rule.
+
+**Result (frozen rule):**
+- **Non-"same" verdicts with identical code: 4 of 168 = 2.4 %** (Wilson 95 % 0.9–6.0 %), against 6 of 166 (3.6 %) in t2_03 with the patch.
+- **Recurrence of the 6 t2_03 flips: 1 of 6.** Only `to_undirected('MultiDiGraph')` recurs, at the same ratio (0.875 vs 0.873). The other 5 are "same". 4 of them lie on the other side of 1; `k_factor` is on the same side (0.983 vs 0.859).
+- **Frozen decision: "bias SUPPORTED"**, reached through the rate branch (Wilson lower bound 0.9 % > 0.5 %), **not** through recurrence (1 < 4).
+  - Under the frozen rule this label means only that non-"same" verdicts without an edit occur at a rate above 0.5 %. It does **not** mean a stable, case-specific bias.
+
+| Non-"same" case (identical code) | Verdict | B/A ratio | Exact p | Repeat 0 / repeat 1 |
+|---|---|---|---|---|
+| `GraphBenchmark.time_subgraph_large('DiGraph')` | faster | 0.904 | 8.9e-6 | 0.922 / 0.903 |
+| `CommonNeighbors.time_star_rim_rim(10)` | slower | 1.308 | 3.0e-6 | 1.252 / 1.363 |
+| `NonNeighbors.time_complete(100)` | faster | 0.725 | 1.1e-3 | 0.818 / 0.696 |
+| `…time_multi_source_dijkstra_over_atlas('increasing')` | slower | 1.176 | 1.8e-3 | 1.122 / 1.258 |
+
+**Reading:**
+- **Off-target flips do not require an edit.** Identical code gives non-"same" verdicts at 2.4 % (Wilson 0.9–6.0 %), which is compatible with tier 2's 2.2 % (the intervals cannot distinguish the two rates).
+  - So tier 2's off-target flips, including the "faster" ones, need no effect of the slowdown patches to explain them.
+  - **This A/A is itself fixed-directory** (A in `nx-slow-A`, B in `nx-slow-B`). It cannot say whether the cause is the directories or the test, and no same-directory A/A was run.
+- **Directory bias vs test:**
+  - Which cases flip did not reproduce: 1 of 6 recurred, and the 4 cases flagged here differ from tier 2's.
+  - That is compatible with an anti-conservative test (12 v 12 samples from 4 processes per side, so correlated samples), but **this is a candidate explanation, not tested here**.
+  - The evidence against a fixed directory effect is weak:
+    - all 4 cases here have both repeat ratios on the same side;
+    - the 1 recurring case is the one that cleared its floor;
+    - the recurrence test has low power, because tier-2 flips might include real patch effects.
+- **Two cases are notable:**
+  - `NonNeighbors.time_complete(100)` gives a 0.725× "faster" verdict with identical code. It is the same case as #2's off-target "slower" flag (1.14×), which tier 1 did not repeat.
+  - An atlas `multi_source_dijkstra` case gives 1.18× with identical code, here at #3's state.
+- **Consequences:**
+  - **Single A/B verdicts of ≤ ≈ 1.4× in either direction are not evidence of an edit effect in this design.** The identical-code deviations reach 1.308× slower and 0.725× faster (≈ 1.38×), and tier-2's `k_core` flip was 1.43×. This covers the #1, NonNeighbors and #9 flags, all tier-2 flips, and #8's 1.12–1.20×.
+  - **#2's on-target detection stands.** At 1.76–1.90× it is clearly above the largest identical-code deviation (≤ 1.38×), it cleared its own (b) floors (1.08–1.33), and it repeated in tier 1. The A/A here is at #3's state, not #2's.
+  - **N14 (KB) should read:** "≈ 2 % non-same verdicts per off-target comparison in the 12 v 12 fixed-directory A/B design, **also with identical code** (directory A/A 4/168). Cause unresolved (directory vs anti-conservative test; no same-directory control). Low case recurrence (1/6). Load not testable." *(24 Nov, 03:25: with the directory swap the rate is 1.8 % and no flip reverses sign, so a directory effect alone is not the cause; see the swap section.)*
+- **For the paper (K3):** at the 12 v 12 tier-2 design, ≈ 2.4 % per case (Wilson 0.9–6.0 %) means **≈ 4 false "changes" per 171-case comparison** (1.6–10 across the bounds), assuming independent cases. The 18 v 18 slowdown-oracle design was not A/A-tested at this scale, so its rate is not known; the earlier 843 off-target comparisons gave 3.
+- **Caveats:**
+  - One state (#3's), 168 cases, one night.
+  - The block is labelled noisy (1 run > 1.5).
+
+### E3 tier 2 resumed with DIRECTORY SWAP: #8 and #1 (night 2, item 3; 01:49–03:22)
+
+- **Plan:** night-2 PLAN.
+- **Raw data:** `raw/networkx/slowdowns/repeat_swap/t2s_{08,01}.json`. The frozen analysis output is `raw/night-2026-11-23/analysis.json` (rep2s).
+- **Design:** the frozen tier-2 case sets (170 each), 2 × 3, 2 repeats.
+  - Repeat 0: base@A, slow@B, base first. Repeat 1: base@B, slow@A, slow first.
+  - So the edit is balanced across both directories and both orders. #8 started fresh; night 1's fixed-directory partial is archived.
+- **Run conditions:**
+  - #8: 680 runs, measured-window (peak 1.45), 157 s of gate waits.
+  - #1: 680 runs, noisy (3 runs > 1.5, peak 1.98), 137 s of gate waits.
+  - 0 errors, no gate-not-ok run.
+- **Both slowdowns finished.** E3 tier 2 is now complete for all five reached slowdowns: #3, #4 and #2 in the fixed-directory design (night 1), #8 and #1 with the swap (night 2).
+
+| Slowdown | Agree with the original | New non-"same" (off target) | Directory-inconsistent |
+|---|---|---|---|
+| #8 | 165 / 170 | 5: `square_clustering ER(100, 0.1)` 1.129, `betweenness ER(100, 0.5)` 1.178, `connected_components ER(100, 0.9)` 1.175, `harmonic_centrality_node_subset wheel(1000)` 1.111 (all slower); `connected_components Drug` 0.901 (faster) | 0 of 5 |
+| #1 | 168 / 170 | 1: `connected_components ER(100, 0.5)` 0.884 (faster). The other disagreement is the original off-target "faster" (`average_clustering ER(100, 0.1)`, 0.858), now "same". | 0 of 1 |
+
+- **Rate with the swap:** 6 of 340 off-target comparisons = **1.8 %** (the frozen tier-2 sets exclude the on-target cases), against 2.2 % fixed-directory (11 of 499) and 2.4 % identical code (directory A/A). **The swap does not remove the off-target flips.**
+- **All 6 keep their sign** although slow ran in B and then in A. No flip reverses sign, so **a directory effect alone does not produce them**.
+  - A directory effect of a few percent on top of another effect is not excluded (repeat ratios such as 1.20 / 1.084 leave room for it).
+  - The swap also reverses run order (repeat 1 is slow-first), so directory and order are balanced together and cannot be separated.
+  - The "directory-inconsistent" column is 0 by the flag's definition (a sign disagreement between repeats), not as an independent check.
+- **That sign consistency does not show a real edit effect either (PM 02:37, item (b)):** all 4 identical-code directory-A/A flips also kept their sign, and selection on pooled p < 0.002 produces same-sign repeats by construction. So 6 of 6 consistent signs here (and 4 of 4 in the directory A/A) is not evidence of an effect after that selection.
+- **Cross-night check (PM item (c)):** night 1's fixed-directory #8 partial (repeat 0 only) has 4 of the 5 #8 cases.
+  - **Only `connected_components('ER (100, 0.9)')` agrees** (1.251, then 1.175). The others disagree: `square_clustering` 0.929 → 1.129, `betweenness` 1.002 → 1.178, `connected_components Drug` 1.175 → 0.901.
+  - So **3 of 4 do not reproduce across nights**. Night 1 has only repeat 0 (6 v 6), and night 2's repeat 0 has the identical configuration (base@A, slow@B, base first), with ratios 1.110 / 1.200 / 1.128 / 0.944 against night 1's 0.929 / 1.002 / 1.251 / 1.175. That is **per-night variation under the same setup**. A stable edit effect on these cases is **not shown** (one repeat per night is weak evidence).
+  - `connected_components('ER (100, 0.9)')` is "slower" under unrelated slowdowns (#2 at 1.288 and #8). It is a noisy or sensitive case to flag; in the original #8 oracle it was "same" (0.955).
+- **Independence of the repeats (PM item (a)):** separate processes ≈ 20 min apart. `number` is calibrated per run (often identical). The repeats are not independent of machine-state drift within a night.
+- **Reading, cause unresolved:**
+  - Off-target non-"same" verdicts occur at ≈ 2 % per comparison in this 12 v 12 oracle: with the edit fixed to one directory (2.2 %), with identical code (2.4 %), and with the directory swapped (1.8 %).
+  - **A directory effect alone does not produce them** (the swap does not reverse them). **A stable edit effect is not shown** for the cases checked across nights (3 of 4 vary between nights).
+  - Candidates left, none tested here:
+    - per-night or per-run variation on these cases;
+    - an anti-conservative test (correlated samples);
+    - for `connected_components ER(100, 0.9)`, which recurs, an edit or case-specific effect.
+  - **This design cannot separate them.**
+  - A process-level analysis, or more processes per side, would be the next test.
+- **Consequence (unchanged):** single A/B verdicts of ≤ ≈ 1.4× in either direction are not evidence of an edit effect in this design. All 6 flips here are ≤ 1.18×.
 
 ### Exact-test recompute of every performance verdict (PM 15:46, after W1 read the asv source; compute only, 15:50)
 

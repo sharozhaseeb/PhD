@@ -9,10 +9,11 @@ E=/mnt/c/Users/pc/study/PhD/research-directions/build-test-reduction/03-experime
 R=$E/results/raw; Q=$R/night-2026-11-23/queue.log; M=$R/watch/night2-gate.marker
 DIRS="$R/networkx/bench/dir_aa $R/networkx/bench/setup_cached $R/networkx/slowdowns/repeat_swap"
 last_alarm=0
+START=$(date +%s)
 echo "$(date -Iseconds) gate-watch: alarm watcher pid $$ started (45 min threshold, repeat 60 min)" >> $Q
 while [ ! -f $R/watch/night2.marker ]; do
   newest=$(stat -c %Y $(ls $(for d in $DIRS; do echo $d/*.partial.jsonl; done) 2>/dev/null) 2>/dev/null | sort -n | tail -1)
-  newest=${newest:-$(stat -c %Y $Q)}
+  newest=${newest:-$START}   # fix 21:50: fall back to the watcher start, not queue.log (which this watcher touches)
   now=$(date +%s); wait_min=$(( (now - newest) / 60 ))
   top=$(tail -c 16384 $R/telemetry/win-*.jsonl 2>/dev/null | grep top_cpu_s_last_min | tail -1 | sed -n 's/.*"top_cpu_s_last_min":\[{"n":"\([^"]*\)","s":\([0-9.]*\).*/\1(\2s\/min)/p')
   case "$(tail -n 1 $Q)" in *"gate:"*|*"gate-watch:"*) echo "$(date -Iseconds) gate-watch: no run for ${wait_min} min; top_win=${top:-none}" >> $Q ;; esac

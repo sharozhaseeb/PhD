@@ -61,6 +61,9 @@ inputs:
   - path: "03-experiment/results/raw/networkx/bench/pass_labels.json"
     size: 4526
     sha256: "ba9d3462b71c760507bff66a4b85a4df001c4565f831206ee1ad1fcfd0655aa3"
+  - path: "03-experiment/results/raw/networkx/bench/setup_cached/analysis_e5.json"
+    size: 1448
+    sha256: "30317e64a818fe099e2668939c9e8713f03a0e29cb26f413ee945ca6491e42d2"
   - path: "03-experiment/results/raw/networkx/edit_share.json"
     size: 14217
     sha256: "ddb6753b024f366b12c1234ec8d32178906e77390675058900a854cd0a217b52"
@@ -112,6 +115,9 @@ inputs:
   - path: "03-experiment/results/raw/networkx/slowdowns/share.json"
     size: 4107
     sha256: "9e08a6bc92457cff14f73ad5bde1e9751bccaa2e396fa9b07ea3323a72df1d92"
+  - path: "03-experiment/results/raw/night-2026-11-23/analysis.json"
+    size: 6509
+    sha256: "6661b632bb078abbd25f4c828416de430d985a68e39ffeeca0361a1ce42d167e"
   - path: "03-experiment/results/raw/stats_exact/aa_power_design18.json"
     size: 12225
     sha256: "fd720a2218324f53b4529aae0fd10ebbc3ff065395b26c0fa9e0cfa54b2556d7"
@@ -122,8 +128,8 @@ inputs:
     size: 423798
     sha256: "2f65db264fdbe941ee1fcff1fa7c58bb5ea4d8d1f4c2deecd54719abb2f9baa9"
   - path: "03-experiment/results/results.md"
-    size: 121652
-    sha256: "1f80756c129cabf7e36685fad7e6f7e1c0f3b23f48cf905584797d55d4643f5e"
+    size: 135832
+    sha256: "3c06ea6b303a3b4a1751eb06c7d96358823b87151534b4cf354e912041eff002"
   - path: "03-experiment/results/rq1_networkx.csv"
     size: 4149
     sha256: "0e370d219938a96eb19df8b919b9100f1dd7c312d25b469be47745f9bcf280cc"
@@ -131,5 +137,5 @@ inputs:
     size: 1844
     sha256: "aab6368ee30ef63369b1f716c6b1b5e52f4faed914ea938932aeb126d31c05bf"
   - path: "knowledge-base/findings.md"
-    size: 28433
-    sha256: "5d559e6a4440854b4703a7ee7aacfcf2f42c62b5371e90d1989f76d64d35618e"
+    size: 29514
+    sha256: "fbc55eab779e16ab108117f5ec1f410db14409ff8c5ec530d1d86925be5ed234"
