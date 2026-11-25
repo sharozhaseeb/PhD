@@ -2,3 +2,4 @@
 *.pdf binary
 output/video/genai-midterm-revision/genai-revision-audio.m4a filter=lfs diff=lfs merge=lfs -text
 output/video/genai-midterm-revision/generative-ai-complete-revision.mp4 filter=lfs diff=lfs merge=lfs -text
+courses/first[[:space:]]sem/genai/viva-prep/**/*.mp4 filter=lfs diff=lfs merge=lfs -text

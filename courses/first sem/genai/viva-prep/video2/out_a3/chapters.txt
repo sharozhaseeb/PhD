@@ -1,0 +1,17 @@
+GenAI A3 Slow Walkthrough: total 140 min 15 s
+00:00  Introduction
+05:17  Part 1 · Data
+13:14  Part 1 · Tokenizers
+23:00  Measuring a run
+31:23  Training setup
+37:17  Full fine-tuning
+47:12  LoRA
+57:39  QLoRA
+71:25  IA3
+78:47  Experiments · Rank & placement
+81:56  Experiments · Memory & time
+85:12  Experiments · Data scarcity
+93:29  RQ2 & weak spots
+95:58  Report & deliverables
+101:49  Colab notebook tour
+138:47  Viva checklist

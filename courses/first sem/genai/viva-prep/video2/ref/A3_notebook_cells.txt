@@ -1,0 +1,185 @@
+# ===== CELL 0 (markdown) =====
+# Advanced GenAI Assignment 3: Urdu tweet sentiment
+Provisional Group 3, seeds 3 and 103. Use a Colab T4.
+First run the setup and eight smoke checks. Full training is opt-in.
+The compressed bundle is just the readable files provided alongside this notebook.
+# ===== CELL 1 (code) =====
+from pathlib import Path
+import base64, json, zlib, sys, subprocess
+WORK = Path('/content/genai_a3_code')
+WORK.mkdir(exist_ok=True)
+for name, contents in json.loads(zlib.decompress(base64.b64decode('eJztfQt348aR7l9BtHfPkmOKQwAESCph7jrOOPHZxPZ6nOTskXRwQBKUaPFlgJyxMlf//Vb1A+ivAIpixnN2XpNdiwT6WV1dj6+qm2/Odnk6vQuTbZ7Nl4ub2113e3924Z1dqf99uZ8tdt7uNvM2+eJmsU6X3o9c3gu9WbpLvXQ98zbb3WJDb5b33ipLi32eeZPN7tbbbe6y9eKfWV50r9ZX62833mozy5be64y7K
+    (WORK / name).write_text(contents, encoding='utf-8')
+subprocess.run([sys.executable, '-m', 'pip', 'install', '-q', '-r', str(WORK/'colab_requirements.txt')], check=True)
+subprocess.run(['nvidia-smi', '--query-gpu=name,memory.total', '--format=csv'], check=True)
+# ===== CELL 2 (markdown) =====
+## Verified dataset and tokenizer setup
+The original pinned TSV is read directly; there is no character reversal. Split membership, tokenizer audit, and nested scarcity subsets are preserved.
+# ===== CELL 3 (code) =====
+audit = json.loads((WORK/'track3_preflight.json').read_text())
+plan = json.loads((WORK/'group3_run_plan.json').read_text())
+print({k: v['labels'] for k, v in audit['splits'].items()})
+print(audit['tokenizers'])
+sys.path.insert(0, str(WORK))
+from collect_results import job_id
+
+# Before full training, mount Drive and update OUTPUT to a folder
+# under /content/drive/MyDrive. Colab asks the account owner for access.
+OUTPUT = Path('/content/genai_a3_evidence')
+MICROBATCH = 8
+def invoke(script, *args):
+    command = [sys.executable, '-u', str(WORK/script), *map(str, args)]
+    with subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True) as process:
+        for line in process.stdout:
+            print(line, end='', flush=True)
+        if process.wait() != 0:
+            raise RuntimeError(f'{script} failed with exit code {process.returncode}; inspect the output above')
+def run_jobs(jobs, smoke=False):
+    for job in jobs:
+        invoke('train_group3.py', job_id(job), '--output', OUTPUT,
+               '--microbatch', MICROBATCH, *(['--smoke'] if smoke else []))
+# ===== CELL 4 (markdown) =====
+## T4 smoke checks
+One short optimizer step per encoder and method. These outputs are operational checks and are excluded from the results CSV.
+# ===== CELL 5 (code) =====
+smoke_jobs = [j for j in plan['jobs'] if j['seed'] == 3 and j['experiment'] in ('01','03','05','07b')]
+run_jobs(smoke_jobs, smoke=True)
+# ===== CELL 6 (markdown) =====
+## Pilot and full roster
+The pilot is one real three-epoch run. Inspect its logs and reload checks before the full roster. The full workflow requires a mounted Drive path so a disconnect cannot erase evidence. Do not inspect test predictions before validation selection.
+# ===== CELL 7 (code) =====
+RUN_PILOT = True
+RUN_FULL = False
+from collect_results import completed, read_predictions
+from sklearn.metrics import f1_score
+
+# Drive authorization failed. Keep this bounded pilot in the live runtime and export it separately.
+OUTPUT = Path('/content/genai_a3_evidence')
+assert len(smoke_jobs) == 8
+for job in smoke_jobs:
+    proof = OUTPUT / 'smoke' / job_id(job) / 'result.json'
+    assert json.loads(proof.read_text())['status'] == 'smoke_pass', str(proof)
+print('Verified all 8 initial T4 smoke artifacts.')
+print('Checking the unpaged QLoRA variant on both models.')
+run_jobs([j for j in plan['jobs'] if j['seed'] == 3 and j['experiment'] == '06'], smoke=True)
+pilot = next(j for j in plan['jobs'] if job_id(j) == 'xlmr_01_full_ft_3_100')
+run_jobs([pilot])
+row, pilot_folder = completed(OUTPUT, pilot)
+labels, predicted = read_predictions(pilot_folder / 'validation_predictions.csv', audit['splits']['validation']['source_row_ids'])
+assert abs(f1_score(labels, predicted, labels=[0,1,2], average='macro', zero_division=0) - row['val_macro_f1']) < 1e-12
+print('PILOT_VALIDATED', {key: row[key] for key in ('epoch_reached','global_steps','train_seconds','peak_bytes','val_macro_f1')})
+# ===== CELL 8 (markdown) =====
+## Export
+After all runs, download the executed notebook using File > Download > Download .ipynb, plus the evidence archive. Raw tweets and model weights are not in this archive.
+# ===== CELL 9 (code) =====
+from google.colab import files
+import shutil
+
+# Export only after the pilot artifact and validator have passed.
+verified, verified_folder = completed(OUTPUT, pilot)
+assert verified['epoch_reached'] == 3
+archive = shutil.make_archive('/content/Group3_T4_Pilot_Evidence', 'zip', OUTPUT)
+print('Pilot + smoke evidence:', archive)
+files.download(archive)
+# ===== CELL 10 (code) =====
+# Run the formal matrix only after validating the T4 pilot.
+from google.colab import files
+import shutil
+
+assert completed(OUTPUT, pilot)[0]['epoch_reached'] == 3
+baseline = [j for j in plan['jobs'] if j['fraction'] == 1]
+reduced = [j for j in plan['jobs'] if j['experiment'] == '08']
+assert len(baseline) == len(reduced) == 32
+RUN_FULL = True
+
+def backup(stage):
+    archive = shutil.make_archive('/content/Group3_T4_' + stage, 'zip', OUTPUT)
+    print('EVIDENCE_BACKUP', archive, flush=True)
+    try:
+        files.download(archive)
+    except Exception as exc:
+        print('Download can be retried from Colab Files:', type(exc).__name__, flush=True)
+
+def run_in_batches(jobs, label):
+    for start in range(0,len(jobs),8):
+        batch = jobs[start:start+8]
+        run_jobs(batch)
+        for job in batch:
+            completed(OUTPUT, job)
+        done = min(start+8,len(jobs))
+        print('BATCH_VALIDATED', label, done, '/', len(jobs), flush=True)
+        backup(f'{label}_{done:02d}')
+
+run_in_batches(baseline, 'baseline')
+invoke('collect_results.py', OUTPUT, '--select-only')
+run_in_batches(reduced, 'reduced')
+invoke('collect_results.py', OUTPUT)
+backup('Complete_Evidence')
+print('FULL_T4_ROSTER_VALIDATED', flush=True)
+# ===== CELL 11 (code) =====
+import datetime
+import shutil
+import textwrap
+
+# Archive the two QLoRA runs that used the optimizer default and the failed attempt.
+legacy = Path('/content/Group3_A3_Archived_Attempts')
+legacy.mkdir(exist_ok=True)
+for layer, names in {
+    'runs': ['xlmr_05_qlora_3_100', 'xlmr_06_qlora_3_100', 'xlmr_04_lora_103_100'],
+    'smoke': ['xlmr_05_qlora_3_100', 'xlmr_06_qlora_3_100', 'muril_05_qlora_3_100', 'muril_06_qlora_3_100'],
+}.items():
+    for name in names:
+        source = OUTPUT / layer / name
+        target = legacy / layer / name
+        if source.exists() and not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            source.rename(target)
+print('Archived attempts:', shutil.make_archive('/content/Group3_PreRecovery_Attempts', 'zip', legacy), flush=True)
+
+# Apply runtime-only corrections; the original bundle still identifies the shared experiment design.
+# Log non-finite gradient diagnostics as JSON null, but reject non-finite training losses.
+wrapper = textwrap.dedent('''
+    import math, sys
+    from pathlib import Path
+    sys.path.insert(0, '/content/genai_a3_code')
+    import train_group3 as runner
+    original_write = runner.write_json
+    OriginalTrainer = runner.Trainer
+    def write_json(path, data):
+        if Path(path).name == 'trainer_log.json':
+            for entry in data:
+                for name, value in list(entry.items()):
+                    if isinstance(value, float) and not math.isfinite(value):
+                        if name != 'grad_norm':
+                            raise ValueError(f'Non-finite training diagnostic: {name}')
+                        entry[name] = None
+                        entry['nonfinite_grad_norm'] = True
+        return original_write(path, data)
+    class RepairedTrainer(OriginalTrainer):
+        def __init__(self, *args, **kwargs):
+            opt = kwargs.get('optimizer_cls_and_kwargs')
+            if opt is not None:
+                cls, settings = opt
+                kwargs['optimizer_cls_and_kwargs'] = (cls, {**settings, 'lr': kwargs['args'].learning_rate})
+            super().__init__(*args, **kwargs)
+    runner.write_json = write_json
+    runner.Trainer = RepairedTrainer
+    runner.main()
+''')
+(WORK / 'run_recovery.py').write_text(wrapper)
+original_invoke = invoke
+def invoke(script, *args):
+    original_invoke('run_recovery.py' if script == 'train_group3.py' else script, *args)
+
+# Confirm the corrected rates map to both paging variants before the rest of the roster.
+run_jobs([j for j in plan['jobs'] if j['seed'] == 3 and j['experiment'] in ('05','06')], smoke=True)
+for j in [x for x in plan['jobs'] if x['seed'] == 3 and x['experiment'] in ('05','06')]:
+    logs = json.loads((OUTPUT / 'smoke' / job_id(j) / 'trainer_log.json').read_text())
+    assert abs(next(e['learning_rate'] for e in logs if 'learning_rate' in e) - j['lr']) < 1e-12
+print('QLORA_RATES_VERIFIED', flush=True)
+run_in_batches(baseline, 'baseline_recovery')
+invoke('collect_results.py', OUTPUT, '--select-only')
+run_in_batches(reduced, 'reduced')
+invoke('collect_results.py', OUTPUT)
+backup('Complete_Evidence')
+print('FULL_T4_ROSTER_VALIDATED', flush=True)

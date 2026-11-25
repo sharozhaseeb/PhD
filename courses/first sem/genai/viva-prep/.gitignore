@@ -1,0 +1,12 @@
+# build intermediates (regenerable with build_video2.py / build scripts)
+**/seg_*.mp4
+**/audio_*.mp3
+**/audio_*.txt
+**/slide_*.png
+**/concat*.txt
+**/meta.txt
+**/build*.log
+**/_p*.mp4
+# duplicate/compressed copies of the full videos
+*_small.mp4
+*_part*.mp4
