@@ -1,0 +1,705 @@
+<title>Study 1 Field Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: one reading column (~66ch) with figures that may run wider; a sticky contents bar; every claim carries a status chip and a source tag. */
+:root{
+  --bg:#f4f6f9; --surface:#ffffff; --sunk:#e9edf3; --fg:#141922; --muted:#566070; --line:#d3d9e2;
+  --blue:#2a50c8; --blue-soft:#dfe6fb; --orange:#b4570b; --orange-soft:#fbe8d6; --green:#2f7a4b; --green-soft:#dcefe3; --grey-mark:#a3acba;
+  --f-display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+  --s-1:.8125rem; --s0:1rem; --s1:1.1875rem; --s2:1.5rem; --s3:2.25rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1218; --surface:#171b23; --sunk:#1e2430; --fg:#e4e8ef; --muted:#9aa4b4; --line:#2b3340;
+  --blue:#8aa5ff; --blue-soft:#1f2a4a; --orange:#f39a52; --orange-soft:#3b2717; --green:#6cc791; --green-soft:#1a3226; --grey-mark:#5b6576; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1218; --surface:#171b23; --sunk:#1e2430; --fg:#e4e8ef; --muted:#9aa4b4; --line:#2b3340;
+  --blue:#8aa5ff; --blue-soft:#1f2a4a; --orange:#f39a52; --orange-soft:#3b2717; --green:#6cc791; --green-soft:#1a3226; --grey-mark:#5b6576; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 var(--s0)/1.6 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 4rem}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:1000px;margin:0 auto}
+.col{max-width:68ch}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:var(--s3);font-weight:700;letter-spacing:-.01em}
+h2{font-size:var(--s2);font-weight:600}
+h3{font-size:var(--s1);font-weight:600}
+p{margin:0}
+a{color:var(--blue)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+code,span.mono{font-family:var(--f-mono);font-size:.9em}
+.eyebrow{font:500 var(--s-1)/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:var(--s-1)}
+.tab{font-variant-numeric:tabular-nums}
+
+/* contents bar */
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:.5rem max(16px,env(safe-area-inset-left,0px));overflow-x:auto;white-space:nowrap}
+nav.toc .wrap{display:flex;gap:1.1rem;align-items:center}
+nav.toc a{font:500 var(--s-1)/1 var(--f-mono);color:var(--muted);text-decoration:none}
+nav.toc a:hover{color:var(--fg)}
+nav.toc b{font:600 var(--s-1)/1 var(--f-display);color:var(--fg);margin-right:.3rem}
+
+section{padding-block:3rem 0;display:grid;gap:1.1rem}
+section>header{display:grid;gap:.45rem}
+.take{font-size:var(--s1);line-height:1.45;max-width:62ch}
+
+/* chips */
+.chip{display:inline-flex;align-items:center;gap:.3rem;font:500 .72rem/1 var(--f-mono);letter-spacing:.03em;padding:.28rem .45rem;border-radius:3px;border:1px solid var(--line);color:var(--muted);background:var(--surface);white-space:nowrap;vertical-align:middle}
+.chip::before{content:"";width:.55rem;height:.55rem;display:inline-block}
+.st-m::before{background:var(--green);border-radius:50%}
+.st-c::before{border:1.5px solid var(--blue);border-radius:50%}
+.st-i::before{border:1.5px dashed var(--orange);border-radius:1px}
+.st-p::before{background:var(--grey-mark);border-radius:1px}
+.scope{border-style:dashed}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem}
+
+/* hero */
+.hero{padding-block:2.5rem 0;display:grid;gap:1.25rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1rem 1.1rem;display:grid;gap:.5rem;align-content:start;min-width:0}
+.tile .big{font:600 2.1rem/1 var(--f-display);font-variant-numeric:tabular-nums}
+.tile .big small{font-size:.5em;font-weight:500;color:var(--muted)}
+.tile p{font-size:.95rem;line-height:1.45}
+.not{border:1.5px solid var(--orange);border-radius:6px;padding:1rem 1.1rem;background:var(--orange-soft);display:grid;gap:.5rem}
+.not h3{color:var(--fg)}
+.not ul{margin:0;padding-left:1.1rem;display:grid;gap:.2rem}
+.rqmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.rqmap a{display:grid;gap:.2rem;padding:.75rem .9rem;text-decoration:none;color:var(--fg);border-right:1px solid var(--line);min-width:0}
+.rqmap a:last-child{border-right:none}
+.rqmap a:hover{background:var(--sunk)}
+.rqmap b{font:600 var(--s-1)/1 var(--f-mono);color:var(--blue)}
+.rqmap span{font-size:.92rem;line-height:1.35}
+.legend-line{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center}
+
+/* figures */
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1rem;display:grid;gap:.75rem;min-width:0}
+figcaption{font-size:.92rem;line-height:1.45;color:var(--muted);max-width:70ch}
+figcaption b{color:var(--fg);font-weight:600}
+.scroll{overflow-x:auto}
+svg{display:block;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);fill:currentColor}
+svg .mono{font-family:var(--f-mono)}
+.fig-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+button.play{font:500 var(--s-1)/1 var(--f-mono);padding:.5rem .8rem;border:1px solid var(--blue);color:var(--blue);background:var(--surface);border-radius:4px;cursor:pointer}
+button.play:hover{background:var(--blue-soft)}
+
+/* sources strip */
+.src{font:400 .74rem/1.5 var(--f-mono);color:var(--muted);border-top:1px dashed var(--line);padding-top:.6rem}
+.src b{font-weight:500;color:var(--fg)}
+
+/* D1 validation grid */
+.vgrid{display:grid;grid-template-columns:minmax(110px,.9fr) repeat(4,minmax(150px,1.2fr));border:1px solid var(--line);border-radius:6px;overflow:hidden;min-width:760px;background:var(--surface)}
+.vgrid>div{padding:.6rem .7rem;border-bottom:1px solid var(--line);border-right:1px solid var(--line);font-size:.88rem;line-height:1.4}
+.vgrid>div:nth-child(5n){border-right:none}
+.vgrid .h{font:500 .72rem/1.2 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--sunk)}
+.vgrid .sys{font:600 .95rem/1.25 var(--f-display)}
+.vgrid .sys small{display:block;font:400 .74rem/1.3 var(--f-body);color:var(--muted)}
+.vgrid .ours{background:var(--blue-soft)}
+.vgrid .last{border-bottom:none}
+.vgrid .q{color:var(--orange);font-weight:600}
+
+/* gates */
+.gates{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1rem}
+.gate{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1rem;display:grid;gap:.6rem;align-content:start;min-width:0}
+.gate .n{font:500 var(--s-1)/1 var(--f-mono);color:var(--muted)}
+.dots{display:flex;flex-wrap:wrap;gap:6px}
+.dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--grey-mark);background:transparent}
+.dot.f-blue{background:var(--blue);border-color:var(--blue)}
+.dot.f-orange{background:var(--orange);border-color:var(--orange)}
+.dot.o-orange{border-color:var(--orange);border-style:dashed}
+.dot.f-grey{background:var(--grey-mark);border-color:var(--grey-mark)}
+.dot.f-green{background:var(--green);border-color:var(--green)}
+.key{display:grid;gap:.3rem;font-size:.86rem;line-height:1.35}
+.key div{display:flex;gap:.5rem;align-items:flex-start}
+.key .dot{width:14px;height:14px;flex:none;margin-top:.15rem}
+.popnote{font:500 var(--s-1)/1.3 var(--f-mono);color:var(--orange)}
+
+/* trust */
+.aa{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;max-width:520px}
+.aa i{aspect-ratio:1;border-radius:50%;background:var(--line)}
+.aa i.flag{background:var(--orange)}
+.rates{display:grid;gap:.5rem;max-width:560px}
+.rate{display:grid;grid-template-columns:11rem 1fr 4.5rem;gap:.6rem;align-items:center;font-size:.88rem}
+.rate .bar{height:12px;background:var(--sunk);border-radius:2px;position:relative}
+.rate .bar span{position:absolute;inset:0 auto 0 0;background:var(--orange);border-radius:2px}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:.88rem;line-height:1.42}
+th,td{text-align:left;vertical-align:top;padding:.55rem .7rem;border-bottom:1px solid var(--line)}
+th{font:500 .72rem/1.2 var(--f-mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:var(--sunk)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600;white-space:nowrap}
+.notclaimed{display:grid;gap:.25rem;margin:0;padding-left:1.1rem}
+
+/* decision cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:1rem;display:grid;gap:.5rem;align-content:start;min-width:0}
+.card.key-dec{border-color:var(--blue);box-shadow:inset 0 3px 0 var(--blue)}
+.card ul,.card ol{margin:0;padding-left:1.1rem;display:grid;gap:.25rem;font-size:.92rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.steps div{padding:.75rem .8rem;border-right:1px solid var(--line);display:grid;gap:.25rem;align-content:start;font-size:.88rem;line-height:1.4;min-width:0}
+.steps div:last-child{border-right:none}
+.steps b{font:600 var(--s-1)/1.2 var(--f-mono);color:var(--blue)}
+details{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.75rem 1rem}
+summary{cursor:pointer;font:600 var(--s0)/1.3 var(--f-display)}
+ul.plain{margin:0;padding-left:1.1rem;display:grid;gap:.3rem}
+
+/* animation A1: the edit token */
+.a1 .tok{transform:translate(630px,62px)}
+.a1 .chk{opacity:1}
+@media (prefers-reduced-motion: no-preference){
+  .a1.run .tok{animation:tok 4.6s cubic-bezier(.45,.05,.4,1) both}
+  .a1.run .c1{animation:fadein .3s ease 1.0s both}
+  .a1.run .c2{animation:fadein .3s ease 2.0s both}
+  .a1.run .c3{animation:fadein .3s ease 3.9s both}
+  .a1.run .sweep{animation:sweep 1.2s ease-in-out 2.5s both}
+  .a2.run .gone{animation:collapse 2.4s cubic-bezier(.6,0,.3,1) .4s both}
+  .a2.run .goneLbl{animation:fadeout 2.4s ease .4s both}
+}
+@keyframes tok{
+  0%{transform:translate(0px,0px)} 18%{transform:translate(150px,0px)} 26%{transform:translate(150px,0px)}
+  42%{transform:translate(300px,0px)} 50%{transform:translate(300px,0px)} 62%{transform:translate(400px,0px)}
+  75%{transform:translate(460px,62px)} 100%{transform:translate(630px,62px)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes fadeout{0%{opacity:1}70%{opacity:1}100%{opacity:0}}
+@keyframes sweep{0%{opacity:0}30%{opacity:.9}100%{opacity:0}}
+.a1 .sweep{opacity:0}
+.a2 .gone{transform-box:fill-box;transform-origin:left center;transform:scaleX(0)}
+.a2 .goneLbl{opacity:0}
+@keyframes collapse{0%{transform:scaleX(1)}35%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+
+@media (max-width:560px){
+  h1{font-size:1.85rem}
+  .rate{grid-template-columns:7.5rem 1fr 4rem}
+  .rqmap a{border-right:none;border-bottom:1px solid var(--line)}
+  .steps div{border-right:none;border-bottom:1px solid var(--line)}
+}
+</style>
+
+<nav class="toc" aria-label="Contents"><div class="wrap">
+<b>Study 1</b>
+<a href="#others">Validation today</a><a href="#pipeline">Pipeline</a><a href="#edit">One edit</a><a href="#gates">Three gates</a><a href="#cost">Cost</a><a href="#trust">Verdict trust</a><a href="#new">What is new</a><a href="#e1">E1 plan</a><a href="#decide">Decisions</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- 0. Big picture -->
+<div class="hero">
+  <div class="col" style="display:grid;gap:.8rem">
+    <p class="eyebrow">Study 1 · advisor reading copy · 24 Nov 2026</p>
+    <h1>Can per-edit validation of optimization edits be cut, and what can the benchmark check actually see?</h1>
+    <p>Optimizers that edit code for speed validate every candidate with some mix of build, tests and timed benchmarks. Study 1 replays real optimization commits through a <b>full</b> validation of each state, measures where the time goes, and asks whether the project's own benchmarks even execute the edited code. The validation rules contain no learned or LLM component. On one pure-Python project (networkx) the answer is that the benchmark oracle, more than build or test cost, limits what per-edit validation can see.</p>
+  </div>
+
+  <div class="tiles">
+    <div class="tile">
+      <span class="eyebrow">Executed?</span>
+      <div class="big tab">8 <small>of 14</small></div>
+      <p>agent-labelled optimizations change only code that <b>no benchmark case executes</b> (profile reach). Many, not most: Wilson 95 % CI 33–79 %.</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip scope">networkx · S0 profiles · agent labels</span></div>
+    </div>
+    <div class="tile">
+      <span class="eyebrow">Detectable?</span>
+      <div class="big tab">1 <small>of 10</small></div>
+      <p>injected slowdowns detected on target by the FULL benchmark suite <b>above the pre-registered noise floor</b> (Wilson 1.8–40.4 %).</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip scope">networkx · 10 frozen slowdowns</span></div>
+    </div>
+    <div class="tile">
+      <span class="eyebrow">What it costs</span>
+      <div class="big tab">≈ 8× <small>build+tests</small></div>
+      <p>for one benchmark pass on the fastest passes (median ≈ 14×, up to ≈ 34×; 9 passes, 8 noisy). With setup cached: <b>2.2–2.3×</b> (3 pairs, one fast night).</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip scope">one laptop (WSL2)</span></div>
+    </div>
+  </div>
+
+  <div class="not" role="note" aria-label="What this is not">
+    <h3>What this is not</h3>
+    <ul>
+      <li><b>Not general.</b> The coverage result is from one project (networkx). Extending it to 4–5 projects is planned (E1).</li>
+      <li><b>Not human-labelled.</b> The 14 optimizations were labelled by two blind LLM agent raters plus an LLM adjudicator, all one model family. κ = 0.948 is inflated for that reason. No human rater yet (decision A14).</li>
+      <li><b>Not a clean machine.</b> One laptop under WSL2, whose CPU governor cannot be pinned; 8 of 9 benchmark passes are labelled noisy.</li>
+      <li><b>Not an optimizer session.</b> Historical commits are weeks apart; no session effect is claimed.</li>
+      <li><b>Not fully explained.</b> About 2 % of benchmark comparisons flag a change even with identical code. The cause is unresolved.</li>
+      <li><b>No heavy build.</b> The heavy-build project was planned and not run; we make no claim for heavy builds.</li>
+    </ul>
+  </div>
+
+  <div style="display:grid;gap:.5rem">
+    <p class="eyebrow">The four research questions, and where each is answered</p>
+    <div class="rqmap">
+      <a href="#cost"><b>RQ1 · cost</b><span>Where does per-edit validation time go?</span></a>
+      <a href="#gates"><b>RQ2 · coverage</b><span>Do the benchmarks execute the edited code?</span></a>
+      <a href="#gates"><b>RQ3 · visibility</b><span>Could a slowdown there show, and be detected above noise?</span></a>
+      <a href="#cost"><b>RQ4 · reduction</b><span>What do deterministic reductions save and miss?</span></a>
+    </div>
+  </div>
+
+  <div class="legend-line small muted">
+    <span>Status on every claim:</span>
+    <span class="chip st-m">measured</span><span class="chip st-c">computed (no timing)</span><span class="chip st-i">inferred</span><span class="chip st-p">planned</span>
+    <span>Sources: <span class="mono">NUM</span> = numbers.tex macro (generated from raw files; wins on conflict), <span class="mono">F</span> = findings.md, <span class="mono">R</span> = results.md.</span>
+  </div>
+</div>
+
+<!-- 1. Validation today -->
+<section id="others">
+  <header>
+    <p class="eyebrow">1 · How a candidate edit is validated today</p>
+    <h2>Every system pays for build, tests and timing, in different amounts</h2>
+    <p class="take">In our recorded searches, none of them reports how often its timing workload actually executes the edited code. That is the quantity Study 1 measures.</p>
+  </header>
+  <div class="scroll">
+    <div class="vgrid" role="table" aria-label="How optimizers and harnesses validate one candidate edit, compared with Study 1">
+      <div class="h" role="columnheader">System</div><div class="h" role="columnheader">Build per candidate</div><div class="h" role="columnheader">Tests per candidate</div><div class="h" role="columnheader">Timing per candidate</div><div class="h" role="columnheader">Accept rule</div>
+
+      <div class="sys">SemOpt<small>optimizer · C/C++ and Python</small></div>
+      <div>1 compile or install</div>
+      <div>Whole project unit suite (no selection described)</div>
+      <div>Project perf tests × 6 runs, first dropped</div>
+      <div>Mean of 5 runs &gt; 5 % faster on one perf test, ≤ 2 % loss elsewhere; no statistical test</div>
+
+      <div class="sys">PerfAgent<small>optimizer · Python repos</small></div>
+      <div>1 <code>/build.sh</code> (incremental or not: unknown)</div>
+      <div><b>Per edit</b>, selected by pytest-testmon</div>
+      <div>1 timed run (first run only) plus a 10 s profile</div>
+      <div>Fastest passing patch of up to 5; no full-suite re-run found</div>
+
+      <div class="sys">Harnesses<small>SWE-Perf · GSO · FormulaCode</small></div>
+      <div>GSO: 2 installs. FormulaCode: no per-edit rebuild (one cached image)</div>
+      <div>SWE-Perf: fixed per-task tests. GSO: 0 unit tests. FormulaCode: tests mapped from changed file names, once, on the final tree</div>
+      <div>SWE-Perf: 20 repeats. GSO: ≤ 20 perf scripts × 5 runs. FormulaCode: upstream ASV workloads</div>
+      <div>SWE-Perf: Mann-Whitney p &lt; 0.1. GSO: ≈ 1.1× gate, then ≥ 0.95 of the reference. FormulaCode: median ratio vs no-op</div>
+
+      <div class="sys ours last">Study 1<small>measurement study · Python</small></div>
+      <div class="ours last">Every replayed state built (networkx editable install, median 1.19 s; bottleneck C build 4.7–5.4 s)</div>
+      <div class="ours last">Full suite at every state (networkx 6,771 tests); reductions (testmon, changed-module, our policy A4) simulated from it</div>
+      <div class="ours last">Full asv suite (171 cases) plus a per-case profile: <span class="q">does any case execute the edit?</span></div>
+      <div class="ours last">asv rule (p &lt; 0.002 and 1.1×) plus a <b>pre-registered</b> 1 + 3σ noise floor and A/A runs</div>
+    </div>
+  </div>
+  <p class="src"><b>Sources:</b> 02-practice-survey/README.md (work-per-candidate table) and survey-table.md, each cell cited to paper section or code line there. PerfAgent: no public code found, so its rows come from the paper. Ours: NUM NxBuildMedian, BnBuildLo/Hi, NxNumTests, NxBenchCases.</p>
+</section>
+
+<!-- 2. Pipeline -->
+<section id="pipeline">
+  <header>
+    <p class="eyebrow">2 · Our pipeline, end to end</p>
+    <h2>From mined commits to verdicts, with every rule frozen before it ran</h2>
+  </header>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 980 330" role="img" aria-label="Pipeline: mine commits by keyword rule, label them with LLM agents, replay them on networkx and bottleneck, run full validation at every state, profile benchmark reach, inject frozen faults and slowdowns, and judge verdicts against A/A noise floors. Reductions are simulated from the full runs." style="min-width:860px">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker>
+      </defs>
+      <g fill="none" stroke="var(--line)" stroke-width="1.5">
+        <rect x="10" y="20" width="170" height="104" rx="5" fill="var(--surface)"/>
+        <rect x="210" y="20" width="170" height="104" rx="5" fill="var(--surface)"/>
+        <rect x="410" y="20" width="170" height="104" rx="5" fill="var(--surface)"/>
+        <rect x="610" y="20" width="170" height="104" rx="5" fill="var(--blue-soft)" stroke="var(--blue)"/>
+        <rect x="810" y="20" width="160" height="104" rx="5" fill="var(--surface)"/>
+        <rect x="410" y="200" width="170" height="104" rx="5" fill="var(--surface)"/>
+        <rect x="610" y="200" width="170" height="104" rx="5" fill="var(--surface)"/>
+        <rect x="810" y="200" width="160" height="104" rx="5" fill="var(--surface)"/>
+      </g>
+      <g font-size="11" class="mono" fill="var(--muted)">
+        <text x="22" y="40" style="fill:var(--muted)">MINED · frozen rule</text>
+        <text x="222" y="40" style="fill:var(--muted)">LABELLED · LLM agents</text>
+        <text x="422" y="40" style="fill:var(--muted)">REPLAYED</text>
+        <text x="622" y="40" style="fill:var(--blue)">MEASURED · FULL</text>
+        <text x="822" y="40" style="fill:var(--muted)">MEASURED · profile</text>
+        <text x="422" y="220" style="fill:var(--muted)">FROZEN · sha256</text>
+        <text x="622" y="220" style="fill:var(--muted)">MEASURED · A/A</text>
+        <text x="822" y="220" style="fill:var(--muted)">COMPUTED</text>
+      </g>
+      <g font-size="15" font-weight="600">
+        <text x="22" y="62">Mine commits</text><text x="222" y="62">Label edits</text><text x="422" y="62">Replay history</text><text x="622" y="62">Full validation</text><text x="822" y="62">Benchmark reach</text>
+        <text x="422" y="242">Inject faults</text><text x="622" y="242">Noise floors</text><text x="822" y="242">Verdicts</text>
+      </g>
+      <g font-size="12" style="fill:var(--muted)">
+        <text x="22" y="82">keyword regex on</text><text x="22" y="98">4 projects, 70</text><text x="22" y="114">qualified commits</text>
+        <text x="222" y="82">2 blind raters +</text><text x="222" y="98">adjudicator; 50/70</text><text x="222" y="114">are optimizations</text>
+        <text x="422" y="82">networkx: 18 commits</text><text x="422" y="98">(14 optimizations)</text><text x="422" y="114">bottleneck: 8 (C ext.)</text>
+        <text x="622" y="82">every state: build,</text><text x="622" y="98">6,771 tests, 171 asv</text><text x="622" y="114">benchmark cases</text>
+        <text x="822" y="82">cProfile per case</text><text x="822" y="98">at S0; static call</text><text x="822" y="114">graph for contrast</text>
+        <text x="422" y="262">25 mutants,</text><text x="422" y="278">10 slowdowns, fixed</text><text x="422" y="294">before any arm ran</text>
+        <text x="622" y="262">identical-code runs;</text><text x="622" y="278">σ per flagged case;</text><text x="622" y="294">1 + 3σ floor</text>
+        <text x="822" y="262">asv rule, then the</text><text x="822" y="278">floor; reductions</text><text x="822" y="294">simulated from FULL</text>
+      </g>
+      <g stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#ar)" style="color:var(--muted)">
+        <line x1="182" y1="72" x2="206" y2="72"/><line x1="382" y1="72" x2="406" y2="72"/><line x1="582" y1="72" x2="606" y2="72"/><line x1="782" y1="72" x2="806" y2="72"/>
+        <path d="M495 126 V196"/>
+        <path d="M582 252 H606"/><path d="M782 252 H806"/>
+        <path d="M890 126 V196"/>
+        <path d="M695 126 C695 160 690 170 690 196"/>
+      </g>
+      <g font-size="11" class="mono" style="fill:var(--muted)">
+        <text x="500" y="166">applied to states</text>
+        <text x="895" y="166">reach sets</text>
+        <text x="700" y="166">runs per state</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>Read left to right, then down.</b> The selection and validation rules are deterministic. The one non-deterministic input is the edit labels, which come from LLM agents (disclosed). Faults and slowdowns were frozen with hashes before any reduced arm ran.</figcaption>
+  </figure>
+  <p class="src"><b>Sources:</b> NUM PrecPooled/PrecPooledN (50/70), NxReplayed (18), NxAgentOpt (14), BnEdits (8, main window), NxNumTests, NxBenchCases, MutantsFrozen (25), NumSlowdowns (10); F: B4, N9, N14.</p>
+</section>
+
+<!-- 3. One edit -->
+<section id="edit">
+  <header>
+    <p class="eyebrow">3 · One edit, followed through</p>
+    <h2>A “25× faster” edit that no benchmark ever runs</h2>
+    <p class="take">Step 2 of the replay is networkx commit <code>090cc0910a</code>, subject “Bidirectional dijkstra optimization: from 1.1x to 25x faster”. It passes build and tests. Of the 171 benchmark cases, the static call graph links it to all 171, and the measured profile shows none executing it.</p>
+  </header>
+  <figure class="a1" id="a1">
+    <div class="fig-top">
+      <span class="eyebrow">Schematic of the real step-2 edit</span>
+      <button class="play" type="button" data-target="a1">▶ Play</button>
+    </div>
+    <div class="scroll">
+    <svg viewBox="0 0 800 190" role="img" aria-label="The bidirectional_dijkstra edit passes the build and the 6,771 tests, then goes past the 171 benchmark cases because none of them executes the changed function." style="min-width:640px">
+      <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+      <g fill="none" stroke-width="1.5">
+        <rect x="130" y="30" width="110" height="64" rx="5" fill="var(--surface)" stroke="var(--line)"/>
+        <rect x="280" y="30" width="110" height="64" rx="5" fill="var(--surface)" stroke="var(--line)"/>
+        <rect x="430" y="18" width="190" height="88" rx="5" fill="var(--surface)" stroke="var(--line)"/>
+        <rect class="sweep" x="430" y="18" width="190" height="88" rx="5" fill="var(--orange-soft)" stroke="var(--orange)"/>
+      </g>
+      <g style="color:var(--grey-mark)" fill="currentColor">
+        <!-- 171 cases sketched as a 19 x 9 grid of ticks -->
+        <g id="cases"></g>
+      </g>
+      <g font-size="14" font-weight="600"><text x="185" y="56" text-anchor="middle">Build</text><text x="335" y="56" text-anchor="middle">Tests</text></g>
+      <g font-size="12" style="fill:var(--muted)"><text x="185" y="76" text-anchor="middle">editable install</text><text x="335" y="76" text-anchor="middle">6,771 pass</text><text x="525" y="124" text-anchor="middle">171 benchmark cases</text></g>
+      <g stroke="currentColor" stroke-width="1.3" fill="none" style="color:var(--muted)">
+        <line x1="54" y1="62" x2="126" y2="62" marker-end="url(#ar2)"/><line x1="242" y1="62" x2="276" y2="62" marker-end="url(#ar2)"/><line x1="392" y1="62" x2="426" y2="62" marker-end="url(#ar2)"/>
+        <path d="M400 70 Q 420 124 460 124" stroke-dasharray="4 4" stroke="var(--orange)"/>
+        <path d="M590 124 H 735" stroke-dasharray="4 4" stroke="var(--orange)" marker-end="url(#ar2)"/>
+      </g>
+      <g class="chk c1"><circle cx="185" cy="18" r="10" fill="var(--green)"/><path d="M180 18l4 4 7-8" stroke="var(--surface)" stroke-width="2.2" fill="none"/></g>
+      <g class="chk c2"><circle cx="335" cy="18" r="10" fill="var(--green)"/><path d="M330 18l4 4 7-8" stroke="var(--surface)" stroke-width="2.2" fill="none"/></g>
+      <g class="chk c3"><text x="525" y="150" text-anchor="middle" font-size="13" font-weight="600" style="fill:var(--orange)">0 of 171 execute it (profile)</text><text x="525" y="168" text-anchor="middle" font-size="12" style="fill:var(--muted)">static call graph: all 171 “reach” it</text></g>
+      <g class="tok">
+        <rect x="8" y="50" width="44" height="24" rx="12" fill="var(--blue)"/>
+        <text x="30" y="66" text-anchor="middle" font-size="11" class="mono" style="fill:var(--surface)">edit</text>
+      </g>
+      <text x="792" y="129" font-size="12" style="fill:var(--orange)" text-anchor="end">unseen</text>
+    </svg>
+    </div>
+    <figcaption><b>Why the two reach measures differ.</b> Static reach over-approximates: the call graph connects <code>bidirectional_dijkstra</code> to every case. The profile under-approximates: one call per case, at the base state S0 only. Across the 14 optimizations, profile reach leaves <b>8</b> unexecuted and static reach <b>3</b>. The “25×” is the commit's own claim; we did not re-measure historical speed-ups. In our slowdown experiment, slowing this function (#1) produced one off-target “slower” verdict on a case that never runs it, which we judged noise.</figcaption>
+  </figure>
+  <p class="src"><b>Sources:</b> 04-paper/sections/introduction.tex (commit and subject); R §2b edit-share table, step 2: not executed, 0 reaching cases; R slowdown table #1 (reach 0/171 profile, 171 static); NUM BOneAgentUnreached (8), BOneAgentStatic (3), ConstructUnreached (0: every changed function exists at S0).</p>
+</section>
+
+<!-- 4. Three gates -->
+<section id="gates">
+  <header>
+    <p class="eyebrow">4 · The oracle gap · RQ2 and RQ3</p>
+    <h2>Executed, visible, detectable: three separate gates</h2>
+    <p class="take">An optimization's effect can be missed because no benchmark runs the code, because the code is a tiny share of the benchmark's time, or because the change is inside the noise. On networkx much of the loss is at the first gate.</p>
+    <p class="popnote">Three different populations: do not read this as one funnel.</p>
+  </header>
+  <div class="gates">
+    <div class="gate">
+      <span class="eyebrow">Gate 1 · Executed?</span>
+      <h3>Does any benchmark case run the changed code?</h3>
+      <span class="n">n = 14 agent-labelled optimizations</span>
+      <div class="dots" aria-label="8 of 14 not executed, 6 executed">
+        <i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i>
+        <i class="dot f-blue"></i><i class="dot f-blue"></i><i class="dot f-blue"></i><i class="dot f-blue"></i><i class="dot f-blue"></i><i class="dot f-blue"></i>
+      </div>
+      <div class="key">
+        <div><i class="dot o-orange"></i><span><b>8</b> executed by no case (profile): 57 %, CI 33–79 %</span></div>
+        <div><i class="dot f-blue"></i><span><b>6</b> executed by at least one case</span></div>
+      </div>
+      <p class="small muted">Static call graph: 3 of 14 unreached (CI 8–48 %). On the earlier subject-only labels: 9 of 15. The rate moves by one edit.</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip scope">networkx · S0 profiles</span></div>
+    </div>
+    <div class="gate">
+      <span class="eyebrow">Gate 2 · Visible?</span>
+      <h3>If that code got slower, could a case move past asv's 1.1 ratio?</h3>
+      <span class="n">n = 14 optimizations, hypothetical slowdown</span>
+      <div class="dots" aria-label="4 of 14 could clear at a 1.2 times slowdown, one more at 2 times, 9 cannot">
+        <i class="dot f-blue"></i><i class="dot f-blue"></i><i class="dot f-blue"></i><i class="dot f-blue"></i>
+        <i class="dot o-orange" style="border-style:solid"></i>
+        <i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i>
+      </div>
+      <div class="key">
+        <div><i class="dot f-blue"></i><span><b>≤ 4</b> could clear 1.1 at a 1.2× slowdown of the changed code</span></div>
+        <div><i class="dot o-orange" style="border-style:solid"></i><span><b>+1</b> more only at 2× (5 of 14)</span></div>
+        <div><i class="dot"></i><span>cannot: 8 not executed, 1 diluted (share ≈ 2 %)</span></div>
+      </div>
+      <p class="small muted">Only the 6 executed edits can clear at all. Expected ratio = 1 + share × (f − 1), from cProfile time shares.</p>
+      <div class="chips"><span class="chip st-c">computed</span><span class="chip scope">networkx · no timing</span></div>
+    </div>
+    <div class="gate">
+      <span class="eyebrow">Gate 3 · Detectable?</span>
+      <h3>Does the full suite flag a real injected slowdown above noise?</h3>
+      <span class="n">n = 10 frozen injected slowdowns</span>
+      <div class="dots" aria-label="7 coverage misses, 1 dilution miss, 1 below the noise floor, 1 detected">
+        <i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i><i class="dot o-orange"></i>
+        <i class="dot f-grey"></i><i class="dot"></i><i class="dot f-green"></i>
+      </div>
+      <div class="key">
+        <div><i class="dot o-orange"></i><span><b>7</b> coverage misses: no profiled case runs the slowed code</span></div>
+        <div><i class="dot f-grey"></i><span><b>1</b> dilution miss (#3: share ≈ 0.005, so ≈ 1.005× expected)</span></div>
+        <div><i class="dot"></i><span><b>1</b> below its noise floor (#8: 1.116× vs floor 2.18)</span></div>
+        <div><i class="dot f-green"></i><span><b>1</b> detected (#2: 1.81–1.90×, repeated at 1.76–1.90×)</span></div>
+      </div>
+      <p class="small muted">1 of 10, Wilson 1.8–40.4 %. This is a detection count, not a safety result: the pre-registered primary result is that regression safety of reduced selection is not measurable here.</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip scope">networkx · one machine</span></div>
+    </div>
+  </div>
+  <p class="src"><b>Sources:</b> NUM BOneAgentUnreached/Pct/Lo/Hi, BOneAgentStatic*, BOneManual* (9/15), EditsClearMid (4), EditsClearHigh (5), FloorDetect/Lo/Hi, SlowUnreachedProfile (7), ShareThreeLo/Hi, FloorEight, SlowTwoRatioLo/Hi, RepTwoLo/Hi; F: B4, V1, V2, N9, N11, S4.</p>
+</section>
+
+<!-- 5. Cost -->
+<section id="cost">
+  <header>
+    <p class="eyebrow">5 · Where the time goes · RQ1 and RQ4</p>
+    <h2>Benchmarks are the largest part, by less once setup is reused</h2>
+    <p class="take">As asv runs the suite, one networkx benchmark pass costs about 8× build+tests on the fastest passes. Most of that sits outside the timing loops. Reusing per-module setup removes most of it, leaving 2.2–2.3×.</p>
+  </header>
+  <figure class="a2" id="a2">
+    <div class="fig-top">
+      <span class="eyebrow">E5 night · seconds per FULL validation part · medians</span>
+      <button class="play" type="button" data-target="a2">▶ Play: standard → cached</button>
+    </div>
+    <div class="scroll">
+    <svg viewBox="0 0 800 250" role="img" aria-label="On the E5 night, build plus tests took about 87 seconds, a standard benchmark pass 691 seconds and a setup-cached pass 195 seconds. About 484 to 504 seconds of the standard pass, inferred to be per-process start-up and re-import, disappears with caching." style="min-width:640px">
+      <defs>
+        <pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="var(--orange-soft)"/><line x1="0" y1="0" x2="0" y2="7" stroke="var(--orange)" stroke-width="2"/></pattern>
+      </defs>
+      <!-- scale: x = 180 + s*0.8 ; 0..700 s -->
+      <g stroke="var(--line)" stroke-width="1">
+        <line x1="180" y1="20" x2="180" y2="205"/><line x1="260" y1="20" x2="260" y2="205"/><line x1="340" y1="20" x2="340" y2="205"/><line x1="420" y1="20" x2="420" y2="205"/><line x1="500" y1="20" x2="500" y2="205"/><line x1="580" y1="20" x2="580" y2="205"/><line x1="660" y1="20" x2="660" y2="205"/><line x1="740" y1="20" x2="740" y2="205"/>
+      </g>
+      <g font-size="11" class="mono" style="fill:var(--muted)" text-anchor="middle">
+        <text x="180" y="222">0</text><text x="260" y="222">100</text><text x="340" y="222">200</text><text x="420" y="222">300</text><text x="500" y="222">400</text><text x="580" y="222">500</text><text x="660" y="222">600</text><text x="740" y="222">700 s</text>
+      </g>
+      <g font-size="13" font-weight="600" text-anchor="end">
+        <text x="170" y="48">Build + tests</text><text x="170" y="108">Standard pass</text><text x="170" y="168">Setup-cached pass</text>
+      </g>
+      <g font-size="11" text-anchor="end" style="fill:var(--muted)">
+        <text x="170" y="62">≈ 87 s</text><text x="170" y="122">691 s · ≈ 7.8–8.1×</text><text x="170" y="182">195 s · ≈ 2.2–2.3×</text>
+      </g>
+      <rect x="180" y="34" width="69.6" height="26" fill="var(--grey-mark)"/>
+      <!-- standard: 195 kept + ~496 inferred overhead -->
+      <rect x="180" y="94" width="156" height="26" fill="var(--blue)"/>
+      <rect x="336" y="94" width="396.8" height="26" fill="url(#hatch)" stroke="var(--orange)" stroke-width="1"/>
+      <text x="534" y="111" text-anchor="middle" font-size="11.5" font-weight="600" style="fill:var(--fg)">≈ 484–504 s inferred start-up / re-import</text>
+      <!-- cached: loops 71 %, calibration+warm-up 24-25 %, imports+rest -->
+      <rect x="180" y="154" width="110.8" height="26" fill="var(--blue)"/>
+      <rect x="290.8" y="154" width="38.2" height="26" fill="var(--blue)" opacity=".55"/>
+      <rect x="329" y="154" width="7" height="26" fill="var(--blue)" opacity=".3"/>
+      <rect class="gone" x="336" y="154" width="396.8" height="26" fill="url(#hatch)" stroke="var(--orange)" stroke-width="1"/>
+      <text class="goneLbl" x="534" y="171" text-anchor="middle" font-size="11.5" font-weight="600" style="fill:var(--fg)">setup reused per module…</text>
+      <g font-size="10.5" class="mono" style="fill:var(--muted)">
+        <text x="182" y="198">loops 71 %</text><text x="292" y="198">calib.+warm-up 24–25 %</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>The orange segment is inferred, not timed.</b> The standard protocol has no phase timers; the gap between paired standard and cached passes (≈ 484–504 s) is attributed by inference to per-process start-up and re-import, 452 s of it in one module. E5 ran on one fast night (standard passes 679–705 s), so 3.54× (standard ÷ cached) is not a strict lower bound, and the ratio on slow nights is not measured. The cached pass is a cost lower bound, not an asv replacement.</figcaption>
+  </figure>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Across 9 standard passes</h3>
+      <p class="tab">659–2,984 s per pass, median ≈ 1,220 s: ≈ 8× build+tests on the fastest passes, ≈ 14× at the median, up to ≈ 34×. Timing loops stay at 132–171 s. In one evening three passes drifted 2,984 → 1,217 s (2.45×) with loops at 144–155 s; the cause is unknown.</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip scope">8 of 9 passes noisy</span></div>
+    </div>
+    <div class="card">
+      <h3>Build is a minor lever</h3>
+      <p class="tab">networkx build median 1.19 s, about 0.1 % of a validation once benchmarks count. bottleneck (C extension): 4.7–5.4 s, 16–18 % of build+tests but 0.8–0.9 % with benchmarks; benchmarks ≈ 18.5–19× build+tests (544 and 547 s, one state).</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip scope">no heavy-build project</span></div>
+    </div>
+    <div class="card">
+      <h3>Reductions (RQ4)</h3>
+      <p class="tab">testmon is 3.5–4× cheaper than FULL end to end, not the 15× that test-seconds suggest (one run, mixed load). Our policy A4, as implemented, adds nothing measurable: 655 s est. vs testmon 330 s at equal detection on 20 mutants. A negative result.</p>
+      <div class="chips"><span class="chip st-m">measured</span><span class="chip st-c">simulated arms</span></div>
+    </div>
+  </div>
+  <p class="src"><b>Sources:</b> NUM EStdMedian (691), ECachedMedian (195), EStdOverCached (3.54), ECachedRatioLo/Hi, EStdRatioLo/Hi, ECachedLoop (71), NxBuildTests (87), NxBenchPassMin/Max/Median, NxBenchRatioTypical/Median/Hi, NxLoopsLo/Hi, PassesNoisy, DriftEveningHi/Lo/Ratio, DriftLoopsLo/Hi, NxBuildMedian, BnBuildLo/Hi, BnBuildShare*, BnBenchPassLo/Hi, BnBenchRatioLo/Hi, TestmonRatioLo/Hi, EstAFour, EstTestmon. Inferred: 484–504 s gap and 452 s (R §E5; F: N15); calibration+warm-up 24–25 % (F: N15).</p>
+</section>
+
+<!-- 6. Trust -->
+<section id="trust">
+  <header>
+    <p class="eyebrow">6 · How far to trust one verdict</p>
+    <h2>About 2 % of comparisons flag a change that is not there</h2>
+    <p class="take">Running the same code against itself still produced “changed” verdicts on 4 of 168 benchmark comparisons. So a single verdict of up to about 1.4× in either direction is not evidence on its own.</p>
+  </header>
+  <figure>
+    <span class="eyebrow">Identical code (directory A/A) · 168 comparisons · each dot one case</span>
+    <div class="aa" id="aagrid" role="img" aria-label="168 comparisons of identical code; 4 were flagged as changed."></div>
+    <div class="rates">
+      <div class="rate"><span>Fixed directories</span><span class="bar"><span style="width:22%"></span></span><span class="tab mono">2.2 % <span class="muted">11/499</span></span></div>
+      <div class="rate"><span>Identical code</span><span class="bar"><span style="width:24%"></span></span><span class="tab mono">2.4 % <span class="muted">4/168</span></span></div>
+      <div class="rate"><span>Directories swapped</span><span class="bar"><span style="width:18%"></span></span><span class="tab mono">1.8 % <span class="muted">6/340</span></span></div>
+      <p class="small muted">Bar scale: full width = 10 %.</p>
+    </div>
+    <div class="scroll">
+    <svg viewBox="0 0 760 120" role="img" aria-label="Ratio scale: identical-code deviations ran from 0.725 to 1.308 times; slowdown #2 at 1.76 to 1.90 times lies well outside that band; #8 at 1.12 to 1.20 times lies inside it." style="min-width:600px">
+      <!-- x = 60 + (r-0.6)*500 for r in 0.6..2.0 -->
+      <rect x="122.5" y="30" width="291.5" height="34" fill="var(--sunk)" stroke="var(--line)"/>
+      <text x="268" y="22" text-anchor="middle" font-size="11.5" style="fill:var(--muted)">identical-code range 0.725–1.308×: not evidence</text>
+      <line x1="60" y1="64" x2="760" y2="64" stroke="currentColor" style="color:var(--muted)"/>
+      <g font-size="11" class="mono" style="fill:var(--muted)" text-anchor="middle">
+        <text x="60" y="82">0.6×</text><text x="260" y="82">1.0×</text><text x="460" y="82">1.4×</text><text x="660" y="82">1.8×</text>
+      </g>
+      <g stroke="var(--line)"><line x1="260" y1="30" x2="260" y2="64"/><line x1="460" y1="30" x2="460" y2="64" stroke-dasharray="3 3"/></g>
+      <rect x="320" y="40" width="40" height="14" fill="var(--grey-mark)"/>
+      <text x="340" y="104" text-anchor="middle" font-size="11.5" style="fill:var(--muted)">#8 1.12–1.20×: uncounted</text>
+      <rect x="640" y="40" width="70" height="14" fill="var(--green)"/>
+      <text x="675" y="104" text-anchor="middle" font-size="11.5" font-weight="600" style="fill:var(--green)">#2 1.76–1.90×: stands</text>
+    </svg>
+    </div>
+    <figcaption><b>The directory swap is done and did not remove the flips</b>: it gives the same rate, and no flip reverses sign. The cause is unresolved. Candidates: per-night variation; an anti-conservative test on correlated samples (12 samples from 4 processes per side); a case-specific effect (<code>connected_components ER(100,0.9)</code> recurs). Sign consistency is not evidence of a real effect, because the identical-code flips also kept their sign 4/4. The rates are for the 12 v 12 A/B design only (≈ 4 false “changes” per 171-case comparison, range 1.6–10); the paper's 18 v 18 design was not A/A-tested at this scale. The Wilson intervals are too narrow, because cases share runs.</figcaption>
+  </figure>
+  <p class="src"><b>Sources:</b> NUM DirAANonSame/Total/Pct/Lo/Hi (4/168, 2.4 %, 0.9–6.0 %), TwoFlips/TwoFlipPct (11/499, 2.2 %), SwapFlips/SwapTotal/SwapPct (6/340, 1.8 %), DirAAMaxDev (1.38: 1.308 slower, 0.725 faster), DirAAFalsePerComp/Lo/Hi, RepTwoLo/Hi; F: N14, N9, N11; R §Directory A/A, §tier 2 dir swap. #8's on-target 1.12–1.20× was not re-tested in the swap.</p>
+</section>
+
+<!-- 7. New -->
+<section id="new">
+  <header>
+    <p class="eyebrow">7 · What is new, and the close work</p>
+    <h2>We report a rate that prior work filters out or does not measure</h2>
+    <p class="take">Per-commit profiling of benchmark reach exists (Traini et al., TOSEM 2021, Java refactorings). In our recorded searches we found no study reporting what fraction of real performance-improving commits have their changed functions executed by the project's own benchmark suite. We measure it for one project.</p>
+  </header>
+  <div class="tbl"><table>
+    <thead><tr><th>Work</th><th>What it does</th><th>How Study 1 differs</th></tr></thead>
+    <tbody>
+      <tr><td>Traini et al. 2021</td><td>Per-commit JMH benchmark reach for refactoring commits, 31 Java projects</td><td>Performance-improving commits, Python/asv, and we report the uncovered rate</td></tr>
+      <tr><td>Laaber &amp; Leitner 2018</td><td>Injected slowdowns in 20 sampled API methods; “covered” means detected</td><td>Reach of real changes, not sampled methods</td></tr>
+      <tr><td>Peass (Reichelt 2023)</td><td>Splits missed regressions into uncovered vs noise, Java</td><td>We reuse the split; we do not claim it</td></tr>
+      <tr><td>Shahedi et al. 2025</td><td>Exclude commits with no targeting benchmark; report no rate</td><td>Their coverage is a filter; ours is the outcome</td></tr>
+      <tr><td>Grambow et al. 2021</td><td>Microbenchmark coverage of application-benchmark functions, fixed versions, Go</td><td>Per commit, optimization commits</td></tr>
+      <tr><td>SWE-Perf, GSO, FormulaCode, SWE-fficiency</td><td>Harnesses that require a workload speed-up or a covering test</td><td>By design they cannot measure the uncovered fraction</td></tr>
+      <tr><td>Ding et al. 2020</td><td>Tests that cover a change rarely show its speed-up</td><td>Applies only to already-covering tests</td></tr>
+      <tr><td>PerfAgent, SemOpt</td><td>Optimizers that validate every candidate</td><td>We measure what that validation costs and what it can see</td></tr>
+      <tr><td>Quansight 2021 (blog)</td><td>3.7–12.5 % false positives in asv CI A/A runs</td><td>Context for our ≈ 2 %; not peer-reviewed</td></tr>
+    </tbody>
+  </table></div>
+  <div class="card">
+    <h3>Not claimed</h3>
+    <ul class="notclaimed">
+      <li>That per-commit benchmark-reach profiling is new (Traini 2021).</li>
+      <li>That the uncovered / below-noise / not-selected split is new (Peass; Laaber &amp; Leitner). Our “share” is Amdahl's law made operational.</li>
+      <li>That per-edit test selection in an optimization loop is new (PerfAgent uses testmon).</li>
+      <li>That our accumulated-change trigger is a new mechanism: it is a deterministic variant of risk-mass batching (Sayedsalehi 2026).</li>
+      <li>That a two-sided performance gate is new (SemOpt, PerfAgent).</li>
+      <li>That the review is systematic, or that the coverage rate is general. No Scopus or Web of Science search was run.</li>
+    </ul>
+  </div>
+  <p class="src"><b>Sources:</b> pm/advisor/deck-brief.md §2 (safe wording and close-work table); 01-literature/beyond-literature-claims.md; 01-literature/closest-works.md.</p>
+</section>
+
+<!-- 8. E1 -->
+<section id="e1">
+  <header>
+    <p class="eyebrow">8 · E1: the extension plan</p>
+    <h2>From one project to 4–5, so the interval becomes useful</h2>
+    <p class="take">At n = 14 the 95 % interval spans 46 points. E1 targets at least 50–60 true optimizations over at least 4–5 projects, which narrows a 50 % rate to about ±12–14 points. E1 is planned and will be pre-registered before mining; nothing is frozen yet.</p>
+  </header>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 760 150" role="img" aria-label="Interval width: today 8 of 14, 57 percent with a 33 to 79 percent interval; at 50 to 60 optimizations a 50 percent rate would have roughly a 36 to 64 percent interval." style="min-width:600px">
+      <!-- x = 200 + pct*5 -->
+      <g stroke="var(--line)"><line x1="200" y1="20" x2="200" y2="112"/><line x1="325" y1="20" x2="325" y2="112"/><line x1="450" y1="20" x2="450" y2="112"/><line x1="575" y1="20" x2="575" y2="112"/><line x1="700" y1="20" x2="700" y2="112"/></g>
+      <g font-size="11" class="mono" style="fill:var(--muted)" text-anchor="middle"><text x="200" y="130">0 %</text><text x="325" y="130">25 %</text><text x="450" y="130">50 %</text><text x="575" y="130">75 %</text><text x="700" y="130">100 %</text></g>
+      <g font-size="13" font-weight="600" text-anchor="end"><text x="188" y="45">Today, n = 14</text><text x="188" y="90">E1, n ≈ 50–60</text></g>
+      <g font-size="11" text-anchor="end" style="fill:var(--muted)"><text x="188" y="59">measured</text><text x="188" y="104">computed, illustrative</text></g>
+      <line x1="365" y1="45" x2="595" y2="45" stroke="var(--orange)" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="485" cy="45" r="7" fill="var(--orange)"/>
+      <text x="610" y="49" font-size="12" class="mono" style="fill:var(--orange)">57 % [33–79]</text>
+      <line x1="385" y1="90" x2="515" y2="90" stroke="var(--blue)" stroke-width="6" stroke-linecap="round" stroke-dasharray="1 0"/>
+      <line x1="380" y1="90" x2="520" y2="90" stroke="var(--blue)" stroke-width="2" stroke-dasharray="3 3"/>
+      <circle cx="450" cy="90" r="7" fill="var(--blue)"/>
+      <text x="540" y="94" font-size="12" class="mono" style="fill:var(--blue)">50 % ± 12–14</text>
+    </svg>
+    </div>
+    <figcaption><b>Why the bar is 50–60, not taste.</b> Half-width ≈ ±23 points today versus ≈ ±12–14 at n ≈ 50–60 (computed, not in numbers.tex). At 71 % mining precision and ≈ 10 % replay loss that needs ≈ 80–95 mined commits, so 5–6 candidate projects attempted to keep 4–5. The paper's “3–4 projects” TODO is not the plan.</figcaption>
+  </figure>
+  <div class="steps">
+    <div><b>1 · Freeze</b><span>Mining rule v2 and the E1 pre-registration, including the decision rule</span><span class="chip st-p">planned</span></div>
+    <div><b>2 · Runner</b><span>Grouped profile runner; must reproduce networkx's 171/171 reach sets</span><span class="chip st-p">planned</span></div>
+    <div><b>3 · Projects</b><span>Set up 5–6 asv projects at old parents; environment rot is the main attrition risk</span><span class="chip st-p">planned</span></div>
+    <div><b>4 · Profile</b><span>Profiles at each edit's parent (not only S0); profiling only, no timing nights</span><span class="chip st-p">planned</span></div>
+    <div><b>5 · Analyse</b><span>Per-project and pooled Wilson intervals, forest plot; restate or reframe by the decision rule</span><span class="chip st-p">planned</span></div>
+  </div>
+  <p class="small muted">Estimate: ≈ 25–40 h of engineering and owner time, ≈ 8–20 h of machine time (inferred). Realistic: E1 results by about 20 December, full draft mid-January. If the pooled unreached share is low, the paper reframes around suite design.</p>
+  <p class="src"><b>Sources:</b> pm/deck-factsheet.md §3 (status, cost, size arithmetic); pm/advisor/deck-brief.md Q12 and §5; NUM BOneAgentLo/Hi, PrecPooledPct; 04-paper/sections/oracle.tex E1 TODO; abstract.tex TODO.</p>
+</section>
+
+<!-- 9. Decisions -->
+<section id="decide">
+  <header>
+    <p class="eyebrow">9 · Decisions needed from you</p>
+    <h2>Six questions for the meeting</h2>
+  </header>
+  <div class="cards">
+    <div class="card key-dec">
+      <span class="eyebrow">A14 · who labels E1?</span>
+      <h3>The coverage rate is a ratio over agent labels</h3>
+      <p class="small">Current decision (student): agent labels only. Options:</p>
+      <ol>
+        <li><b>Human blind subset:</b> the student labels the 20 networkx rows and a random 30 E1 rows; report human–agent κ and the rate under both. About half a day for the networkx rows; ≈ 3–5 h for 50 diffs.</li>
+        <li><b>Second model family</b> as a third rater. Weaker, cheap.</li>
+        <li><b>Pre-registered sensitivity</b>: the rate under subject-only, agent and union labels (today 9/15 vs 8/14).</li>
+      </ol>
+    </div>
+    <div class="card">
+      <span class="eyebrow">Other decisions</span>
+      <ul>
+        <li><b>A13:</b> lead the paper with the oracle gap?</li>
+        <li><b>E1 size:</b> confirm ≥ 4–5 projects and ≥ 50–60 optimizations, or cut it.</li>
+        <li><b>A10:</b> venue. Proposed ESEM 2027 full paper after E1, optional short paper now. Deadlines not verified.</li>
+        <li><b>A9:</b> Study 2 direction, undecided. Evidence-led proposal: per-edit targeted workloads to close the coverage gap, with deterministic baselines first.</li>
+        <li><b>A1:</b> is a heavy-build project needed?</li>
+      </ul>
+    </div>
+  </div>
+
+  <details>
+    <summary>Evidence trail and effort</summary>
+    <div style="display:grid;gap:.6rem;margin-top:.75rem">
+      <p class="small">About 35 hours of machine time over three nights <span class="chip st-i">inferred</span> from run windows, including gate waits. 9 full networkx benchmark passes; 1,026 verdicts recomputed under the exact test with none changed.</p>
+      <ul class="plain small">
+        <li><code>04-paper/generated/numbers.tex</code>: every figure on this page, generated from raw files (wins on any conflict).</li>
+        <li><code>knowledge-base/findings.md</code>: finding IDs (B4, V1, V2, N9–N15, R2, R5, T1, N1).</li>
+        <li><code>03-experiment/results/results.md</code>: raw-file pointers per section (E5, Directory A/A, edit share §2b).</li>
+        <li><code>02-practice-survey/</code>: how optimizers (SemOpt, PerfAgent, Codeflash, SysLLMatic, OpenEvolve) and harnesses (SWE-Perf, GSO, SWE-fficiency, FormulaCode) validate a candidate, cited to paper section or code line.</li>
+        <li><code>01-literature/closest-works.md</code> and <code>beyond-literature-claims.md</code>: close work and safe novelty wording.</li>
+        <li>Replication package target: ACM “Available” and “Functional” (raw files, commands, hashes). No badge is claimed.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+</div>
+
+<script>
+(function(){
+  // 171 benchmark cases as a 19 x 9 grid inside the benchmark box (A1)
+  var g=document.getElementById('cases');
+  if(g){var ns='http://www.w3.org/2000/svg';
+    for(var r=0;r<9;r++){for(var c=0;c<19;c++){var e=document.createElementNS(ns,'rect');
+      e.setAttribute('x',441+c*9.2);e.setAttribute('y',28+r*7.6);e.setAttribute('width',5);e.setAttribute('height',4);e.setAttribute('rx',1);g.appendChild(e);}}}
+  // 168 identical-code comparisons, 4 flagged (positions illustrative)
+  var aa=document.getElementById('aagrid');
+  if(aa){var flagged={23:1,61:1,110:1,149:1};
+    for(var i=0;i<168;i++){var d=document.createElement('i');if(flagged[i])d.className='flag';aa.appendChild(d);}}
+  // click-to-play: restart the animation by toggling the class
+  document.querySelectorAll('button.play').forEach(function(b){
+    b.addEventListener('click',function(){var f=document.getElementById(b.getAttribute('data-target'));
+      f.classList.remove('run');void f.getBoundingClientRect();f.classList.add('run');});
+  });
+})();
+</script>

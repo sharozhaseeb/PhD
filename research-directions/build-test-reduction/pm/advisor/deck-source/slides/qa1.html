@@ -1,0 +1,20 @@
+<section id="qa1" class="alt dense">
+<p class="eyebrow">Backup · Likely questions</p>
+<h2>Questions you are likely to ask (1 of 2)</h2>
+<div class="row" style="gap:32px;">
+<div class="col" style="gap:20px;">
+<p class="q">Build is negligible and testmon solves tests. What is the contribution?</p>
+<p class="a">A measurement study whose lead finding is the oracle gap: 8 / 14 edits unreached, ≤ 4 / 14 visible at 1.2×, 1 / 10 slowdowns detected above the floor.</p>
+<p class="q">Is your cost headline an artefact of the suite’s setup?</p>
+<p class="a">Partly, and we measured it: ≈ 8× standard, 2.2–2.3× with setup reused. Still the largest part.</p>
+</div>
+<div class="col" style="gap:20px;">
+<p class="q">You say no AI. Who labelled the optimizations?</p>
+<p class="a">The rules have no AI. The labels come from two blind LLM raters plus an LLM adjudicator; κ = 0.948 is inflated. The rate moves by one edit across label sets (9 / 15 vs 8 / 14).</p>
+<p class="q">Historical commits are not an optimizer session.</p>
+<p class="a">Agreed; no session effect is claimed. Coverage and visibility are per edit, so they do not depend on it.</p>
+</div>
+</div>
+<div class="foot"><span>Backup</span></div>
+<aside>Answer each in one breath, then point to the slide with the evidence.</aside>
+</section>

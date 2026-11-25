@@ -1,0 +1,15 @@
+<section id="reductions" class="dense">
+<p class="eyebrow">RQ4 · Existing reductions and our own policy</p>
+<h2>Reductions help less than they appear</h2>
+<table style="font-size:28px;">
+<tr><th style="width:30%">Reduction</th><th style="width:34%">Measured</th><th>Caveat</th></tr>
+<tr><td>Incremental build</td><td>≈ 1.5% of FULL</td><td>Estimated (simulated), not measured</td></tr>
+<tr><td>testmon test selection</td><td>3.5–4× cheaper end to end (not 15×)</td><td>One run, mixed load</td></tr>
+<tr><td>Functional misses</td><td>0 / 20 frozen mutants (CI 0–16.1%)</td><td>Caught almost by construction</td></tr>
+<tr><td>Changed-module rule</td><td>Misses 2 / 20</td><td>Same fault model</td></tr>
+<tr><td>Our accumulated-change policy (A4)</td><td>≈ 655 s vs testmon 330 s</td><td>As implemented; loses to batching</td></tr>
+</table>
+<div class="callout"><p><b>Honest limitation:</b> mutants sit inside the edited functions, so every selector catches them. This fault model cannot rank selection rules; it only shows the cheap arm is not obviously unsafe.</p></div>
+<div class="foot"><span>RQ4 · reductions</span></div>
+<aside>A4 is a negative result and gets one slide. It is a deterministic variant of risk-mass batching (Sayedsalehi 2026), not a new mechanism. With benchmarks counted, batching is 1.7 to 6x cheaper, conditional on profile selection collapsing to 171 of 171 cases (finding B2). NameRTS was not run.</aside>
+</section>

@@ -1,0 +1,12 @@
+<section id="problem">
+<p class="eyebrow">The problem</p>
+<h2>Optimizers re-validate every candidate edit, and that work multiplies</h2>
+<div class="row">
+<div class="card fade" style="--i:0"><h3>The loop</h3><p class="lbl">Edit → build → run tests → run benchmarks → accept or reject. Repeated for every candidate, often dozens per task.</p></div>
+<div class="card fade" style="--i:1"><h3>Who does it</h3><p class="lbl">LLM optimizers such as SemOpt and PerfAgent; harnesses such as SWE-Perf, GSO and FormulaCode.</p><p class="note">SemOpt: full build, full tests and 6 performance runs per candidate, untimed.</p></div>
+<div class="card hl fade" style="--i:2"><h3>Our question</h3><p class="lbl">Can deterministic reduction (incremental build, test and benchmark selection) cut that per-edit cost, and what can the cheaper check still see?</p></div>
+</div>
+<div class="callout"><p><b>Motivating case:</b> a networkx commit whose message claims <i>bidirectional_dijkstra</i> is “1.1× to 25× faster” (not re-measured). No benchmark in the project’s suite executes it.</p></div>
+<div class="foot"><span>Study 1 · per-edit validation</span></div>
+<aside>Frame it as a systems question for optimizer loops, not as a new test-selection algorithm. The motivating commit is the one we profile in the backup slide. No AI is in the reduction or validation rules; the optimization labels do come from LLM agents, which I state on the method slide.</aside>
+</section>

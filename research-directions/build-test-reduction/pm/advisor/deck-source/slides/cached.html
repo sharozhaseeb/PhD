@@ -1,0 +1,13 @@
+<section id="cached" class="alt dense">
+<p class="eyebrow">RQ1 caveat · measured last night (E5)</p>
+<h2>Much of that cost is suite design: reuse setup and it falls 3.5×</h2>
+<div class="row">
+<div class="card fade" style="--i:0"><p class="mid blue">691 s</p><p class="lbl">Standard asv pass (median of 3)</p><p class="note">7.8–8.1× build + tests, same night</p></div>
+<div class="card hl fade" style="--i:1"><p class="mid">195 s</p><p class="lbl">Setup-cached pass (median of 3)</p><p class="note">2.2–2.3× build + tests</p></div>
+<div class="card fade" style="--i:2"><p class="mid blue">71%</p><p class="lbl">of the cached pass is timing loops</p><p class="note">Calibration and warm-up 24–25%; imports ≈ 2.4%</p></div>
+</div>
+<div class="callout"><p>Benchmarks stay the largest part of per-edit validation, but not by an order of magnitude once setup is reused.</p></div>
+<p class="small">3 standard/cached pairs on 24 Nov; samples agree within ±25% on 170 of 171 cases. The 484–504 s gap is <i>inferred</i> to be per-process start-up and re-import. A fast night: slow-night ratio not measured.</p>
+<div class="foot"><span>RQ1 · E5 setup-cached pass</span></div>
+<aside>This replaces our earlier unmeasured 1.5–2x estimate. Answer to "is your cost headline an artefact?": partly yes, and we measured how much. A module-level setup cache is a lower bound on what a smarter harness could do, not a replacement for asv.</aside>
+</section>

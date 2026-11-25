@@ -1,0 +1,15 @@
+<section id="closework" class="dense">
+<p class="eyebrow">Closest work</p>
+<h2>Where ours sits among the closest studies</h2>
+<table style="font-size:26px;">
+<tr><th style="width:26%">Work</th><th style="width:37%">What it does</th><th>How ours differs</th></tr>
+<tr><td>Traini et al., TOSEM 2021</td><td>Per-commit JMH reach, refactorings, 31 Java projects</td><td>Optimization commits, Python/asv; we report the uncovered rate</td></tr>
+<tr><td>Laaber &amp; Leitner, MSR 2018</td><td>Slowdowns injected in 20 sampled methods</td><td>Reach of real changes</td></tr>
+<tr><td>Peass, Reichelt 2023</td><td>Missed regressions: uncovered vs noise</td><td>We reuse the split</td></tr>
+<tr><td>Shahedi et al., 2025</td><td>Drop commits no benchmark targets; no rate</td><td>Their filter is our outcome</td></tr>
+<tr><td>Grambow et al., 2022 (TCC); PeerJ CS 2021</td><td>Microbenchmark coverage, fixed versions, Go</td><td>Per commit, optimizations</td></tr>
+<tr><td>FormulaCode, SWE-Perf, GSO</td><td>Require a speed-up or a covering test</td><td>Cannot measure the gap by design</td></tr>
+</table>
+<div class="foot"><span>Close work · also PerfAgent and SemOpt, which validate every candidate</span></div>
+<aside>Ding et al. ICSE 2020: tests that cover a change rarely show its speed-up, but that applies only to tests that already cover it. Quansight 2021 (asv A/A in CI, blog, 3.7 to 12.5 percent false positives) is context for our 2 percent rate. SWE-fficiency also drops PRs without a covering test.</aside>
+</section>

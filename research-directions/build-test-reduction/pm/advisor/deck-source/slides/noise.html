@@ -1,0 +1,17 @@
+<section id="noise" class="alt dense">
+<p class="eyebrow">How far to trust a verdict · night 2</p>
+<h2>About 2% of off-target comparisons flag a change, even with identical code</h2>
+<table style="font-size:26px;">
+<tr><th style="width:42%">Comparison (12 vs 12 samples)</th><th style="width:28%">Off-target flags</th><th>Shows</th></tr>
+<tr><td>Fixed directories (night 1)</td><td>11 / 499 = 2.2%</td><td>—</td></tr>
+<tr><td>Identical code, both directories</td><td>4 / 168 = 2.4%</td><td>Flips need no edit</td></tr>
+<tr><td>Directories swapped</td><td>6 / 340 = 1.8%</td><td>Not a directory effect alone</td></tr>
+</table>
+<div class="row">
+<div class="card hl"><h3>Rule we now apply</h3><p class="lbl">A single verdict of about 1.4× or less, either way, is not evidence. Identical code reached 1.31× slower and 0.73× faster.</p></div>
+<div class="card"><h3>What survives</h3><p class="lbl">Slowdown #2 at 1.76–1.90×: above that band and its own floors, and repeated. Flags on #8, #1 and #9 are not counted.</p></div>
+</div>
+<p class="small">Cause unresolved: per-night variation, a test made over-eager by correlated samples (12 samples from 4 processes), or a case-specific effect.</p>
+<div class="foot"><span>Oracle trust · directory A/A and swap, 23–24 Nov</span></div>
+<aside>Identical-code rate: Wilson CI 0.9 to 6.0 percent. No swapped flag reverses sign, so a directory effect alone does not produce them; but sign consistency is not evidence of a real effect either, because identical-code flips kept their sign 4 of 4. About 4 false changes per 171-case comparison, for the 12 vs 12 design only; the 18 vs 18 oracle design was not A/A-tested at this scale. Next test: process-level analysis or more processes per side. #8’s on-target 1.12–1.20× was not re-tested in the swap, so #8 stays uncounted.</aside>
+</section>

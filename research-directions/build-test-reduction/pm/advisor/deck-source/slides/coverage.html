@@ -1,0 +1,17 @@
+<section id="coverage" class="dark">
+<p class="eyebrow">RQ2 · Is the edit even executed?</p>
+<h2>For many real optimizations, no benchmark runs the changed code</h2>
+<div class="row" style="align-items:center;gap:64px;">
+<div class="col" style="flex:0.9;">
+<p class="big" style="font-size:200px;color:#E49A72;">8 / 14</p>
+<p class="lede">agent-labelled networkx optimizations whose changed functions no benchmark executes in the base-state profiles</p>
+<p class="small">57%, Wilson 95% CI 33–79%. Earlier subject-only labels: 9 / 15. It moves by one edit.</p>
+</div>
+<div class="col" style="flex:1.1;">
+<div class="card" style="background:#22303E;border-color:#3A4A5A;"><h3 style="color:#F3EFE6;">Profile vs static reach</h3><p class="note" style="color:#C9D3DB;">Static reach says only 3 / 14 are unreached, but it over-approximates: <i>bidirectional_dijkstra</i> is statically connected to all 171 cases, and no profile executes it. Profiles under-approximate (one call per case, base state only).</p></div>
+<div class="card" style="background:#22303E;border-color:#3A4A5A;"><h3 style="color:#F3EFE6;">Label quality</h3><p class="note" style="color:#C9D3DB;">Mining precision 71% pooled (50 / 70, CI 60–81%). Labels from LLM agents only; κ = 0.948 is inflated by the shared model family.</p></div>
+</div>
+</div>
+<div class="foot"><span>RQ2 · coverage gap (finding B1) · one project</span></div>
+<aside>Say "many", not "most": the interval reaches down to 33%. This is networkx only; B1 was not validly tested elsewhere (static reach from old bases, pvlib has no asv suite, bottleneck is template code). E1 is the replication gate.</aside>
+</section>

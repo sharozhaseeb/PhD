@@ -1,0 +1,12 @@
+<section id="detection" class="dense">
+<p class="eyebrow">RQ3 · Executed, visible, detectable</p>
+<h2>9 of 10 injected slowdowns go undetected above the noise floor</h2>
+<div class="row">
+<div class="card fade" style="--i:0"><span class="pill blue">Executed</span><p class="mid blue">8 / 14</p><p class="lbl">edits unreached by any benchmark</p></div>
+<div class="card fade" style="--i:1"><span class="pill blue">Visible</span><p class="mid blue">≤ 4 / 14</p><p class="lbl">edits could move a benchmark past asv’s 1.1 ratio if the changed function were 1.2× slower (5 / 14 at 2×)</p></div>
+<div class="card hl fade" style="--i:2"><span class="pill">Detectable</span><p class="mid">1 / 10</p><p class="lbl">injected slowdowns detected on target by FULL above the pre-registered noise floor</p><p class="note">Wilson 1.8–40.4%; 2 / 10 by asv’s rule alone</p></div>
+</div>
+<p class="small">Why the 9 misses: 7 sit in code no profile executes (coverage); #3’s function is 0.5% of its benchmark’s time, so a doubling shows as ≈ 1.005× (dilution); #8 stays below its noise floor. At 18 vs 18 samples the heavy module resolves only ≈ 1.5× or more. Pre-registered conclusion: regression safety of reduced benchmark selection is <b>not measurable</b> with this frozen set.</p>
+<div class="foot"><span>RQ3 · visibility and detection</span></div>
+<aside>The three-factor framing is executed, visible (Amdahl-style share of case time), detectable (power against noise). The uncovered versus below-noise split itself is not new: Peass and Laaber and Leitner split misses this way. What we add is the measured rate on real optimization commits.</aside>
+</section>

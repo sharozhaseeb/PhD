@@ -1,0 +1,12 @@
+<section id="cost">
+<p class="eyebrow">RQ1 · Where the per-edit cost goes</p>
+<h2>Benchmarks, not build or tests, dominate per-edit validation</h2>
+<div class="row">
+<div class="card hl fade" style="--i:0"><p class="big">≈ 8×</p><p class="lbl">A full networkx benchmark pass vs build + serial tests, even on the fastest passes</p><p class="note">Median ≈ 14× over 9 passes (1,220 s); up to ≈ 34× under machine drift (659–2,984 s per pass)</p></div>
+<div class="card fade" style="--i:1"><p class="big blue">18.5–19×</p><p class="lbl">bottleneck, the C-extension project, at one state</p><p class="note">Two passes, 544 and 547 s, 0.5% apart</p></div>
+<div class="card fade" style="--i:2"><p class="big blue">≤ 0.9%</p><p class="lbl">Build’s share of total once benchmarks count</p><p class="note">networkx editable install ≈ 1.2 s; bottleneck clean build 4.7–5.4 s</p></div>
+</div>
+<p class="small">Caveats said aloud: 8 of 9 networkx passes are labelled noisy by one uniform rule; one evening drifted 2,984 → 1,217 s while timing loops stayed at 144–155 s (cause unknown). Hence a range with a lower bound. No heavy-build project was measured.</p>
+<div class="foot"><span>RQ1 · cost</span></div>
+<aside>Lead with the lower bound, not the median. The drift is outside the timing loops, which motivates the E5 measurement on the next slide. Do not claim anything about heavy builds: the scikit-learn measurement was planned and not run.</aside>
+</section>

@@ -1,0 +1,29 @@
+<section id="method" class="alt dense">
+<p class="eyebrow">Setup</p>
+<h2>Replay real optimization commits, with full validation as the oracle</h2>
+<div class="row" style="gap:48px;">
+<div class="col tight" style="flex:1.1;">
+<h3>How</h3>
+<ul>
+<li>Mine historical commits with a frozen rule; replay them one after another on one base tree</li>
+<li>At every state, run FULL: build, all tests, all benchmarks</li>
+<li>Score each reduced arm by what FULL catches; asv verdict rule plus a pre-registered 1 + 3σ noise floor</li>
+<li>Rules frozen and hashed before runs; every number traced to a raw file</li>
+</ul>
+</div>
+<div class="col">
+<h3>Scale so far</h3>
+<table>
+<tr><th style="width:62%">Item</th><th>Value</th></tr>
+<tr><td>networkx (pure Python)</td><td>171 asv cases, 6,771 tests</td></tr>
+<tr><td>bottleneck (C extension)</td><td>cost: tests at 8 states, benchmarks at 1</td></tr>
+<tr><td>Replayed commits</td><td>18; 14 optimizations</td></tr>
+<tr><td>Injected slowdowns</td><td>10 frozen</td></tr>
+<tr><td>Frozen mutants</td><td>25; 20 killed by FULL</td></tr>
+</table>
+</div>
+</div>
+<p class="small"><b>Four RQs:</b> RQ1 cost · RQ2 coverage (is the edit executed?) · RQ3 visibility and detection · RQ4 reductions. <b>No AI in the rules;</b> the 14 optimization labels come from two blind LLM raters plus an LLM adjudicator, no human rater.</p>
+<div class="foot"><span>Setup · one WSL2 machine, idle-gated timing</span></div>
+<aside>Be precise about AI: selection and validation rules contain no learned component. The labels defining the B1 denominator are LLM-produced, same model family, kappa 0.948, which is inflated for that reason. I raise this as a decision on the asks slide. Replay of non-adjacent commits: no session effect is claimed.</aside>
+</section>

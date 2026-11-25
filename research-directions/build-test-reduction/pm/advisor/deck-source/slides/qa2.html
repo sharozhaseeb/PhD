@@ -1,0 +1,20 @@
+<section id="qa2" class="alt dense">
+<p class="eyebrow">Backup · Likely questions</p>
+<h2>Questions you are likely to ask (2 of 2)</h2>
+<div class="row" style="gap:32px;">
+<div class="col" style="gap:20px;">
+<p class="q">Which reach is right, profile (8 / 14) or static (3 / 14)?</p>
+<p class="a">Static over-approximates (<i>bidirectional_dijkstra</i> links to all 171 cases, yet no profile runs it); profiles under-approximate. E1 profiles each edit’s parent.</p>
+<p class="q">8 of 9 passes are noisy. Are the cost numbers reproducible?</p>
+<p class="a">Timing loops are stable (132–171 s over 9 passes; 144–155 s on the drift evening); setup drifts 2.45× in one evening, cause unknown. Hence a range with a lower bound.</p>
+</div>
+<div class="col" style="gap:20px;">
+<p class="q">Did the directory swap fix the confound?</p>
+<p class="a">No. The rate stays ≈ 2% and no flag reverses sign, so it is not a directory effect alone. Cause unresolved.</p>
+<p class="q">Why testmon and not NameRTS? Is the policy just batching?</p>
+<p class="a">NameRTS was not run. The trigger is a deterministic variant of risk-mass batching, and as implemented it loses.</p>
+</div>
+</div>
+<div class="foot"><span>Backup</span></div>
+<aside>Other numbers to have ready: bottleneck clean build 4.7 to 5.4 s; networkx editable install about 1.2 s; mining precision per project, pvlib only 3 of 14; exact-test p-values 1.27e-3 and 1.19e-3.</aside>
+</section>
