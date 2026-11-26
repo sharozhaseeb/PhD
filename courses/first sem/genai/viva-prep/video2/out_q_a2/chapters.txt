@@ -1,0 +1,11 @@
+GenAI A2 Viva Questions: total 75 min 24 s
+00:00  Intro
+01:16  Q1 · Beta vs alpha
+07:45  Q2 · Alpha bar t
+14:18  Q3 · Linear vs cosine
+21:01  Q4 · Sampling
+29:49  Q5 · Why the timestep
+37:44  Q6 · The plots
+51:00  Q7 · Linear probing
+57:44  Q8 · Swin vs ViT
+66:32  Q9 · FPN and detection

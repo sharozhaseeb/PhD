@@ -1,0 +1,1596 @@
+"""A2 viva questions: a short, question-driven viva-prep video for GenAI Assignment 2 (CS5004), 26L-9005, d = 5.
+
+Each section answers one question a classmate was actually asked in the A2 viva:
+handout lines -> idea or diagram -> our code -> our output -> a spoken model answer.
+Format: see SPEC.md (kinds handout / code / output / figure / text, optional hl).
+"""
+
+SLIDES = [
+
+# =====================================================================  INTRO
+dict(
+    section="Intro",
+    title="How this video works, and the notation card",
+    kind="text",
+    bullets=[
+        "Nine real viva questions, one section each, in the order they were asked",
+        "Each: handout lines → idea → our code → our output → a spoken model answer",
+        "Hat ^ = an estimate: x̂0 is the model's guess of the clean image",
+        "Bar ¯ = cumulative product: ᾱt = α0 · α1 · … · αt",
+        "Subscript t = 'at step t'; θ (theta) = learned by gradient descent",
+        "Our steps run t = 0 … 999 (T = 1000)",
+    ],
+    narration=(
+        "Welcome. This video answers the questions a classmate was actually asked in the Assignment 2 viva, one question at a time. "
+        "For each question we do the same five things. We read the handout lines. We build the idea in plain words. "
+        "We look at our own code. We look at the output we got. And we finish with a model answer you could say in about half a minute, "
+        "plus one or two follow-up questions. The goal is understanding, not memorising, so go slowly and pause whenever you like. "
+        "First, a notation card, because the examiner will read symbols out loud. "
+        "A hat on a letter means an estimate. So x hat zero is the model's guess of the clean image, which it cannot see. "
+        "A bar on top means a running product. Alpha bar t is alpha zero times alpha one, all the way up to alpha t. "
+        "A small subscript t just means at step t. And a small theta means something learned by gradient descent, "
+        "like epsilon theta, the noise guess that comes out of the U-Net. "
+        "One last detail: in our code the steps are counted from zero to 999, so capital T, the total, is 1000."
+    ),
+),
+
+# =====================================================================  Q1 BETA VS ALPHA
+dict(
+    section="Q1 · Beta vs alpha",
+    title="Q1 · Where β and α come from in the handout",
+    kind="handout",
+    page=1,
+    find=[
+        "A1. Forward process and noise schedules (10%)",
+        "Implement the linear schedule",
+        "and the cosine schedule (Nichol",
+    ],
+    bullets=[
+        "A1 asks for two noise schedules: linear and cosine",
+        "A schedule = the list of 1000 betas, one per step",
+        "Linear: β from 10⁻⁴ to 0.02, T = 1000",
+        "Viva question: 'What is the difference between beta and alpha?'",
+    ],
+    narration=(
+        "The first question was simple to ask, and easy to get muddled on: what is the difference between beta and alpha? "
+        "Both come from task A1, which you can see highlighted on page one. "
+        "A1 asks you to implement two noise schedules, a linear one and a cosine one. "
+        "What is a schedule? It is just a list of 1000 small numbers called betas, one for every step of the forward process. "
+        "The schedule decides how quickly the clean image is turned into noise. "
+        "For the linear schedule, the handout gives the two ends: beta starts at ten to the minus four, and grows evenly up to 0.02, "
+        "over capital T equals 1000 steps. "
+        "Alpha is not a second list that you choose. It is computed from beta. "
+        "So when the examiner asks about beta versus alpha, they want to hear that beta is the noise you add, "
+        "alpha is the signal you keep, and that one fully decides the other. "
+        "Let us build that idea properly before looking at the code."
+    ),
+),
+
+dict(
+    section="Q1 · Beta vs alpha",
+    title="Q1 · The idea: β adds noise, α keeps signal, ᾱ keeps the total",
+    kind="text",
+    bullets=[
+        "βt (beta t) = the noise variance added at ONE step t",
+        "αt (alpha t) = 1 − βt = the share of signal variance that survives that step",
+        "One step: image scaled by √αt, noise scaled by √βt",
+        "ᾱt (alpha bar t) = α0 · α1 · … · αt = signal left after ALL steps so far",
+        "β controls the speed per step; ᾱ controls how noisy xt is overall",
+        "Example: β = 0.02 → α = 0.98 → image scaled by √0.98 ≈ 0.99",
+    ],
+    narration=(
+        "Here is the idea. Picture a glass of juice. At every step you pour out a little juice and top it up with water. "
+        "Beta t is how much water you pour in at step t. In diffusion it is the variance of the fresh noise added at that one step. "
+        "Alpha t is one minus beta t. It is the share of the signal's variance that survives that same step. "
+        "So if beta is 0.02, alpha is 0.98. Ninety eight percent of the variance survives, "
+        "and the image itself is multiplied by the square root of 0.98, which is about 0.99. "
+        "Beta and alpha always add up to one, so the total variance stays the same. "
+        "Now the bar. Alpha bar t multiplies all the alphas from step zero up to step t. "
+        "That is the juice left after all the pours so far. "
+        "So what does each one control? Beta and alpha control one single step: how fast we destroy the image right now. "
+        "Alpha bar controls the overall state: how noisy x t is, compared to the clean image x zero. "
+        "Near one, almost clean. Near zero, almost pure noise."
+    ),
+),
+
+dict(
+    section="Q1 · Beta vs alpha",
+    title="Q1 · Code: betas in, alphas and alpha bars out",
+    kind="code",
+    src="A2NB",
+    start="class Schedule:",
+    n=14,
+    hl=["self.betas = betas.to(DEVICE)", "self.alphas = 1.0 - self.betas", "torch.cumprod(self.alphas, dim=0)", '"linear": Schedule("linear", linear_betas(T))'],
+    bullets=[
+        "We only ever choose betas; everything else is derived",
+        "alphas = 1 − betas, element by element",
+        "alpha_bars = torch.cumprod: the running product of the alphas",
+        "One Schedule object per schedule: linear and cosine",
+    ],
+    narration=(
+        "This is our Schedule class, and it shows the relationship in three lines. "
+        "On the first highlighted line, the betas are stored and moved to the GPU once. "
+        "These betas are the only numbers we actually choose. "
+        "On the next line, alphas equals one minus betas. It works element by element, so we get 1000 alphas, one per step. "
+        "On the third highlighted line, alpha bars come from torch dot cumprod, the cumulative product. "
+        "Entry zero is alpha zero. Entry one is alpha zero times alpha one. Entry t is the product of every alpha up to t. "
+        "dim equals zero just says multiply along the time axis, which is the only axis. "
+        "That one line is the definition of alpha bar, written as code. "
+        "At the bottom, we build one Schedule for linear and one for cosine. The only difference is the list of betas we pass in. "
+        "So if the examiner asks which of these three you control, the answer is beta. "
+        "Alpha and alpha bar follow from it automatically, and because they are computed in one place, they can never disagree."
+    ),
+),
+
+dict(
+    section="Q1 · Beta vs alpha",
+    title="Q1 · Saved output: the first and last β and ᾱ",
+    kind="output",
+    src="A2OUT",
+    start="linear: beta[0]=",
+    n=2,
+    hl=["linear: beta[0]", "cosine: beta[0]"],
+    bullets=[
+        "[0] = step t = 0; [-1] = last step t = 999",
+        "Linear: β0 = 1e-4, β999 = 0.02; ᾱ0 = 0.9999 = 1 − β0",
+        "Cosine: β0 = 4.13e-05, β999 = 0.999 (the clamp)",
+        "ᾱ999: linear 4.04e-05, cosine 2.43e-09",
+        "Cosine ᾱ0 prints 1.0000 only from rounding: really 0.99996",
+    ],
+    narration=(
+        "This is the saved output of that cell, from the executed notebook. Nothing was re-run. "
+        "One line per schedule. Square bracket zero means the first step, and minus one means the last step, 999. "
+        "Look at the linear line. Beta zero is ten to the minus four, and the last beta is 0.02, exactly the handout's two ends. "
+        "Alpha bar zero is 0.9999. Why? The product so far contains only one alpha, and alpha zero is one minus ten to the minus four. "
+        "That is a nice check that alpha bar really is built from beta. "
+        "Alpha bar 999 is about four in a hundred thousand, so almost nothing of the image is left. "
+        "Now the cosine line. Its first beta is smaller, 4.13 times ten to the minus five, so cosine starts more gently. "
+        "Its last beta is 0.999. That is a clamp we added, and it becomes important in question three. "
+        "Its alpha bar zero prints as 1.0000, but only because of rounding to four decimals. The true value is 0.99996. "
+        "And its alpha bar 999 is far smaller than linear's, 2.43 times ten to the minus nine."
+    ),
+),
+
+dict(
+    section="Q1 · Beta vs alpha",
+    title="Q: What is the difference between β and α? · model answer",
+    kind="text",
+    bullets=[
+        "βt = noise variance added at step t; αt = 1 − βt = signal variance kept at step t",
+        "One step: xt = √αt · x(t−1) + √βt · noise; the two variances add to 1",
+        "β, α: per step; ᾱt = product of all α up to t = signal left after t steps (cumulative)",
+        "We choose β (linear: 10⁻⁴ → 0.02); α and ᾱ are derived in code",
+        "Follow-up: 'Is ᾱ0 equal to 1?' No: our ᾱ0 = α0 = 0.9999 (linear)",
+        "Follow-up: 'Why must β stay below 1?' β = 1 → α = 0 → divide by zero",
+    ],
+    narration=(
+        "Here is a model answer you could give. "
+        "Beta t is the variance of the noise we add at one step t. Alpha t is one minus beta t, the share of the signal's variance that survives that step. "
+        "In one forward step, the previous image is scaled by root alpha t and fresh noise is scaled by root beta t, "
+        "so the two variances add up to one. "
+        "So beta and alpha are per step quantities: they describe one step only. "
+        "Alpha bar t, with the bar, is the cumulative one: it multiplies all the alphas up to t, so it tells us how much of the original image is left after t steps. "
+        "That is why the closed form and the x hat zero formula use alpha bar, while the single reverse step uses alpha and beta. "
+        "In our code we only choose the betas. For linear, they go from ten to the minus four to 0.02. "
+        "Alpha and alpha bar are computed from them. "
+        "Two likely follow-ups. Is alpha bar zero equal to one? Not in our code. Our steps start at zero, "
+        "so alpha bar zero already includes one step of noise: 0.9999 for linear. "
+        "And why must beta stay below one? If beta were one, alpha would be zero, and the sampler divides by root alpha, so it would divide by zero."
+    ),
+),
+
+# =====================================================================  Q2 ALPHA BAR
+dict(
+    section="Q2 · Alpha bar t",
+    title="Q2 · Where ᾱt appears in the handout",
+    kind="handout",
+    page=2,
+    find=[
+        "Take one training image and show it at",
+        "using the closed form",
+        "explain which schedule destroys the image faster",
+    ],
+    bullets=[
+        "Show one image at t = 0, 100, 250, 500, 750, 999 for each schedule",
+        "Use the closed form: xt = √ᾱt x0 + √(1 − ᾱt) ε",
+        "Then explain which schedule destroys the image faster",
+        "Viva question: 'What is alpha bar t?'",
+    ],
+    narration=(
+        "The second question followed straight on: what exactly is alpha bar t? "
+        "On page two, the handout asks you to take one training image and show it at six steps, 0, 100, 250, 500, 750 and 999, "
+        "under each schedule. And it tells you how: using the closed form. "
+        "The closed form says x t equals the square root of alpha bar t times x zero, plus the square root of one minus alpha bar t, times epsilon. "
+        "So alpha bar t is the number that lets you jump straight from the clean image to any step t, in one go. "
+        "The last highlighted line asks which schedule destroys the image faster. "
+        "That question is really about alpha bar too, because alpha bar is exactly the measure of how much image is left. "
+        "So to answer the viva question well, you need three things: the definition as a product, "
+        "the meaning as the share of signal variance, and the closed form jump. Let us take them in turn."
+    ),
+),
+
+dict(
+    section="Q2 · Alpha bar t",
+    title="Q2 · The idea: ᾱt is the share of signal left",
+    kind="text",
+    bullets=[
+        "Definition: ᾱt = α0 · α1 · … · αt  (the bar = accumulated product)",
+        "Meaning: the share of x0's variance still present in xt",
+        "Closed form: xt = √ᾱt · x0 + √(1 − ᾱt) · ε,  ε ~ N(0, I)",
+        "ᾱt + (1 − ᾱt) = 1: total variance stays 1 ('variance preserving')",
+        "Gaussian steps chain into one Gaussian: jump to any t in one line",
+        "ᾱ = 0.5: signal and noise are equally strong",
+    ],
+    narration=(
+        "Three ideas. First, the definition. Alpha bar t is a product: alpha zero times alpha one times every alpha up to alpha t. "
+        "Every alpha is a bit below one, so the product only goes down as t grows. "
+        "Second, the meaning. Alpha bar t is the share of the clean image's variance that is still present in x t. "
+        "If alpha bar is 0.5, signal and noise are equally strong. If it is 0.01, only one percent of the signal is left. "
+        "Third, the closed form. x t equals root alpha bar t times x zero, plus root of one minus alpha bar t times epsilon. "
+        "Epsilon is fresh Gaussian noise with mean zero and variance one. "
+        "Think of two sliders on a mixing desk: one for the image, one for the noise. Alpha bar sets both. "
+        "The square roots are there so the two variances, alpha bar and one minus alpha bar, add up to exactly one. "
+        "This is called variance preserving. "
+        "And why can we jump to any t at once? Each forward step adds Gaussian noise, and a chain of Gaussian steps is itself one Gaussian. "
+        "So 1000 small steps collapse into this one formula."
+    ),
+),
+
+dict(
+    section="Q2 · Alpha bar t",
+    title="Q2 · Code: the closed-form jump, q_sample",
+    kind="code",
+    src="A2NB",
+    start="def q_sample(x0, t, eps, sched):",
+    n=9,
+    hl=["abar = sched.alpha_bars[t].view(-1, 1, 1, 1)", "return abar.sqrt() * x0 + (1 - abar).sqrt() * eps", "abar[999]="],
+    bullets=[
+        "Look up ᾱt for each image's own t: shape (B,)",
+        ".view(-1, 1, 1, 1): one ᾱ broadcast over all of that image's pixels",
+        "Return √ᾱt · x0 + √(1 − ᾱt) · ε: the closed form, word for word",
+        "One function serves the A1 grid and every training step",
+    ],
+    narration=(
+        "This is q sample, our forward process, and it is the closed form written as code. "
+        "It takes a batch of clean images x zero, one timestep per image, the noise epsilon, and a schedule. "
+        "On the first highlighted line, sched dot alpha bars, indexed by t, looks up alpha bar for each image's own step. "
+        "That gives one number per image, a shape of B. "
+        "The view with minus one, one, one, one reshapes it to B by 1 by 1 by 1, "
+        "so that one number multiplies every pixel of its own image. Without the view, PyTorch would match the B numbers against the last axis, "
+        "the pixel width, and either fail or mix up images. "
+        "On the next highlighted line we return root alpha bar times x zero, plus root of one minus alpha bar, times epsilon. "
+        "Compare it with the handout formula: it is the same, word for word. "
+        "The alternative would be a loop that adds noise one small step at a time. "
+        "That gives the same distribution, but it needs up to 1000 updates instead of one. "
+        "Below the function, the print line reports alpha bar at the first and the last step, which is the output we read in question one."
+    ),
+),
+
+dict(
+    section="Q2 · Alpha bar t",
+    title="Q2 · Saved output: our printed ᾱt values",
+    kind="output",
+    src="A2OUT",
+    start="saved A1_alpha_bar.png",
+    n=5,
+    hl=["linear  0.99990", "cosine  0.99996"],
+    bullets=[
+        "Columns t = 0, 100, 250, 500, 750, 999",
+        "t = 250: linear 0.521, cosine 0.846",
+        "t = 500: linear 0.078, cosine 0.492",
+        "t = 750: linear 0.0033, cosine 0.143",
+        "ᾱ < 0.5 at t = 259 (linear) vs 496 (cosine), from results.json",
+    ],
+    narration=(
+        "Here are our actual alpha bar values, from the saved output. "
+        "The columns are the six steps the handout asked for. The rows are the two schedules. "
+        "Each number is the share of signal variance left at that step. "
+        "At step zero both are almost one: 0.9999 for linear and 0.99996 for cosine. "
+        "At step 100, linear keeps 0.895 and cosine 0.972. "
+        "At 250, linear is already down to 0.521, about half, while cosine still keeps 0.846. "
+        "At 500 the gap is largest. Linear keeps only 0.078, under eight percent. Cosine keeps 0.492, almost half. "
+        "At 750, linear has 0.0033, practically pure noise, and cosine still has 0.143. "
+        "At 999, both are essentially zero. Cosine prints as zeros because 2.43 times ten to the minus nine is too small for five decimals. "
+        "The code also saved the crossing points to results dot json. "
+        "Alpha bar drops below one half at step 259 for linear and 496 for cosine, and below 0.01 at 673 and 935. "
+        "Read any column from top to bottom, and linear always has less signal left."
+    ),
+),
+
+dict(
+    section="Q2 · Alpha bar t",
+    title="Q: What is ᾱt (alpha bar t)? · model answer",
+    kind="text",
+    bullets=[
+        "ᾱt = α0 · α1 · … · αt: the running product of the alphas",
+        "It is the share of the clean image's variance left in xt",
+        "Closed form: xt = √ᾱt x0 + √(1 − ᾱt) ε, so we jump to any t at once",
+        "Ours at t = 500: linear 0.078, cosine 0.492",
+        "Follow-up: 'Why square roots?' Variances ᾱ + (1 − ᾱ) = 1: variance preserving",
+        "Follow-up: 'Why can you jump?' A chain of Gaussian steps is one Gaussian",
+    ],
+    narration=(
+        "A model answer. "
+        "Alpha bar t is the running product of the alphas, alpha zero times alpha one up to alpha t. "
+        "It tells us what share of the clean image's variance is still left in x t. "
+        "Near one the image is almost clean, near zero it is almost pure noise. "
+        "Because of it we have a closed form: x t equals root alpha bar t times x zero plus root of one minus alpha bar t times epsilon, "
+        "so in training we can jump straight to any step without running the chain. "
+        "In our run, at step 500, linear had an alpha bar of 0.078 and cosine 0.492. "
+        "Two follow-ups you may get. Why the square roots? So that the signal variance, alpha bar, and the noise variance, one minus alpha bar, "
+        "add up to one. The total variance stays one at every step, which is why it is called variance preserving. "
+        "And why can you jump to any t? Because each step adds Gaussian noise, and a chain of Gaussian steps is itself a single Gaussian, "
+        "whose mean and variance are given by alpha bar."
+    ),
+),
+
+# =====================================================================  Q3 LINEAR VS COSINE
+dict(
+    section="Q3 · Linear vs cosine",
+    title="Q3 · The two schedules in the handout",
+    kind="handout",
+    page=1,
+    find=[
+        "Implement the linear schedule",
+        "and the cosine schedule (Nichol",
+        "against t for both schedules on one figure.",
+    ],
+    bullets=[
+        "Linear: β grows evenly from 10⁻⁴ to 0.02",
+        "Cosine: Nichol and Dhariwal, 2021",
+        "Plot ᾱt against t for both, on one figure",
+        "Viva question: 'Linear vs cosine: what is the difference?'",
+    ],
+    narration=(
+        "Question three: what is the difference between the linear and the cosine schedule? "
+        "Back on page one. The handout asks for the linear schedule, with beta going evenly from ten to the minus four to 0.02, "
+        "and the cosine schedule from Nichol and Dhariwal, 2021. "
+        "Then it asks for one figure with alpha bar t plotted against t, for both schedules together. "
+        "That figure is the heart of the answer, because the two schedules differ in how alpha bar falls over time. "
+        "Here is the key difference in one sentence, before any formula. "
+        "Linear chooses the betas directly, and alpha bar is whatever comes out. "
+        "Cosine does it the other way round. It chooses the shape of alpha bar directly, a smooth cosine curve, "
+        "and then works out which betas produce it. "
+        "Keep that sentence in mind. We will now see both formulas in our code, then the curves, "
+        "and then the one place where cosine caused us real trouble: its very last step."
+    ),
+),
+
+dict(
+    section="Q3 · Linear vs cosine",
+    title="Q3 · Code: the linear and cosine formulas",
+    kind="code",
+    src="A2NB",
+    start="def linear_betas(T, beta_start=1e-4, beta_end=0.02):",
+    n=11,
+    hl=["torch.linspace(beta_start, beta_end, T)", "f = torch.cos(((steps / T) + s) / (1 + s) * math.pi / 2) ** 2", "betas = 1 - alpha_bar[1:] / alpha_bar[:-1]", "betas.clamp(max=0.999)"],
+    bullets=[
+        "Linear: βt = evenly spaced from 10⁻⁴ to 0.02 (torch.linspace)",
+        "Cosine: f(t) = cos²(((t/T) + s)/(1 + s) · π/2), s = 0.008; ᾱ = f/f(0)",
+        "Then βt = 1 − ᾱ(t+1)/ᾱ(t): the share this step removes",
+        "β clipped at 0.999 so that α never reaches 0",
+        "float64 inside: ᾱ gets tiny near the end",
+    ],
+    narration=(
+        "On the first highlighted line, the linear schedule is one call: torch dot linspace gives 1000 evenly spaced betas from ten to the minus four to 0.02. "
+        "Now cosine. We make the step numbers zero to 1000, in double precision, because alpha bar gets tiny near the end. "
+        "On the second highlighted line, f is cos squared of t over T plus s, divided by one plus s, times pi over two. "
+        "t over T runs from zero to one. Pi over two is a quarter turn, so cos squared slides smoothly from one down to zero. "
+        "s is a small offset, 0.008, so the first betas are not almost zero. "
+        "Dividing by f of zero makes alpha bar start at one. "
+        "The third highlighted line turns the curve into betas: one minus alpha bar at the next step over alpha bar at this step. "
+        "In words, the share of signal this one step removes. "
+        "The last highlighted line clips beta at 0.999. Near the very end, the cosine curve drops to zero, so that ratio would make beta equal to one. "
+        "Then alpha would be zero, and the sampler would divide by zero. So we clip it, as Nichol and Dhariwal also did."
+    ),
+),
+
+dict(
+    section="Q3 · Linear vs cosine",
+    title="Q3 · Result: where the ᾱ curves differ",
+    kind="figure",
+    image="A2F/A1_alpha_bar.png",
+    bullets=[
+        "x-axis: timestep t, 0 to 999; y-axis: ᾱt; dotted line at 0.5",
+        "Linear falls fast: ᾱ < 0.5 at t = 259, < 0.01 at t = 673",
+        "Cosine falls slowly and steadily: < 0.5 at t = 496, < 0.01 at t = 935",
+        "Biggest gap in the middle: t = 500 → 0.078 vs 0.492",
+        "Linear: the last third of steps is almost pure noise",
+    ],
+    narration=(
+        "Here is our alpha bar figure. The horizontal axis is the timestep t, from zero to 999. "
+        "The vertical axis is alpha bar t, the share of signal left. The dotted line marks one half, where signal and noise are equally strong. "
+        "Both curves start just below one and end near zero, so the start and the end look alike. The difference is in the middle. "
+        "The linear curve falls fast. It crosses one half already at step 259, and it is below 0.01 from step 673. "
+        "The cosine curve falls slowly at first and then steadily, crossing one half at 496, almost exactly the middle, and reaching 0.01 only at 935. "
+        "At step 500 the gap is largest: 0.078 against 0.492. "
+        "Why does it matter? Training picks t uniformly from zero to 999. "
+        "Under linear, everything from step 673 onwards is practically pure noise, about a third of all steps, with very little to learn. "
+        "Cosine spreads the destruction more evenly, so more of the training budget goes to partly noisy images, where real denoising is learned."
+    ),
+),
+
+dict(
+    section="Q3 · Linear vs cosine",
+    title="Q3 · What the 0.999 clip did: the no-clipping ablation",
+    kind="output",
+    src="A2OUT",
+    start="linear: mean |unclipped - clipped| per pixel = 0.0507",
+    n=10,
+    hl=["linear: mean |unclipped", "cosine: mean |unclipped", "1/sqrt(alpha_999) = 31.6", "pixels stuck"],
+    bullets=[
+        "Cosine β999 = 0.999 → α999 = 0.001 → 1/√α999 = 31.6",
+        "Without x̂0 clipping: cosine samples change by 1.0557 per pixel; linear 0.0507",
+        "Unclipped x998 std 1.59, but training always saw about 1",
+        "62.5% of final unclipped cosine pixels stuck at black",
+        "So the cosine model needs x̂0 clipping; linear barely notices",
+    ],
+    narration=(
+        "So the clip keeps beta at 0.999 instead of one. That avoids dividing by zero, but it leaves one very extreme step, "
+        "and this saved output shows what it did. "
+        "This is our ablation cell, where we sampled again with the literal handout formula and no clipping of x hat zero. "
+        "For linear, the mean change per pixel, compared with the clipped samples, is 0.0507, on a pixel range of two. Tiny. "
+        "For cosine it is 1.0557, more than half the whole range. Completely different images. "
+        "Why? Alpha 999 is one minus 0.999, which is 0.001, and one over its square root is 31.6. "
+        "The first reverse step divides by root alpha, so a small error in the noise guess is multiplied about 32 times. "
+        "The next line shows it: the starting noise has a standard deviation of 0.99, but after one unclipped step x 998 has 1.59, "
+        "while training always saw about one. The errors keep growing, and 62 percent, stored as 62.5 percent, of the final pixels are stuck at black. "
+        "Linear's last beta is only 0.02, so its factor is about 1.01. That is why our cosine model needs x hat zero clipping, and linear does not."
+    ),
+),
+
+dict(
+    section="Q3 · Linear vs cosine",
+    title="Q: Linear vs cosine schedule? · model answer",
+    kind="text",
+    bullets=[
+        "Linear sets β directly (10⁻⁴ → 0.02); cosine sets the ᾱ curve, β is derived",
+        "Linear destroys faster: ᾱ < 0.5 at t = 259 vs 496 for cosine",
+        "Cosine spreads noise levels evenly, so training time is better used",
+        "Cosine β is clipped at 0.999: last step 1/√α ≈ 31.6, so it needs x̂0 clipping",
+        "Follow-up: 'Cosine loss 0.050 > linear 0.028, so linear is better?' No: not comparable",
+        "Follow-up: 'Which gave better samples?' Linear, visually, for our classes",
+    ],
+    narration=(
+        "A model answer. "
+        "The linear schedule chooses beta directly, evenly from ten to the minus four to 0.02. "
+        "The cosine schedule chooses alpha bar directly, as a smooth cosine curve, and derives each beta from neighbouring alpha bars. "
+        "In our run, linear destroys the image much faster: alpha bar drops below one half at step 259, against 496 for cosine. "
+        "So with linear, about the last third of steps is nearly pure noise, while cosine spreads the noise levels more evenly. "
+        "Cosine's last beta must be clipped at 0.999, which makes the last reverse step divide by about 0.03, "
+        "and so our cosine model only gives proper samples with x hat zero clipping. "
+        "Follow-up one. The cosine loss was 0.050 and the linear loss 0.028, so did linear train better? No. "
+        "The same t means a different noise level in each schedule, and nearly pure noise is easy to predict, so the losses are not comparable. "
+        "Follow-up two. Which gave better samples? For sandal, bag and trouser, linear looked better to us, "
+        "but that is a visual judgement from sixteen samples."
+    ),
+),
+
+# =====================================================================  Q4 SAMPLING
+dict(
+    section="Q4 · Sampling",
+    title="Q4 · What the handout asks for sampling",
+    kind="handout",
+    page=2,
+    find=[
+        "Implement DDPM sampling (all 1000 reverse steps) yourself",
+        "show the denoising trajectory at 8 timesteps",
+        "also show the model's predicted clean image",
+    ],
+    bullets=[
+        "Own sampler: all 1000 reverse steps, σt² = βt",
+        "Reverse step: x(t−1) = (1/√αt)(xt − (βt/√(1 − ᾱt)) εθ) + σt z",
+        "Trajectory at 8 timesteps, with x̂0 under each xt",
+        "Viva question: 'Explain the sampling formula and your code'",
+    ],
+    narration=(
+        "Question four: explain sampling. The examiner pointed at the A3 formula and asked what each symbol does. "
+        "The handout, on page two, asks you to implement DDPM sampling yourself, with all 1000 reverse steps. "
+        "The formula is: x t minus one equals one over root alpha t, times the bracket x t minus beta t over root of one minus alpha bar t times epsilon theta, "
+        "plus sigma t times z, with sigma t squared equal to beta t. "
+        "It also asks for a denoising trajectory: one sample shown at eight steps, from x 999 down to x zero, "
+        "and under each, the model's predicted clean image, x hat zero. "
+        "Sampling is the reverse of the forward process. Training taught the U-Net to look at a noisy image and the step number and guess the noise. "
+        "Sampling starts from pure noise and uses that guess, step by step, to walk back to a clean image. "
+        "Let us first read the formula slowly, symbol by symbol."
+    ),
+),
+
+dict(
+    section="Q4 · Sampling",
+    title="Q4 · The reverse step, symbol by symbol",
+    kind="text",
+    bullets=[
+        "x(t−1) = (1/√αt) · ( xt − (βt / √(1 − ᾱt)) · εθ(xt, t) ) + σt · z",
+        "xt = current noisy image; εθ(xt, t) = the U-Net's noise guess",
+        "βt / √(1 − ᾱt) = how much of the guessed noise to remove this step",
+        "1/√αt = undoes the shrinking of the forward step",
+        "σt z: fresh noise z ~ N(0, I), σt = √βt; none at t = 0",
+        "x̂0 = (xt − √(1 − ᾱt) εθ) / √ᾱt: the closed form solved for x0",
+    ],
+    narration=(
+        "Let us read the formula from the inside out. "
+        "x t is the current noisy image. Epsilon theta of x t and t is the U-Net's guess of the noise in it. The theta says it is learned. "
+        "The fraction, beta t over the square root of one minus alpha bar t, says how much of that guessed noise to remove at this one step. "
+        "It is small, so each step removes only a slice. "
+        "Then one over root alpha t scales the result up a little. It undoes the shrinking that the forward step did, "
+        "when it multiplied the image by root alpha t. "
+        "Everything so far gives the mean, the centre of where x t minus one should be. "
+        "Then we add sigma t times z. z is fresh Gaussian noise, and sigma t is its size, the square root of beta t. "
+        "Why add noise while removing noise? It keeps the sampler random, so it draws from the whole distribution instead of collapsing to one average image. "
+        "At the very last step, t equals zero, we add no noise. "
+        "The last line is x hat zero, the model's guess of the clean image: the closed form solved backwards for x zero, using the guessed noise."
+    ),
+),
+
+dict(
+    section="Q4 · Sampling",
+    title="Q4 · Diagram: one reverse step with x̂0 clipping",
+    kind="figure",
+    image="DG/x0hat_clipping.png",
+    bullets=[
+        "U-Net gives εθ → compute x̂0 → clamp to [−1, 1]",
+        "Recompute ε from the clamped x̂0, then the unchanged handout update",
+        "Clipping happens INSIDE every step, not after sampling",
+        "Same idea as clip_denoised in the original DDPM code",
+    ],
+    narration=(
+        "This diagram shows what one of our reverse steps does. Read it from left to right. "
+        "The U-Net looks at x t and t, and gives its noise guess, epsilon theta. "
+        "Next we turn that guess into x hat zero, the guess of the clean image, using the closed form solved for x zero. "
+        "Then we clamp x hat zero to the range minus one to one. Any pixel below minus one becomes minus one, any above one becomes one. "
+        "A real image always lies in that range, so the clamp only removes impossible values. "
+        "Then we solve the closed form again, this time for epsilon, to get the noise that matches the clamped image. "
+        "That cleaned noise goes into the unchanged handout update, which gives x t minus one. "
+        "Notice where the clamp sits: inside every single step, before the update, not once at the end. "
+        "This is the same idea as the clip denoised option in the original DDPM code. "
+        "So the update formula is exactly the handout's. Only the noise estimate fed into it has been cleaned."
+    ),
+),
+
+dict(
+    section="Q4 · Sampling",
+    title="Q4 · Code: the sampling loop and the x̂0 clipping",
+    kind="code",
+    src="A2NB",
+    start="def ddpm_sample(model, sched, n, seed=SEED",
+    n=21,
+    hl=["x = torch.randn(n, 1, 32, 32, device=DEVICE, generator=gen)", "x0_hat = (x - (1 - abar).sqrt() * eps) / abar.sqrt()", "x0_hat = x0_hat.clamp(-1, 1)", "eps = (x - abar.sqrt() * x0_hat) / (1 - abar).sqrt()"],
+    bullets=[
+        "Start: x999 ~ N(0, I) from a generator seeded with 9005",
+        "Loop t = 999, 998, …, 0: one U-Net call per step",
+        "x̂0 = (xt − √(1 − ᾱt) ε) / √ᾱt, then clamp to [−1, 1]",
+        "Recompute the matching ε from the clamped x̂0",
+        "clip_x0=False gives the literal handout formula (the ablation)",
+    ],
+    narration=(
+        "Now our code. The first highlighted line draws the starting point, x 999, as pure Gaussian noise: n images, one channel, 32 by 32. "
+        "The generator is seeded with 9005, from your roll number, so the result repeats exactly. "
+        "The loop runs t from 999 down to zero. For each t, it calls the U-Net once and reads beta, alpha and alpha bar for that step from the schedule. "
+        "The second highlighted line computes x hat zero: x minus root of one minus alpha bar times epsilon, divided by root alpha bar. "
+        "That is the closed form solved for x zero, exactly the handout's formula for x hat zero. "
+        "The third highlighted line is the clamp to minus one, one. It only runs when clip x0 is true, which is the default. "
+        "The fourth line recomputes epsilon from the clamped image, by solving the closed form for epsilon. "
+        "So from now on the update uses this cleaned noise. "
+        "Be honest about this in the viva. Every sample grid in the report uses this clipped sampler. "
+        "The literal formula, with clip x0 set to false, appears only in the ablation cell, and both results are shown."
+    ),
+),
+
+dict(
+    section="Q4 · Sampling",
+    title="Q4 · Code: the update, the fresh noise, and the last step",
+    kind="code",
+    src="A2NB",
+    start="mean = (x - beta / (1 - abar).sqrt() * eps) / alpha.sqrt()",
+    n=7,
+    hl=["mean = (x - beta", "x = mean + beta.sqrt() * z", "# last step: no noise", "return x.clamp(-1, 1), trajectory"],
+    bullets=[
+        "mean = (1/√αt)(xt − βt/√(1 − ᾱt) · ε): the handout bracket",
+        "t > 0: add √βt · z, so σt² = βt as the handout asks",
+        "t = 0: x = mean, no noise, so the final image has no grain",
+        "Final clamp to the legal pixel range [−1, 1]",
+    ],
+    narration=(
+        "The second half of the loop. The first highlighted line is the handout update, written as code. "
+        "x minus beta over root of one minus alpha bar, times epsilon, all divided by root alpha. "
+        "Read it against the formula: the bracket removes a slice of the guessed noise, and dividing by root alpha undoes the forward shrinking. "
+        "We call it mean because it is the centre of the distribution for the next, slightly cleaner image. "
+        "Next, if t is greater than zero, we draw fresh Gaussian noise z from the same seeded generator. "
+        "The second highlighted line adds beta dot sqrt times z. The square root of beta is sigma t, so sigma squared equals beta, as the handout says. "
+        "The DDPM paper also allows a slightly smaller variance, called beta tilde. We used beta because the handout asks for it. "
+        "The third highlighted line is the last step, t equals zero. x is just the mean, with no noise added, "
+        "because noise added at the very end would stay in the final image as grain. "
+        "Finally we clamp to minus one to one and return the images together with the recorded trajectory."
+    ),
+),
+
+dict(
+    section="Q4 · Sampling",
+    title="Q4 · Saved output: sampling cost",
+    kind="output",
+    src="A2OUT",
+    start="saved A3_samples_linear.png",
+    n=7,
+    hl=["sampling_time_s_for_16", "15.95", "15.54"],
+    bullets=[
+        "16 samples: linear 15.95 s, cosine 15.54 s",
+        "1000 network evaluations for each model (prints as 1000.0)",
+        "16 images travel together: 1000 U-Net calls, not 16,000",
+        "About 16 ms per U-Net call on the batch",
+        "The schedule barely matters: the cost is the 1000 calls",
+    ],
+    narration=(
+        "What did sampling cost? This is the saved output of the cell that made and timed the two grids. "
+        "Sixteen samples took 15.95 seconds with the linear model and 15.54 seconds with the cosine model. "
+        "Network evaluations is 1000 for both. It prints as 1000.0 only because pandas stored the table as decimals. "
+        "Note that the sixteen images travel through the loop together, as one batch. "
+        "So each of the 1000 steps is one U-Net call on all sixteen images at once: 1000 calls, not 16,000. "
+        "Sixteen seconds over 1000 calls is about 16 milliseconds per call. "
+        "The two schedules take almost the same time, because the schedule only changes a few numbers per step. "
+        "Nearly all the cost is the 1000 U-Net calls. "
+        "Compare that with training, where one step needs exactly one U-Net call, because the closed form jumps straight to a random t. "
+        "Sampling cannot jump. It must walk all 1000 steps in order, which leads us straight into the next question."
+    ),
+),
+
+dict(
+    section="Q4 · Sampling",
+    title="Q: Explain the sampling step · model answer",
+    kind="text",
+    bullets=[
+        "Start from pure noise x999; for t = 999 … 0, the U-Net predicts εθ(xt, t)",
+        "Remove a slice βt/√(1 − ᾱt) of it, rescale by 1/√αt: the mean",
+        "Add fresh noise √βt · z, except at t = 0",
+        "We clamp x̂0 to [−1, 1] and recompute ε inside every step",
+        "Follow-up: 'Why add noise?' Keeps it stochastic: samples the whole distribution",
+        "Follow-up: 'You changed the formula?' Same update, cleaned ε; ablation shown",
+    ],
+    narration=(
+        "A model answer. "
+        "Sampling starts from pure Gaussian noise, x 999, and runs t from 999 down to zero. "
+        "At each step the U-Net looks at x t and t, and predicts the noise, epsilon theta. "
+        "We remove a small slice of that noise, beta t over the root of one minus alpha bar t, and rescale by one over root alpha t. "
+        "That gives the mean of the next, slightly cleaner image. Why this mean? It is the mean of the true reverse step, "
+        "given x t and the clean image, with the unknown noise replaced by the model's guess. "
+        "Then we add fresh noise of size root beta t, except at the last step. "
+        "In our implementation we also compute x hat zero, the model's guess of the clean image, clamp it to minus one to one, "
+        "and recompute the matching noise before the update. Without that, our cosine model breaks. "
+        "Follow-up: why add noise at all? Without it every step would follow the average, "
+        "and the sampler would collapse towards one blurry average image instead of sampling the whole distribution. "
+        "Follow-up: did you change the formula? The update is the handout's, but the noise estimate is cleaned first. "
+        "The literal formula is run in our ablation, and both results are in the report."
+    ),
+),
+
+# =====================================================================  Q5 WHY TIMESTEP
+dict(
+    section="Q5 · Why the timestep",
+    title="Q5 · Where t enters, in the handout",
+    kind="handout",
+    page=2,
+    find=[
+        "Implement the DDPM training step",
+        "Also explain why sampling takes 1000 network",
+        "evaluations while one training step needs only one.",
+    ],
+    bullets=[
+        "Training: the network predicts εθ(xt, t): it is told t",
+        "Sampling: 1000 network evaluations, one per t",
+        "Viva question: 'Why do we depend on the timestep when sampling?'",
+    ],
+    narration=(
+        "Question five was the one that caught people out: why do we depend on the timestep when sampling? "
+        "Look at the handout. In the training step, the network predicts epsilon theta of x t and t. "
+        "So the network is given two inputs, the noisy image and the step number. "
+        "And the A3 question asks why sampling takes 1000 network evaluations, while one training step needs only one. "
+        "Both lines are really about the timestep. "
+        "The short answer has three parts. "
+        "One: the network is told t, because the amount of noise is different at every step, and the right correction depends on it. "
+        "Two: every coefficient in the reverse formula, one over root alpha t, beta t over root of one minus alpha bar t, and sigma t, "
+        "is looked up at step t. "
+        "Three: we must visit the steps in order, because each step only removes a little noise, "
+        "and each step's input is the previous step's output. Let us look at each part."
+    ),
+),
+
+dict(
+    section="Q5 · Why the timestep",
+    title="Q5 · Diagram: t is used twice in every reverse step",
+    kind="figure",
+    image="DG/sampling_t.png",
+    bullets=[
+        "Top: x999 (pure noise) → … → x0, one small step at a time",
+        "t is INPUT to the U-Net: the time embedding says how noisy xt is",
+        "t LOOKS UP αt, ᾱt, βt, σt from the schedule",
+        "Wrong t or skipped steps: wrong noise guess and wrong coefficients",
+    ],
+    narration=(
+        "This diagram shows why. Along the top, the reverse chain: pure noise at t equals 999, then x t at 500, x t at 50, and finally the clean x zero. "
+        "We get there one small denoising step at a time: 999, 998, and so on, down to zero. "
+        "The box on the left looks inside one step at time t. "
+        "First, the U-Net receives x t and t. Inside the U-Net, t is turned into a time embedding, a vector that tells the network how noisy x t is. "
+        "Second, it predicts the noise, we compute x hat zero and clip it. "
+        "Third, the update uses alpha t, alpha bar t and beta t, and adds sigma t times z. "
+        "The box on the right sums it up: t is used twice. Once as an input to the network, because the noise level differs per step. "
+        "And once to look up the coefficients from the schedule, linear or cosine. "
+        "The red box at the bottom is the warning: a wrong t gives a wrong noise estimate and wrong coefficients. "
+        "And skipping steps needs a different sampler, such as DDIM. Plain DDPM must visit every t."
+    ),
+),
+
+dict(
+    section="Q5 · Why the timestep",
+    title="Q5 · Code: t goes to the network and picks the coefficients",
+    kind="code",
+    src="A2NB",
+    start="for t in reversed(range(T)):",
+    n=16,
+    hl=["t_batch = torch.full((n,), t, device=DEVICE, dtype=torch.long)", "eps = model(x, t_batch).sample", "beta, alpha, abar = sched.betas[t], sched.alphas[t], sched.alpha_bars[t]", "if t > 0:"],
+    bullets=[
+        "reversed(range(T)): t = 999, 998, …, 0, strictly in order",
+        "t_batch: the same t for every image in the batch",
+        "model(x, t_batch): the U-Net is told the step (time embedding inside)",
+        "sched.betas[t], alphas[t], alpha_bars[t]: coefficients picked by t",
+        "t also decides whether fresh noise is added (t > 0)",
+    ],
+    narration=(
+        "Here is the same loop, now looking only at t. "
+        "The loop header, reversed range of T, gives t equals 999, 998, and so on down to zero, strictly in order. "
+        "On the first highlighted line, torch dot full makes a tensor with the current t repeated once per image, "
+        "because the U-Net expects one timestep per image. "
+        "On the second highlighted line, model of x and t batch: the network gets the image and the step. "
+        "Inside the diffusers U-Net, t becomes a sinusoidal embedding, like the position codes in a transformer, "
+        "passes through a small network, and is added inside every residual block. So every layer knows how noisy its input is. "
+        "This mirrors training, where the train step also calls model of x t and t, with a random t per image. "
+        "On the third highlighted line, beta, alpha and alpha bar are read at index t. These are the coefficients of the update. "
+        "And the last highlighted line uses t once more, to decide whether to add fresh noise. "
+        "So t appears four times in a few lines. Take it away, and neither the network nor the formula knows what to do."
+    ),
+),
+
+dict(
+    section="Q5 · Why the timestep",
+    title="Q5 · Why every coefficient depends on t",
+    kind="text",
+    bullets=[
+        "1/√αt: linear t = 999 → about 1.01; cosine t = 999 → 31.6",
+        "βt/√(1 − ᾱt): how much guessed noise to remove at THIS step",
+        "σt = √βt: how much fresh noise to add back; 0 at t = 0",
+        "Same xt can be 'very noisy' or 'nearly clean': only t tells the U-Net which",
+        "ᾱt also sets x̂0: divide by √ᾱt (≈157 linear, ≈20,000 cosine at t = 999)",
+    ],
+    narration=(
+        "Why does every coefficient depend on t? Because the noise level is different at every step. "
+        "Take one over root alpha t. At step 999, for linear, it is about 1.01, almost no rescaling. "
+        "For cosine at step 999 it is 31.6, a huge rescaling. Same formula, very different number. "
+        "Next, beta t over root of one minus alpha bar t. It decides how much of the guessed noise to remove at this step. "
+        "Remove too much or too little, and you leave the path the forward process took. "
+        "Then sigma t, the root of beta t, decides how much fresh noise goes back in, and it is zero at the last step. "
+        "Now the network side. Imagine an image that is half signal and half noise. "
+        "On its own, it is hard to tell whether this is an early step or a late step. "
+        "The time embedding removes that doubt. It tells the U-Net what noise level to expect, so it can scale its guess correctly. "
+        "And alpha bar t even decides how x hat zero is built: we divide by root alpha bar, "
+        "which multiplies errors by about 157 for linear and about 20,000 for cosine at step 999."
+    ),
+),
+
+dict(
+    section="Q5 · Why the timestep",
+    title="Q5 · Wrong t, skipped steps, and the DDIM idea",
+    kind="text",
+    bullets=[
+        "Wrong t: the U-Net expects the wrong noise level, and the coefficients mismatch",
+        "Result: noise left behind, or too much removed: noisy or washed-out samples",
+        "Each DDPM step is derived for ONE step from t to t − 1",
+        "Skipping steps with the same formula leaves most of the noise in",
+        "DDIM: same trained network, an update that can jump (e.g. 50 steps); deterministic at η = 0",
+        "We did not run these: this is reasoning, not a measured result",
+    ],
+    narration=(
+        "What goes wrong if you pass the wrong t? Say the image is very noisy, but you tell the network t equals 100. "
+        "The network expects only a little noise, so its guess is scaled for the wrong level, "
+        "and the coefficients you read at step 100 are also wrong for this image. "
+        "Noise is left behind, or too much is removed, and the samples come out noisy or washed out. "
+        "What about skipping steps? Each DDPM update is derived for exactly one step, from t to t minus one. "
+        "It removes only that one step's slice of noise, beta t over root of one minus alpha bar t. "
+        "If you jump from 999 straight to 989 with the same formula, you remove one step's worth of noise but claim ten, "
+        "so most of the noise stays in. "
+        "To skip steps correctly you need a sampler designed for it. DDIM, from Song and colleagues in 2021, "
+        "reuses the same trained noise network, but uses x hat zero to jump directly to an earlier step, "
+        "so fifty steps can replace a thousand, with no retraining. With its noise setting, eta, at zero, the usual choice, "
+        "it adds no fresh noise at all, so it is deterministic: the same starting noise always gives the same image. "
+        "Say clearly that we did not run any of this. Our sampler is plain DDPM, all 1000 steps."
+    ),
+),
+
+dict(
+    section="Q5 · Why the timestep",
+    title="Q: Why depend on the timestep when sampling? · model answer",
+    kind="text",
+    bullets=[
+        "Use 1: t is a network INPUT: one shared U-Net, told the noise level by a time embedding",
+        "Use 2: t LOOKS UP the coefficients 1/√αt, βt/√(1 − ᾱt) and σt",
+        "Each step removes only a little noise and needs the previous output: go in order",
+        "Wrong t or skipped steps → wrong noise guess, wrong coefficients, worse samples",
+        "Follow-up: '1000 calls to sample, 1 to train?' Training jumps to a random t",
+        "Follow-up: 'Can you sample faster?' Yes, with DDIM-style samplers; we used DDPM",
+    ],
+    narration=(
+        "A model answer. "
+        "We depend on t because the noise level is different at every step, and t does two separate jobs. "
+        "First, it is an input to the network. One U-Net is shared by all 1000 noise levels, so it is told t through a time embedding, "
+        "and then it knows how much noise to expect and can scale its noise guess correctly. "
+        "Second, t is used to look up the schedule coefficients: one over root alpha t, beta t over root of one minus alpha bar t, and sigma t. "
+        "We must go through t in order, from 999 to zero, because each step only removes a little noise, "
+        "and each step's input is the previous step's output. "
+        "If we pass the wrong t or skip steps with the same formula, the noise guess and the coefficients no longer match the image, and samples get worse. "
+        "Follow-up: why 1000 calls to sample but one to train? In training the closed form jumps straight to a random t, "
+        "and the loss at that one t is a fair piece of the whole objective. Sampling has no closed form backwards, so it is a chain, and the steps cannot run in parallel. "
+        "Follow-up: can you sample faster? Yes, with samplers such as DDIM that are designed to skip steps. Ours used all 1000."
+    ),
+),
+
+# =====================================================================  Q6 PLOTS
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 1: ᾱt for both schedules",
+    kind="figure",
+    image="A2F/A1_alpha_bar.png",
+    bullets=[
+        "x-axis: timestep t (0 to 999); y-axis: ᾱt, share of signal left",
+        "Blue: linear; orange: cosine; dotted line: ᾱ = 0.5",
+        "Notice: linear crosses 0.5 at t = 259, cosine at t = 496",
+        "Supports: linear destroys the image faster (A1 answer)",
+    ],
+    narration=(
+        "Question six was: walk me through your plots. The examiner wants three things for every figure: "
+        "what the axes are, what to notice, and what conclusion it supports. We will go through every figure in the order of the report. "
+        "Plot one, the alpha bar curves. The horizontal axis is the timestep t, from zero to 999. "
+        "The vertical axis is alpha bar t, the share of the clean image's variance left in x t. "
+        "There is one curve per schedule, and a dotted line at 0.5, where signal and noise are equally strong. "
+        "What to notice: both start near one and end near zero, but linear drops much earlier. "
+        "It crosses one half at step 259, while cosine crosses at 496. Linear is below 0.01 from step 673, cosine only from 935. "
+        "The conclusion it supports is the A1 answer. Linear destroys the image faster, "
+        "so a large share of its training steps see almost pure noise, while cosine spreads the noise levels more evenly. "
+        "If you are asked for one number from this plot, give 259 against 496."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 2: one sandal under both schedules",
+    kind="figure",
+    image="A2F/A1_forward_grid.png",
+    bullets=[
+        "Rows: linear (top), cosine (bottom); columns: t = 0, 100, 250, 500, 750, 999",
+        "Each title prints t and ᾱ to 3 decimals",
+        "Same image and same noise ε in all 12 panels: only the schedule differs",
+        "t = 500: linear ᾱ ≈ 0.078, barely visible; cosine ᾱ ≈ 0.492, still clear",
+    ],
+    narration=(
+        "Plot two, the forward grid. This is not a graph with axes, it is a grid of images. "
+        "The rows are the two schedules, linear on top and cosine below. "
+        "The columns are the six steps the handout asked for: 0, 100, 250, 500, 750 and 999. "
+        "Each panel's title prints t and alpha bar to three decimals. "
+        "One design detail matters: every panel uses the same training image, a sandal, and the very same noise epsilon. "
+        "So the only difference between the two rows is the schedule, which makes the comparison fair. "
+        "What to notice: at step 500, the linear row has alpha bar about 0.078, and the sandal is barely visible. "
+        "The cosine row has about 0.492, and the sandal is still clear. "
+        "By step 750 the linear panel looks like pure noise, while the cosine panel still shows a faint shape. "
+        "The conclusion is the same as plot one, now seen with your own eyes: linear destroys the image faster. "
+        "It also shows that each panel was made with the closed form, one jump straight to step t."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 3: the training loss curves",
+    kind="figure",
+    image="A2F/A2_loss_curves.png",
+    bullets=[
+        "x-axis: training step (0 to 3,920); y-axis: MSE loss ‖ε − εθ‖², LOG scale",
+        "Faint: single steps; bold: 100-step moving average",
+        "Both drop fast, then flatten: healthy training",
+        "Last epoch: linear 0.0280, cosine 0.0502: NOT comparable across schedules",
+    ],
+    narration=(
+        "Plot three, the training loss. The horizontal axis is the training step, from zero to 3,920, "
+        "which is 28 epochs of 140 steps. The vertical axis is the mean squared error between the true noise and the predicted noise, "
+        "and it is on a log scale, so each grid band is a factor, not a fixed amount. "
+        "The faint lines are single steps. The bold lines are a 100 step moving average, which is why they start a little after step zero. "
+        "What to notice: both curves drop fast in the first few hundred steps and then flatten, which is what healthy training looks like. "
+        "The noise in the faint lines comes from drawing a random t and random noise at every step. "
+        "And the cosine curve sits above the linear curve the whole time. The last epoch averages are 0.0280 for linear and 0.0502 for cosine. "
+        "The conclusion is a trap to avoid. The lower linear loss does not mean linear trained better. "
+        "The same t is a different noise level in each schedule, and linear has many nearly pure noise steps, "
+        "where guessing the noise is easy. So the two losses measure different tasks."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 4: sixteen samples from each model",
+    kind="figure",
+    image="A2F/A3_samples_linear.png",
+    image2="A2F/A3_samples_cosine.png",
+    bullets=[
+        "Top: linear model; bottom: cosine model; 4 × 4 grid each, clipped sampler",
+        "Same seed: both start from the same 16 noise images",
+        "Linear: a good mix, about 4–5 sandals, 7 bags, 3 trousers",
+        "Cosine: mostly bright bag-like shapes, 2 sandals, 2 trousers",
+        "Each grid: 1000 U-Net calls, about 16 s",
+    ],
+    narration=(
+        "Plot four, the sample grids. Again no axes: each is a four by four grid of generated images. "
+        "The linear model is on top and the cosine model below. Both used our clipped sampler with all 1000 steps, "
+        "and the same seed, so they started from exactly the same sixteen noise images. "
+        "What to notice: both models make recognisable items from your three classes, which is what the handout asks. "
+        "The linear grid has a good mix, roughly four or five sandals, about seven bags and three trousers, "
+        "and the sandals' thin straps and high heels are drawn quite sharply. "
+        "The cosine grid is dominated by large, over-bright, bag-like shapes, with only two sandals and two trousers, "
+        "and several flat white blobs. "
+        "The conclusion: for your classes, the linear samples look better. "
+        "But phrase it carefully. It is a visual judgement from sixteen samples after about sixteen minutes of training, not a measurement. "
+        "Each grid took about 16 seconds, 1000 U-Net calls on the batch of sixteen."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 5: the denoising trajectories",
+    kind="figure",
+    image="A2F/A3_trajectory_linear.png",
+    image2="A2F/A3_trajectory_cosine.png",
+    bullets=[
+        "Columns: t = 999, 900, 750, 600, 450, 300, 150, 0",
+        "Top row: xt; bottom row: x̂0, the model's guess of the clean image",
+        "Early x̂0 panels are noise: divide by tiny √ᾱt",
+        "Cosine x̂0 has an outline by t ≈ 900; linear only by t ≈ 750–600",
+        "Panel 'x0' = input to the last step, not the final sample",
+    ],
+    narration=(
+        "Plot five, the trajectories, linear first and cosine second. "
+        "The columns are eight steps, 999, 900, 750, 600, 450, 300, 150 and zero. "
+        "The top row is x t, the noisy image at that step. The bottom row is x hat zero, the model's guess of the finished image at that step. "
+        "What to notice first: the early x hat zero panels look like noise. That is expected, not a bug. "
+        "x hat zero divides by root alpha bar, which is tiny at the start, so small errors become huge. "
+        "Then compare the two. The cosine guess already shows an outline at step 900. "
+        "The linear guess is still noise at 900, and a shape appears only around 750 to 600. "
+        "In your linear run it even looks like a trouser at 600, then turns into a bag at 450. The model changed its mind. "
+        "The conclusion: the trajectories confirm A1. Cosine keeps more signal early, so its model commits to a shape earlier. "
+        "One subtle point: the last top panel is x t at t equals zero, the input to the final step, not the final sample. They look the same."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 6: the no-clipping ablation",
+    kind="figure",
+    image="A2F/A3_linear_no_clip.png",
+    image2="A2F/A3_cosine_no_clip.png",
+    bullets=[
+        "Literal handout formula, no x̂0 clipping; same models and seed",
+        "Top: linear, still recognisable (mean change 0.0507 per pixel)",
+        "Bottom: cosine, black: 62.5% of pixels stuck at −1",
+        "Cause: β999 = 0.999 → 1/√α999 = 31.6 at the first step",
+    ],
+    narration=(
+        "Plot six, the ablation. An ablation means switching one thing off to see what it does. "
+        "Here we switched off x hat zero clipping and ran the literal handout formula, with the same models and the same seed. "
+        "Top, the linear model without clipping. It still makes recognisable sandals, bags and trousers. "
+        "The mean change per pixel against the clipped version is only 0.0507, on a range of two. "
+        "Bottom, the cosine model without clipping. Every panel comes out black. "
+        "The measured fraction of pixels stuck at minus one is 62.5 percent, and the rest are also very dark. "
+        "What to notice: this is not a training failure. The same cosine model makes proper images with clipping, as plot four showed. "
+        "It is a sampling problem, caused by the one extreme step at t equals 999, where beta is 0.999, "
+        "so the first step multiplies errors by 31.6. "
+        "The conclusion it supports: clipping is needed for our cosine model, and is almost irrelevant for linear. "
+        "That is why the report uses the clipped sampler and shows this figure openly."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 7: the Part B dataset collage",
+    kind="figure",
+    image="A2F/B_dataset_collage.png",
+    bullets=[
+        "One panel per class: glasses_case, perfume, shoe, switch_board",
+        "25 photos per class: 92 real phone photos + 8 augmented copies",
+        "Varied backgrounds, angles and lighting, as the handout asks",
+        "Thumbnails for display only; models use their timm transforms",
+    ],
+    narration=(
+        "Plot seven, the Part B dataset collage. There are no axes here either. "
+        "There is one panel per class: glasses case, perfume, shoe and switch board, with the number of photos in each title, 25. "
+        "What to notice: the variety the handout asks for. Different objects, different backgrounds, different angles and lighting. "
+        "That variety is what makes a linear probe a fair test, because a probe that only learned the background would fail. "
+        "Be ready for the honest detail. 92 of the photos are real phone photos. "
+        "Two blurry shots were removed, and the short classes were topped up to 25 with eight augmented copies of real photos. "
+        "Those copies are marked with underscore aug in the file name, and they only ever go into training, never into the test set. "
+        "The thumbnails in this collage are only for display. The models see the full photos through their own timm transforms. "
+        "The conclusion this figure supports is simply that the dataset is your own and meets the brief. "
+        "If asked, have the original photos open on your phone."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Plot 8: confusion matrices and misclassified photos",
+    kind="figure",
+    image="A2F/B2_confusion_matrices.png",
+    image2="A2F/B2_misclassified.png",
+    bullets=[
+        "Rows: true class; columns: predicted class; one matrix per backbone",
+        "Both perfectly diagonal: 8, 7, 8, 7 test photos per class",
+        "Accuracy 1.000 and macro-F1 1.000 for ViT and Swin",
+        "Misclassified panel is empty: 0 errors for either model",
+    ],
+    narration=(
+        "Plot eight, the confusion matrices, with the misclassified panel below. "
+        "In a confusion matrix, each row is the true class and each column is the predicted class. "
+        "A count on the diagonal means correct; anything off the diagonal is a mistake. There is one matrix for ViT and one for Swin. "
+        "What to notice: both are perfectly diagonal. The diagonal reads 8, 7, 8 and 7, the number of test photos per class. "
+        "Thirty is not divisible by four, so a stratified split gives two classes eight photos and two classes seven. "
+        "The titles show accuracy 1.000 and macro F1 1.000 for both. "
+        "The lower figure is where up to three misclassified photos per model would go. It simply says there are none, for either model. "
+        "The conclusion: both frozen backbones separate your four classes perfectly with a linear classifier. "
+        "So accuracy cannot rank them. We broke the tie with confidence: test log loss 0.0113 for ViT against 0.0168 for Swin, a tiny gap."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q6 · Part C: no plot, the worked table instead",
+    kind="output",
+    src="A2OUT",
+    start="layer output (h×w×c)",
+    n=10,
+    hl=["stage 1 (2 blocks)", "Omega(MSA)", "Omega(W-MSA)", "ratio"],
+    bullets=[
+        "Part C has no figure: it is worked by hand, checked by this cell",
+        "Swin with 448 × 448 input, C = 128: 112² × 128 → … → 14² × 1024",
+        "Windows: 256, 64, 16, 4",
+        "Ω(MSA) = 41,104,179,200; Ω(W-MSA) = 979,435,520",
+        "Ratio 41.97 = 12,800 / 305",
+    ],
+    narration=(
+        "Part C produced no figure, because it is worked by hand. So here is the table that a notebook cell printed to check the hand working. "
+        "Read it like a plot. Each row is one layer of Swin, for your settings: a 448 by 448 image and C equal to 128. "
+        "The middle column is the output size, height by width by channels. The last column is the number of seven by seven windows. "
+        "What to notice: the linear embedding gives 112 by 112 by 128, and stage one keeps that, with 256 windows. "
+        "Then each stage halves the side and doubles the channels: 56 by 56 by 256, 28 by 28 by 512, and 14 by 14 by 1024, "
+        "with 64, 16 and 4 windows. "
+        "Below the table are the costs for one stage one attention layer. "
+        "Global attention, omega of MSA, is 41,104,179,200. Window attention, omega of W-MSA, is 979,435,520. "
+        "The ratio is 41.97, which is also 12,800 over 305. "
+        "The conclusion: window attention is about 42 times cheaper here. We will use this number again in question eight."
+    ),
+),
+
+dict(
+    section="Q6 · The plots",
+    title="Q: Walk me through your plots · model answer",
+    kind="text",
+    bullets=[
+        "For each plot: name the axes, say what to notice, give the conclusion",
+        "ᾱ curves + forward grid: linear destroys faster (259 vs 496)",
+        "Loss curves: both converge; 0.028 vs 0.050 not comparable",
+        "Samples + trajectories: linear looks better; cosine commits to a shape earlier",
+        "No-clip ablation: cosine needs x̂0 clipping; probes: both 30 / 30",
+        "Follow-up: 'Why is the first x̂0 panel noise?' Divide by tiny √ᾱt",
+    ],
+    narration=(
+        "A model answer, if the examiner says walk me through your plots. "
+        "For each plot, I name the axes, say what to notice, and give the conclusion. "
+        "The alpha bar curves and the forward grid both show that linear destroys the image faster: alpha bar falls below one half at step 259 against 496. "
+        "The loss curves show both models converging. The linear loss is lower, 0.028 against 0.050, "
+        "but the two are not comparable, because the same t means a different noise level. "
+        "The sample grids show recognisable items from both, and for my classes linear looks better, as a visual judgement. "
+        "The trajectories show cosine committing to a shape earlier, around step 900. "
+        "The ablation shows that without x hat zero clipping our cosine model produces black images, while linear barely changes. "
+        "In Part B, both confusion matrices are diagonal: 30 out of 30 for both backbones. "
+        "A likely follow-up: why is the first x hat zero panel noise? Because x hat zero divides by root alpha bar, "
+        "which is tiny at step 999, so small errors are multiplied by about 157 for linear and about 20,000 for cosine."
+    ),
+),
+
+# =====================================================================  Q7 LINEAR PROBING
+dict(
+    section="Q7 · Linear probing",
+    title="Q7 · What the handout asks for B2",
+    kind="handout",
+    page=3,
+    find=[
+        "Freeze both backbones.",
+        "Train a logistic regression classifier on each set of features",
+        "Report accuracy and macro-F1, show both confusion matrices",
+    ],
+    bullets=[
+        "Freeze both backbones; one feature vector per photo",
+        "ViT: the [CLS] token; Swin: global average pooling",
+        "Logistic regression on each, one stratified 70/30 split",
+        "Viva question: 'What is linear probing, and why use it?'",
+    ],
+    narration=(
+        "Question seven: what is linear probing, and why did we use it? "
+        "Here is task B2 on page three. Freeze both backbones, so their weights never change. "
+        "Extract one feature vector per image: the CLS token for ViT, and global average pooling for Swin. "
+        "Train a logistic regression classifier on each set of features, with a stratified 70 30 split that is the same for both. "
+        "Stratified means each class keeps its share in both the training part and the test part. "
+        "Then report accuracy and macro F1, and show the confusion matrices. "
+        "That whole procedure has a name: a linear probe. "
+        "The word probe is a good clue. We are not trying to build the best classifier. "
+        "We are probing, testing, what the frozen backbone already knows. "
+        "If a very simple classifier on top can separate the classes, the backbone's features must already organise the photos well. "
+        "Let us see the idea in a diagram."
+    ),
+),
+
+dict(
+    section="Q7 · Linear probing",
+    title="Q7 · Diagram: the linear probe",
+    kind="figure",
+    image="DG/linear_probe.png",
+    bullets=[
+        "Frozen backbone → one 768-number feature vector per photo",
+        "StandardScaler → logistic regression → one of 4 classes",
+        "Only the logistic regression is trained: about 3,000 numbers",
+        "Good features = classes separable by flat boundaries",
+    ],
+    narration=(
+        "On the left, a photo goes into the frozen backbone, ViT or Swin. Frozen means no gradient ever reaches it, and its weights never change. "
+        "Out comes one feature vector of 768 numbers. Think of the backbone as an expert describer that writes 768 numbers about each photo. "
+        "Next, a standard scaler puts every feature on the same scale: subtract the mean, divide by the standard deviation, "
+        "both measured on the training photos only. "
+        "Then logistic regression, the simplest classifier there is, picks one of the four classes. "
+        "It is linear: it draws flat boundaries between the classes in that 768 dimensional space. "
+        "Only this last box is trained, about four times 768 weights plus four biases, roughly three thousand numbers, "
+        "against tens of millions in each backbone. "
+        "Why does that make a fair comparison? Both backbones get exactly the same simple classifier and the same split. "
+        "So any difference comes from the features, not from a cleverer head. "
+        "It also suits tiny data: 70 training photos are far too few to fine tune a big model, but plenty for a linear layer."
+    ),
+),
+
+dict(
+    section="Q7 · Linear probing",
+    title="Q7 · Code: one leak-free split and the probe",
+    kind="code",
+    src="A2NB",
+    start='is_aug = np.array([p.stem.endswith("_aug") for p in PATHS])',
+    n=17,
+    hl=["train_test_split(real_idx, test_size=n_test, stratify=LABELS[real_idx], random_state=SEED)", "TRAIN_IDX = np.concatenate([train_real, aug_idx])", "assert not is_aug[TEST_IDX].any()", "LogisticRegression(max_iter=5000)"],
+    bullets=[
+        "30 test photos drawn from REAL photos only, stratified, seed 9005",
+        "All 8 augmented copies go to training: 62 real + 8 = 70",
+        "assert: no augmented photo in the test set",
+        "StandardScaler + LogisticRegression(max_iter=5000), fit on train only",
+        "Same TRAIN_IDX / TEST_IDX for both backbones",
+    ],
+    narration=(
+        "Our code. Before the probe there is one design decision. "
+        "If a flipped copy of a photo were in training and its original in test, the probe would be tested on a photo it has basically seen. "
+        "That is leakage, and it inflates the score. "
+        "So the first highlighted line draws the 30 test photos from the real photos only. "
+        "stratify equals the labels keeps each class's share, and random state equals SEED, 9005, makes the split repeatable. "
+        "The next highlighted line puts all augmented copies on the training side: 62 real plus 8, which is 70. "
+        "The assert then checks that no augmented photo reached the test set. If one had, the notebook would stop. "
+        "The last highlighted line is the probe itself: a pipeline of a standard scaler and logistic regression. "
+        "fit learns the scaler's means only from the training photos, so no test statistics leak in. "
+        "Logistic regression keeps sklearn's defaults, an L2 penalty with C equal to one, but max iter is 5000, "
+        "because the default 100 iterations may stop before converging on 768 features. "
+        "The same split serves both backbones, so they face exactly the same photos."
+    ),
+),
+
+dict(
+    section="Q7 · Linear probing",
+    title="Q7 · Saved output: the split and the scores",
+    kind="output",
+    src="A2OUT",
+    start="real photos: 92 | augmented: 8",
+    n=5,
+    hl=["real photos", "test per class", "0.0113", "0.0168"],
+    bullets=[
+        "92 real + 8 augmented; train 70, test 30",
+        "Test per class 8, 7, 8, 7",
+        "Both: accuracy 1.0, macro-F1 1.0, 0 wrong",
+        "Test log-loss: ViT 0.0113, Swin 0.0168",
+        "Mean p(true class): ViT 0.9898, Swin 0.9845",
+    ],
+    narration=(
+        "Our results, from the saved output. Line one: 92 real photos and 8 augmented copies. "
+        "Line two: 70 for training and 30 for testing, with 8, 7, 8 and 7 test photos per class, in alphabetical class order. "
+        "Then the scores, one row per backbone. Accuracy 1.0 and macro F1 1.0 for both. "
+        "Macro F1 means we compute an F1 score for each class and take the plain mean, so every class counts equally. "
+        "n wrong is zero for both: every one of the 30 test photos is correct. "
+        "Since accuracy ties, we look at confidence. "
+        "Test log loss rewards putting high probability on the right answer, and lower is better. ViT has 0.0113 and Swin 0.0168. "
+        "The mean probability given to the true class is 0.9898 for ViT and 0.9845 for Swin. "
+        "So ViT is very slightly more confident. But the log loss gap is only 0.0055, "
+        "and our rule calls any gap below 0.01 effectively equal. "
+        "With 30 test photos, one error would already cost 3.3 percent accuracy, so this test cannot rank them."
+    ),
+),
+
+dict(
+    section="Q7 · Linear probing",
+    title="Q: What is linear probing, and why use it? · model answer",
+    kind="text",
+    bullets=[
+        "Freeze the backbone, extract one feature vector, train only a linear classifier",
+        "Why frozen: it measures how linearly separable the PRETRAINED features are, not features adapted to our photos",
+        "Same probe + same split for both, so differences come from the features",
+        "Ours: ViT [CLS] vs Swin GAP, 768-d; both 30/30; log-loss 0.0113 vs 0.0168",
+        "Follow-up: 'Why scale features?' Same scale; scaler fit on train only, no leak",
+        "Follow-up: 'Why not fine-tune?' 70 photos: too few; and it changes the backbone",
+    ],
+    narration=(
+        "A model answer. "
+        "Linear probing means we freeze a pretrained backbone, turn each image into one feature vector, "
+        "and train only a linear classifier on top, in our case logistic regression. "
+        "We freeze the backbone on purpose. If it were trained, the features would adapt to our photos, and we would be measuring the fine tuning, "
+        "not what the pretrained model already knows. Frozen, the probe tells us how linearly separable the pretrained features already are, "
+        "so it measures the representation itself, not a clever head. "
+        "Because both backbones get the same probe and the same split, any difference comes from their features. "
+        "We used the CLS token for ViT and global average pooling for Swin, both 768 numbers. "
+        "Both probes got all 30 test photos right. ViT was very slightly more confident, with a log loss of 0.0113 against 0.0168, "
+        "so on our photos the two are effectively equally good. "
+        "Follow-up: why standardise the features? So every feature is on the same scale, which helps logistic regression converge. "
+        "The scaler is fitted on training photos only, so no test information leaks in. "
+        "Follow-up: why not fine tune? With only 70 training photos, fine tuning 28 or 86 million parameters would overfit, "
+        "and it would change the very features we want to compare."
+    ),
+),
+
+# =====================================================================  Q8 SWIN VS VIT
+dict(
+    section="Q8 · Swin vs ViT",
+    title="Q8 · The two models in the handout",
+    kind="handout",
+    page=2,
+    find=[
+        "pretrained vit_base_patch16_224 and swin_tiny_patch4_window7_224 from timm",
+        "do not resize by hand.",
+        "normalises with ImageNet statistics",
+    ],
+    bullets=[
+        "ViT-B/16: patch size 16, input 224",
+        "Swin-T: patch size 4, window size 7, input 224",
+        "Each model's own timm transform; no resizing by hand",
+        "Viva question: 'What is the difference between Swin and ViT?'",
+    ],
+    narration=(
+        "Question eight: what is the difference between Swin and ViT? "
+        "Part B uses two pretrained models from timm, and their names already tell you a lot. "
+        "vit base patch 16 224: a Vision Transformer, base size, that cuts the image into 16 by 16 patches, for 224 pixel inputs. "
+        "swin tiny patch 4 window 7 224: a Swin Transformer, tiny size, with 4 by 4 patches and attention windows of 7 by 7 tokens. "
+        "The handout also says do not resize by hand. Use each model's own timm transform, which resizes, centre crops to 224, and normalises. "
+        "Notice the highlighted words about ImageNet statistics. We will come back to them, "
+        "because the two models actually normalise differently, and that was a point the examiner liked to test. "
+        "We will compare them on four things: how they turn an image into tokens, how attention works, "
+        "what that costs, and what we found on our photos."
+    ),
+),
+
+dict(
+    section="Q8 · Swin vs ViT",
+    title="Q8 · ViT: 16 × 16 patches and global attention",
+    kind="figure",
+    image="DG/vit_tokens.png",
+    bullets=[
+        "224 / 16 = 14, so 14 × 14 = 196 patch tokens, each 768 numbers",
+        "+1 learned [CLS] token = 197 tokens; learned position embeddings",
+        "12 blocks; every token attends to every token (global)",
+        "Shape stays 197 × 768: one single scale, stride 16",
+    ],
+    narration=(
+        "First ViT. On the left of the diagram is the 224 by 224 image. "
+        "It is cut into 16 by 16 pixel patches. 224 over 16 is 14, so there are 14 by 14, which is 196 patches. "
+        "Each patch becomes one token, a vector of 768 numbers. "
+        "In front, one extra learned token is added, called CLS, short for classification. Through attention it collects a summary of the whole image. "
+        "That makes 197 tokens, and learned position embeddings tell the model where each patch came from. "
+        "Then twelve transformer blocks. In each block, every token attends to every other token. That is global attention. "
+        "It is powerful, because any patch can use information from anywhere in the image right away. "
+        "But it has a price. The number of token pairs is the number of tokens squared, so the cost grows quadratically with the number of tokens. "
+        "Double the image side, and there are four times the tokens and sixteen times the attention pairs. "
+        "And notice the shape. It stays 197 by 768 in every block. "
+        "ViT works at one single scale, stride 16, from the first block to the last."
+    ),
+),
+
+dict(
+    section="Q8 · Swin vs ViT",
+    title="Q8 · Swin: windows, shifted windows, and four stages",
+    kind="figure",
+    image="DG/swin_stages.png",
+    bullets=[
+        "4 × 4 patches: 56 × 56 tokens, 96 channels",
+        "Attention only inside 7 × 7 windows (49 tokens)",
+        "Every 2nd block shifts windows by 3 tokens: neighbours exchange information",
+        "Patch merging: grid ÷ 2, channels × 2 → 56, 28, 14, 7",
+        "Hierarchical: strides 4, 8, 16, 32, like a CNN",
+    ],
+    narration=(
+        "Now Swin. Patch partition cuts the image into small 4 by 4 patches, so a 224 image gives 56 by 56 tokens, each 96 numbers wide. "
+        "Inside each stage, attention only happens inside 7 by 7 windows, the boxes on the grid. "
+        "Each token only looks at the 49 tokens in its own window. "
+        "That alone would trap information inside each window. So every second block shifts the windows by three tokens, about half a window. "
+        "Now tokens that sat on a border share a window with their neighbours, and information can flow across the whole image over several blocks. "
+        "Blocks therefore come in pairs: a window block, then a shifted window block. "
+        "In timm's Swin tiny, stage four is a single 7 by 7 window, so there is no shift there. "
+        "At the start of stages two, three and four, patch merging joins each 2 by 2 group of neighbours, so the grid halves and the channels double. "
+        "It is a concatenation and a linear layer, not pooling. "
+        "The result is hierarchical: 56, 28, 14 and 7 per side, at strides 4, 8, 16 and 32, just like a convolutional network."
+    ),
+),
+
+dict(
+    section="Q8 · Swin vs ViT",
+    title="Q8 · Saved output: the shapes our hooks recorded",
+    kind="output",
+    src="A2OUT",
+    start="input to both models: (1, 3, 224, 224)",
+    n=12,
+    hl=["vit.patch_embed", "vit.pos_drop", "swin.patch_embed", "swin.layers.3"],
+    bullets=[
+        "ViT: patch_embed 196 × 768, then 197 × 768 in every hooked block",
+        "Swin (B, H, W, C): 56²×96 → 28²×192 → 14²×384 → 7²×768",
+        "ViT: one scale; Swin: four scales",
+        "Params: ViT-B/16 86,567,656; Swin-T 28,288,354",
+    ],
+    narration=(
+        "This is what our forward hooks recorded in B1, for one 224 by 224 image. "
+        "A forward hook is a small function that PyTorch calls right after a layer runs. We only wrote down the output shape. "
+        "ViT first. After the patch embedding, 1 by 196 by 768. After pos drop, where the CLS token and position embeddings have been added, 197. "
+        "Then blocks 2, 5, 8 and 11, counted from zero, are all 1 by 197 by 768. No block changes the shape. "
+        "Swin prints four numbers, because its layout is batch, height, width and channels. "
+        "After the patch embedding, 56 by 56 by 96. Stage one keeps that. "
+        "Stage two is 28 by 28 by 192, stage three 14 by 14 by 384, and stage four 7 by 7 by 768. "
+        "So this output proves the difference: ViT has one scale, Swin has four. "
+        "The sizes differ too. ViT base has 86,567,656 parameters, about 86.6 million. "
+        "Swin tiny has 28,288,354, about 28.3 million, roughly three times smaller."
+    ),
+),
+
+dict(
+    section="Q8 · Swin vs ViT",
+    title="Q8 · Cost: global vs window attention, and normalisation",
+    kind="text",
+    bullets=[
+        "Ω(MSA) = 4hwC² + 2(hw)²C: every token vs every token, grows with (hw)²",
+        "Ω(W-MSA) = 4hwC² + 2M²hwC: 49 keys per query, grows linearly with hw",
+        "Our Part C stage 1: 41,104,179,200 vs 979,435,520 → about 42× cheaper",
+        "Not 256×: the shared projection term 4hwC² is paid by both",
+        "Input normalisation: ViT mean = std = 0.5; Swin ImageNet mean/std",
+    ],
+    narration=(
+        "Now the cost, which ties straight to Part C. "
+        "Global attention, omega of MSA, is four h w C squared plus two times h w squared times C. "
+        "h w is the number of tokens, and C is the channels. The second term compares every token with every token, so it grows with h w squared. "
+        "Window attention, omega of W-MSA, replaces that with two M squared h w C. Each query only has 49 keys, so the cost grows linearly with h w. "
+        "For your Part C settings, a 448 image with C equal to 128, stage one global attention costs 41,104,179,200 multiply adds, "
+        "and window attention 979,435,520. The ratio is about 42. "
+        "Why not 256, the number of windows? Because the first term, four h w C squared, is the query, key, value and output projections, "
+        "and both models pay it in full. The shifted windows cost the same as plain windows. "
+        "One more difference the examiner tested: normalisation. "
+        "timm's ViT weights expect mean 0.5 and standard deviation 0.5, while Swin expects the ImageNet statistics. "
+        "That is why we used each model's own transform."
+    ),
+),
+
+dict(
+    section="Q8 · Swin vs ViT",
+    title="Q: Swin vs ViT? · model answer",
+    kind="text",
+    bullets=[
+        "ViT: 16×16 patches, 197 tokens, global attention, one scale (stride 16)",
+        "Swin: 4×4 patches, 7×7 windows + shifted windows, 4 stages at strides 4–32",
+        "Cost: ViT (hw)², Swin 49 keys per query → linear; Part C: 42× cheaper, not 256×",
+        "Normalisation: ViT mean/std 0.5; Swin ImageNet statistics",
+        "Ours: both probes 30/30; ViT 86.6 M params, Swin 28.3 M",
+        "Follow-up: 'What does the shift do?' Lets windows exchange information",
+    ],
+    narration=(
+        "A model answer. "
+        "ViT cuts the image into 16 by 16 patches, adds a CLS token to get 197 tokens, and uses global attention, "
+        "where every token attends to every token. It keeps one scale, stride 16, in all twelve blocks. "
+        "Swin uses small 4 by 4 patches and computes attention only inside 7 by 7 windows. "
+        "Every second block shifts the windows, so neighbouring windows exchange information, "
+        "and patch merging builds four stages at strides 4, 8, 16 and 32, a hierarchy like a CNN. "
+        "The cost is the big difference. In global attention every query looks at every token, so the cost grows quadratically with the number of tokens. "
+        "In a window, each query looks at only 49 keys, a fixed number, so Swin's cost grows linearly. "
+        "In my Part C, with 12,544 tokens, that made window attention about 42 times cheaper. "
+        "Not 256 times, because the query, key, value and output projections cost the same in both. "
+        "The two also expect different input normalisation, so each got its own timm transform. "
+        "On my photos both linear probes scored 30 out of 30, with ViT very slightly more confident. "
+        "A likely follow-up: what does the shifted window do? Without it, tokens in different windows never meet. "
+        "Shifting by half a window, in alternate blocks, lets information cross window borders at no extra cost."
+    ),
+),
+
+# =====================================================================  Q9 FPN
+dict(
+    section="Q9 · FPN and detection",
+    title="Q9 · What the handout says about detection and FPN",
+    kind="handout",
+    page=3,
+    find=[
+        "both models are ImageNet classification models",
+        "the same backbone the Swin paper reuses for detection",
+        "removes the classification head and returns the four stage outputs directly",
+        "maps can feed an FPN detector directly while ViT's cannot.",
+    ],
+    bullets=[
+        "Both are ImageNet CLASSIFICATION models; B1 inspects only the backbone",
+        "Swin paper reuses it for detection (Cascade Mask R-CNN) and segmentation",
+        "features_only=True: no head, the four stage outputs",
+        "Explain why Swin can feed an FPN detector and ViT cannot",
+    ],
+    narration=(
+        "The last question: what is an FPN, and how is Swin used for detection? "
+        "Here is what the handout says on page three. First, both models are ImageNet classification models. "
+        "B1 only inspects their backbone, which is the same backbone the Swin paper reuses for detection, with Cascade Mask R-CNN, "
+        "and for segmentation, with UperNet. Only the head on top changes. "
+        "The hint says that timm's features only equals true removes the classification head, "
+        "and returns the four stage outputs directly, exactly as a detection backbone uses them. "
+        "And the question you had to answer in B1: why can Swin's feature maps feed an FPN detector directly, while ViT's cannot? "
+        "So let us be very clear from the start. Our assignment did classification and feature probing, not detection. "
+        "We never trained a detector or built an FPN. "
+        "What we did was inspect the backbone and extract the four stage maps that an FPN would receive. "
+        "The viva question tests whether you understand why those maps matter."
+    ),
+),
+
+dict(
+    section="Q9 · FPN and detection",
+    title="Q9 · Diagram: Swin stages → FPN → detection heads",
+    kind="figure",
+    image="DG/swin_fpn.png",
+    bullets=[
+        "Left: Swin stages 1–4, strides 4, 8, 16, 32 (features_only=True)",
+        "Middle: FPN, 1×1 lateral convs + top-down ×2 upsample-and-add → P2–P5",
+        "Detection heads on every level: small objects on P2, large on P5",
+        "Right: ViT gives one 14 × 14 map at stride 16: nothing to combine",
+        "Our A2: classification + feature probing only",
+    ],
+    narration=(
+        "This diagram puts it together. On the left is the Swin tiny backbone, as features only returns it. "
+        "Stage one is 56 by 56 by 96 at stride 4, stage two 28 by 28 by 192 at stride 8, stage three 14 by 14 by 384 at stride 16, "
+        "and stage four 7 by 7 by 768 at stride 32. "
+        "In the middle is the FPN, the feature pyramid network. The orange arrows are lateral one by one convolutions, "
+        "one per stage, which bring every stage to the same channel width. "
+        "The green arrows go top down: the coarser map is upsampled by two and added to the lateral map below it. "
+        "That produces the outputs P5, P4, P3 and P2. "
+        "Then detection heads, which predict boxes and classes, run on every level. Small objects are found on P2, large objects on P5. "
+        "On the right is ViT for contrast: a single 14 by 14 by 768 map at stride 16, in every layer. "
+        "There is only one scale, so there is nothing for an FPN to combine. It needs extra adapters. "
+        "And the grey box repeats the honest point: in our A2 we did classification and feature probing only."
+    ),
+),
+
+dict(
+    section="Q9 · FPN and detection",
+    title="Q9 · The idea: why detection needs a pyramid, and how FPN builds one",
+    kind="text",
+    bullets=[
+        "Detection = find every object, small or large, and draw its box",
+        "Fine maps (stride 4) keep detail but know little; coarse (stride 32) the reverse",
+        "Lateral: 1×1 conv brings each stage to one channel width",
+        "Top-down: upsample the coarser map ×2 and ADD the lateral map",
+        "P2–P5 = detail of the fine maps + meaning of the coarse ones",
+        "ViT: one stride-16 map; ViTDet builds a simple pyramid from it",
+    ],
+    narration=(
+        "Why does detection need several scales? Classification gives one label per image. "
+        "Detection must find every object and draw a box around it, and objects can be tiny or huge. "
+        "A fine map, at stride 4, has one position per 4 by 4 pixels, so it keeps the detail needed for small objects. "
+        "But it comes from early layers, so it knows little about what things are. "
+        "A coarse map, at stride 32, has rich meaning but blurs small objects away. "
+        "The FPN, from Lin and colleagues in 2017, gets the best of both. "
+        "Each stage first goes through a one by one convolution, the lateral connection, so all levels have the same number of channels. "
+        "Then, starting from the coarsest level, the map is upsampled by two and added to the lateral map of the next finer stage. "
+        "Then a three by three convolution smooths each merged map, to remove the blocky artefacts of upsampling. "
+        "So every output, P2 to P5, carries fine detail and strong meaning together. "
+        "Swin's four stages plug straight into this. A plain ViT has only one stride 16 map, so methods such as ViTDet "
+        "build a simple pyramid from that last map alone: two transposed convolutions upsample it to strides 4 and 8, "
+        "and a pooling step gives stride 32. ViTDet found that the top-down connections are not even needed there."
+    ),
+),
+
+dict(
+    section="Q9 · FPN and detection",
+    title="Q9 · Code: where Swin downsamples, and features_only",
+    kind="code",
+    src="A2NB",
+    start="for i, layer in enumerate(swin.layers):",
+    n=12,
+    hl=["type(layer.downsample).__name__", "features_only=True", "swin_backbone.feature_info.get_dicts()"],
+    bullets=[
+        "Print each stage's downsample module: PatchMerging or Identity",
+        "features_only=True: drop the head, return all 4 stage outputs",
+        "feature_info: module name, stride ('reduction'), channels",
+        "Outputs are NHWC; an FPN would permute them to NCHW",
+        "This is as far as we went: no FPN, no detector trained",
+    ],
+    narration=(
+        "This is the cell where we followed the handout's hint. "
+        "First, a loop over the four stages in swin dot layers. The first highlighted line prints the class name of each stage's downsample module. "
+        "PatchMerging means the stage begins by halving the grid. Identity means it does nothing. "
+        "This settles where timm merges: at the start of stages two, three and four. "
+        "Next, the second highlighted line creates the same Swin model again, with features only equal to true. "
+        "timm then drops the classification head and returns the output of every stage, which is exactly what a detection backbone hands to an FPN. "
+        "We pass the same photo through it, without gradients. "
+        "The third highlighted line, feature info dot get dicts, tells us for each output its module name, its reduction, meaning the stride, "
+        "and its number of channels. We print those next to the actual shape. "
+        "The comment notes the outputs are channels last, N H W C. A typical FPN expects channels first, so it would permute them. "
+        "And that is as far as we went. We showed the four maps exist; we did not build an FPN or train a detector."
+    ),
+),
+
+dict(
+    section="Q9 · FPN and detection",
+    title="Q9 · Saved output: the four maps an FPN would receive",
+    kind="output",
+    src="A2OUT",
+    start="layers[0].downsample = Identity",
+    n=9,
+    hl=["= Identity", "= PatchMerging", "stride"],
+    bullets=[
+        "Stage 1: Identity; stages 2–4: PatchMerging",
+        "Strides 4, 8, 16, 32; channels 96, 192, 384, 768",
+        "Same strides as ResNet's C2–C5, the usual FPN inputs",
+        "Backbone only: 27,517,818 params (full model 28,288,354)",
+    ],
+    narration=(
+        "The saved output. First the four stages. layers zero has downsample equal to Identity, so stage one keeps the 56 by 56 grid. "
+        "layers one, two and three each have PatchMerging, so each of those stages begins by merging two by two neighbours. "
+        "The depths are 2, 2, 6 and 2 blocks, the Swin tiny configuration. "
+        "Then the features only outputs, one line per stage. "
+        "layers zero: 56 by 56 by 96 at stride 4. layers one: 28 by 28 by 192 at stride 8. "
+        "layers two: 14 by 14 by 384 at stride 16. layers three: 7 by 7 by 768 at stride 32. "
+        "Stride means how many input pixels one position covers along a side: 224 over 56 is 4, and 224 over 7 is 32. "
+        "These are the same strides as a ResNet's stages, C2 to C5, which are the usual inputs to an FPN, and they become P2 to P5. "
+        "In B1 we also counted the backbone alone: 27,517,818 parameters, against 28,288,354 for the full model. "
+        "The difference, 770,536, is exactly what features only removes: the 1000 class head, 769,000 parameters, "
+        "plus the final layer norm, 1,536."
+    ),
+),
+
+dict(
+    section="Q9 · FPN and detection",
+    title="Q: What is an FPN, and how is Swin used for detection? · model answer",
+    kind="text",
+    bullets=[
+        "Detection needs features at several scales: small and large objects",
+        "FPN: 1×1 lateral + top-down ×2 upsample-and-add + 3×3 smoothing → P2–P5",
+        "Top-down brings meaning to fine maps; lateral brings high-resolution detail",
+        "Swin's 4 stages (strides 4, 8, 16, 32) plug straight in, like ResNet C2–C5",
+        "ViT: one stride-16 map, quadratic attention; needs adapters (e.g. ViTDet)",
+        "Follow-up: 'Did you train a detector?' No: classification + probing; features_only gave the 4 maps",
+    ],
+    narration=(
+        "A model answer. "
+        "Detection has to find objects of very different sizes, so it needs feature maps at several scales. "
+        "An FPN, a feature pyramid network, takes the backbone's stages, applies a one by one lateral convolution to each so they share one channel width, "
+        "and then goes top down: it upsamples the coarser map by two and adds it to the finer one, then smooths the sum with a three by three convolution. "
+        "The two paths do different jobs. The top-down path carries strong semantic meaning from the deep, coarse stages down to the fine levels. "
+        "The lateral connections bring in the high resolution detail, the exact edges and positions, that the coarse maps have lost. "
+        "So every output, P2 to P5, knows both what the object is and where it is, and the detection heads run on every level. "
+        "Swin's four stages, at strides 4, 8, 16 and 32, are exactly the pyramid an FPN expects, like a ResNet's C2 to C5, "
+        "so they plug straight in, as in the Swin paper's Cascade Mask R-CNN. "
+        "A plain ViT has one stride 16 map in every layer, and its global attention is quadratic in the number of tokens, "
+        "which gets expensive at the large image sizes detection uses. So it needs an adapter, such as ViTDet's simple feature pyramid. "
+        "Our own work stopped at the backbone: features only gave us the four maps, but we built no FPN and trained no detector."
+    ),
+),
+
+]
+
+
+if __name__ == "__main__":
+    words = [len(s["narration"].split()) for s in SLIDES]
+    print(f"{len(SLIDES)} slides, {sum(words)} narration words, min {min(words)}, max {max(words)}, "
+          f"~{sum(words) / 140:.1f} min at 140 wpm")
