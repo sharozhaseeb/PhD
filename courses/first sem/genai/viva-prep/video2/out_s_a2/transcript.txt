@@ -1,0 +1,59 @@
+[00:00] Nine viva questions, short version
+Welcome. This is the short version of the Assignment 2 viva questions. For each of the nine questions, we look at one key visual, then hear a short model answer and the most likely follow-up. Two symbols first. A bar on top means a running product, so alpha bar t is alpha zero times alpha one, all the way up to alpha t. And a hat means an estimate, so x hat zero is the model's guess of the clean image.
+
+[00:32] Q1 · Code: betas in, alphas and alpha bars out
+Question one: what is the difference between beta and alpha? Our Schedule class shows it in three lines. First, we store the betas. These are the only numbers we actually choose, one per step. Next, alphas equals one minus betas, element by element. Then alpha bars come from torch dot cumprod, the running product of the alphas. So beta is the noise you add, alpha is the signal you keep, and beta fully decides the other two.
+
+[01:05] Q: What is the difference between β and α? · model answer
+A model answer. Beta t is the variance of the noise we add at one step t. Alpha t is one minus beta t, the share of the signal's variance that survives that step. So the two add up to one. Beta and alpha describe one step only. Alpha bar t is the cumulative one: the product of all the alphas up to t. In our code we only choose the betas, from ten to the minus four to 0.02 for linear. A likely follow-up: why must beta stay below one? If beta were one, alpha would be zero, and the sampler divides by root alpha, so it would divide by zero.
+
+[01:47] Q2 · Saved output: our printed ᾱt values
+Question two: what is alpha bar t? Here are our actual values, from the saved output. Each number is the share of the clean image's variance still left at that step. Both start almost at one. At step 250, linear keeps 0.521 and cosine 0.846. At step 500, linear keeps only 0.078, while cosine still keeps 0.492. By 750, linear is practically pure noise.
+
+[02:24] Q: What is ᾱt (alpha bar t)? · model answer
+A model answer. Alpha bar t is the running product of the alphas, alpha zero times alpha one up to alpha t. It tells us what share of the clean image's variance is still left in x t. Near one, almost clean. Near zero, almost pure noise. It gives us the closed form: x t equals root alpha bar t times x zero, plus root of one minus alpha bar t times epsilon, the Gaussian noise. A likely follow-up: why the square roots? So the signal variance and the noise variance add up to one at every step. That is called variance preserving.
+
+[03:05] Q3 · Result: where the ᾱ curves differ
+Question three: linear versus cosine. This figure is the heart of the answer. The horizontal axis is the step t, the vertical axis is alpha bar t, and the dotted line marks one half. Linear falls fast. It crosses one half at step 259, and is below 0.01 from step 673. Cosine falls slowly and steadily, crossing one half at 496, and reaching 0.01 only at 935.
+
+[03:41] Q: Linear vs cosine schedule? · model answer
+A model answer. The linear schedule chooses beta directly, evenly from ten to the minus four to 0.02. The cosine schedule chooses alpha bar directly, as a smooth cosine curve, and derives each beta from it. Linear destroys the image faster; cosine spreads the noise levels more evenly. Cosine's last beta is clipped at 0.999, which makes the last reverse step extreme, so our cosine model needs x hat zero clipping. A likely follow-up: the cosine loss was 0.050 and linear 0.028, so is linear better? No. The same t means a different noise level in each schedule, so the losses are not comparable.
+
+[04:31] Q4 · Diagram: one reverse step with x̂0 clipping
+Question four: explain sampling. This diagram is one reverse step. The U-Net looks at x t and t, and gives epsilon theta, its guess of the noise. We turn that into x hat zero, the guess of the clean image, and clamp it to the range minus one to one. Then we recompute the matching noise and use the unchanged handout update. The clamp sits inside every step, not once at the end.
+
+[05:00] Q: Explain the sampling step · model answer
+A model answer. Sampling starts from pure Gaussian noise, x 999, and runs t from 999 down to zero. At each step the U-Net predicts the noise, epsilon theta. We remove a small slice of it, beta t over the root of one minus alpha bar t, and rescale by one over root alpha t, which undoes the shrinking of the forward step. That gives the mean. Then we add fresh noise of size root beta t, except at the last step. A likely follow-up: why add noise at all? Without it, the sampler would collapse towards one blurry average image.
+
+[05:43] Q5 · Diagram: t is used twice in every reverse step
+Question five: why do we depend on the timestep when sampling? The diagram shows that t is used twice in every step. First, it is an input to the U-Net, turned into a time embedding that tells the network how noisy x t is. Second, it looks up the coefficients, alpha t, alpha bar t, beta t and sigma t, from the schedule. A wrong t gives a wrong noise guess and wrong coefficients.
+
+[06:12] Q: Why depend on the timestep when sampling? · model answer
+A model answer. The noise level is different at every step, and t does two jobs. One U-Net is shared by all 1000 noise levels, so it is told t, and then it can scale its noise guess correctly. And t looks up the coefficients: one over root alpha t, beta t over root of one minus alpha bar t, and sigma t. We must go in order, because each step only removes a little noise and needs the previous step's output. A likely follow-up: why 1000 calls to sample but one to train? In training, the closed form jumps straight to a random t. Sampling has no closed form backwards, so it is a chain.
+
+[06:57] Q6 · Plot: sixteen samples from each model
+Question six: walk me through your plots. For each plot, name the axes, say what to notice, and give the conclusion. The alpha bar curves you saw in question three. Next, the sample grids: linear on top, cosine below, both from the same seed, with all 1000 steps. Linear gives a good mix of sandals, bags and trousers. Cosine is dominated by bright, bag-like shapes. So for our classes, linear looks better, but that is a visual judgement from sixteen samples.
+
+[07:33] Q6 · Plot: the no-clipping ablation
+The ablation: we switched off x hat zero clipping and ran the literal handout formula. Linear still makes recognisable items; the mean change per pixel is only 0.0507. Cosine comes out black, with 62.5 percent of pixels stuck at minus one. It is a sampling problem, not a training failure: at step 999, beta is 0.999, so the first step multiplies errors by 31.6.
+
+[08:07] Q: Walk me through your plots · model answer
+A model answer. The alpha bar curves show linear destroys the image faster, crossing one half at step 259 against 496. The sample grids show recognisable items from both, and linear looks better to us. The ablation shows our cosine model needs x hat zero clipping, while linear barely changes. And in Part B, both confusion matrices are diagonal, 30 out of 30. A likely follow-up: why is the first x hat zero panel in the trajectory just noise? Because x hat zero divides by root alpha bar, which is tiny at step 999.
+
+[08:50] Q7 · Diagram: the linear probe
+Question seven: what is linear probing? A photo goes into the frozen backbone, ViT or Swin, and comes out as one feature vector of 768 numbers. A standard scaler puts every feature on the same scale, and logistic regression picks one of the four classes. Only that last box is trained, roughly three thousand numbers.
+
+[09:16] Q: What is linear probing, and why use it? · model answer
+A model answer. Linear probing means we freeze a pretrained backbone, turn each image into one feature vector, and train only a linear classifier on top, here logistic regression. Frozen, it tells us how linearly separable the pretrained features already are. Both backbones get the same probe and the same split. Both got all 30 test photos right. ViT was very slightly more confident, with a log loss of 0.0113 against 0.0168, so they are effectively equal. A likely follow-up: why not fine tune? With only 70 training photos it would overfit, and it would change the very features we want to compare.
+
+[10:02] Q8 · Swin: windows, shifted windows, and four stages
+Question eight: Swin versus ViT. This is Swin. It cuts the image into small 4 by 4 patches, so 56 by 56 tokens. Attention happens only inside 7 by 7 windows, 49 tokens each. Every second block shifts the windows, so neighbouring windows exchange information. Patch merging then halves the grid and doubles the channels, giving four stages, 56, 28, 14 and 7 per side, like a convolutional network.
+
+[10:38] Q: Swin vs ViT? · model answer
+A model answer. ViT cuts the image into 16 by 16 patches, adds a CLS token to get 197 tokens, and uses global attention, where every token attends to every token, at one single scale, stride 16. Swin uses 4 by 4 patches, attention inside 7 by 7 windows, and four stages at strides 4, 8, 16 and 32. The big difference is cost. Global attention grows quadratically with the number of tokens. In a window each query sees only 49 keys, so Swin grows linearly. In my Part C, window attention was about 42 times cheaper, not 256. A likely follow-up: what does the shift do? Without it, tokens in different windows never meet.
+
+[11:33] Q9 · Diagram: Swin stages → FPN → detection heads
+Question nine: what is an FPN, and how is Swin used for detection? On the left, Swin's four stages, at strides 4, 8, 16 and 32. In the middle, the feature pyramid network: one by one lateral convolutions, then a top-down path that upsamples each coarser map by two and adds it in, giving P2 to P5. On the right, ViT has one 14 by 14 map at stride 16, so there is nothing to combine.
+
+[12:07] Q: What is an FPN, and how is Swin used for detection? · model answer
+A model answer. Detection must find objects of very different sizes, so it needs feature maps at several scales. An FPN takes the backbone's stages, applies a one by one lateral convolution to each, then goes top down, upsampling the coarser map and adding it to the finer one. The top-down path brings meaning to the fine maps; the lateral path brings back detail. Swin's four stages are exactly that pyramid, like a ResNet's C2 to C5, so they plug straight in. A plain ViT has one stride 16 map, so it needs an adapter, such as ViTDet. A likely follow-up: did you train a detector? No. Features only gave us the four maps, but we built no FPN and trained no detector.

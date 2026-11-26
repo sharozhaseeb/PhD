@@ -1,0 +1,9 @@
+GenAI A3 Viva Questions Short: total 14 min 45 s
+00:00  Introduction
+00:37  Q1 · The tweets
+02:23  Q2 · The tokenizer
+03:57  Q3 · Unknown tokens
+05:50  Q4 · Fertility
+07:48  Q5 · Token length
+09:34  Q6 · Results
+13:16  Q7 · Who did what
