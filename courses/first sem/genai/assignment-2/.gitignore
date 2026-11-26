@@ -1,0 +1,7 @@
+# raw personal photos (large; the submission uses its own copies)
+photos/
+# duplicate archives of final_submission/26L-9005_A2/
+final_submission/*.zip
+final_submission/*.rar
+# identical copy of final_submission/26L-9005_A2/outputs
+colab_run/outputs/

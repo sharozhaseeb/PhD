@@ -1,0 +1,82 @@
+[
+  {
+    "loss": 1.0978,
+    "grad_norm": 0.4268193542957306,
+    "learning_rate": 0.0002,
+    "epoch": 0.045454545454545456,
+    "num_input_tokens_seen": 496,
+    "train_runtime": 0.4424,
+    "train_tokens_per_second": 1121.17,
+    "step": 1
+  },
+  {
+    "loss": 1.0937,
+    "grad_norm": 0.4307907223701477,
+    "learning_rate": 0.00017272727272727275,
+    "epoch": 0.45454545454545453,
+    "num_input_tokens_seen": 6200,
+    "train_runtime": 1.0836,
+    "train_tokens_per_second": 5721.61,
+    "step": 10
+  },
+  {
+    "loss": 1.0865,
+    "grad_norm": 0.45272111892700195,
+    "learning_rate": 0.00014242424242424243,
+    "epoch": 0.9090909090909091,
+    "num_input_tokens_seen": 12400,
+    "train_runtime": 1.7245,
+    "train_tokens_per_second": 7190.495,
+    "step": 20
+  },
+  {
+    "loss": 1.0807,
+    "grad_norm": 0.44903630018234253,
+    "learning_rate": 0.00011212121212121212,
+    "epoch": 1.3636363636363638,
+    "num_input_tokens_seen": 18544,
+    "train_runtime": 2.3829,
+    "train_tokens_per_second": 7782.275,
+    "step": 30
+  },
+  {
+    "loss": 1.0757,
+    "grad_norm": 0.415671706199646,
+    "learning_rate": 8.181818181818183e-05,
+    "epoch": 1.8181818181818183,
+    "num_input_tokens_seen": 24744,
+    "train_runtime": 3.0595,
+    "train_tokens_per_second": 8087.47,
+    "step": 40
+  },
+  {
+    "loss": 1.0736,
+    "grad_norm": 0.41381004452705383,
+    "learning_rate": 5.151515151515152e-05,
+    "epoch": 2.2727272727272725,
+    "num_input_tokens_seen": 30372,
+    "train_runtime": 3.7097,
+    "train_tokens_per_second": 8187.157,
+    "step": 50
+  },
+  {
+    "loss": 1.0705,
+    "grad_norm": 0.44295990467071533,
+    "learning_rate": 2.1212121212121215e-05,
+    "epoch": 2.7272727272727275,
+    "num_input_tokens_seen": 36548,
+    "train_runtime": 4.371,
+    "train_tokens_per_second": 8361.447,
+    "step": 60
+  },
+  {
+    "train_runtime": 4.7599,
+    "train_samples_per_second": 219.33,
+    "train_steps_per_second": 13.866,
+    "total_flos": 20614170974112.0,
+    "train_loss": 1.0793309067234849,
+    "epoch": 3.0,
+    "num_input_tokens_seen": 40104,
+    "step": 66
+  }
+]

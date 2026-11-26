@@ -1,0 +1,297 @@
+{
+  "A1": {
+    "linear": {
+      "alpha_bar_at": {
+        "0": 0.9999,
+        "100": 0.89514,
+        "250": 0.52142,
+        "500": 0.0778,
+        "750": 0.0033,
+        "999": 4e-05
+      },
+      "first_t_below_0.5": 259,
+      "first_t_below_0.01": 673
+    },
+    "cosine": {
+      "alpha_bar_at": {
+        "0": 0.99996,
+        "100": 0.97158,
+        "250": 0.84589,
+        "500": 0.49229,
+        "750": 0.14318,
+        "999": 0.0
+      },
+      "first_t_below_0.5": 496,
+      "first_t_below_0.01": 935
+    }
+  },
+  "A2": {
+    "linear": {
+      "schedule": "linear",
+      "classes": [
+        5,
+        8,
+        1
+      ],
+      "epochs": 28,
+      "batch_size": 128,
+      "lr": 0.0005,
+      "optimizer": "AdamW",
+      "steps": 3920,
+      "train_images": 18000,
+      "train_time_s": 975.6,
+      "final_loss_last_epoch": 0.028,
+      "unet_params": 3939393
+    },
+    "cosine": {
+      "schedule": "cosine",
+      "classes": [
+        5,
+        8,
+        1
+      ],
+      "epochs": 28,
+      "batch_size": 128,
+      "lr": 0.0005,
+      "optimizer": "AdamW",
+      "steps": 3920,
+      "train_images": 18000,
+      "train_time_s": 999.5,
+      "final_loss_last_epoch": 0.0502,
+      "unet_params": 3939393
+    }
+  },
+  "A3": {
+    "linear": {
+      "sampling_time_s_for_16": 15.95,
+      "network_evaluations": 1000
+    },
+    "cosine": {
+      "sampling_time_s_for_16": 15.54,
+      "network_evaluations": 1000
+    },
+    "linear_no_clip_mean_abs_diff": 0.0507,
+    "cosine_no_clip_mean_abs_diff": 1.0557,
+    "cosine_no_clip_std_x998": 1.59,
+    "cosine_no_clip_black_fraction": 0.625
+  },
+  "B1": {
+    "vit_params": 86567656,
+    "swin_params": 28288354,
+    "swin_backbone_params_features_only": 27517818,
+    "vit_table": [
+      {
+        "module": "patch_embed",
+        "output shape": "(1, 196, 768)",
+        "tokens": 196,
+        "grid": "14\u00d714",
+        "channels": 768,
+        "stride vs input": 16,
+        "downsampling here?": "yes, \u00f716 (16\u00d716 patch conv, stride 16)"
+      },
+      {
+        "module": "pos_drop",
+        "output shape": "(1, 197, 768)",
+        "tokens": 197,
+        "grid": "14\u00d714 + 1 [CLS]",
+        "channels": 768,
+        "stride vs input": 16,
+        "downsampling here?": "no"
+      },
+      {
+        "module": "blocks.2",
+        "output shape": "(1, 197, 768)",
+        "tokens": 197,
+        "grid": "14\u00d714 + 1 [CLS]",
+        "channels": 768,
+        "stride vs input": 16,
+        "downsampling here?": "no"
+      },
+      {
+        "module": "blocks.5",
+        "output shape": "(1, 197, 768)",
+        "tokens": 197,
+        "grid": "14\u00d714 + 1 [CLS]",
+        "channels": 768,
+        "stride vs input": 16,
+        "downsampling here?": "no"
+      },
+      {
+        "module": "blocks.8",
+        "output shape": "(1, 197, 768)",
+        "tokens": 197,
+        "grid": "14\u00d714 + 1 [CLS]",
+        "channels": 768,
+        "stride vs input": 16,
+        "downsampling here?": "no"
+      },
+      {
+        "module": "blocks.11",
+        "output shape": "(1, 197, 768)",
+        "tokens": 197,
+        "grid": "14\u00d714 + 1 [CLS]",
+        "channels": 768,
+        "stride vs input": 16,
+        "downsampling here?": "no"
+      }
+    ],
+    "swin_table": [
+      {
+        "module": "patch_embed",
+        "output shape": "(1, 56, 56, 96)",
+        "tokens": 3136,
+        "grid": "56\u00d756",
+        "channels": 96,
+        "stride vs input": 4,
+        "downsampling here?": "yes, \u00f74 (4\u00d74 patch conv, stride 4)"
+      },
+      {
+        "module": "layers.0",
+        "output shape": "(1, 56, 56, 96)",
+        "tokens": 3136,
+        "grid": "56\u00d756",
+        "channels": 96,
+        "stride vs input": 4,
+        "downsampling here?": "no"
+      },
+      {
+        "module": "layers.1",
+        "output shape": "(1, 28, 28, 192)",
+        "tokens": 784,
+        "grid": "28\u00d728",
+        "channels": 192,
+        "stride vs input": 8,
+        "downsampling here?": "yes, \u00f72 (Patch Merging at stage start)"
+      },
+      {
+        "module": "layers.2",
+        "output shape": "(1, 14, 14, 384)",
+        "tokens": 196,
+        "grid": "14\u00d714",
+        "channels": 384,
+        "stride vs input": 16,
+        "downsampling here?": "yes, \u00f72 (Patch Merging at stage start)"
+      },
+      {
+        "module": "layers.3",
+        "output shape": "(1, 7, 7, 768)",
+        "tokens": 49,
+        "grid": "7\u00d77",
+        "channels": 768,
+        "stride vs input": 32,
+        "downsampling here?": "yes, \u00f72 (Patch Merging at stage start)"
+      }
+    ]
+  },
+  "B2": {
+    "classes": [
+      "glasses_case",
+      "perfume",
+      "shoe",
+      "switch_board"
+    ],
+    "n_train": 70,
+    "n_test": 30,
+    "vit": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "n_wrong": 0,
+      "test_log_loss": 0.0113,
+      "mean_prob_true_class": 0.9898,
+      "confusion_matrix": [
+        [
+          8,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7
+        ]
+      ]
+    },
+    "swin": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "n_wrong": 0,
+      "test_log_loss": 0.0168,
+      "mean_prob_true_class": 0.9845,
+      "confusion_matrix": [
+        [
+          8,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          7,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          8,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7
+        ]
+      ]
+    }
+  },
+  "C": {
+    "H": 448,
+    "C": 128,
+    "hw": 12544,
+    "omega_msa": 41104179200,
+    "omega_wmsa": 979435520,
+    "ratio": 41.97,
+    "table": [
+      {
+        "layer": "linear embedding",
+        "output (h\u00d7w\u00d7c)": "112\u00d7112\u00d7128",
+        "windows": "-"
+      },
+      {
+        "layer": "stage 1 (2 blocks)",
+        "output (h\u00d7w\u00d7c)": "112\u00d7112\u00d7128",
+        "windows": "(112/7)\u00b2 = 256"
+      },
+      {
+        "layer": "stage 2 (2 blocks)",
+        "output (h\u00d7w\u00d7c)": "56\u00d756\u00d7256",
+        "windows": "(56/7)\u00b2 = 64"
+      },
+      {
+        "layer": "stage 3 (6 blocks)",
+        "output (h\u00d7w\u00d7c)": "28\u00d728\u00d7512",
+        "windows": "(28/7)\u00b2 = 16"
+      },
+      {
+        "layer": "stage 4 (2 blocks)",
+        "output (h\u00d7w\u00d7c)": "14\u00d714\u00d71024",
+        "windows": "(14/7)\u00b2 = 4"
+      }
+    ]
+  }
+}

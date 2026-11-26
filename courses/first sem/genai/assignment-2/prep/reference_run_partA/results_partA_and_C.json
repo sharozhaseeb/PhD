@@ -1,0 +1,113 @@
+{
+  "A1": {
+    "linear": {
+      "alpha_bar_at": {
+        "0": 0.9999,
+        "100": 0.89514,
+        "250": 0.52142,
+        "500": 0.0778,
+        "750": 0.0033,
+        "999": 4e-05
+      },
+      "first_t_below_0.5": 259,
+      "first_t_below_0.01": 673
+    },
+    "cosine": {
+      "alpha_bar_at": {
+        "0": 0.99996,
+        "100": 0.97158,
+        "250": 0.84589,
+        "500": 0.49229,
+        "750": 0.14318,
+        "999": 0.0
+      },
+      "first_t_below_0.5": 496,
+      "first_t_below_0.01": 935
+    }
+  },
+  "A2": {
+    "linear": {
+      "schedule": "linear",
+      "epochs": 35,
+      "batch_size": 128,
+      "lr": 0.0005,
+      "optimizer": "AdamW",
+      "steps": 4900,
+      "train_images": 18000,
+      "train_time_s": 987.9,
+      "final_loss_last_epoch": 0.0275,
+      "unet_params": 3939393,
+      "classes": [
+        5,
+        8,
+        1
+      ]
+    },
+    "cosine": {
+      "schedule": "cosine",
+      "epochs": 35,
+      "batch_size": 128,
+      "lr": 0.0005,
+      "optimizer": "AdamW",
+      "steps": 4900,
+      "train_images": 18000,
+      "train_time_s": 1010.2,
+      "final_loss_last_epoch": 0.0496,
+      "unet_params": 3939393,
+      "classes": [
+        5,
+        8,
+        1
+      ]
+    }
+  },
+  "A3": {
+    "linear": {
+      "sampling_time_s_for_16": 24.9,
+      "network_evaluations": 1000
+    },
+    "cosine": {
+      "sampling_time_s_for_16": 22.37,
+      "network_evaluations": 1000
+    },
+    "linear_no_clip_mean_abs_diff": 0.0508,
+    "cosine_no_clip_mean_abs_diff": 0.8201,
+    "cosine_no_clip_std_x998": 1.53,
+    "cosine_no_clip_black_fraction": 0.73
+  },
+  "C": {
+    "H": 448,
+    "C": 128,
+    "hw": 12544,
+    "omega_msa": 41104179200,
+    "omega_wmsa": 979435520,
+    "ratio": 41.97,
+    "table": [
+      {
+        "layer": "linear embedding",
+        "output (h\u00d7w\u00d7c)": "112\u00d7112\u00d7128",
+        "windows": "-"
+      },
+      {
+        "layer": "stage 1 (2 blocks)",
+        "output (h\u00d7w\u00d7c)": "112\u00d7112\u00d7128",
+        "windows": "(112/7)\u00b2 = 256"
+      },
+      {
+        "layer": "stage 2 (2 blocks)",
+        "output (h\u00d7w\u00d7c)": "56\u00d756\u00d7256",
+        "windows": "(56/7)\u00b2 = 64"
+      },
+      {
+        "layer": "stage 3 (6 blocks)",
+        "output (h\u00d7w\u00d7c)": "28\u00d728\u00d7512",
+        "windows": "(28/7)\u00b2 = 16"
+      },
+      {
+        "layer": "stage 4 (2 blocks)",
+        "output (h\u00d7w\u00d7c)": "14\u00d714\u00d71024",
+        "windows": "(14/7)\u00b2 = 4"
+      }
+    ]
+  }
+}
